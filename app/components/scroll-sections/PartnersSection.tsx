@@ -26,12 +26,12 @@ export const PartnersSection: React.FC = () => {
         className="text-xl md:text-2xl text-gray-300 text-center max-w-4xl space-y-6"
       >
         <p>
-          We're not just building an event series; we're building a movement. We envision Digital Canvas becoming a
+          We&apos;re not just building an event series; we&apos;re building a movement. We envision Digital Canvas becoming a
           cornerstone of the San Antonio creative ecosystem, connecting and inspiring individuals across all
           disciplines.
         </p>
         <p>
-          We're proud to partner with local organizations and businesses to bring you the best of the San Antonio
+          We&apos;re proud to partner with local organizations and businesses to bring you the best of the San Antonio
           creative tech community.
         </p>
       </motion.div>

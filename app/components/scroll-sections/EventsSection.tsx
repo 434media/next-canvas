@@ -25,10 +25,10 @@ export const EventsSection: React.FC = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="text-xl md:text-2xl text-gray-300 text-center max-w-4xl space-y-6"
       >
-        <p>Digital Canvas isn't just a showcase; it's a vibrant hub for learning and connection.</p>
+        <p>Digital Canvas isn&apos;t just a showcase; it&apos;s a vibrant hub for learning and connection.</p>
         <p>Each event features tech talks focused on cutting-edge tools and programming powering creative fields.</p>
         <p>
-          Think of it as DEVSA with a live music twist! We're bringing that same community focus on learning and
+          Think of it as DEVSA with a live music twist! We&apos;re bringing that same community focus on learning and
           networking, but adding a whole new dimension of artistic expression.
         </p>
       </motion.div>

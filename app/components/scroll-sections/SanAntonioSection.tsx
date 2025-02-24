@@ -33,7 +33,7 @@ export const SanAntonioSection: React.FC = () => {
         transition={{ duration: 0.8, delay: 0.4 }}
         className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl"
       >
-        {["Design", "Development", "Photography", "Videography"].map((field, index) => (
+        {["Design", "Development", "Photography", "Videography"].map((field) => (
           <motion.div
             key={field}
             className="bg-gray-800 p-6 rounded-lg shadow-lg"
