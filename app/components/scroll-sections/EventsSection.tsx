@@ -38,7 +38,7 @@ export const EventsSection: React.FC = () => {
         transition={{ duration: 0.8, delay: 0.4 }}
         className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl"
       >
-        {["Tech Talks", "Live Demos", "Networking", "Artistic Showcases"].map((event, index) => (
+        {["Tech Talks", "Live Demos", "Networking", "Artistic Showcases"].map((event) => (
           <motion.div
             key={event}
             className="bg-gray-600 p-6 rounded-lg shadow-lg"

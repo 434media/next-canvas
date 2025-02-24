@@ -48,7 +48,7 @@ export const PartnersSection: React.FC = () => {
           "Educational Institutions",
           "Community Organizations",
           "Media Partners",
-        ].map((partner, index) => (
+        ].map((partner) => (
           <motion.div
             key={partner}
             className="bg-gray-500 p-6 rounded-lg shadow-lg"
