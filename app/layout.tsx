@@ -2,8 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist } from "next/font/google"
 import "./globals.css"
-import Navbar from "@/app/components/navbar"
-import Footer from "@/app/components/footer"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,17 +41,6 @@ export const metadata: Metadata = {
     description: "Connect with fellow creatives in San Antonio's vibrant tech community.",
     images: ["https://digitalcanvas.community/opengraph-image.png"],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
 }
 
 export default function RootLayout({
@@ -66,9 +53,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.className} min-h-screen overflow-x-hidden scroll-auto bg-gray-50 antialiased selection:bg-sky-100 selection:text-sky-600`}
       >
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   )
