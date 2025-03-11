@@ -42,14 +42,14 @@ const WireframeButton: React.FC<WireframeButtonProps> = ({
         <Link
           href={href}
           className={`inline-block px-6 py-3 bg-transparent text-white font-semibold rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-900 relative z-10 ${className}`}
-          onClick={onClick as any}
+          onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
           aria-label={ariaLabel}
         >
           {ButtonContent}
         </Link>
       ) : (
         <button
-          onClick={onClick as any}
+          onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
           className={`inline-block px-6 py-3 bg-transparent text-white font-semibold rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-900 relative z-10 ${className}`}
           aria-label={ariaLabel}
         >
@@ -133,6 +133,7 @@ const PulseIndicator = () => (
 
 const FeaturesGrid = () => {
   const [modalContent, setModalContent] = useState<ModalContent | null>(null)
+  // We're using this state to conditionally render elements based on screen size
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -232,7 +233,7 @@ const FeaturesGrid = () => {
             href={discordUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-indigo-600 rounded-xl p-6 overflow-hidden flex items-center justify-center relative group cursor-pointer"
+            className={`bg-indigo-600 rounded-xl p-6 overflow-hidden ${isMobile ? "flex" : "hidden md:flex"} items-center justify-center relative group cursor-pointer`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             animate={{
@@ -256,7 +257,9 @@ const FeaturesGrid = () => {
           </motion.a>
 
           {/* Scrolling Text Placeholder */}
-          <motion.div className="bg-amber-500 rounded-xl p-6 overflow-hidden hidden md:flex items-center">
+          <motion.div
+            className={`bg-amber-500 rounded-xl p-6 overflow-hidden ${isMobile ? "hidden" : "hidden md:flex"} items-center`}
+          >
             <ScrollingText text="DIGITAL CANVAS " />
           </motion.div>
 
@@ -286,7 +289,8 @@ const FeaturesGrid = () => {
             <div className="relative z-10">
               <h3 className="text-2xl font-bold text-white mb-3">Community Calendar</h3>
               <p className="text-white/90">
-                <strong>Connect</strong> with like-minded individuals passionate about exploring the latest technologies and tools in the creative space
+                <strong>Connect</strong> with like-minded individuals passionate about exploring the latest technologies
+                and tools in the creative space
               </p>
             </div>
 
