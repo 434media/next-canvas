@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
         hostname: "ampd-asset.s3.us-east-2.amazonaws.com",
       },
     ],
-
   },};
 
 export default nextConfig;
