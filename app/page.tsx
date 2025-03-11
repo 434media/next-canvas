@@ -1,7 +1,7 @@
 import HeroSection from "./components/hero-section"
 import GridSection from "./components/grid-section"
 import FeaturesGrid from "./components/features-grid"
-import Navbar from "./components/navbar"
+import Navbar from "./components/Navbar"
 import Footer from "./components/footer"
 
 export default function Home() {
