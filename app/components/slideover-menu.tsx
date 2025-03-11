@@ -3,7 +3,6 @@
 import type React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "motion/react"
-import { useState } from "react"
 
 interface SlideoverMenuProps {
   isOpen: boolean
@@ -11,8 +10,6 @@ interface SlideoverMenuProps {
 }
 
 const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
-  const [email, setEmail] = useState("")
-  
   const year = new Date().getFullYear()
 
   return (
