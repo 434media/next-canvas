@@ -33,11 +33,6 @@ const Footer = () => {
                   Community Calendar
                 </a>
               </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
-                  Newsletter
-                </a>
-              </li>
             </ul>
           </div>
           <div className="flex flex-col items-center md:items-start">

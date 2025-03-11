@@ -24,7 +24,7 @@ export const HeroText = () => {
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         <span className="bg-gradient-to-r from-blue-400 via-teal-300 to-purple-500 text-transparent bg-clip-text">
-          We&apos;re the Creative Tech Community in San Antonio
+          Create. Collaborate. Inspire.
         </span>
       </motion.h1>
 
@@ -34,8 +34,8 @@ export const HeroText = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        Share your projects, spark collaborations, learn alongside fellow creators, and find the inspiration you need. 
-        Whether you&apos;re a seasoned pro or just diving in, you&apos;ll discover a welcoming community ready to support your creative journey.
+        Create. Collaborate. Inspire. That&apos;s the heart of our community. Share your projects, spark collaborations, and learn alongside fellow creators. 
+        Whether you&apos;re a seasoned pro or just diving in, Digital Canvas provides the welcoming environment you need to ignite your creative journey.
       </motion.p>
 
       <motion.div

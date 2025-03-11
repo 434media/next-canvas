@@ -1,9 +1,53 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import "remixicon/fonts/remixicon.css"
+
+interface WireframeButtonProps {
+  href: string
+  children: React.ReactNode
+  className?: string
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  as?: "a" | "button"
+}
+
+const WireframeButton: React.FC<WireframeButtonProps> = ({ href, children, className = "", onClick, as = "a" }) => {
+  const ButtonContent = (
+    <>
+      {children}
+      <div className="absolute inset-0 border border-blue-500/40 rounded-lg" />
+      <div className="absolute inset-0 bg-blue-500/10 rounded-lg" />
+      <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-blue-500/60" />
+      <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-blue-500/60" />
+      <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-blue-500/60" />
+      <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-blue-500/60" />
+    </>
+  )
+
+  return (
+    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="relative inline-block">
+      {as === "a" ? (
+        <Link
+          href={href}
+          className={`inline-block px-6 py-3 bg-transparent text-white font-semibold rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-900 relative z-10 ${className}`}
+        >
+          {ButtonContent}
+        </Link>
+      ) : (
+        <button
+          onClick={onClick}
+          className={`inline-block px-6 py-3 bg-transparent text-white font-semibold rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-900 relative z-10 ${className}`}
+        >
+          {ButtonContent}
+        </button>
+      )}
+    </motion.div>
+  )
+}
 
 interface ModalContent {
   title: string
@@ -39,14 +83,7 @@ const Modal = ({
           </button>
           <h3 className="text-2xl font-bold text-white mb-4">{content.title}</h3>
           <p className="text-white/70 mb-6">{content.description}</p>
-          <Link
-            href={content.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Learn More
-          </Link>
+          <WireframeButton href={content.link}>Learn More</WireframeButton>
         </motion.div>
       </motion.div>
     )}
@@ -75,14 +112,14 @@ const FeaturesGrid = () => {
     title: "Coworking Space",
     description:
       "Join our vibrant coworking community in the heart of San Antonio. Featuring high-speed internet, meeting rooms, event spaces, and a creative environment designed for collaboration and innovation. Open Monday through Friday from 9am to 7pm.",
-    link: "https://digitalcanvas.com/coworking",
+    link: "/coworking-space",
   }
 
   const calendarContent: ModalContent = {
     title: "Community Calendar",
     description:
       "Digital Canvas is your hub for the San Antonio art and tech space, connecting you with like-minded individuals passionate about exploring the latest technologies and tools",
-    link: "https://digitalcanvas.com/calendar",
+    link: "https://lu.ma/digitalcanvas",
   }
 
   return (
@@ -110,7 +147,6 @@ const FeaturesGrid = () => {
           <motion.div
             className="col-span-2 row-span-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-8 cursor-pointer overflow-hidden relative group"
             whileHover={{ scale: 0.98 }}
-            onClick={() => setModalContent(coworkingContent)}
             animate={{
               backgroundPosition: ["0% 0%", "100% 100%"],
             }}
@@ -126,14 +162,29 @@ const FeaturesGrid = () => {
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/90 to-purple-600/90 opacity-100 group-hover:opacity-90 transition-opacity" />
-            <div className="relative z-10">
-              <h3 className="text-3xl font-bold text-white mb-4">Coworking Space</h3>
-              <p className="text-white/90">
-                <strong>Community Focused:</strong> Professional, student, or simply passionate about art and technology, you&apos;ll find a supportive community here
-              </p>
-              <p className="text-white/90 mt-6">
-                <strong>Powered by Geekdom:</strong> Enjoy the benefits of the Geekdom ecosystem - high-speed internet, coffee, snacks, and a vibrant downtown location
-              </p>
+            <div className="relative z-10 h-full flex flex-col">
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-4">Coworking Space</h3>
+                <p className="text-white/90">
+                  <strong>Community Focused:</strong> Professional, student, or simply passionate about art and
+                  technology, you&apos;ll find a supportive community here
+                </p>
+                <p className="text-white/90 mt-6">
+                  <strong>Powered by Geekdom:</strong> Enjoy the benefits of the Geekdom ecosystem - high-speed
+                  internet, coffee, snacks, and a vibrant downtown location
+                </p>
+              </div>
+              <div className="mt-auto pt-6">
+                <WireframeButton
+                  href="/coworking-space"
+                  className="mt-4"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                  }}
+                >
+                  Visit Coworking Space
+                </WireframeButton>
+              </div>
             </div>
           </motion.div>
 
@@ -178,7 +229,8 @@ const FeaturesGrid = () => {
             <div className="relative z-10">
               <h3 className="text-2xl font-bold text-white mb-3">Community Calendar</h3>
               <p className="text-white/90">
-                <strong>Collaboration is at the Heart of Digital Canvas:</strong> By partnering with organizations across the city, we&apos;ve built a robust network focused on building authenic connections.
+                <strong>Collaboration is at the Heart of Digital Canvas:</strong> By partnering with organizations
+                across the city, we&apos;ve built a robust network focused on building authenic connections.
               </p>
             </div>
           </motion.div>

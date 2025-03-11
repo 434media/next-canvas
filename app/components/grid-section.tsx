@@ -7,37 +7,37 @@ const items = [
   {
     title: "UX/UI Design",
     description: "Figma, Sketch, Adobe XD, InVision, Framer",
-    image: "https://picsum.photos/720/720?random=1",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/ui.avif",
   },
   {
     title: "Creative Coding",
     description: "Three.js, p5.js, D3.js, GSAP, Motion One",
-    image: "https://picsum.photos/720/720?random=2",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/three.png",
   },
   {
     title: "Illustration",
     description: "Adobe Illustrator, Procreate, Affinity Designer",
-    image: "https://picsum.photos/720/720?random=3",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/adobe.png",
   },
   {
-    title: "Photography",
-    description: "Adobe Lightroom, Capture One, DxO PhotoLab",
-    image: "https://picsum.photos/720/720?random=4",
-  },
-  {
-    title: "Videography",
-    description: "Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro",
-    image: "https://picsum.photos/720/720?random=5",
+    title: "3D AR/VR",
+    description: "Unity, Unreal Engine, Project Neo, A-Frame, ARKit, ARCore",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/fiber.png",
   },
   {
     title: "Motion Graphics",
     description: "Adobe After Effects, Cinema 4D, Blender",
-    image: "https://picsum.photos/720/720?random=6",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/UV.png",
   },
   {
-    title: "3D AR/VR",
-    description: "Unity, Unreal Engine, A-Frame, ARKit, ARCore",
-    image: "https://picsum.photos/720/720?random=7",
+    title: "Photography",
+    description: "Adobe Lightroom, Capture One, DxO PhotoLab",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/sa.jpg",
+  },
+  {
+    title: "Videography",
+    description: "Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/cutpro.png",
   },
 ]
 
@@ -95,6 +95,16 @@ const GridItem = ({
         transition={{ duration: 0.3 }}
       />
 
+      {/* Dark overlay for better text readability when expanded */}
+      <motion.div
+        className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"
+        initial={false}
+        animate={{
+          opacity: isExpanded ? 1 : 0,
+        }}
+        transition={{ duration: 0.3 }}
+      />
+
       {/* Closed state content (vertical title and icon) */}
       <motion.div
         className="absolute inset-0 flex flex-col justify-end items-center p-4"
@@ -125,11 +135,15 @@ const GridItem = ({
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <motion.h2 className="text-xl sm:text-2xl font-bold text-white mb-2" initial={false} animate={{ opacity: 1 }}>
+        <motion.h2
+          className="text-xl sm:text-2xl font-bold text-white mb-2 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
+          initial={false}
+          animate={{ opacity: 1 }}
+        >
           {item.title}
         </motion.h2>
         <motion.p
-          className="text-sm sm:text-base leading-relaxed text-white/90"
+          className="text-sm sm:text-base leading-relaxed text-white font-medium drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"
           initial={false}
           animate={{
             y: isExpanded ? 0 : 20,

@@ -101,26 +101,6 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                           </a>
                         </div>
                       </div>
-                      <div>
-                        <h3 className="text-white font-semibold mb-4">Newsletter</h3>
-                        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-                          <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
-                            className="w-full px-3 py-2 bg-neutral-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          />
-                          <motion.button
-                            type="submit"
-                            className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            Subscribe
-                          </motion.button>
-                        </form>
-                      </div>
                     </motion.div>
                   </div>
                   <div className="mt-8 pt-8 border-t border-white/10 text-center px-4 sm:px-6">

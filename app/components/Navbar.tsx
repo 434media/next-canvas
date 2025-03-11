@@ -33,9 +33,6 @@ const Navbar = () => {
               <Link href="https://lu.ma/digitalcanvas" className="text-white hover:text-blue-400 transition-colors">
                 Community Calendar
               </Link>
-              <Link href="#" className="text-white hover:text-blue-400 transition-colors">
-                Newsletter
-              </Link>
             </div>
             <div className="flex items-center space-x-4">
               <a href="https://discord.gg/SCfmebDfW6" className="text-white hover:text-blue-400 transition-colors" aria-label="Discord">
