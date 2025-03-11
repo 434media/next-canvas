@@ -76,7 +76,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                         <h3 className="text-white font-semibold mb-4">Quick Links</h3>
                         <ul className="space-y-2">
                           <li>
-                            <a href="#" className="text-white/70 hover:text-white transition-colors">
+                            <a href="/coworking-space" className="text-white/70 hover:text-white transition-colors">
                               Coworking Space
                             </a>
                           </li>

@@ -27,7 +27,7 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="hidden md:flex items-center space-x-6">
-              <Link href="#" className="text-white hover:text-blue-400 transition-colors">
+              <Link href="/coworking-space" className="text-white hover:text-blue-400 transition-colors">
                 Coworking Space
               </Link>
               <Link href="https://lu.ma/digitalcanvas" className="text-white hover:text-blue-400 transition-colors">
