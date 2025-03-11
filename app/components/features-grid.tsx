@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import "remixicon/fonts/remixicon.css"
@@ -11,11 +11,19 @@ interface WireframeButtonProps {
   href: string
   children: React.ReactNode
   className?: string
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => void
   as?: "a" | "button"
+  ariaLabel?: string
 }
 
-const WireframeButton: React.FC<WireframeButtonProps> = ({ href, children, className = "", onClick, as = "a" }) => {
+const WireframeButton: React.FC<WireframeButtonProps> = ({
+  href,
+  children,
+  className = "",
+  onClick,
+  as = "a",
+  ariaLabel,
+}) => {
   const ButtonContent = (
     <>
       {children}
@@ -34,13 +42,16 @@ const WireframeButton: React.FC<WireframeButtonProps> = ({ href, children, class
         <Link
           href={href}
           className={`inline-block px-6 py-3 bg-transparent text-white font-semibold rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-900 relative z-10 ${className}`}
+          onClick={onClick as any}
+          aria-label={ariaLabel}
         >
           {ButtonContent}
         </Link>
       ) : (
         <button
-          onClick={onClick}
+          onClick={onClick as any}
           className={`inline-block px-6 py-3 bg-transparent text-white font-semibold rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-900 relative z-10 ${className}`}
+          aria-label={ariaLabel}
         >
           {ButtonContent}
         </button>
@@ -78,7 +89,11 @@ const Modal = ({
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
         >
-          <button onClick={onClose} className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
+            aria-label="Close modal"
+          >
             <i className="ri-close-line text-2xl"></i>
           </button>
           <h3 className="text-2xl font-bold text-white mb-4">{content.title}</h3>
@@ -105,8 +120,29 @@ const ScrollingText = ({ text }: { text: string }) => (
   </motion.div>
 )
 
+// Pulsing indicator component for clickable elements
+const PulseIndicator = () => (
+  <div className="absolute bottom-4 right-4 z-20 flex items-center">
+    <span className="text-white/80 text-sm mr-2 font-medium">Click to explore</span>
+    <div className="relative">
+      <span className="absolute inset-0 rounded-full bg-white/30 animate-ping"></span>
+      <span className="relative block h-3 w-3 rounded-full bg-white"></span>
+    </div>
+  </div>
+)
+
 const FeaturesGrid = () => {
   const [modalContent, setModalContent] = useState<ModalContent | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   const coworkingContent: ModalContent = {
     title: "Coworking Space",
@@ -121,6 +157,8 @@ const FeaturesGrid = () => {
       "Digital Canvas is your hub for the San Antonio art and tech space, connecting you with like-minded individuals passionate about exploring the latest technologies and tools",
     link: "https://lu.ma/digitalcanvas",
   }
+
+  const discordUrl = "https://discord.gg/SCfmebDfW6"
 
   return (
     <section className="py-16 md:py-24 bg-neutral-900">
@@ -181,6 +219,7 @@ const FeaturesGrid = () => {
                   onClick={(e) => {
                     e.stopPropagation()
                   }}
+                  ariaLabel="Visit coworking space page"
                 >
                   Visit Coworking Space
                 </WireframeButton>
@@ -188,26 +227,36 @@ const FeaturesGrid = () => {
             </div>
           </motion.div>
 
-          {/* Animated Placeholder 1 */}
-          <motion.div
-            className="bg-emerald-500 rounded-xl p-6 overflow-hidden hidden md:flex items-center justify-center"
+          {/* Discord Community Tile - Replaced code icon with Discord */}
+          <motion.a
+            href={discordUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-indigo-600 rounded-xl p-6 overflow-hidden flex items-center justify-center relative group cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             animate={{
               scale: [1, 1.02, 1],
-              rotate: [0, 5, 0],
+              rotate: [0, 2, 0],
             }}
             transition={{
               duration: 4,
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
             }}
+            aria-label="Join our Discord community"
           >
-            <div className="text-white/20 text-9xl rotate-12">
-              <i className="ri-code-line" />
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/90 to-indigo-800/90 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="text-white/20 text-9xl rotate-12 group-hover:text-white/40 transition-colors z-10">
+              <i className="ri-discord-fill" />
             </div>
-          </motion.div>
+            <div className="absolute bottom-4 left-0 right-0 text-center text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+              Join our Discord
+            </div>
+          </motion.a>
 
           {/* Scrolling Text Placeholder */}
-          <motion.div className="bg-amber-500 rounded-xl p-6 overflow-hidden flex items-center">
+          <motion.div className="bg-amber-500 rounded-xl p-6 overflow-hidden hidden md:flex items-center">
             <ScrollingText text="DIGITAL CANVAS " />
           </motion.div>
 
@@ -224,15 +273,33 @@ const FeaturesGrid = () => {
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
             }}
+            aria-label="View community calendar details"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                setModalContent(calendarContent)
+              }
+            }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-teal-500/90 to-emerald-600/90 opacity-100 group-hover:opacity-90 transition-opacity" />
             <div className="relative z-10">
               <h3 className="text-2xl font-bold text-white mb-3">Community Calendar</h3>
               <p className="text-white/90">
-                <strong>Collaboration is at the Heart of Digital Canvas:</strong> By partnering with organizations
-                across the city, we&apos;ve built a robust network focused on building authenic connections.
+                <strong>Connect</strong> with like-minded individuals passionate about exploring the latest technologies and tools in the creative space
               </p>
             </div>
+
+            {/* Pulsing indicator to show the tile is clickable */}
+            <PulseIndicator />
+
+            {/* Info icon that appears on hover */}
+            <motion.div
+              className="absolute top-4 right-4 bg-white/20 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity"
+              whileHover={{ rotate: 15 }}
+            >
+              <i className="ri-information-line text-white text-xl"></i>
+            </motion.div>
           </motion.div>
         </div>
       </div>
