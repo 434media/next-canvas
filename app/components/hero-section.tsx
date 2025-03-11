@@ -3,7 +3,7 @@ import { HeroText } from "./hero-text"
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center mt-16">
+    <section className="relative min-h-screen flex items-center mt-6 md:mt-16">
       <WireframeBackground />
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <HeroText />

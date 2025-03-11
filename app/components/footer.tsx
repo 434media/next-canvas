@@ -29,7 +29,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white transition-colors">
+                <a href="https://lu.ma/digitalcanvas" className="text-white/70 hover:text-white transition-colors">
                   Community Calendar
                 </a>
               </li>

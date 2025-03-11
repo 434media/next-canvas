@@ -27,13 +27,13 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="hidden md:flex items-center space-x-6">
-              <Link href="/coworking" className="text-white hover:text-blue-400 transition-colors">
+              <Link href="#" className="text-white hover:text-blue-400 transition-colors">
                 Coworking Space
               </Link>
-              <Link href="/calendar" className="text-white hover:text-blue-400 transition-colors">
+              <Link href="https://lu.ma/digitalcanvas" className="text-white hover:text-blue-400 transition-colors">
                 Community Calendar
               </Link>
-              <Link href="/newsletter" className="text-white hover:text-blue-400 transition-colors">
+              <Link href="#" className="text-white hover:text-blue-400 transition-colors">
                 Newsletter
               </Link>
             </div>
