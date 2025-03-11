@@ -44,7 +44,7 @@ export const HeroText = () => {
         transition={{ duration: 0.5, delay: 0.6 }}
         className="relative inline-block"
       >
-        <Link href="/join" passHref legacyBehavior>
+        <Link href="https://discord.gg/SCfmebDfW6" passHref legacyBehavior>
           <motion.a
             className="inline-block px-8 py-4 bg-transparent text-white font-semibold rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-900 relative z-10"
             whileHover={{ scale: 1.05 }}

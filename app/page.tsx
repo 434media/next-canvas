@@ -3,13 +3,17 @@
 import HeroSection from "./components/hero-section"
 import GridSection from "./components/grid-section"
 import FeaturesGrid from "./components/features-grid"
+import Navbar from "./components/navbar"
+import Footer from "./components/footer"
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-900 relative overflow-hidden">
+      <Navbar />
       <HeroSection />
       <GridSection />
       <FeaturesGrid />
+      <Footer />
     </div>
   )
 }
