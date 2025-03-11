@@ -17,13 +17,12 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   title: "Digital Canvas | San Antonio's Creative Tech Community",
-  description:
-    "Connect with fellow designers, developers, photographers, videographers, and digital artists in San Antonio's vibrant creative tech community.",
+  description: "Connect with fellow creators, share your projects, and dive into the dynamic intersection of art, tech, and music in San Antonio.",
   keywords: "creative tech, San Antonio, coworking, community, design, development, photography, videography",
   authors: [{ name: "Digital Canvas Team" }],
   openGraph: {
     title: "Digital Canvas | San Antonio's Creative Tech Community",
-    description: "Connect with fellow creatives in San Antonio's vibrant tech community.",
+    description: "Connect with fellow creators, share your projects, and dive into the dynamic intersection of art, tech, and music in San Antonio.",
     url: "https://digitalcanvas.community",
     siteName: "Digital Canvas",
     images: [
@@ -40,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Digital Canvas | San Antonio's Creative Tech Community",
-    description: "Connect with fellow creatives in San Antonio's vibrant tech community.",
+    description: "Connect with fellow creators, share your projects, and dive into the dynamic intersection of art, tech, and music in San Antonio.",
     images: ["https://digitalcanvas.community/opengraph-image.png"],
   },
 }
