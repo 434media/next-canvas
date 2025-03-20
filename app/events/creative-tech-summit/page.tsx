@@ -294,6 +294,69 @@ const EventDetails = () => (
   </motion.div>
 )
 
+// Shared content components to avoid duplication
+const LivePerformanceContent = () => (
+  <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg overflow-hidden border border-white/10">
+    <div className="aspect-video relative">
+      <Image
+        src="https://devsa-assets.s3.us-east-2.amazonaws.com/am.png"
+        alt="A.M. Architect performing live"
+        fill
+        className="object-cover"
+      />
+    </div>
+    <div className="p-6">
+      <h3 className="text-2xl font-bold text-white mb-2">A.M. Architect</h3>
+      <p className="text-blue-400 mb-4">Audio + Visual Art</p>
+      <p className="text-white/70">
+        A.M Architect blends electronic music with live visuals to create an immersive audiovisual experience. Their
+        performances combine synthesizers, drum machines, and real-time generative visuals that respond to the music,
+        creating a unique fusion of sound and imagery.
+      </p>
+      <div className="mt-6 flex space-x-4">
+        <a
+          href="https://amarchitect.bandcamp.com/album/avenir"
+          className="text-white/70 hover:text-white transition-colors"
+        >
+          <i className="ri-spotify-fill text-2xl"></i>
+        </a>
+        <a
+          href="https://www.instagram.com/a.m.architect_/"
+          className="text-white/70 hover:text-white transition-colors"
+        >
+          <i className="ri-instagram-line text-2xl"></i>
+        </a>
+        <a
+          href="https://www.youtube.com/watch?v=2yx1FaYaMxY"
+          className="text-white/70 hover:text-white transition-colors"
+        >
+          <i className="ri-youtube-fill text-2xl"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+)
+
+const SpeakersContent = () => (
+  <>
+    <SpeakerCard
+      name="Dr. Maya Rodriguez"
+      role="Creative Technology Director"
+      company="Future Interfaces Lab"
+      image="https://ampd-asset.s3.us-east-2.amazonaws.com/aiony-haust-3TLl_97HNJo-unsplash.jpg"
+      bio="Dr. Rodriguez specializes in human-computer interaction and immersive experiences. Her work explores how technology can enhance creative expression and storytelling through novel interfaces and interaction techniques."
+    />
+
+    <SpeakerCard
+      name="James Chen"
+      role="Lead Designer"
+      company="Prismatic Studios"
+      image="https://ampd-asset.s3.us-east-2.amazonaws.com/philip-martin-5aGUyCW_PJw-unsplash.jpg"
+      bio="James is a multidisciplinary designer working at the intersection of digital and physical experiences. His work combines computational design with traditional craftsmanship to create innovative products and installations."
+    />
+  </>
+)
+
 export default function CreativeTechSummitPage() {
   const [isMobile, setIsMobile] = useState(false)
   const formContainerRef = useRef<HTMLDivElement>(null)
@@ -319,7 +382,7 @@ export default function CreativeTechSummitPage() {
 
       {/* Main Content Section with Sticky Form - Using Flex Layout */}
       <div className="relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {!isMobile ? (
             <div className="flex flex-row">
               {/* Left Column - Scrollable Content */}
@@ -364,45 +427,7 @@ export default function CreativeTechSummitPage() {
                     className="mb-12"
                   >
                     <h2 className="text-3xl font-bold text-white mb-6">Live Performance</h2>
-                    <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg overflow-hidden border border-white/10">
-                      <div className="aspect-video relative">
-                        <Image
-                          src="https://devsa-assets.s3.us-east-2.amazonaws.com/am.png"
-                          alt="A.M. Architect performing live"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-2xl font-bold text-white mb-2">A.M. Architect</h3>
-                        <p className="text-blue-400 mb-4">Audio + Visual Art</p>
-                        <p className="text-white/70">
-                          A.M Architect blends electronic music with live visuals to create an immersive audiovisual
-                          experience. Their performances combine synthesizers, drum machines, and real-time generative
-                          visuals that respond to the music, creating a unique fusion of sound and imagery.
-                        </p>
-                        <div className="mt-6 flex space-x-4">
-                          <a
-                            href="https://amarchitect.bandcamp.com/album/avenir"
-                            className="text-white/70 hover:text-white transition-colors"
-                          >
-                            <i className="ri-spotify-fill text-2xl"></i>
-                          </a>
-                          <a
-                            href="https://www.instagram.com/a.m.architect_/"
-                            className="text-white/70 hover:text-white transition-colors"
-                          >
-                            <i className="ri-instagram-line text-2xl"></i>
-                          </a>
-                          <a
-                            href="https://www.youtube.com/watch?v=2yx1FaYaMxY"
-                            className="text-white/70 hover:text-white transition-colors"
-                          >
-                            <i className="ri-youtube-fill text-2xl"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+                    <LivePerformanceContent />
                   </motion.div>
 
                   {/* Speakers */}
@@ -410,25 +435,10 @@ export default function CreativeTechSummitPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    className="mb-12"
+                    className=""
                   >
                     <h2 className="text-3xl font-bold text-white mb-6">Featured Speakers</h2>
-
-                    <SpeakerCard
-                      name="Dr. Maya Rodriguez"
-                      role="Creative Technology Director"
-                      company="Future Interfaces Lab"
-                      image="https://ampd-asset.s3.us-east-2.amazonaws.com/aiony-haust-3TLl_97HNJo-unsplash.jpg"
-                      bio="Dr. Rodriguez specializes in human-computer interaction and immersive experiences. Her work explores how technology can enhance creative expression and storytelling through novel interfaces and interaction techniques."
-                    />
-
-                    <SpeakerCard
-                      name="James Chen"
-                      role="Lead Designer"
-                      company="Prismatic Studios"
-                      image="https://ampd-asset.s3.us-east-2.amazonaws.com/philip-martin-5aGUyCW_PJw-unsplash.jpg"
-                      bio="James is a multidisciplinary designer working at the intersection of digital and physical experiences. His work combines computational design with traditional craftsmanship to create innovative products and installations."
-                    />
+                    <SpeakersContent />
                   </motion.div>
                 </div>
               </div>
@@ -456,7 +466,23 @@ export default function CreativeTechSummitPage() {
                   Antonio. This two-day event brings together designers, developers, artists, and innovators to explore
                   the intersection of creativity and technology.
                 </p>
-                {/* More content... */}
+                <p className="text-white/80">
+                  Through workshops, talks, and interactive exhibitions, attendees will gain insights into emerging
+                  technologies, creative coding, digital art, and the future of design. Whether you&apos;re a seasoned
+                  professional or just starting your journey in the creative tech space, this summit offers something
+                  for everyone.
+                </p>
+
+                <div className="my-8 p-6 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-lg border border-white/10">
+                  <h3 className="text-xl font-bold text-white mb-4">Event Highlights</h3>
+                  <ul className="list-disc pl-5 space-y-2 text-white/80">
+                    <li>Interactive workshops on creative coding and digital art</li>
+                    <li>Panel discussions on the future of design and technology</li>
+                    <li>Networking opportunities with industry leaders</li>
+                    <li>Live music and performances</li>
+                    <li>Exhibition showcasing local digital artists</li>
+                  </ul>
+                </div>
               </motion.div>
 
               {/* Live Band Spotlight */}
@@ -467,7 +493,7 @@ export default function CreativeTechSummitPage() {
                 className="mb-12"
               >
                 <h2 className="text-3xl font-bold text-white mb-6">Live Performance</h2>
-                {/* Band content... */}
+                <LivePerformanceContent />
               </motion.div>
 
               {/* Speakers */}
@@ -478,11 +504,11 @@ export default function CreativeTechSummitPage() {
                 className="mb-12"
               >
                 <h2 className="text-3xl font-bold text-white mb-6">Featured Speakers</h2>
-                {/* Speakers content... */}
+                <SpeakersContent />
               </motion.div>
 
               {/* Mobile Registration Form */}
-              <div className="mb-12">
+              <div className="">
                 <RegistrationForm />
                 <EventDetails />
               </div>
