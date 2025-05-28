@@ -52,12 +52,18 @@ const AnimatedLetter = ({ letter, index }: { letter: string; index: number }) =>
   return (
     <motion.span
       className="inline-block"
-      initial={{ opacity: 0, y: 20, rotateX: -90 }}
-      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.7,
         delay: 0.05 * index + 0.5,
         ease: [0.215, 0.61, 0.355, 1],
+      }}
+      style={{
+        // Ensure proper rendering on mobile
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
       }}
     >
       {letter === " " ? "\u00A0" : letter}
@@ -261,9 +267,26 @@ export const HeroText = () => {
 
               {/* Main text with letter animations */}
               <span className="relative bg-gradient-to-r from-purple-500 via-blue-400 to-teal-300 text-transparent bg-clip-text">
-                {toolkitLetters.map((letter, index) => (
-                  <AnimatedLetter key={index} letter={letter} index={index} />
-                ))}
+                {/* Desktop version with individual letter animations */}
+                <span className="hidden sm:inline">
+                  {toolkitLetters.map((letter, index) => (
+                    <AnimatedLetter key={index} letter={letter} index={index} />
+                  ))}
+                </span>
+
+                {/* Mobile fallback - simple animation */}
+                <motion.span
+                  className="inline sm:hidden"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: [0.215, 0.61, 0.355, 1],
+                  }}
+                >
+                  Toolkit
+                </motion.span>
               </span>
 
               {/* Animated cursor */}
