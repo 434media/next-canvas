@@ -423,7 +423,7 @@ const CreativeJourney = () => {
 
             {/* Journey Stages - Horizontal Layout with Refined Hover Effects */}
             <div className="grid grid-cols-5 gap-8 items-center">
-              {journeyStages.map((stage, index) => (
+              {journeyStages.map((stage) => (
                 <motion.div
                   key={stage.id}
                   className="relative group cursor-pointer"
