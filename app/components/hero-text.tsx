@@ -47,23 +47,72 @@ const FloatingTool = ({ tool, index }: { tool: (typeof creativeTools)[0]; index:
   )
 }
 
+// Add a mobile-optimized "wow" effect with touch-reactive particles
+// Add this after the FloatingTool component:
+
+const TouchParticle = ({ index }: { index: number }) => {
+  const [isTouching, setIsTouching] = useState(false)
+
+  useEffect(() => {
+    const handleTouchStart = () => {
+      setIsTouching(true)
+    }
+
+    const handleTouchEnd = () => {
+      setIsTouching(false)
+    }
+
+    window.addEventListener("touchstart", handleTouchStart)
+    window.addEventListener("touchend", handleTouchEnd)
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart)
+      window.removeEventListener("touchend", handleTouchEnd)
+    }
+  }, [])
+
+  return (
+    <motion.div
+      className="absolute w-2 h-2 rounded-full bg-blue-400/40 sm:hidden"
+      style={{
+        left: `${50 + (index % 3) * 15 - 15}%`,
+        top: `${50 + Math.floor(index / 3) * 15 - 15}%`,
+      }}
+      animate={
+        isTouching
+          ? {
+              x: [index % 2 === 0 ? -20 : 20, 0, index % 2 === 0 ? 20 : -20],
+              y: [index % 3 === 0 ? -20 : 20, 0, index % 3 === 0 ? 20 : -20],
+              scale: [0.8, 1.2, 0.8],
+              opacity: [0.4, 0.8, 0.4],
+            }
+          : {
+              scale: [0.8, 1, 0.8],
+              opacity: [0.3, 0.5, 0.3],
+            }
+      }
+      transition={{
+        duration: isTouching ? 1 : 2,
+        repeat: Number.POSITIVE_INFINITY,
+        ease: "easeInOut",
+      }}
+    />
+  )
+}
+
 // Animated letter component for text reveal
 const AnimatedLetter = ({ letter, index }: { letter: string; index: number }) => {
   return (
     <motion.span
       className="inline-block"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20, rotateX: -90 }}
+      animate={{ opacity: 1, y: 0, rotateX: 0 }}
       transition={{
         duration: 0.7,
         delay: 0.05 * index + 0.5,
         ease: [0.215, 0.61, 0.355, 1],
-      }}
-      style={{
-        // Ensure proper rendering on mobile
-        willChange: "transform",
-        backfaceVisibility: "hidden",
-        WebkitBackfaceVisibility: "hidden",
+        // Reduce animation complexity on smaller screens
+        rotateX: { duration: 0.5 },
       }}
     >
       {letter === " " ? "\u00A0" : letter}
@@ -76,6 +125,8 @@ export const HeroText = () => {
   const isInView = useInView(ref, { once: true })
   const controls = useAnimation()
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [touchPosition, setTouchPosition] = useState({ x: 0, y: 0 })
+  const [isTouching, setIsTouching] = useState(false)
   const [particles, setParticles] = useState<Array<{ x: number; y: number; id: number }>>([])
   const [buttonParticles, setButtonParticles] = useState<Array<{ x: number; y: number; id: number }>>([])
   const [isClient, setIsClient] = useState(false)
@@ -122,6 +173,43 @@ export const HeroText = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      if (ref.current && e.touches[0]) {
+        const rect = ref.current.getBoundingClientRect()
+        setTouchPosition({
+          x: (e.touches[0].clientX - rect.left - rect.width / 2) / 20,
+          y: (e.touches[0].clientY - rect.top - rect.height / 2) / 20,
+        })
+        setIsTouching(true)
+      }
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (ref.current && e.touches[0]) {
+        const rect = ref.current.getBoundingClientRect()
+        setTouchPosition({
+          x: (e.touches[0].clientX - rect.left - rect.width / 2) / 20,
+          y: (e.touches[0].clientY - rect.top - rect.height / 2) / 20,
+        })
+      }
+    }
+
+    const handleTouchEnd = () => {
+      setIsTouching(false)
+    }
+
+    window.addEventListener("touchstart", handleTouchStart)
+    window.addEventListener("touchmove", handleTouchMove)
+    window.addEventListener("touchend", handleTouchEnd)
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart)
+      window.removeEventListener("touchmove", handleTouchMove)
+      window.removeEventListener("touchend", handleTouchEnd)
+    }
+  }, [])
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -157,7 +245,7 @@ export const HeroText = () => {
       animate={controls}
       variants={containerVariants}
       style={{
-        transform: `translate3d(${mousePosition.x}px, ${mousePosition.y}px, 0)`,
+        transform: `translate3d(${isTouching ? touchPosition.x : mousePosition.x}px, ${isTouching ? touchPosition.y : mousePosition.y}px, 0)`,
         transition: "transform 0.3s ease-out",
       }}
     >
@@ -190,6 +278,9 @@ export const HeroText = () => {
         }}
         transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, delay: 1.5 }}
       />
+
+      {/* Mobile touch-reactive particles */}
+      {isClient && [...Array(9)].map((_, i) => <TouchParticle key={`touch-particle-${i}`} index={i} />)}
 
       {/* Floating creative tools */}
       {creativeTools.map((tool, index) => (
@@ -252,7 +343,25 @@ export const HeroText = () => {
 
           {/* Enhanced Toolkit text with 3D effect and individual letter animations */}
           <motion.div className="relative block mt-2" initial={{ perspective: 1000 }}>
-            <div className="relative inline-block">
+            {/* Mobile-optimized version (visible only on small screens) */}
+            <motion.span
+              className="sm:hidden relative bg-gradient-to-r from-purple-500 via-blue-400 to-teal-300 text-transparent bg-clip-text"
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+              style={{ backgroundSize: "200% 200%" }}
+            >
+              Toolkit
+              <motion.span
+                className="inline-block w-1 h-8 bg-blue-400 ml-2 align-middle"
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.8, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", delay: 1.5 }}
+              />
+            </motion.span>
+
+            {/* Desktop version with letter animations (hidden on small screens) */}
+            <div className="relative hidden sm:inline-block">
               {/* Shadow/glow effect */}
               <motion.span
                 className="absolute -inset-1 block bg-gradient-to-r from-purple-500 via-blue-400 to-teal-300 text-transparent bg-clip-text blur-lg opacity-70"
@@ -267,26 +376,9 @@ export const HeroText = () => {
 
               {/* Main text with letter animations */}
               <span className="relative bg-gradient-to-r from-purple-500 via-blue-400 to-teal-300 text-transparent bg-clip-text">
-                {/* Desktop version with individual letter animations */}
-                <span className="hidden sm:inline">
-                  {toolkitLetters.map((letter, index) => (
-                    <AnimatedLetter key={index} letter={letter} index={index} />
-                  ))}
-                </span>
-
-                {/* Mobile fallback - simple animation */}
-                <motion.span
-                  className="inline sm:hidden"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 0.5,
-                    ease: [0.215, 0.61, 0.355, 1],
-                  }}
-                >
-                  Toolkit
-                </motion.span>
+                {toolkitLetters.map((letter, index) => (
+                  <AnimatedLetter key={index} letter={letter} index={index} />
+                ))}
               </span>
 
               {/* Animated cursor */}
@@ -345,10 +437,7 @@ export const HeroText = () => {
           <Link href="/join" passHref legacyBehavior>
             <motion.a
               className="group inline-block px-8 py-4 bg-transparent text-white font-semibold rounded-lg transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-900 relative z-10 overflow-hidden"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
-              }}
+              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
               whileTap={{ scale: 0.95 }}
               animate={{
                 y: [0, -5, 0],
@@ -368,7 +457,7 @@ export const HeroText = () => {
                 />
               </span>
 
-              {/* Animated background */}
+              {/* Enhanced animated background with touch interaction */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-teal-500/20 rounded-lg"
                 animate={{
@@ -377,9 +466,21 @@ export const HeroText = () => {
                     "linear-gradient(225deg, rgba(168, 85, 247, 0.2), rgba(20, 184, 166, 0.2), rgba(59, 130, 246, 0.2))",
                     "linear-gradient(45deg, rgba(59, 130, 246, 0.2), rgba(168, 85, 247, 0.2), rgba(20, 184, 166, 0.2))",
                   ],
+                  backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
                 }}
                 transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                style={{ backgroundSize: "200% 200%" }}
               />
+
+              {/* Mobile touch ripple effect */}
+              {isTouching && (
+                <motion.div
+                  className="absolute inset-0 bg-white/10 rounded-lg sm:hidden"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1.5, opacity: 0 }}
+                  transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
+                />
+              )}
 
               {/* Enhanced wireframe button design */}
               <div className="absolute inset-0 border border-blue-500/40 rounded-lg group-hover:border-blue-400/80 transition-colors duration-300" />
@@ -431,9 +532,8 @@ export const HeroText = () => {
               {/* Enhanced particle effect on hover - only render on client */}
               {isClient && (
                 <motion.div
-                  className="absolute inset-0 pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
+                  className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
+                  transition={{ duration: 0.3 }}
                 >
                   {buttonParticles.map((particle, i) => (
                     <motion.div
