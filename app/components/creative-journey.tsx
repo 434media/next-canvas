@@ -42,7 +42,7 @@ const journeyStages = [
     subtitle: "Code meets creativity",
     description:
       "Build interactive experiences with cutting-edge technologies that push the boundaries of what's possible. Learn how to bring designs to life through code and interactive elements.",
-    tools: ["React", "Three.js", "GSAP", "Next.js"],
+    tools: ["Motion", "Three.js", "GSAP", "TailwindCSS"],
     icon: "ri-code-s-slash-line",
     color: "from-blue-400 to-cyan-500",
     colorHex: "#3b82f6",
@@ -499,20 +499,6 @@ const CreativeJourney = () => {
                           backgroundSize: "20px 20px",
                         }}
                       />
-
-                      {/* Stage Number */}
-                      <motion.div
-                        className="absolute -top-3 -right-3 w-8 h-8 bg-white text-neutral-900 rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-10"
-                        animate={{
-                          scale: hoveredStage === stage.id ? 1.1 : 1,
-                        }}
-                        transition={{
-                          duration: 0.3,
-                          ease: "easeOut",
-                        }}
-                      >
-                        {index + 1}
-                      </motion.div>
 
                       {/* Content */}
                       <div className="relative z-10">
