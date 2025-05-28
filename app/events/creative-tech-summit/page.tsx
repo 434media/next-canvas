@@ -6,9 +6,9 @@ import { useState, useEffect, useRef } from "react"
 import { motion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
-import EventHero from "@/app/components/event-hero"
-import EventPartners from "@/app/components/event-partners"
-import RelatedEvents from "@/app/components/related-events"
+import EventHero from "@/app/components/events/event-hero"
+import EventPartners from "@/app/components/events/event-partners"
+import RelatedEvents from "@/app/components/events/related-events"
 import "remixicon/fonts/remixicon.css"
 
 interface WireframeButtonProps {
