@@ -316,7 +316,6 @@ const RegistrationForm = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [showPlanDetails, setShowPlanDetails] = useState(false)
   const [particles, setParticles] = useState<Array<{ left: string; top: string }>>([])
 
   // Generate particles on client side only
@@ -392,8 +391,6 @@ const RegistrationForm = () => {
 
   const handlePlanSelect = (planId: string) => {
     setSelectedPlan(planId)
-    setShowPlanDetails(true)
-    setTimeout(() => setShowPlanDetails(false), 2000)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
