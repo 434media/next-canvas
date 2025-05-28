@@ -47,7 +47,7 @@ const journeyStages = [
     color: "from-blue-400 to-cyan-500",
     colorHex: "#3b82f6",
     image: "https://devsa-assets.s3.us-east-2.amazonaws.com/three.png",
-    quote: "Code is like humor. When you have to explain it, it's bad.",
+    quote: "Code is like humor. When you have to explain it, it&apos;s bad.",
     author: "Cory House",
   },
   {
@@ -298,7 +298,7 @@ const CreativeJourney = () => {
 
             {/* Journey Stages - Vertical Layout */}
             <div className="space-y-16 pb-16">
-              {journeyStages.map((stage, index) => (
+              {journeyStages.map((stage) => (
                 <motion.div key={stage.id} className="relative pl-12" variants={stageVariants}>
                   {/* Timeline Node */}
                   <motion.div
@@ -748,7 +748,7 @@ const CreativeJourney = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.5, duration: 0.5 }}
                       >
-                        <p className="text-white/70 italic text-lg mb-2">"{activeStageData.quote}"</p>
+                        <p className="text-white/70 italic text-lg mb-2">&ldquo;{activeStageData.quote}&rdquo;</p>
                         <p className="text-white/50 text-sm">— {activeStageData.author}</p>
                       </motion.div>
                     </motion.div>
@@ -764,13 +764,13 @@ const CreativeJourney = () => {
                       <h3 className="text-2xl font-bold text-white mb-6">Popular Tools & Technologies</h3>
 
                       <div className="grid grid-cols-2 gap-3 mb-8">
-                        {activeStageData.tools.map((tool, index) => (
+                        {activeStageData.tools.map((tool, toolIndex) => (
                           <motion.div
                             key={tool}
                             className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center border border-white/10 hover:border-white/20 transition-colors"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6 + index * 0.1, duration: 0.4 }}
+                            transition={{ delay: 0.6 + toolIndex * 0.1, duration: 0.4 }}
                             whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.15)" }}
                           >
                             <span className="text-white/90 font-medium">{tool}</span>
