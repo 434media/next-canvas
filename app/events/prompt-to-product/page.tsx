@@ -290,7 +290,7 @@ export default function PromptToProductPage() {
                       animate={{ rotate: [0, 10, 0] }}
                       transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                     />
-                    What You'll Learn
+                    What You&apos;ll Learn
                   </h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     {[
@@ -431,7 +431,7 @@ export default function PromptToProductPage() {
                 transition={{ duration: 0.5 }}
                 className="mb-12"
               >
-                <h2 className="text-3xl font-bold text-white mb-6">What You'll Learn</h2>
+                <h2 className="text-3xl font-bold text-white mb-6">What You&apos;ll Learn</h2>
                 <div className="space-y-3">
                   {[
                     "Requirements capture and analysis",
