@@ -12,7 +12,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const { scrollY } = useScroll()
   const navbarOpacity = useTransform(scrollY, [0, 100], [0.8, 0.95])
-  const navbarBlur = useTransform(scrollY, [0, 100], [8, 20])
+  const navbarBlur = useTransform(scrollY, [0, 100], [12, 25])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -136,7 +136,7 @@ const Navbar = () => {
         }}
       >
         <motion.nav
-          className="relative"
+          className="relative backdrop-blur-md"
           style={{
             background: `rgba(0, 0, 0, ${navbarOpacity})`,
           }}
@@ -254,8 +254,8 @@ const Navbar = () => {
                       <Image
                         src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
                         alt="Digital Canvas Logo"
-                        width={150}
-                        height={40}
+                        width={135}
+                        height={36}
                         className="transition-all duration-300 group-hover:brightness-110"
                       />
 
@@ -317,7 +317,7 @@ const Navbar = () => {
                   />
 
                   {/* Menu indicator dots */}
-                  <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {/* <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {[...Array(3)].map((_, i) => (
                       <motion.div
                         key={i}
@@ -333,7 +333,7 @@ const Navbar = () => {
                         }}
                       />
                     ))}
-                  </div>
+                  </div> */}
                 </div>
               </motion.button>
             </div>
