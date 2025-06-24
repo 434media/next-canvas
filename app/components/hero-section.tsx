@@ -33,22 +33,24 @@ const HeroSection = () => {
         >
           <motion.div
             className="flex flex-col items-center space-y-4 text-white/40"
+            initial={{x: 8 }}
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           >
             <div className="w-px h-16 bg-gradient-to-b from-transparent via-blue-400/50 to-transparent" />
             <motion.div
               className="text-sm font-medium tracking-wider"
+              initial={{x: -8 }}
               style={{ writingMode: "vertical-rl" }}
               animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
             >
               SCROLL TO EXPLORE
             </motion.div>
             <motion.i
               className="ri-arrow-down-line text-xl"
               animate={{ y: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+              transition={{ delay: 4.5, duration: 3, repeat: Number.POSITIVE_INFINITY }}
             />
           </motion.div>
         </motion.div>
