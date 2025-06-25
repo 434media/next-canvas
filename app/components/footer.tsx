@@ -46,52 +46,52 @@ const Footer = () => {
 
   const socialLinks = [
     {
-      icon: "ri-discord-fill",
-      href: "https://discord.gg/SCfmebDfW6",
-      label: "Discord",
-      color: "hover:text-indigo-400",
-      description: "Join our community",
-      bgColor: "from-indigo-500/20 to-indigo-600/20",
-    },
-    {
-      icon: "ri-instagram-line",
-      href: "#",
-      label: "Instagram",
-      color: "hover:text-pink-400",
-      description: "Follow our journey",
-      bgColor: "from-pink-500/20 to-pink-600/20",
-    },
-    {
-      icon: "ri-twitter-x-line",
-      href: "#",
-      label: "Twitter",
+      icon: "ri-code-s-slash-line",
+      href: "https://devsanantonio.com",
+      label: "DEVSA",
       color: "hover:text-blue-400",
-      description: "Latest updates",
+      description: "Tech Community",
       bgColor: "from-blue-500/20 to-blue-600/20",
     },
     {
-      icon: "ri-linkedin-fill",
-      href: "#",
-      label: "LinkedIn",
-      color: "hover:text-blue-500",
-      description: "Professional network",
-      bgColor: "from-blue-500/20 to-blue-700/20",
+      icon: "ri-music-2-line",
+      href: "https://ampdproject.com",
+      label: "The AMPD Project",
+      color: "hover:text-purple-400",
+      description: "Amplifying creativity",
+      bgColor: "from-purple-500/20 to-purple-600/20",
     },
     {
-      icon: "ri-youtube-fill",
-      href: "#",
-      label: "YouTube",
+      icon: "ri-global-line",
+      href: "https://vemosvamos.com",
+      label: "Vemos Vamos",
+      color: "hover:text-green-400",
+      description: "Latino entrepreneurs",
+      bgColor: "from-green-500/20 to-green-600/20",
+    },
+    {
+      icon: "ri-boxing-line",
+      href: "https://txmxboxing.com",
+      label: "TXMX Boxing",
       color: "hover:text-red-400",
-      description: "Video content",
+      description: "Championship boxing",
       bgColor: "from-red-500/20 to-red-600/20",
     },
     {
-      icon: "ri-github-fill",
-      href: "#",
-      label: "GitHub",
-      color: "hover:text-gray-300",
-      description: "Open source",
-      bgColor: "from-gray-500/20 to-gray-600/20",
+      icon: "ri-shield-star-line",
+      href: "https://salutetotroops.org",
+      label: "Salute to Troops",
+      color: "hover:text-yellow-400",
+      description: "Honoring service",
+      bgColor: "from-yellow-500/20 to-yellow-600/20",
+    },
+    {
+      icon: "ri-rocket-line",
+      href: "https://aimsatx.com",
+      label: "AIM Health R&D Summit",
+      color: "hover:text-teal-400",
+      description: "Innovation & mentorship",
+      bgColor: "from-teal-500/20 to-teal-600/20",
     },
   ]
 
@@ -275,8 +275,8 @@ const Footer = () => {
             </motion.div>
 
             <motion.p className="text-white/70 text-lg mb-8 leading-relaxed" variants={itemVariants}>
-              Empowering San Antonio&apos;s creative tech community through collaboration, innovation, and continuous
-              learning.
+              The creative layer of 434 MEDIA. We connect our IP & client work, showcasing the stories, brands, &
+              campaigns shaping the digital canvas network.
             </motion.p>
 
             {/* Featured Education Series */}
@@ -391,11 +391,11 @@ const Footer = () => {
           <motion.div className="lg:col-span-1" variants={itemVariants}>
             <h3 className="text-white font-bold text-2xl mb-8 flex items-center">
               <motion.i
-                className="ri-links-line mr-3 text-blue-400 text-2xl"
+                className="ri-broadcast-line mr-3 text-blue-400 text-2xl"
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
               />
-              Connect With Us
+              Our IP Channels
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
@@ -405,79 +405,135 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group flex items-center space-x-4 p-4 rounded-xl transition-all duration-300 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 ${social.color} relative overflow-hidden`}
-                  whileHover={{ scale: 1.02, y: -2 }}
+                  className={`group flex items-center space-x-4 p-4 rounded-xl transition-all duration-500 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 ${social.color} relative overflow-hidden cursor-pointer`}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   variants={itemVariants}
                   custom={index}
                 >
-                  {/* Animated background gradient */}
+                  {/* Enhanced animated background gradient */}
                   <motion.div
                     className={`absolute inset-0 bg-gradient-to-r ${social.bgColor} opacity-0 group-hover:opacity-100`}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  />
+
+                  {/* Additional glow layer */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-current/10 to-transparent opacity-0 group-hover:opacity-100 blur-xl"
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                   />
 
                   {/* Icon container with enhanced effects */}
                   <motion.div
                     className="relative z-10 flex-shrink-0"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.2 }}
+                    whileHover={{
+                      scale: 1.15,
+                      rotate: [0, -5, 5, 0],
+                      transition: { duration: 0.6, ease: "easeOut" },
+                    }}
                   >
-                    <div className="w-12 h-12 rounded-lg bg-white/10 group-hover:bg-white/20 flex items-center justify-center transition-all duration-300">
-                      <i className={`${social.icon} text-2xl`}></i>
-
-                      {/* Hover glow effect */}
-                      <motion.div
-                        className="absolute inset-0 bg-current rounded-lg blur-lg opacity-0 group-hover:opacity-20"
-                        transition={{ duration: 0.3 }}
+                    <motion.div
+                      className="w-12 h-12 rounded-lg bg-white/10 group-hover:bg-white/20 flex items-center justify-center transition-all duration-500 relative overflow-hidden"
+                      whileHover={{
+                        boxShadow: [
+                          "0 0 0 rgba(255,255,255,0)",
+                          "0 0 20px rgba(255,255,255,0.3)",
+                          "0 0 30px rgba(255,255,255,0.2)",
+                        ],
+                        transition: { duration: 0.8, ease: "easeOut" },
+                      }}
+                    >
+                      <motion.i
+                        className={`${social.icon} text-2xl transition-all duration-500`}
+                        whileHover={{
+                          textShadow: ["0 0 0 currentColor", "0 0 10px currentColor", "0 0 20px currentColor"],
+                          transition: { duration: 0.6, ease: "easeOut" },
+                        }}
                       />
-                    </div>
+
+                      {/* Animated background pulse */}
+                      <motion.div
+                        className="absolute inset-0 bg-current rounded-lg opacity-0 group-hover:opacity-20"
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          opacity: [0, 0.2, 0],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Number.POSITIVE_INFINITY,
+                          ease: "easeInOut",
+                        }}
+                      />
+                    </motion.div>
                   </motion.div>
 
                   <div className="flex-1 min-w-0 relative z-10">
-                    <div className="font-semibold text-white group-hover:text-current transition-colors duration-300">
+                    <motion.div
+                      className="font-semibold text-white group-hover:text-current transition-all duration-500"
+                      whileHover={{
+                        textShadow: "0 0 8px currentColor",
+                        transition: { duration: 0.4 },
+                      }}
+                    >
                       {social.label}
-                    </div>
-                    <div className="text-sm text-white/60 group-hover:text-white/80 transition-colors duration-300">
+                    </motion.div>
+                    <motion.div
+                      className="text-sm text-white/60 group-hover:text-white/90 transition-all duration-500"
+                      whileHover={{
+                        color: "rgba(255,255,255,0.9)",
+                        transition: { duration: 0.4 },
+                      }}
+                    >
                       {social.description}
-                    </div>
+                    </motion.div>
                   </div>
 
                   <motion.i
-                    className="ri-external-link-line text-white/40 group-hover:text-current transition-colors duration-300 relative z-10"
-                    animate={{ x: [0, 2, 0] }}
-                    transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                    className="ri-external-link-line text-white/40 group-hover:text-current transition-all duration-500 relative z-10"
+                    whileHover={{
+                      scale: 1.2,
+                      rotate: [0, 15, 0],
+                      textShadow: "0 0 8px currentColor",
+                      transition: { duration: 0.5, ease: "easeOut" },
+                    }}
                   />
 
-                  {/* Floating particles on hover */}
+                  {/* Enhanced floating particles on hover */}
                   {isClient && (
                     <motion.div
                       className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.4 }}
                     >
-                      {[...Array(3)].map((_, i) => (
+                      {[...Array(5)].map((_, i) => (
                         <motion.div
                           key={i}
                           className="absolute w-1 h-1 bg-current rounded-full"
                           style={{
-                            left: `${30 + i * 20}%`,
-                            top: `${40 + (i % 2) * 20}%`,
+                            left: `${20 + i * 15}%`,
+                            top: `${30 + (i % 2) * 40}%`,
                           }}
                           animate={{
-                            y: [-10, -20],
-                            x: [0, (i - 1) * 10],
+                            y: [-5, -25, -5],
+                            x: [0, (i - 2) * 8, 0],
                             opacity: [0, 1, 0],
-                            scale: [0, 1, 0],
+                            scale: [0, 1.5, 0],
                           }}
                           transition={{
-                            duration: 1.5,
+                            duration: 2,
                             repeat: Number.POSITIVE_INFINITY,
                             delay: i * 0.2,
+                            ease: "easeInOut",
                           }}
                         />
                       ))}
                     </motion.div>
                   )}
+
+                  {/* Border glow effect */}
+                  <motion.div
+                    className="absolute inset-0 rounded-xl border-2 border-current opacity-0 group-hover:opacity-30 pointer-events-none"
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  />
                 </motion.a>
               ))}
             </div>
@@ -511,8 +567,8 @@ const Footer = () => {
 
               <div className="relative z-10">
                 <p className="text-white/80 mb-6 leading-relaxed">
-                  Get the latest updates on events, workshops, and community news. Join our newsletter for exclusive
-                  content and early access to new programs.
+                  Get the latest updates from the Digital Canvas network. Join our newsletter for exclusive content, IP
+                  highlights, client success stories, and early access to new programs.
                 </p>
 
                 {isSubmitted ? (
@@ -588,15 +644,15 @@ const Footer = () => {
                 <motion.div className="mt-6 space-y-2" variants={itemVariants}>
                   <div className="flex items-center text-white/60 text-sm">
                     <i className="ri-check-line text-teal-400 mr-2"></i>
-                    Weekly community highlights
+                    IP property highlights & updates
                   </div>
                   <div className="flex items-center text-white/60 text-sm">
                     <i className="ri-check-line text-teal-400 mr-2"></i>
-                    Early access to events
+                    Client success story features
                   </div>
                   <div className="flex items-center text-white/60 text-sm">
                     <i className="ri-check-line text-teal-400 mr-2"></i>
-                    Exclusive learning resources
+                    Behind-the-scenes network content
                   </div>
                 </motion.div>
               </div>

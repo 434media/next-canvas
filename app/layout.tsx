@@ -12,21 +12,17 @@ const geistSans = Geist({
   subsets: ["latin"],
 })
 
-/* const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-}) */
-
 export const metadata: Metadata = {
-  title: "Digital Canvas | San Antonio's Creative Tech Community",
+  title: "Digital Canvas | The Creative Layer of 434 MEDIA",
   description:
-    "Connect with fellow creators, share your projects, and dive into the dynamic intersection of art, tech, and music in San Antonio.",
-  keywords: "creative tech, San Antonio, coworking, community, design, development, photography, videography",
-  authors: [{ name: "Digital Canvas Team" }],
+    "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network. From innovative properties to transformative partnerships.",
+  keywords:
+    "434 MEDIA, creative layer, digital canvas, IP properties, client partnerships, creative network, San Antonio",
+  authors: [{ name: "434 MEDIA Team" }],
   openGraph: {
-    title: "Digital Canvas | San Antonio's Creative Tech Community",
+    title: "Digital Canvas | The Creative Layer of 434 MEDIA",
     description:
-      "Connect with fellow creators, share your projects, and dive into the dynamic intersection of art, tech, and music in San Antonio.",
+      "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network.",
     url: "https://digitalcanvas.community",
     siteName: "Digital Canvas",
     images: [
@@ -34,7 +30,7 @@ export const metadata: Metadata = {
         url: "https://digitalcanvas.community/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Digital Canvas - Where Creativity Meets Technology",
+        alt: "Digital Canvas - The Creative Layer of 434 MEDIA",
       },
     ],
     locale: "en_US",
@@ -42,9 +38,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Canvas | San Antonio's Creative Tech Community",
+    title: "Digital Canvas | The Creative Layer of 434 MEDIA",
     description:
-      "Connect with fellow creators, share your projects, and dive into the dynamic intersection of art, tech, and music in San Antonio.",
+      "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network.",
     images: ["https://digitalcanvas.community/opengraph-image.png"],
   },
 }
