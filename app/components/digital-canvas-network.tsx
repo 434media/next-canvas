@@ -28,7 +28,7 @@ const ipProperties = [
   {
     id: "vemosvamos",
     name: "Vemos Vamos",
-    tagline: "A bilingual space for those who aren’t afraid to question, create, and grow",
+    tagline: "A bilingual space for those who aren't afraid to question, create, and grow",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/collab3.jpeg",
     website: { url: "https://vemosvamos.com", show: true },
     instagram: { url: "https://instagram.com/vemosvamos", show: true },
@@ -114,9 +114,11 @@ const clientWork = [
 const NetworkSection = ({
   title,
   items,
+  sectionId,
 }: {
   title: string
   items: typeof ipProperties
+  sectionId: string
 }) => {
   const [hoveredItem, setHoveredItem] = useState<string>("")
   const [activeItem, setActiveItem] = useState<string>(items[0]?.id || "")
@@ -142,7 +144,7 @@ const NetworkSection = ({
           href={item.website.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white/60 hover:text-white transition-colors duration-300"
+          className="text-cyan-400/60 hover:text-cyan-300 transition-colors duration-300"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -158,7 +160,7 @@ const NetworkSection = ({
           href={item.instagram.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white/60 hover:text-white transition-colors duration-300"
+          className="text-pink-400/60 hover:text-pink-300 transition-colors duration-300"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -174,7 +176,7 @@ const NetworkSection = ({
           href={item.linkedin.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white/60 hover:text-white transition-colors duration-300"
+          className="text-cyan-400/60 hover:text-cyan-300 transition-colors duration-300"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -197,20 +199,20 @@ const NetworkSection = ({
         viewport={{ once: true }}
       >
         <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">{title}</h2>
-        <div className="w-24 h-px bg-gradient-to-r from-blue-400 to-purple-400 mx-auto"></div>
+        <div className="w-24 h-px bg-gradient-to-r from-cyan-400 to-pink-500 mx-auto"></div>
       </motion.div>
 
       {/* Desktop Layout */}
       <div className="hidden lg:flex h-[80vh]">
         {/* Left Panel - Project List */}
-        <div className="w-3/5 flex flex-col border-r border-neutral-800">
+        <div className="w-3/5 flex flex-col border-r border-pink-500/20">
           {/* Project List */}
           <div className="flex-1">
             {items.map((item, index) => (
               <motion.div
                 key={item.id}
-                className={`relative border-b border-neutral-800 transition-all duration-300 cursor-pointer ${
-                  activeItem === item.id ? "bg-neutral-900/30" : ""
+                className={`relative border-b border-pink-500/10 transition-all duration-300 cursor-pointer ${
+                  activeItem === item.id ? "bg-gradient-to-r from-pink-500/10 to-cyan-500/10" : ""
                 }`}
                 onMouseEnter={() => handleItemHover(item.id)}
                 onMouseLeave={handleItemLeave}
@@ -229,14 +231,16 @@ const NetworkSection = ({
                   >
                     <h3
                       className={`text-2xl font-bold mb-2 transition-colors duration-300 ${
-                        activeItem === item.id ? "text-white" : "text-neutral-400"
+                        activeItem === item.id
+                          ? "text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-400"
+                          : "text-neutral-400"
                       }`}
                     >
                       {item.name}
                     </h3>
                     {activeItem === item.id && (
                       <motion.p
-                        className="text-neutral-400 text-sm uppercase tracking-wider max-w-xl"
+                        className="text-cyan-300/80 text-sm uppercase tracking-wider max-w-xl"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
@@ -258,6 +262,16 @@ const NetworkSection = ({
                     </motion.div>
                   )}
                 </div>
+
+                {/* Neon glow effect for active item */}
+                {activeItem === item.id && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-pink-500/5 to-cyan-500/5 pointer-events-none"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
               </motion.div>
             ))}
           </div>
@@ -279,10 +293,13 @@ const NetworkSection = ({
                   src={currentItem.image || "/placeholder.svg"}
                   alt={currentItem.name}
                   fill
-                  className="object-cover grayscale"
+                  className="object-cover"
                   priority
                   sizes="40vw"
                 />
+                {/* Neon overlay effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-transparent to-pink-500/20 mix-blend-overlay" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -295,7 +312,7 @@ const NetworkSection = ({
           {items.map((item, index) => (
             <motion.div
               key={item.id}
-              className="relative aspect-[3/4] border border-neutral-800 rounded-lg overflow-hidden bg-black"
+              className="relative aspect-[3/4] border border-pink-500/30 rounded-lg overflow-hidden bg-black shadow-lg shadow-cyan-500/10"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -307,9 +324,11 @@ const NetworkSection = ({
                   src={item.image || "/placeholder.svg"}
                   alt={item.name}
                   fill
-                  className="object-cover grayscale"
+                  className="object-cover"
                   sizes="(max-width: 768px) 50vw, 25vw"
                 />
+                {/* Neon overlay effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-transparent to-pink-500/20 mix-blend-overlay" />
                 {/* Gradient overlay for text readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
               </div>
@@ -321,7 +340,7 @@ const NetworkSection = ({
                     href={item.website.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white/80 hover:text-white transition-colors duration-300"
+                    className="text-cyan-400/80 hover:text-cyan-300 transition-colors duration-300"
                   >
                     <i className="ri-global-line text-lg" />
                   </a>
@@ -331,7 +350,7 @@ const NetworkSection = ({
                     href={item.instagram.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white/80 hover:text-white transition-colors duration-300"
+                    className="text-pink-400/80 hover:text-pink-300 transition-colors duration-300"
                   >
                     <i className="ri-instagram-line text-lg" />
                   </a>
@@ -341,7 +360,7 @@ const NetworkSection = ({
                     href={item.linkedin.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white/80 hover:text-white transition-colors duration-300"
+                    className="text-cyan-400/80 hover:text-cyan-300 transition-colors duration-300"
                   >
                     <i className="ri-linkedin-line text-lg" />
                   </a>
@@ -351,7 +370,7 @@ const NetworkSection = ({
               {/* Text Content - Bottom Right */}
               <div className="absolute bottom-4 right-4 text-right">
                 <h4 className="text-white font-bold text-sm leading-tight mb-1">{item.name}</h4>
-                <p className="text-neutral-400 text-xs leading-tight max-w-xl">{item.tagline}</p>
+                <p className="text-cyan-300/80 text-xs leading-tight max-w-xl">{item.tagline}</p>
               </div>
             </motion.div>
           ))}
@@ -363,9 +382,14 @@ const NetworkSection = ({
 
 const DigitalCanvasNetwork = () => {
   return (
-    <section className="relative bg-black overflow-hidden" id="network">
+    <section className="relative bg-gradient-to-br from-black via-red-950/20 to-black overflow-hidden" id="network">
       {/* Wireframe Background */}
       <WireframeBackground />
+
+      {/* Neon ambient lighting */}
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-pink-500/5 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-cyan-500/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-pink-500/10 rounded-full blur-3xl" />
 
       {/* Main Content */}
       <div className="relative z-10">
@@ -384,33 +408,33 @@ const DigitalCanvasNetwork = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <span className="inline-flex items-center justify-center w-16 lg:w-20 h-16 lg:h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full p-4 lg:p-5 backdrop-blur-sm border border-white/10">
-              <i className="ri-share-line text-2xl lg:text-3xl text-white"></i>
+            <span className="inline-flex items-center justify-center w-16 lg:w-20 h-16 lg:h-20 bg-gradient-to-br from-cyan-500/20 to-pink-500/20 rounded-full p-4 lg:p-5 backdrop-blur-sm border border-cyan-400/30 shadow-lg shadow-pink-500/20">
+              <i className="ri-share-line text-2xl lg:text-3xl text-cyan-300"></i>
             </span>
           </motion.div>
 
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 lg:mb-8">
             The{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 text-transparent bg-clip-text">
+            <span className="bg-gradient-to-r from-cyan-400 via-pink-400 to-cyan-400 text-transparent bg-clip-text animate-pulse">
               Digital Canvas
             </span>{" "}
             Network
           </h1>
-          <p className="text-lg lg:text-2xl text-neutral-300 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg lg:text-2xl text-cyan-100/80 max-w-4xl mx-auto leading-relaxed">
             Where our creative partnerships shape the future together.
           </p>
         </motion.div>
 
         {/* IP Properties Section */}
-        <NetworkSection title="In-House Properties" items={ipProperties} />
+        <NetworkSection title="Our IP Properties" items={ipProperties} sectionId="ip" />
 
         {/* Section Divider */}
         <div className="py-8 lg:py-12">
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-neutral-800 to-transparent"></div>
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"></div>
         </div>
 
         {/* Client Work Section */}
-        <NetworkSection title="Client Work" items={clientWork} />
+        <NetworkSection title="Client Partnerships" items={clientWork} sectionId="client" />
 
         {/* Call to Action */}
         <motion.div
@@ -420,14 +444,14 @@ const DigitalCanvasNetwork = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <div className="max-w-4xl mx-auto bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl p-8 lg:p-12 border border-white/10 backdrop-blur-sm">
+          <div className="max-w-4xl mx-auto bg-gradient-to-br from-cyan-500/10 to-pink-500/10 rounded-3xl p-8 lg:p-12 border border-pink-500/30 backdrop-blur-sm shadow-2xl shadow-cyan-500/10">
             <h3 className="text-2xl lg:text-4xl font-bold text-white mb-6">Join the Digital Canvas Network</h3>
-            <p className="text-white/80 text-lg lg:text-xl mb-8 lg:mb-10 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-cyan-100/80 text-lg lg:text-xl mb-8 lg:mb-10 max-w-3xl mx-auto leading-relaxed">
               Become part of our creative ecosystem where innovative IP properties and transformative client
               partnerships shape the future together.
             </p>
             <motion.button
-              className="px-8 lg:px-12 py-4 lg:py-5 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="px-8 lg:px-12 py-4 lg:py-5 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-semibold text-base lg:text-lg rounded-xl shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

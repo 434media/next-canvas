@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { motion, useScroll, useTransform } from "motion/react"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { HeroText } from "./hero-text"
 import { WireframeBackground } from "./wireframe-background"
 import VideoModal from "./video-modal"
@@ -38,7 +38,7 @@ const HeroSection = () => {
     <>
       <motion.section
         ref={containerRef}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-red-950/50 to-black"
         style={{ opacity, scale }}
       >
         {/* Top padding to prevent navbar overlap */}
@@ -70,7 +70,7 @@ const HeroSection = () => {
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/60 via-purple-500/60 to-teal-500/60 blur-2xl animate-pulse" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400/60 via-pink-500/60 to-cyan-400/60 blur-2xl animate-pulse" />
           </motion.div>
 
           {/* Expanding Ring Waves - Much More Dramatic */}
@@ -80,7 +80,7 @@ const HeroSection = () => {
             whileHover={{ scale: 2, opacity: 1 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <div className="absolute inset-0 rounded-full border-4 border-blue-400/80 animate-ping" />
+            <div className="absolute inset-0 rounded-full border-4 border-cyan-400/80 animate-ping" />
           </motion.div>
 
           <motion.div
@@ -90,7 +90,7 @@ const HeroSection = () => {
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
           >
             <div
-              className="absolute inset-0 rounded-full border-2 border-purple-400/60 animate-ping"
+              className="absolute inset-0 rounded-full border-2 border-pink-400/60 animate-ping"
               style={{ animationDelay: "0.2s" }}
             />
           </motion.div>
@@ -102,14 +102,14 @@ const HeroSection = () => {
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
           >
             <div
-              className="absolute inset-0 rounded-full border border-teal-400/40 animate-ping"
+              className="absolute inset-0 rounded-full border border-cyan-400/40 animate-ping"
               style={{ animationDelay: "0.4s" }}
             />
           </motion.div>
 
           {/* Pulsing Background Circle - More Intense */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-teal-500/30"
+            className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400/30 via-pink-500/30 to-cyan-400/30"
             initial={{ scale: 0.9, opacity: 0 }}
             whileHover={{
               scale: [0.9, 1.4, 1.2],
@@ -130,9 +130,9 @@ const HeroSection = () => {
             animate={{
               filter: [
                 "drop-shadow(0 0 0 rgba(59, 130, 246, 0)) brightness(1)",
-                "drop-shadow(0 0 20px rgba(59, 130, 246, 0.4)) brightness(1.1)",
-                "drop-shadow(0 0 40px rgba(168, 85, 247, 0.3)) brightness(1.2)",
-                "drop-shadow(0 0 20px rgba(20, 184, 166, 0.4)) brightness(1.1)",
+                "drop-shadow(0 0 20px rgba(34, 211, 238, 0.4)) brightness(1.1)",
+                "drop-shadow(0 0 40px rgba(236, 72, 153, 0.3)) brightness(1.2)",
+                "drop-shadow(0 0 20px rgba(34, 211, 238, 0.4)) brightness(1.1)",
                 "drop-shadow(0 0 0 rgba(59, 130, 246, 0)) brightness(1)",
               ],
             }}
@@ -143,38 +143,38 @@ const HeroSection = () => {
             }}
             whileHover={{
               filter:
-                "drop-shadow(0 0 60px rgba(59, 130, 246, 1)) drop-shadow(0 0 80px rgba(168, 85, 247, 0.8)) brightness(1.5)",
+                "drop-shadow(0 0 60px rgba(34, 211, 238, 1)) drop-shadow(0 0 80px rgba(236, 72, 153, 0.8)) brightness(1.5)",
               rotate: [0, -5, 5, 0],
             }}
           />
 
           {/* Enhanced Orbiting Rings - More Visible on Hover */}
           <motion.div
-            className="absolute inset-0 rounded-full border-2 border-blue-400/40"
+            className="absolute inset-0 rounded-full border-2 border-cyan-400/40"
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
             whileHover={{
-              borderColor: "rgba(59, 130, 246, 1)",
+              borderColor: "rgba(34, 211, 238, 1)",
               borderWidth: "4px",
               scale: 1.2,
             }}
           />
           <motion.div
-            className="absolute inset-2 rounded-full border-2 border-purple-400/30"
+            className="absolute inset-2 rounded-full border-2 border-pink-400/30"
             animate={{ rotate: -360 }}
             transition={{ duration: 15, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
             whileHover={{
-              borderColor: "rgba(168, 85, 247, 0.9)",
+              borderColor: "rgba(236, 72, 153, 0.9)",
               borderWidth: "3px",
               scale: 1.25,
             }}
           />
           <motion.div
-            className="absolute inset-4 rounded-full border border-teal-400/30"
+            className="absolute inset-4 rounded-full border border-cyan-400/30"
             animate={{ rotate: 360 }}
             transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
             whileHover={{
-              borderColor: "rgba(20, 184, 166, 0.8)",
+              borderColor: "rgba(34, 211, 238, 0.8)",
               borderWidth: "2px",
               scale: 1.3,
             }}
@@ -187,7 +187,7 @@ const HeroSection = () => {
             whileHover={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-white/40 shadow-2xl">
+            <div className="bg-gradient-to-r from-cyan-400 to-pink-500 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-white/40 shadow-2xl">
               <div className="flex items-center space-x-2">
                 <motion.i
                   className="ri-play-circle-line text-white text-lg"
@@ -208,7 +208,7 @@ const HeroSection = () => {
           {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full pointer-events-none"
+              className="absolute w-2 h-2 bg-gradient-to-r from-cyan-400 to-pink-400 rounded-full pointer-events-none"
               style={{
                 left: `${50 + Math.cos((i * Math.PI * 2) / 8) * 80}%`,
                 top: `${50 + Math.sin((i * Math.PI * 2) / 8) * 80}%`,
@@ -252,7 +252,7 @@ const HeroSection = () => {
           {[...Array(6)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-blue-400/30 rounded-full"
+              className="absolute w-2 h-2 bg-cyan-400/30 rounded-full"
               style={{
                 left: `${(i % 3) * 40 + 20}%`,
                 top: `${Math.floor(i / 3) * 40 + 30}%`,
@@ -262,7 +262,7 @@ const HeroSection = () => {
               animate={{
                 boxShadow: [
                   "0 0 0 rgba(59, 130, 246, 0)",
-                  "0 0 20px rgba(59, 130, 246, 0.6)",
+                  "0 0 20px rgba(34, 211, 238, 0.6)",
                   "0 0 0 rgba(59, 130, 246, 0)",
                 ],
               }}
@@ -285,7 +285,7 @@ const HeroSection = () => {
             {[...Array(3)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute h-px bg-gradient-to-r from-transparent via-blue-400/40 to-transparent"
+                className="absolute h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent"
                 style={{
                   top: `${30 + i * 20}%`,
                   left: "10%",
@@ -307,7 +307,7 @@ const HeroSection = () => {
 
         {/* Enhanced ambient light effects with scroll */}
         <motion.div
-          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-blue-500/8 rounded-full blur-3xl pointer-events-none"
+          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-cyan-400/8 rounded-full blur-3xl pointer-events-none"
           style={{
             scale: useTransform(scrollYProgress, [0, 0.5], [1, 1.3]),
             opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 0.8, 0.2]),
@@ -315,7 +315,7 @@ const HeroSection = () => {
         />
 
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-500/8 rounded-full blur-3xl pointer-events-none"
+          className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-pink-500/8 rounded-full blur-3xl pointer-events-none"
           style={{
             scale: useTransform(scrollYProgress, [0, 0.5], [1, 0.8]),
             opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 0.6, 0.1]),
@@ -323,7 +323,7 @@ const HeroSection = () => {
         />
 
         <motion.div
-          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-teal-500/6 rounded-full blur-3xl pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
+          className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-cyan-400/6 rounded-full blur-3xl pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
           style={{
             rotate: useTransform(scrollYProgress, [0, 1], [0, 180]),
             scale: useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.4, 0.6]),

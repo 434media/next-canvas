@@ -47,51 +47,51 @@ const Footer = () => {
   const socialLinks = [
     {
       icon: "ri-code-s-slash-line",
-      href: "https://devsanantonio.com",
+      href: "https://devsa.io",
       label: "DEVSA",
-      color: "hover:text-blue-400",
-      description: "Tech Community",
-      bgColor: "from-blue-500/20 to-blue-600/20",
+      color: "hover:text-cyan-400",
+      description: "Developer community",
+      bgColor: "from-cyan-500/20 to-cyan-600/20",
     },
     {
       icon: "ri-music-2-line",
       href: "https://ampdproject.com",
-      label: "The AMPD Project",
-      color: "hover:text-purple-400",
+      label: "AMPD Project",
+      color: "hover:text-pink-400",
       description: "Amplifying creativity",
-      bgColor: "from-purple-500/20 to-purple-600/20",
+      bgColor: "from-pink-500/20 to-pink-600/20",
     },
     {
       icon: "ri-global-line",
       href: "https://vemosvamos.com",
       label: "Vemos Vamos",
-      color: "hover:text-green-400",
+      color: "hover:text-cyan-400",
       description: "Latino entrepreneurs",
-      bgColor: "from-green-500/20 to-green-600/20",
+      bgColor: "from-cyan-500/20 to-pink-500/20",
     },
     {
       icon: "ri-boxing-line",
       href: "https://txmxboxing.com",
       label: "TXMX Boxing",
-      color: "hover:text-red-400",
+      color: "hover:text-pink-400",
       description: "Championship boxing",
-      bgColor: "from-red-500/20 to-red-600/20",
+      bgColor: "from-pink-500/20 to-red-500/20",
     },
     {
       icon: "ri-shield-star-line",
       href: "https://salutetotroops.org",
       label: "Salute to Troops",
-      color: "hover:text-yellow-400",
+      color: "hover:text-cyan-400",
       description: "Honoring service",
-      bgColor: "from-yellow-500/20 to-yellow-600/20",
+      bgColor: "from-cyan-500/20 to-pink-500/20",
     },
     {
       icon: "ri-rocket-line",
       href: "https://aimsatx.com",
-      label: "AIM Health R&D Summit",
-      color: "hover:text-teal-400",
+      label: "AIM SATX",
+      color: "hover:text-pink-400",
       description: "Innovation & mentorship",
-      bgColor: "from-teal-500/20 to-teal-600/20",
+      bgColor: "from-pink-500/20 to-cyan-500/20",
     },
   ]
 
@@ -127,16 +127,16 @@ const Footer = () => {
           className="absolute inset-0 opacity-20"
           animate={{
             background: [
-              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)",
-              "radial-gradient(circle at 40% 60%, rgba(20, 184, 166, 0.1) 0%, transparent 50%)",
-              "radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
+              "radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.1) 0%, transparent 50%)",
+              "radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%)",
+              "radial-gradient(circle at 40% 60%, rgba(34, 211, 238, 0.1) 0%, transparent 50%)",
+              "radial-gradient(circle at 20% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%)",
             ],
           }}
           transition={{ duration: 15, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
         />
 
-        {/* Enhanced wireframe grid overlay */}
+        {/* Enhanced wireframe grid overlay - KEEPING BLACK GRID */}
         <div className="absolute inset-0 pointer-events-none opacity-30">
           <div
             className="h-full w-full"
@@ -149,11 +149,11 @@ const Footer = () => {
             }}
           />
 
-          {/* Grid intersection highlights */}
+          {/* Grid intersection highlights - Updated to neon colors */}
           {[...Array(12)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-blue-400/20 rounded-full"
+              className="absolute w-2 h-2 bg-cyan-400/20 rounded-full"
               style={{
                 left: `${(i % 4) * 25 + 12.5}%`,
                 top: `${Math.floor(i / 4) * 33 + 16.5}%`,
@@ -162,9 +162,9 @@ const Footer = () => {
                 scale: [1, 1.5, 1],
                 opacity: [0.2, 0.6, 0.2],
                 boxShadow: [
-                  "0 0 0 rgba(59, 130, 246, 0)",
-                  "0 0 15px rgba(59, 130, 246, 0.5)",
-                  "0 0 0 rgba(59, 130, 246, 0)",
+                  "0 0 0 rgba(34, 211, 238, 0)",
+                  "0 0 15px rgba(34, 211, 238, 0.5)",
+                  "0 0 0 rgba(34, 211, 238, 0)",
                 ],
               }}
               transition={{
@@ -177,12 +177,12 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Floating particles - Only render on client side */}
+        {/* Floating particles - Updated to neon colors */}
         {isClient &&
           particles.map((particle) => (
             <motion.div
               key={particle.id}
-              className="absolute w-1 h-1 bg-blue-400/30 rounded-full"
+              className="absolute w-1 h-1 bg-pink-400/30 rounded-full"
               style={{
                 left: `${particle.x}%`,
                 top: `${particle.y}%`,
@@ -202,11 +202,11 @@ const Footer = () => {
             />
           ))}
 
-        {/* Decorative geometric shapes */}
+        {/* Decorative geometric shapes - Updated to neon colors */}
         {isClient && (
           <>
             <motion.div
-              className="absolute w-64 h-64 rounded-full border border-purple-500/10"
+              className="absolute w-64 h-64 rounded-full border border-pink-500/10"
               style={{ top: "20%", left: "5%" }}
               animate={{
                 scale: [1, 1.1, 1],
@@ -216,7 +216,7 @@ const Footer = () => {
               transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
             />
             <motion.div
-              className="absolute w-48 h-48 bg-gradient-to-br from-blue-500/5 to-teal-500/5 rounded-lg blur-3xl"
+              className="absolute w-48 h-48 bg-gradient-to-br from-cyan-500/5 to-pink-500/5 rounded-lg blur-3xl"
               style={{ bottom: "30%", right: "10%" }}
               animate={{
                 x: [0, 30, 0],
@@ -243,18 +243,18 @@ const Footer = () => {
               <motion.div
                 className="relative inline-block"
                 whileHover={{
-                  filter: "drop-shadow(0 0 20px rgba(59, 130, 246, 0.4))",
+                  filter: "drop-shadow(0 0 20px rgba(34, 211, 238, 0.4))",
                 }}
                 transition={{ duration: 0.4 }}
               >
-                {/* Animated background glow */}
+                {/* Animated background glow - Updated to neon colors */}
                 <motion.div
-                  className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-teal-500/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100"
+                  className="absolute -inset-4 bg-gradient-to-r from-cyan-500/10 via-pink-500/10 to-cyan-500/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100"
                   animate={{
                     background: [
-                      "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1), rgba(20, 184, 166, 0.1))",
-                      "linear-gradient(225deg, rgba(168, 85, 247, 0.1), rgba(20, 184, 166, 0.1), rgba(59, 130, 246, 0.1))",
-                      "linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1), rgba(20, 184, 166, 0.1))",
+                      "linear-gradient(45deg, rgba(34, 211, 238, 0.1), rgba(236, 72, 153, 0.1), rgba(34, 211, 238, 0.1))",
+                      "linear-gradient(225deg, rgba(236, 72, 153, 0.1), rgba(34, 211, 238, 0.1), rgba(236, 72, 153, 0.1))",
+                      "linear-gradient(45deg, rgba(34, 211, 238, 0.1), rgba(236, 72, 153, 0.1), rgba(34, 211, 238, 0.1))",
                     ],
                   }}
                   transition={{
@@ -279,16 +279,16 @@ const Footer = () => {
               campaigns shaping the digital canvas network.
             </motion.p>
 
-            {/* Featured Education Series */}
+            {/* Featured Education Series - Updated to neon colors */}
             <motion.div
-              className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl p-6 border border-blue-500/30 relative overflow-hidden"
+              className="bg-gradient-to-br from-cyan-500/20 to-pink-500/20 rounded-2xl p-6 border border-cyan-500/30 relative overflow-hidden"
               variants={itemVariants}
-              whileHover={{ scale: 1.02, borderColor: "rgba(59, 130, 246, 0.5)" }}
+              whileHover={{ scale: 1.02, borderColor: "rgba(34, 211, 238, 0.5)" }}
               transition={{ duration: 0.3 }}
             >
-              {/* Animated background */}
+              {/* Animated background - Updated to neon colors */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10"
+                className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-pink-500/10"
                 animate={{
                   backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                 }}
@@ -296,13 +296,13 @@ const Footer = () => {
                 style={{ backgroundSize: "200% 200%" }}
               />
 
-              {/* Floating particles in education section */}
+              {/* Floating particles in education section - Updated to neon colors */}
               {isClient && (
                 <div className="absolute inset-0 pointer-events-none">
                   {[...Array(6)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className="absolute w-1 h-1 bg-blue-400/40 rounded-full"
+                      className="absolute w-1 h-1 bg-pink-400/40 rounded-full"
                       style={{
                         left: `${20 + i * 15}%`,
                         top: `${30 + (i % 2) * 40}%`,
@@ -327,19 +327,19 @@ const Footer = () => {
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-white font-bold text-xl flex items-center">
                     <motion.i
-                      className="ri-graduation-cap-line mr-3 text-blue-400 text-2xl"
+                      className="ri-graduation-cap-line mr-3 text-cyan-400 text-2xl"
                       animate={{ rotate: [0, 10, 0] }}
                       transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                     />
                     Education Series
                   </h3>
                   <motion.span
-                    className="bg-gradient-to-r from-blue-400 to-purple-400 text-xs px-3 py-1.5 rounded-full text-white font-bold"
+                    className="bg-gradient-to-r from-cyan-400 to-pink-400 text-xs px-3 py-1.5 rounded-full text-white font-bold"
                     animate={{
                       boxShadow: [
-                        "0 0 0 rgba(59, 130, 246, 0)",
-                        "0 0 20px rgba(59, 130, 246, 0.5)",
-                        "0 0 0 rgba(59, 130, 246, 0)",
+                        "0 0 0 rgba(34, 211, 238, 0)",
+                        "0 0 20px rgba(34, 211, 238, 0.5)",
+                        "0 0 0 rgba(34, 211, 238, 0)",
                       ],
                     }}
                     transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
@@ -372,7 +372,7 @@ const Footer = () => {
                   <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                     <Link
                       href="/events/prompt-to-product"
-                      className="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
+                      className="inline-flex items-center bg-gradient-to-r from-cyan-500 to-pink-600 hover:from-cyan-600 hover:to-pink-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
                     >
                       Enroll Now
                       <motion.i
@@ -391,7 +391,7 @@ const Footer = () => {
           <motion.div className="lg:col-span-1" variants={itemVariants}>
             <h3 className="text-white font-bold text-2xl mb-8 flex items-center">
               <motion.i
-                className="ri-broadcast-line mr-3 text-blue-400 text-2xl"
+                className="ri-broadcast-line mr-3 text-cyan-400 text-2xl"
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
               />
@@ -498,7 +498,7 @@ const Footer = () => {
                     }}
                   />
 
-                  {/* Enhanced floating particles on hover */}
+                  {/* Enhanced floating particles on hover - Updated to neon colors */}
                   {isClient && (
                     <motion.div
                       className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
@@ -543,7 +543,7 @@ const Footer = () => {
           <motion.div className="lg:col-span-1" variants={itemVariants}>
             <h3 className="text-white font-bold text-2xl mb-8 flex items-center">
               <motion.i
-                className="ri-mail-line mr-3 text-teal-400 text-2xl"
+                className="ri-mail-line mr-3 text-pink-400 text-2xl"
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               />
@@ -551,13 +551,13 @@ const Footer = () => {
             </h3>
 
             <motion.div
-              className="bg-gradient-to-br from-teal-500/10 to-blue-500/10 rounded-2xl p-6 border border-white/10 relative overflow-hidden"
-              whileHover={{ borderColor: "rgba(20, 184, 166, 0.3)" }}
+              className="bg-gradient-to-br from-pink-500/10 to-cyan-500/10 rounded-2xl p-6 border border-white/10 relative overflow-hidden"
+              whileHover={{ borderColor: "rgba(236, 72, 153, 0.3)" }}
               transition={{ duration: 0.3 }}
             >
-              {/* Background animation */}
+              {/* Background animation - Updated to neon colors */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-teal-500/5 to-blue-500/5"
+                className="absolute inset-0 bg-gradient-to-r from-pink-500/5 to-cyan-500/5"
                 animate={{
                   backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                 }}
@@ -578,7 +578,7 @@ const Footer = () => {
                     className="text-center py-8"
                   >
                     <motion.i
-                      className="ri-checkbox-circle-line text-green-400 text-4xl mb-4 block"
+                      className="ri-checkbox-circle-line text-cyan-400 text-4xl mb-4 block"
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 0.5 }}
                     />
@@ -594,24 +594,24 @@ const Footer = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your email address"
                         required
-                        className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
                       />
                       <motion.div
-                        className="absolute inset-0 rounded-lg border-2 border-teal-500/0 pointer-events-none"
-                        whileFocus={{ borderColor: "rgba(20, 184, 166, 0.5)" }}
+                        className="absolute inset-0 rounded-lg border-2 border-pink-500/0 pointer-events-none"
+                        whileFocus={{ borderColor: "rgba(236, 72, 153, 0.5)" }}
                       />
                     </motion.div>
 
                     <motion.button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full px-4 py-3 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/25 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+                      className="w-full px-4 py-3 bg-gradient-to-r from-pink-500 to-cyan-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
                       whileHover={{ scale: 1.02, y: -1 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {/* Button background animation */}
+                      {/* Button background animation - Updated to neon colors */}
                       <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-teal-600 to-blue-700 opacity-0 hover:opacity-100"
+                        className="absolute inset-0 bg-gradient-to-r from-pink-600 to-cyan-700 opacity-0 hover:opacity-100"
                         transition={{ duration: 0.3 }}
                       />
 
@@ -640,18 +640,18 @@ const Footer = () => {
                   </form>
                 )}
 
-                {/* Newsletter benefits */}
+                {/* Newsletter benefits - Updated icon color */}
                 <motion.div className="mt-6 space-y-2" variants={itemVariants}>
                   <div className="flex items-center text-white/60 text-sm">
-                    <i className="ri-check-line text-teal-400 mr-2"></i>
+                    <i className="ri-check-line text-cyan-400 mr-2"></i>
                     IP property highlights & updates
                   </div>
                   <div className="flex items-center text-white/60 text-sm">
-                    <i className="ri-check-line text-teal-400 mr-2"></i>
+                    <i className="ri-check-line text-cyan-400 mr-2"></i>
                     Client success story features
                   </div>
                   <div className="flex items-center text-white/60 text-sm">
-                    <i className="ri-check-line text-teal-400 mr-2"></i>
+                    <i className="ri-check-line text-cyan-400 mr-2"></i>
                     Behind-the-scenes network content
                   </div>
                 </motion.div>
@@ -662,9 +662,9 @@ const Footer = () => {
 
         {/* Enhanced Footer Bottom */}
         <motion.div className="mt-16 pt-8 border-t border-white/10 relative" variants={itemVariants}>
-          {/* Decorative line animation */}
+          {/* Decorative line animation - Updated to neon colors */}
           <motion.div
-            className="absolute top-0 left-0 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent"
+            className="absolute top-0 left-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
             animate={{
               width: ["0%", "100%", "0%"],
               opacity: [0, 1, 0],

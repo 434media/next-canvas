@@ -11,6 +11,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { scrollY } = useScroll()
+  const [gridPoints, setGridPoints] = useState<Array<{ left: string; top: string; delay: number }>>([])
 
   // Start blur immediately when content touches navbar
   const navbarOpacity = useTransform(scrollY, [0, 50], [0.75, 0.98])
@@ -26,6 +27,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    // Generate grid points only on client side to avoid hydration mismatch
+    const points = [...Array(20)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: Math.random() * 2,
+    }))
+    setGridPoints(points)
+  }, [])
+
   return (
     <>
       {/* Main Navbar */}
@@ -36,6 +47,42 @@ const Navbar = () => {
           WebkitBackdropFilter: `blur(${navbarBlur}px) saturate(200%)`,
         }}
       >
+        {/* Black Grid Background */}
+        <div className="absolute inset-0 opacity-30">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: "20px 20px",
+            }}
+          />
+          {/* Grid intersection highlights */}
+          <div className="absolute inset-0">
+            {gridPoints.map((point, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60"
+                style={{
+                  left: point.left,
+                  top: point.top,
+                }}
+                animate={{
+                  opacity: [0.3, 0.8, 0.3],
+                  scale: [0.8, 1.2, 0.8],
+                }}
+                transition={{
+                  duration: 2 + Math.random() * 2,
+                  repeat: Number.POSITIVE_INFINITY,
+                  delay: point.delay,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
         {/* Strong background overlay to block content */}
         <motion.div
           className="absolute inset-0"
@@ -60,7 +107,7 @@ const Navbar = () => {
             background: `rgba(0, 0, 0, ${navbarOpacity})`,
           }}
           animate={{
-            borderColor: isScrolled ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.1)",
+            borderColor: isScrolled ? "rgba(236, 72, 153, 0.3)" : "rgba(34, 211, 238, 0.2)",
           }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
@@ -69,8 +116,8 @@ const Navbar = () => {
             className="absolute inset-0"
             style={{
               backgroundImage: isScrolled
-                ? "linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), rgba(168, 85, 247, 0.6), rgba(20, 184, 166, 0.6), transparent)"
-                : "linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(168, 85, 247, 0.3), rgba(20, 184, 166, 0.3), transparent)",
+                ? "linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.6), rgba(236, 72, 153, 0.6), rgba(34, 211, 238, 0.6), transparent)"
+                : "linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.3), rgba(236, 72, 153, 0.3), rgba(34, 211, 238, 0.3), transparent)",
             }}
             animate={{
               opacity: isScrolled ? 1 : 0.7,
@@ -83,8 +130,8 @@ const Navbar = () => {
             className="absolute inset-0"
             style={{
               backgroundImage: isScrolled
-                ? "linear-gradient(90deg, rgba(59, 130, 246, 0.15), rgba(168, 85, 247, 0.15), rgba(20, 184, 166, 0.15))"
-                : "linear-gradient(90deg, rgba(59, 130, 246, 0.08), rgba(168, 85, 247, 0.08), rgba(20, 184, 166, 0.08))",
+                ? "linear-gradient(90deg, rgba(34, 211, 238, 0.15), rgba(236, 72, 153, 0.15), rgba(34, 211, 238, 0.15))"
+                : "linear-gradient(90deg, rgba(34, 211, 238, 0.08), rgba(236, 72, 153, 0.08), rgba(34, 211, 238, 0.08))",
             }}
           />
 
@@ -105,11 +152,11 @@ const Navbar = () => {
                         alt="Digital Canvas Logo"
                         width={150}
                         height={40}
-                        className="transition-all duration-300 group-hover:brightness-110"
+                        className="transition-all duration-300 group-hover:brightness-110 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]"
                       />
 
                       <motion.div
-                        className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 opacity-0 group-hover:opacity-100"
+                        className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-cyan-400 via-pink-500 to-cyan-400 opacity-0 group-hover:opacity-100"
                         initial={{ width: 0 }}
                         whileHover={{ width: "100%" }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
@@ -117,7 +164,7 @@ const Navbar = () => {
                     </div>
 
                     <motion.div
-                      className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-blue-400 font-medium opacity-0 group-hover:opacity-100 whitespace-nowrap"
+                      className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-cyan-400 font-medium opacity-0 group-hover:opacity-100 whitespace-nowrap"
                       initial={{ y: 5, opacity: 0 }}
                       whileHover={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
@@ -131,7 +178,7 @@ const Navbar = () => {
               {/* Menu Button */}
               <motion.button
                 onClick={() => setIsMenuOpen(true)}
-                className="text-white/90 hover:text-white transition-colors duration-300 relative group"
+                className="text-white/90 hover:text-cyan-400 transition-colors duration-300 relative group"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
@@ -143,7 +190,7 @@ const Navbar = () => {
                     animate={{ rotate: isMenuOpen ? 90 : 0 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   />
-                  <div className="absolute inset-0 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-pink-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 border border-cyan-400/20 group-hover:border-pink-500/30" />
                 </div>
               </motion.button>
             </div>
