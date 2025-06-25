@@ -114,11 +114,9 @@ const clientWork = [
 const NetworkSection = ({
   title,
   items,
-  sectionId,
 }: {
   title: string
   items: typeof ipProperties
-  sectionId: string
 }) => {
   const [hoveredItem, setHoveredItem] = useState<string>("")
   const [activeItem, setActiveItem] = useState<string>(items[0]?.id || "")
@@ -404,7 +402,7 @@ const DigitalCanvasNetwork = () => {
         </motion.div>
 
         {/* IP Properties Section */}
-        <NetworkSection title="In-House Properties" items={ipProperties} sectionId="ip" />
+        <NetworkSection title="In-House Properties" items={ipProperties} />
 
         {/* Section Divider */}
         <div className="py-8 lg:py-12">
@@ -412,7 +410,7 @@ const DigitalCanvasNetwork = () => {
         </div>
 
         {/* Client Work Section */}
-        <NetworkSection title="Client Work" items={clientWork} sectionId="client" />
+        <NetworkSection title="Client Work" items={clientWork} />
 
         {/* Call to Action */}
         <motion.div
