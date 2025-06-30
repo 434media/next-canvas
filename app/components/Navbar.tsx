@@ -103,8 +103,8 @@ const Navbar = () => {
                       <Image
                         src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
                         alt="Digital Canvas Logo"
-                        width={150}
-                        height={40}
+                        width={135}
+                        height={36}
                         className="transition-all duration-300 group-hover:brightness-110"
                       />
 
