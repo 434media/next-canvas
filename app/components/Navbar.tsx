@@ -14,7 +14,7 @@ const Navbar = () => {
 
   // Start blur immediately when content touches navbar
   const navbarOpacity = useTransform(scrollY, [0, 50], [0.75, 0.98])
-  const navbarBlur = useTransform(scrollY, [0, 50], [0, 60])
+  const navbarBlur = useTransform(scrollY, [0, 500], [0, 60])
   const backgroundOpacity = useTransform(scrollY, [0, 50], [0, 0.95])
 
   useEffect(() => {

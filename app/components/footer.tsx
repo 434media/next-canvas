@@ -278,113 +278,6 @@ const Footer = () => {
               The creative layer of 434 MEDIA. We connect our IP & client work, showcasing the stories, brands, &
               campaigns shaping the digital canvas network.
             </motion.p>
-
-            {/* Featured Education Series */}
-            <motion.div
-              className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl p-6 border border-blue-500/30 relative overflow-hidden"
-              variants={itemVariants}
-              whileHover={{ scale: 1.02, borderColor: "rgba(59, 130, 246, 0.5)" }}
-              transition={{ duration: 0.3 }}
-            >
-              {/* Animated background */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10"
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                style={{ backgroundSize: "200% 200%" }}
-              />
-
-              {/* Floating particles in education section */}
-              {isClient && (
-                <div className="absolute inset-0 pointer-events-none">
-                  {[...Array(6)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1 h-1 bg-blue-400/40 rounded-full"
-                      style={{
-                        left: `${20 + i * 15}%`,
-                        top: `${30 + (i % 2) * 40}%`,
-                      }}
-                      animate={{
-                        scale: [0, 1, 0],
-                        opacity: [0, 0.8, 0],
-                        y: [0, -20, 0],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Number.POSITIVE_INFINITY,
-                        delay: i * 0.5,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
-
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-white font-bold text-xl flex items-center">
-                    <motion.i
-                      className="ri-graduation-cap-line mr-3 text-blue-400 text-2xl"
-                      animate={{ rotate: [0, 10, 0] }}
-                      transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                    />
-                    Education Series
-                  </h3>
-                  <motion.span
-                    className="bg-gradient-to-r from-blue-400 to-purple-400 text-xs px-3 py-1.5 rounded-full text-white font-bold"
-                    animate={{
-                      boxShadow: [
-                        "0 0 0 rgba(59, 130, 246, 0)",
-                        "0 0 20px rgba(59, 130, 246, 0.5)",
-                        "0 0 0 rgba(59, 130, 246, 0)",
-                      ],
-                    }}
-                    transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                  >
-                    NEW
-                  </motion.span>
-                </div>
-
-                <h4 className="text-white font-semibold text-lg mb-3">Prompt to Product: Build Smarter in 6 Weeks</h4>
-                <p className="text-white/80 text-sm mb-6 leading-relaxed">
-                  Master the art of turning ideas into reality with AI-powered development tools and modern workflows.
-                  Join our comprehensive program designed for creators and innovators.
-                </p>
-
-                <div className="flex flex-wrap gap-3">
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Link
-                      href="/events/prompt-to-product"
-                      className="inline-flex items-center bg-white/20 hover:bg-white/30 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 border border-white/20 hover:border-white/40"
-                    >
-                      Learn More
-                      <motion.i
-                        className="ri-arrow-right-line ml-2"
-                        animate={{ x: [0, 3, 0] }}
-                        transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-                      />
-                    </Link>
-                  </motion.div>
-
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Link
-                      href="/events/prompt-to-product"
-                      className="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300"
-                    >
-                      Enroll Now
-                      <motion.i
-                        className="ri-external-link-line ml-2"
-                        animate={{ rotate: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-                      />
-                    </Link>
-                  </motion.div>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
 
           {/* Middle Column - Enhanced Social Links */}
@@ -392,8 +285,8 @@ const Footer = () => {
             <h3 className="text-white font-bold text-2xl mb-8 flex items-center">
               <motion.i
                 className="ri-broadcast-line mr-3 text-blue-400 text-2xl"
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               />
               Our IP Channels
             </h3>
