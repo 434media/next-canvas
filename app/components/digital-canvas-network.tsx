@@ -8,6 +8,7 @@ import "remixicon/fonts/remixicon.css"
 import gsap from "gsap"
 import ScrollTrigger from "gsap/ScrollTrigger"
 import DynamicSliderComponent from "./dynamic-slider"
+import HeroSection from "./scroll"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -780,6 +781,8 @@ const NetworkSection = ({
 
 // Dynamic Slider Section Component
 const DynamicSliderSection = () => {
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  
   // Convert IP properties to the format expected by the Dynamic slider
   const dynamicItems = ipProperties.map(item => ({
     id: item.id,
@@ -795,6 +798,44 @@ const DynamicSliderSection = () => {
     linkedin: item.linkedin,
     color: item.color
   }))
+
+  // GSAP zoom effect for the first "O"
+  useLayoutEffect(() => {
+    if (!titleRef.current) return
+
+    let ctx = gsap.context(() => {
+      // Create a span for the first "O" to target specifically
+      const titleText = titleRef.current?.textContent || ""
+      const firstOIndex = titleText.indexOf("O")
+      
+      if (firstOIndex !== -1) {
+        // Split the text and wrap the first "O" in a span
+        const beforeO = titleText.substring(0, firstOIndex)
+        const theO = titleText.substring(firstOIndex, firstOIndex + 1)
+        const afterO = titleText.substring(firstOIndex + 1)
+        
+        if (titleRef.current) {
+          titleRef.current.innerHTML = `${beforeO}<span class="zoom-target">${theO}</span>${afterO}`
+        }
+        
+        // Animate the zoom target
+        gsap.to(".zoom-target", {
+          scale: 1.5,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1,
+            markers: false,
+          }
+        })
+      }
+    }, titleRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <div className="relative bg-black py-12 lg:py-16">
@@ -818,8 +859,8 @@ const DynamicSliderSection = () => {
           </span> */}
         </motion.div>
 
-        <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
-        In-House{" "}
+        <h2 ref={titleRef} className="text-3xl lg:text-5xl font-bold text-white mb-6">
+          In-House{" "}
           <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 text-transparent bg-clip-text">
             Properties
           </span>
@@ -901,23 +942,8 @@ const DigitalCanvasNetwork = () => {
         {/* Dynamic Slider Section */}
         <DynamicSliderSection />
 
-        {/* Horizontal Scroll Container */}
-        <div ref={component}>
-
-          {/* Horizontal Scroll Slider */}
-          <div ref={slider} className="container flex w-[200vw] h-screen">
-            {/* In-House Properties Panel */}
-            <div className="panel w-screen h-screen flex-shrink-0">
-              <NetworkSection title="In-House Properties" items={ipProperties} />
-            </div>
-
-            {/* Client Work Panel */}
-            <div className="panel w-screen h-screen flex-shrink-0">
-              <NetworkSection title="Client Work" items={clientWork} />
-            </div>
-          </div>
-        </div>
-
+        {/* Scroll Component */}
+        <HeroSection />
 
         {/* Call to Action */}
         <motion.div
