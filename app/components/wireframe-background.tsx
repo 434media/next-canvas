@@ -264,7 +264,7 @@ export const WireframeBackground = () => {
       ))}
 
       {/* Interactive mouse trail effect */}
-      <motion.div
+      {/* <motion.div
         className="absolute w-32 h-32 pointer-events-none"
         style={{
           left: `${mousePosition.x * 100}%`,
@@ -290,7 +290,7 @@ export const WireframeBackground = () => {
           className="absolute inset-8 border border-teal-400/20 rounded-full animate-pulse"
           style={{ animationDelay: "1s" }}
         />
-      </motion.div>
+      </motion.div> */}
     </div>
   )
 }

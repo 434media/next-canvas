@@ -5,12 +5,8 @@ import { motion, AnimatePresence } from "motion/react"
 import Image from "next/image"
 import { WireframeBackground } from "./wireframe-background"
 import "remixicon/fonts/remixicon.css"
-import gsap from "gsap"
-import ScrollTrigger from "gsap/ScrollTrigger"
 import DynamicSliderComponent from "./dynamic-slider"
-import HeroSection from "./scroll"
-
-gsap.registerPlugin(ScrollTrigger)
+// import HeroSection from "./3d-scroll"
 
 // Context for sharing slider state and handlers
 interface SliderContextType {
@@ -103,6 +99,16 @@ const useSliderContext = () => {
 }
 
 const ipProperties = [
+  {
+    id: "digital-canvas",
+    name: "Digital Canvas",
+    tagline: "The Creative Layer of 434 MEDIA",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg",
+    website: { url: "#", show: true },
+    instagram: { url: "#", show: true },
+    linkedin: { url: "#", show: true },
+    color: "from-purple-500 to-blue-500",
+  },
   {
     id: "devsa",
     name: "DEVSA",
@@ -460,329 +466,10 @@ const DynamicSliderItemMobile = ({
   )
 }
 
-const NetworkSection = ({
-  title,
-  items,
-}: {
-  title: string
-  items: typeof ipProperties
-}) => {
-  const [activeItem, setActiveItem] = useState<string>(items[0]?.id || "")
 
-  const currentItem = items.find((item) => item.id === activeItem) || items[0]
-
-  const renderSocialLinks = (item: (typeof items)[0]) => {
-    const links = []
-
-    if (item.website.show) {
-      links.push(
-        <motion.a
-          key="website"
-          href={item.website.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-white transition-colors duration-300"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <i className="ri-global-line text-xl" />
-        </motion.a>,
-      )
-    }
-
-    if (item.instagram.show) {
-      links.push(
-        <motion.a
-          key="instagram"
-          href={item.instagram.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-white transition-colors duration-300"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <i className="ri-instagram-line text-xl" />
-        </motion.a>,
-      )
-    }
-
-    if (item.linkedin.show) {
-      links.push(
-        <motion.a
-          key="linkedin"
-          href={item.linkedin.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white/60 hover:text-white transition-colors duration-300"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <i className="ri-linkedin-line text-xl" />
-        </motion.a>,
-      )
-    }
-
-    return links
-  }
-
-  return (
-    <div className="h-full flex flex-col justify-center px-8">
-      {/* Section Header */}
-      <motion.div
-        className="text-center mb-8 lg:mb-12 px-4"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">{title}</h2>
-        <div className="w-24 h-px bg-gradient-to-r from-blue-400 to-purple-400 mx-auto"></div>
-      </motion.div>
-
-      {/* Desktop Layout */}
-      <div className="hidden lg:flex flex-1 min-h-0">
-        {/* Left Panel - Image Section */}
-        <div className="w-1/2 relative flex items-center justify-center">
-          {/* Decorative square */}
-            <AnimatePresence mode="wait">
-              {currentItem && (
-                <>
-                  {/* Square with an oval/arc cutout similar to Apple logo bite */}
-                  <motion.div
-                    key={`square-${currentItem.id}`}
-                    className={`absolute left-[6.5rem] top-1/2 -translate-y-1/2 w-[25rem] h-[40rem] rounded-xl bg-gradient-to-r ${currentItem.color} z-0`}
-                    style={{
-                      WebkitMaskImage:
-                        'radial-gradient(ellipse 12rem 20rem at 30rem center, transparent 12rem, black 12.1rem)',
-                      maskImage:
-                        'radial-gradient(ellipse 12rem 20rem at 30rem center, transparent 12rem, black 12.1rem)',
-                      WebkitMaskComposite: 'destination-out',
-                      maskComposite: 'exclude',
-                    }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.8 }}
-                  />
-                </>
-              )}
-            </AnimatePresence>
-
-
-          {/* Image Container */}
-          <div className="relative z-10 w-[26rem] h-[34rem] rounded-2xl overflow-hidden shadow-2xl">
-            <AnimatePresence mode="wait">
-              {currentItem && (
-                <motion.div
-                  key={currentItem.id}
-                  className="absolute inset-0"
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Image
-                    src={currentItem.image || "/placeholder.svg"}
-                    alt={currentItem.name}
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 1024px) 50vw, 25vw"
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Right Panel - Info Section */}
-        <div className="w-1/2 flex flex-col justify-center pl-8">
-          {/* Property Info */}
-          <div className="mb-8">
-            <AnimatePresence mode="wait">
-              {currentItem && (
-                <motion.div
-                  key={currentItem.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {/* Title */}
-                  <h3 className={`text-3xl lg:text-4xl font-bold mb-4 leading-tight bg-gradient-to-r ${currentItem.color} text-transparent bg-clip-text`}>
-                    {currentItem.name}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-base lg:text-lg text-neutral-300 mb-6 leading-relaxed max-w-lg">
-                    {currentItem.tagline}
-                  </p>
-
-                  {/* Social Links */}
-                  <div className="flex space-x-6">
-                    {renderSocialLinks(currentItem)}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Dynamic-style Slider */}
-          <div className="w-full">
-            <DynamicSlider>
-              <DynamicSliderContainer>
-                {items.map((item) => (
-                  <DynamicSliderItem
-                    key={item.id}
-                    item={item}
-                    onItemClick={setActiveItem}
-                  />
-                ))}
-              </DynamicSliderContainer>
-              <DynamicSliderControls />
-            </DynamicSlider>
-          </div>
-
-          {/* Custom CSS for Dynamic-style hover effects */}
-          <style dangerouslySetInnerHTML={{
-            __html: `
-              .dynamic-slider {
-                position: relative;
-              }
-              
-              .dynamic-item {
-                transition: transform 0.3s ease-out;
-              }
-              
-              .dynamic-slider:hover .dynamic-item {
-                transform: translateX(-25%);
-              }
-              
-              .dynamic-item:hover {
-                transform: scale(1.5) translateX(25%) !important;
-                z-index: 50;
-              }
-              
-              .dynamic-item:hover ~ .dynamic-item {
-                transform: translateX(25%);
-              }
-              
-              /* Mobile Dynamic-style effects */
-              .dynamic-slider-mobile {
-                position: relative;
-              }
-              
-              .dynamic-item-mobile {
-                transition: transform 0.3s ease-out;
-              }
-              
-              .dynamic-slider-mobile:hover .dynamic-item-mobile {
-                transform: translateX(-15%);
-              }
-              
-              .dynamic-item-mobile:hover {
-                transform: scale(1.3) translateX(15%) !important;
-                z-index: 50;
-              }
-              
-              .dynamic-item-mobile:hover ~ .dynamic-item-mobile {
-                transform: translateX(15%);
-              }
-              
-              .group:hover > div:nth-child(2) {
-                opacity: 1 !important;
-                transform: translateY(0px) scale(1) !important;
-                height: 80px !important;
-              }
-              
-              .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-              }
-              .scrollbar-hide::-webkit-scrollbar {
-                display: none;
-              }
-            `
-          }} />
-        </div>
-      </div>
-
-      {/* Mobile Layout */}
-      <div className="block lg:hidden flex-1 flex flex-col justify-center">
-        <div className="space-y-6">
-          {/* Mobile Image */}
-          <div className="relative">
-            <AnimatePresence mode="wait">
-              {currentItem && (
-                <motion.div
-                  key={currentItem.id}
-                  className="relative w-full h-48 rounded-2xl overflow-hidden shadow-lg"
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Image
-                    src={currentItem.image || "/placeholder.svg"}
-                    alt={currentItem.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  {/* Gradient overlay for text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Mobile Info */}
-          <div className="space-y-4">
-            <AnimatePresence mode="wait">
-              {currentItem && (
-                <motion.div
-                  key={currentItem.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <h3 className={`text-2xl font-bold mb-2 bg-gradient-to-r ${currentItem.color} text-transparent bg-clip-text`}>
-                    {currentItem.name}
-                  </h3>
-                  <p className="text-neutral-300 mb-4 leading-relaxed text-sm">{currentItem.tagline}</p>
-                  <div className="flex space-x-4 mb-4">
-                    {renderSocialLinks(currentItem)}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Mobile Dynamic-style Slider */}
-            <div className="w-full">
-              <DynamicSliderMobile>
-                <DynamicSliderContainerMobile>
-                  {items.map((item) => (
-                    <DynamicSliderItemMobile
-                      key={item.id}
-                      item={item}
-                      onItemClick={setActiveItem}
-                    />
-                  ))}
-                </DynamicSliderContainerMobile>
-              </DynamicSliderMobile>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 // Dynamic Slider Section Component
 const DynamicSliderSection = () => {
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  
   // Convert IP properties to the format expected by the Dynamic slider
   const dynamicItems = ipProperties.map(item => ({
     id: item.id,
@@ -799,76 +486,15 @@ const DynamicSliderSection = () => {
     color: item.color
   }))
 
-  // GSAP zoom effect for the first "O"
-  useLayoutEffect(() => {
-    if (!titleRef.current) return
 
-    let ctx = gsap.context(() => {
-      // Create a span for the first "O" to target specifically
-      const titleText = titleRef.current?.textContent || ""
-      const firstOIndex = titleText.indexOf("O")
-      
-      if (firstOIndex !== -1) {
-        // Split the text and wrap the first "O" in a span
-        const beforeO = titleText.substring(0, firstOIndex)
-        const theO = titleText.substring(firstOIndex, firstOIndex + 1)
-        const afterO = titleText.substring(firstOIndex + 1)
-        
-        if (titleRef.current) {
-          titleRef.current.innerHTML = `${beforeO}<span class="zoom-target">${theO}</span>${afterO}`
-        }
-        
-        // Animate the zoom target
-        gsap.to(".zoom-target", {
-          scale: 1.5,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: "top 80%",
-            end: "top 20%",
-            scrub: 1,
-            markers: false,
-          }
-        })
-      }
-    }, titleRef)
-
-    return () => ctx.revert()
-  }, [])
 
   return (
-    <div className="relative bg-black py-12 lg:py-16">
+    <div className="relative py-0 lg:py-0">
       {/* Section Header */}
-      <motion.div
-        className="text-center mb-8 lg:mb-12 px-4"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <motion.div
-          className="inline-block mb-6"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          {/* <span className="inline-flex items-center justify-center w-16 lg:w-20 h-16 lg:h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full p-4 lg:p-5 backdrop-blur-sm border border-white/10">
-            <i className="ri-film-line text-2xl lg:text-3xl text-white"></i>
-          </span> */}
-        </motion.div>
 
-        <h2 ref={titleRef} className="text-3xl lg:text-5xl font-bold text-white mb-6">
-          In-House{" "}
-          <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 text-transparent bg-clip-text">
-            Properties
-          </span>
-        </h2>
-      </motion.div>
 
       {/* Dynamic Slider */}
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="w-full">
         <DynamicSliderComponent items={dynamicItems} />
       </div>
     </div>
@@ -876,32 +502,9 @@ const DynamicSliderSection = () => {
 }
 
 const DigitalCanvasNetwork = () => {
-  const component = useRef<HTMLDivElement>(null)
-  const slider = useRef<HTMLDivElement>(null)
-
-  useLayoutEffect(() => {
-    if (!slider.current) return
-
-    let ctx = gsap.context(() => {
-      let panels = gsap.utils.toArray(".panel")
-      gsap.to(panels, {
-        xPercent: -100 * (panels.length - 1),
-        ease: "none",
-        scrollTrigger: {
-          trigger: slider.current,
-          pin: true,
-          scrub: 1,
-          snap: 1 / (panels.length - 1),
-          end: () => "+=" + (slider.current?.offsetWidth || 0),
-          markers: false,
-        }
-      })
-    }, component)
-    return () => ctx.revert()
-  }, [])
 
   return (
-    <section className="relative bg-black overflow-hidden" id="network">
+    <section className="relative overflow-hidden" id="network">
       {/* Wireframe Background */}
       <WireframeBackground />
 
@@ -909,45 +512,31 @@ const DigitalCanvasNetwork = () => {
       <div className="relative z-10">
         {/* Main Section Header */}
         <motion.div
-          className="text-center py-16 lg:py-20 px-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
         >
-          <motion.div
-            className="inline-block mb-8"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <span className="inline-flex items-center justify-center w-16 lg:w-20 h-16 lg:h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full p-4 lg:p-5 backdrop-blur-sm border border-white/10">
-              <i className="ri-share-line text-2xl lg:text-3xl text-white"></i>
-            </span>
-          </motion.div>
-
-          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 lg:mb-8">
-            The{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 text-transparent bg-clip-text">
-              Digital Canvas
-            </span>{" "}
-            Network
-          </h1>
-          <p className="text-lg lg:text-2xl text-neutral-300 max-w-4xl mx-auto leading-relaxed">
-            Where our creative partnerships shape the future together.
-          </p>
         </motion.div>
 
-        {/* Dynamic Slider Section */}
-        <DynamicSliderSection />
-
-        {/* Scroll Component */}
-        <HeroSection />
+        {/* Overlay Container - In-House Properties behind Scroll Component */}
+        {/* <div className="relative overlay-container"> */}
+          {/* In-House Properties Section (Background Layer) - Will be masked */}
+          {/* <div className="relative z-0 properties-section" style={{
+            mask: 'url(#overlay-mask)',
+            WebkitMask: 'url(#overlay-mask)',
+            maskSize: '100% 100%',
+            WebkitMaskSize: '100% 100%',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat'
+          }}>
+            <DynamicSliderSection />
+          </div> */}
+          
+        {/* In-House Properties Section - Now visible without masking */}
+        <div className="relative z-0">
+          <DynamicSliderSection />
+        </div>
 
         {/* Call to Action */}
         <motion.div
-          className="text-center py-16 lg:py-20 px-4"
+          className="text-center py-16 lg:py-20 px-4 relative z-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Play, Plus, ThumbsUp, ChevronLeft, ChevronRight, Globe, Instagram, Linkedin } from "lucide-react"
 import { Button } from "./ui/button"
@@ -21,97 +21,84 @@ interface DynamicItem {
 }
 
 interface DynamicSliderProps {
-  items?: DynamicItem[]
+  items: DynamicItem[]
 }
 
-const defaultMovies: DynamicItem[] = [
-  {
-    id: "1",
-    title: "Stranger Things",
-    description:
-      "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
-    genre: "Sci-Fi, Horror, Drama",
-    year: "2016",
-    rating: "TV-14",
-    image: "/placeholder.svg?height=200&width=350",
-    backdrop: "/placeholder.svg?height=600&width=1000",
-  },
-  {
-    id: "2",
-    title: "The Crown",
-    description:
-      "Follows the political rivalries and romance of Queen Elizabeth II's reign and the events that shaped the second half of the twentieth century.",
-    genre: "Drama, History",
-    year: "2016",
-    rating: "TV-MA",
-    image: "/placeholder.svg?height=200&width=350",
-    backdrop: "/placeholder.svg?height=600&width=1000",
-  },
-  {
-    id: "3",
-    title: "Ozark",
-    description:
-      "A financial advisor drags his family from Chicago to the Missouri Ozarks, where he must launder money to appease a drug boss.",
-    genre: "Crime, Drama, Thriller",
-    year: "2017",
-    rating: "TV-MA",
-    image: "/placeholder.svg?height=200&width=350",
-    backdrop: "/placeholder.svg?height=600&width=1000",
-  },
-  {
-    id: "4",
-    title: "The Witcher",
-    description:
-      "Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.",
-    genre: "Action, Adventure, Drama",
-    year: "2019",
-    rating: "TV-MA",
-    image: "/placeholder.svg?height=200&width=350",
-    backdrop: "/placeholder.svg?height=600&width=1000",
-  },
-  {
-    id: "5",
-    title: "Money Heist",
-    description:
-      "An unusual group of robbers attempt to carry out the most perfect robbery in Spanish history - stealing 2.4 billion euros from the Royal Mint of Spain.",
-    genre: "Action, Crime, Mystery",
-    year: "2017",
-    rating: "TV-MA",
-    image: "/placeholder.svg?height=200&width=350",
-    backdrop: "/placeholder.svg?height=600&width=1000",
-  },
-  {
-    id: "6",
-    title: "Bridgerton",
-    description:
-      "Wealth, lust, and betrayal set in the backdrop of Regency era England, seen through the eyes of the powerful Bridgerton family.",
-    genre: "Drama, Romance",
-    year: "2020",
-    rating: "TV-MA",
-    image: "/placeholder.svg?height=200&width=350",
-    backdrop: "/placeholder.svg?height=600&width=1000",
-  },
-]
 
-export default function DynamicSlider({ items = defaultMovies }: DynamicSliderProps) {
+
+export default function DynamicSlider({ items }: DynamicSliderProps) {
   const [selectedMovie, setSelectedMovie] = useState(items[0])
   const [scrollPosition, setScrollPosition] = useState(0)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [currentItemIndex, setCurrentItemIndex] = useState(0)
+  const autoSwitchRef = useRef<NodeJS.Timeout | null>(null)
 
   const cardWidth = 282 // 280px width + 2px gap
-  const visibleCards = 4 // Number of cards visible at once
+  const visibleCards = 5 // Number of cards visible at once
   const maxScroll = Math.max(0, (items.length - visibleCards) * cardWidth)
+
+  // Auto-switch to next item
+  const switchToNextItem = () => {
+    const nextIndex = (currentItemIndex + 1) % items.length
+    setCurrentItemIndex(nextIndex)
+    setSelectedMovie(items[nextIndex])
+    
+    // Update scroll position to show the selected item
+    const newScrollPosition = Math.min(nextIndex * cardWidth, maxScroll)
+    setScrollPosition(newScrollPosition)
+    setActiveIndex(nextIndex)
+  }
+
+  // Start auto-switch timer
+  const startAutoSwitch = () => {
+    if (autoSwitchRef.current) {
+      clearInterval(autoSwitchRef.current)
+    }
+    autoSwitchRef.current = setInterval(switchToNextItem, 10000) // 10 seconds
+  }
+
+  // Stop auto-switch timer
+  const stopAutoSwitch = () => {
+    if (autoSwitchRef.current) {
+      clearInterval(autoSwitchRef.current)
+      autoSwitchRef.current = null
+    }
+  }
+
+  // Auto-switch effect
+  useEffect(() => {
+    startAutoSwitch()
+    
+    // Cleanup on unmount
+    return () => {
+      stopAutoSwitch()
+    }
+  }, [currentItemIndex]) // Restart timer when currentItemIndex changes
 
   const scrollLeft = () => {
     const newPosition = Math.max(0, scrollPosition - cardWidth)
+    const newIndex = Math.floor(newPosition / cardWidth)
     setScrollPosition(newPosition)
-    setActiveIndex(Math.floor(newPosition / cardWidth))
+    setActiveIndex(newIndex)
+    setCurrentItemIndex(newIndex)
+    setSelectedMovie(items[newIndex])
+    
+    // Reset auto-switch timer
+    stopAutoSwitch()
+    startAutoSwitch()
   }
 
   const scrollRight = () => {
     const newPosition = Math.min(scrollPosition + cardWidth, maxScroll)
+    const newIndex = Math.floor(newPosition / cardWidth)
     setScrollPosition(newPosition)
-    setActiveIndex(Math.floor(newPosition / cardWidth))
+    setActiveIndex(newIndex)
+    setCurrentItemIndex(newIndex)
+    setSelectedMovie(items[newIndex])
+    
+    // Reset auto-switch timer
+    stopAutoSwitch()
+    startAutoSwitch()
   }
 
   const renderSocialLinks = (item: DynamicItem) => {
@@ -163,87 +150,21 @@ export default function DynamicSlider({ items = defaultMovies }: DynamicSliderPr
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Movie Slider */}
-      <div className="relative px-6 mb-4">
-
-        <div className="relative group">
-          {/* Left Arrow */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity"
-            onClick={scrollLeft}
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
-
-          {/* Right Arrow */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity"
-            onClick={scrollRight}
-          >
-            <ChevronRight className="h-6 w-6" />
-          </Button>
-
-          {/* Movie Cards Container */}
-          <div className="overflow-hidden px-1 py-3 pb-6 pl-4">
-            <motion.div
-              className="flex gap-2 px-1"
-              animate={{ x: -scrollPosition }}
-              transition={{ type: "spring", damping: 20, stiffness: 100 }}
-            >
-              {items.map((movie) => (
-                <motion.div
-                  key={movie.id}
-                  className={`flex-shrink-0 w-[280px] cursor-pointer group/card transition-all duration-300 relative rounded-md ${
-                    movie.id === selectedMovie.id ? "ring-4 ring-white" : ""
-                  }`}
-                  onClick={() => {
-                    setSelectedMovie(movie)
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                >
-                  <div className="relative overflow-hidden rounded-md">
-                    <img
-                      src={movie.image || "/placeholder.svg"}
-                      alt={movie.title}
-                      className="w-full h-[160px] object-cover transition-transform duration-300 group-hover/card:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-2 left-2 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
-                      <h3 className="text-sm font-semibold">{movie.title}</h3>
-                    </div>
-                  </div>
-                  {movie.id === selectedMovie.id && (
-                    <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 z-10">
-                      <div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-white"></div>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </div>
-
-      {/* Selected Movie Details */}
+    <div className="min-h-screen text-white">
+      {/* Selected Movie Details - Now at the top */}
       <AnimatePresence mode="wait">
         <motion.div
           key={selectedMovie.id}
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -50 }}
+          exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 0.5 }}
-          className="px-6 py-16 relative"
+          className="relative w-screen h-screen"
         >
           {/* Full Width Backdrop Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 1 , x: -0}}
+            animate={{ opacity: 1, scale: 1 , x: -0}}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="absolute inset-0 z-0"
           >
@@ -261,7 +182,7 @@ export default function DynamicSlider({ items = defaultMovies }: DynamicSliderPr
           </motion.div>
 
           {/* Content overlay */}
-          <div className="relative z-10 max-w-6xl mx-auto">
+          <div className="relative z-10 h-full flex items-center px-6">
             {/* Left Side - Movie Info */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -335,6 +256,82 @@ export default function DynamicSlider({ items = defaultMovies }: DynamicSliderPr
           </div>
         </motion.div>
       </AnimatePresence>
+
+      {/* Movie Slider - Now at the bottom */}
+      <div className="relative px-6 mt-4">
+        <div className="relative group">
+          {/* Left Arrow */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+            onClick={scrollLeft}
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
+
+          {/* Right Arrow */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+            onClick={scrollRight}
+          >
+            <ChevronRight className="h-6 w-6" />
+          </Button>
+
+          {/* Movie Cards Container */}
+          <div className="overflow-hidden px-1 py-3 pt-6 pl-4">
+            <motion.div
+              className="flex gap-2 px-1"
+              animate={{ x: -scrollPosition }}
+              transition={{ type: "spring", damping: 20, stiffness: 100 }}
+            >
+              {items.map((movie) => (
+                <motion.div
+                  key={movie.id}
+                  className={`flex-shrink-0 w-[280px] cursor-pointer group/card transition-all duration-300 relative rounded-md ${
+                    movie.id === selectedMovie.id ? "ring-4 ring-white" : ""
+                  }`}
+                  onClick={() => {
+                    const movieIndex = items.findIndex(item => item.id === movie.id)
+                    setCurrentItemIndex(movieIndex)
+                    setSelectedMovie(movie)
+                    
+                    // Update scroll position
+                    const newScrollPosition = Math.min(movieIndex * cardWidth, maxScroll)
+                    setScrollPosition(newScrollPosition)
+                    setActiveIndex(movieIndex)
+                    
+                    // Reset auto-switch timer
+                    stopAutoSwitch()
+                    startAutoSwitch()
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                >
+                  <div className="relative overflow-hidden rounded-md">
+                    <img
+                      src={movie.image || "/placeholder.svg"}
+                      alt={movie.title}
+                      className="w-full h-[160px] object-cover transition-transform duration-300 group-hover/card:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute bottom-2 left-2 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+                      <h3 className="text-sm font-semibold">{movie.title}</h3>
+                    </div>
+                  </div>
+                  {movie.id === selectedMovie.id && (
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                      <div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-white"></div>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

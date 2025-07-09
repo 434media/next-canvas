@@ -1,11 +1,13 @@
 import HeroSection from "./components/hero-section"
 import DigitalCanvasNetwork from "./components/digital-canvas-network"
+import MissionStatement from "./components/mission-statement"
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-900 relative overflow-hidden">
-      <HeroSection />
+      {/* <HeroSection /> */}
       <DigitalCanvasNetwork />
+      <MissionStatement />
     </main>
   )
 }
