@@ -1,6 +1,8 @@
 import HeroSection from "./components/hero-section"
 import DigitalCanvasNetwork from "./components/digital-canvas-network"
 import MissionStatement from "./components/mission-statement"
+import CallToAction from "./components/call-to-action"
+import Footer from "./components/footer"
 
 export default function Home() {
   return (
@@ -8,6 +10,8 @@ export default function Home() {
       {/* <HeroSection /> */}
       <DigitalCanvasNetwork />
       <MissionStatement />
+      <CallToAction />
+      <Footer />
     </main>
   )
 }

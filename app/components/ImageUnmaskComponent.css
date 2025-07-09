@@ -51,7 +51,7 @@ section.image-unmask {
   fill: #000000; /* Black circle */
 }
 
-#mask rect {
+#overlay-mask rect {
   fill: #ffffff; /* White mask background */
 }
 
@@ -99,7 +99,7 @@ section.image-unmask {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1; /* Below the SVG mask */
+  z-index: 0; /* Background layer - behind everything */
   pointer-events: none;
 
   overflow: clip;
@@ -238,14 +238,9 @@ section.image-unmask {
   .grid-item:nth-of-type(50) { grid-area: 3/2; }
 }
 
-/* Properties section masking */
+/* Properties section - no masking applied */
 .properties-section {
-  mask: url(#mask);
-  -webkit-mask: url(#mask);
-  mask-size: 100% 100%;
-  -webkit-mask-size: 100% 100%;
-  mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
+  /* No mask applied - 3D grid should be fully visible */
 }
 
 /* Ensure the overlay container has proper positioning */

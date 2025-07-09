@@ -118,6 +118,8 @@ const Footer = () => {
 
   return (
     <footer className="bg-neutral-900 border-t border-white/10 relative overflow-hidden">
+
+      
       {/* Enhanced Background Effects */}
       <div className="absolute inset-0">
         {/* Animated gradient background */}
