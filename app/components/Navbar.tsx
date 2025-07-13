@@ -116,14 +116,14 @@ const Navbar = () => {
                       />
                     </div>
 
-                    <motion.div
+                    {/* <motion.div
                       className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-blue-400 font-medium opacity-0 group-hover:opacity-100 whitespace-nowrap"
                       initial={{ y: 5, opacity: 0 }}
                       whileHover={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
                     >
                       The Creative Layer of 434 MEDIA
-                    </motion.div>
+                    </motion.div> */}
                   </motion.div>
                 </Link>
               </motion.div>

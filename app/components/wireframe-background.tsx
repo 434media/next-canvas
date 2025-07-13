@@ -114,13 +114,13 @@ export const WireframeBackground = () => {
       </motion.div>
 
       {/* Mouse-following gradient */}
-      <motion.div
+      {/* <motion.div
         className="absolute inset-0"
         animate={{
           background: `radial-gradient(circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(59, 130, 246, 0.15), rgba(168, 85, 247, 0.1) 30%, transparent 60%)`,
         }}
         transition={{ type: "spring", damping: 15 }}
-      />
+      /> */}
 
       {/* Floating creative tool particles - only render on client */}
       {isClient &&

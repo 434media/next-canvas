@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { WireframeBackground } from "./wireframe-background"
 import "./ImageUnmaskComponent.css"
 import "remixicon/fonts/remixicon.css"
+import { redirect } from "next/dist/server/api-utils"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -51,23 +52,40 @@ const MissionStatement = () => {
         attr: { r: startRadius }
       })
 
+      // Set initial rim circle radius
+      const rimCircle = document.querySelector('#rim-circle') as SVGCircleElement
+      if (rimCircle) {
+        gsap.set(rimCircle, {
+          attr: { r: startRadius } // Rim is 5px larger than mask circle
+        })
+      }
+
       // Create the timeline animation
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".overlay-container",
           pin: true,
           start: "top top",
-          end: "+=2000",
+          end: "+=2500",
           scrub: 1,
           markers: false,
+          onUpdate: (self) => {
+            // Add buffer - don't start animation until 10% scroll progress
+            if (self.progress < 0.1) {
+              gsap.set([circle, rimCircle], {
+                attr: { r: startRadius }
+              })
+            }
+          }
         }
       })
       
-      // Add animation to increase circle radius
-      tl.to(circle, {
-        attr: { r: () => maxRadius },
-        ease: "power1.inOut",
-        duration: 1
+      // Add animation to increase both circle radii with buffer
+      tl.to([circle, rimCircle], {
+        attr: { r: (i) => i === 0 ? maxRadius : maxRadius + 5 },
+        ease: "power2.out",
+        duration: 0.6, // Faster duration for quicker growth
+        delay: 0.1 // 10% delay to create buffer
       })
 
       // Function to handle resizing
@@ -143,12 +161,17 @@ const MissionStatement = () => {
               <rect width="100%" height="100%" fill="white"></rect>
               <circle
                 id="circle"
-                cx="50%"
+                cx="10%"
                 cy="50%"
                 r="10"
-                fill="black"
+                fill="none"
               ></circle>
             </mask>
+            <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#60a5fa" />
+              <stop offset="50%" stopColor="#a78bfa" />
+              <stop offset="100%" stopColor="#2dd4bf" />
+            </linearGradient>
           </defs>
           <rect
             width="100%"
@@ -157,12 +180,23 @@ const MissionStatement = () => {
             opacity="0"
             mask="url(#overlay-mask)"
           ></rect>
+          {/* Colored rim around the circle */}
+          <circle
+            id="rim-circle"
+            cx="10%"
+            cy="50%"
+            r="15"
+            fill= "none"
+            stroke="url(#circleGradient)"
+            strokeWidth="3"
+            opacity="0.8"
+          ></circle>
         </svg>
 
         {/* Mission Statement Content (Foreground Layer) - Masked */}
         <div
           ref={textRef}
-          className="relative z-20 flex items-center justify-center min-h-screen px-4"
+          className="relative z-20 flex items-center justify-start min-h-screen px-4"
           style={{
             mask: 'url(#overlay-mask)',
             WebkitMask: 'url(#overlay-mask)',
@@ -172,7 +206,7 @@ const MissionStatement = () => {
             WebkitMaskRepeat: 'no-repeat'
           }}
         >
-          <div className="text-center max-w-5xl">
+          <div className="text-left max-w-5xl">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8">
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 text-transparent bg-clip-text">
                 DIFFERENT AVENUES
@@ -185,9 +219,6 @@ const MissionStatement = () => {
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-white/80 mt-8 max-w-2xl mx-auto leading-relaxed">
-              Uniting diverse creative pathways under a shared vision of innovation and impact
-            </p>
           </div>
         </div>
       </div>
