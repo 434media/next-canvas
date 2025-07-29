@@ -29,7 +29,6 @@ interface DynamicSliderProps {
 export default function DynamicSlider({ items }: DynamicSliderProps) {
   const [selectedMovie, setSelectedMovie] = useState(items[0])
   const [scrollPosition, setScrollPosition] = useState(0)
-  const [activeIndex, setActiveIndex] = useState(0)
   const [currentItemIndex, setCurrentItemIndex] = useState(0)
   const autoSwitchRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -46,7 +45,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
     // Update scroll position to show the selected item
     const newScrollPosition = Math.min(nextIndex * cardWidth, maxScroll)
     setScrollPosition(newScrollPosition)
-    setActiveIndex(nextIndex)
   }
 
   // Start auto-switch timer
@@ -73,13 +71,12 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
     return () => {
       stopAutoSwitch()
     }
-  }, [currentItemIndex]) // Restart timer when currentItemIndex changes
+  }, [currentItemIndex, startAutoSwitch]) // Restart timer when currentItemIndex changes
 
   const scrollLeft = () => {
     const newPosition = Math.max(0, scrollPosition - cardWidth)
     const newIndex = Math.floor(newPosition / cardWidth)
     setScrollPosition(newPosition)
-    setActiveIndex(newIndex)
     setCurrentItemIndex(newIndex)
     setSelectedMovie(items[newIndex])
     
@@ -92,7 +89,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
     const newPosition = Math.min(scrollPosition + cardWidth, maxScroll)
     const newIndex = Math.floor(newPosition / cardWidth)
     setScrollPosition(newPosition)
-    setActiveIndex(newIndex)
     setCurrentItemIndex(newIndex)
     setSelectedMovie(items[newIndex])
     
@@ -301,7 +297,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                     // Update scroll position
                     const newScrollPosition = Math.min(movieIndex * cardWidth, maxScroll)
                     setScrollPosition(newScrollPosition)
-                    setActiveIndex(movieIndex)
                     
                     // Reset auto-switch timer
                     stopAutoSwitch()

@@ -1,13 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useTransform } from "motion/react"
+import { useEffect, useRef } from "react"
+import { motion } from "motion/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { WireframeBackground } from "./wireframe-background"
 import "./ImageUnmaskComponent.css"
 import "remixicon/fonts/remixicon.css"
-import { redirect } from "next/dist/server/api-utils"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -61,7 +60,7 @@ const MissionStatement = () => {
       }
 
       // Create the timeline animation
-      let tl = gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".overlay-container",
           pin: true,

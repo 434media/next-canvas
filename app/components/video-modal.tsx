@@ -1,8 +1,9 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import { useEffect, useRef } from "react"
 import "remixicon/fonts/remixicon.css"
+import Image from "next/image"
 
 interface VideoModalProps {
   isOpen: boolean
@@ -167,7 +168,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
             <div className="p-4 sm:p-6 bg-gradient-to-r from-neutral-900/50 to-neutral-800/50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <img
+                  <Image
                     src="https://ampd-asset.s3.us-east-2.amazonaws.com/434MediaICONWHITE.png"
                     alt="434 MEDIA"
                     className="w-6 h-6 sm:w-8 sm:h-8 rounded-full"

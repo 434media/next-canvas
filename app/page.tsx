@@ -1,4 +1,3 @@
-import HeroSection from "./components/hero-section"
 import DigitalCanvasNetwork from "./components/digital-canvas-network"
 import MissionStatement from "./components/mission-statement"
 import CallToAction from "./components/call-to-action"
