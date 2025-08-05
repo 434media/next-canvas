@@ -26,12 +26,12 @@ const creativeIcons = [
 ]
 
 export const WireframeBackground = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [particles, setParticles] = useState<Particle[]>([])
   const [isClient, setIsClient] = useState(false)
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
   const containerRef = useRef<HTMLDivElement>(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 })
 
   // Generate particles only on client to avoid hydration issues
   useEffect(() => {

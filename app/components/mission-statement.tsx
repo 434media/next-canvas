@@ -94,7 +94,7 @@ const MissionStatement = () => {
       }
 
       // Create the timeline animation
-      let tl = gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".mission-overlay-container",
           pin: true,

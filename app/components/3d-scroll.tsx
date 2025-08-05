@@ -51,7 +51,6 @@ const ImageUnmaskComponent = () => {
     propertiesSpan.appendChild(tempSpan);
     
     // Get the bounding rectangles
-    const spanRect = propertiesSpan.getBoundingClientRect();
     const tempRect = tempSpan.getBoundingClientRect();
     const svgRect = svgRef.current?.getBoundingClientRect();
     
@@ -95,7 +94,7 @@ const ImageUnmaskComponent = () => {
     });
 
     // Create the timeline animation
-    let tl = gsap.timeline({
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".image-unmask-container",
         pin: true,
