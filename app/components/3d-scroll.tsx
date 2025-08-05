@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger, initializeGSAP, registerPinnedSection, unregisterPinnedSection } from "../../lib/gsap-config";
 import './ImageUnmaskComponent.css';
 
-gsap.registerPlugin(ScrollTrigger);
+// Initialize GSAP once
+initializeGSAP();
 
 const ImageUnmaskComponent = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const circleRef = useRef<SVGCircleElement>(null);
   const pad = 4;
+  const sectionId = "image-unmask";
   
   // State to track the circle position
   const [circlePosition, setCirclePosition] = useState({
@@ -75,6 +76,9 @@ const ImageUnmaskComponent = () => {
   };
 
   useEffect(() => {
+    // Register this section as pinned
+    registerPinnedSection(sectionId);
+
     const svg = svgRef.current;
     const circle = circleRef.current;
     
@@ -93,7 +97,7 @@ const ImageUnmaskComponent = () => {
     // Create the timeline animation
     let tl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".overlay-container",
+        trigger: ".image-unmask-container",
         pin: true,
         start: "top top",
         end: "+=2000",
@@ -145,12 +149,13 @@ const ImageUnmaskComponent = () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("load", resize);
       clearTimeout(timer);
-      tl.kill();
+      tl.kill(); // Kill the timeline
+      unregisterPinnedSection(sectionId);
     };
   }, []);
 
   return (
-    <div className="w-full h-full pointer-events-none">
+    <div className="w-full h-full pointer-events-none image-unmask-container">
       <section className="image-unmask w-full h-full pointer-events-none">
         {/* 3D Grid Animation behind the mask */}
         <div className="stuck-grid">

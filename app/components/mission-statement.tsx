@@ -2,19 +2,30 @@
 
 import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "motion/react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { gsap, ScrollTrigger, initializeGSAP, registerPinnedSection, unregisterPinnedSection, registerScrollTrigger, unregisterScrollTrigger } from "../../lib/gsap-config"
 import { WireframeBackground } from "./wireframe-background"
 import "./ImageUnmaskComponent.css"
 import "remixicon/fonts/remixicon.css"
 import { redirect } from "next/dist/server/api-utils"
 
-gsap.registerPlugin(ScrollTrigger)
+// Initialize GSAP once
+initializeGSAP();
+
+// Global reference to horizontal scroller trigger
+let horizontalScrollerTrigger: ScrollTrigger | null = null;
+let horizontalScrollerEnabled = false;
+
+// Function to set the horizontal scroller trigger reference
+export const setHorizontalScrollerTrigger = (trigger: ScrollTrigger) => {
+  horizontalScrollerTrigger = trigger;
+  console.log("Horizontal scroller trigger registered");
+};
 
 const MissionStatement = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
-
+  const sectionId = "mission-statement";
+  const triggerId = "mission-statement-trigger";
 
   // Grid items for the 3D animation
   const gridItems = [
@@ -28,8 +39,30 @@ const MissionStatement = () => {
     "Development", "Advancement", "Empowerment", "Discovery", "Achievement", "Excellence"
   ]
 
-
   useEffect(() => {
+    // Register this section as pinned
+    registerPinnedSection(sectionId);
+
+    // Add scroll listener for better coordination
+    const handleScroll = () => {
+      if (horizontalScrollerTrigger && !horizontalScrollerEnabled) {
+        const missionSection = document.querySelector('.mission-overlay-container');
+        if (missionSection) {
+          const missionRect = missionSection.getBoundingClientRect();
+          // Enable horizontal scroller only when mission section is completely below viewport
+          if (missionRect.top > window.innerHeight + 100) { // Add 100px buffer
+            horizontalScrollerTrigger.enable();
+            horizontalScrollerEnabled = true;
+            console.log("Horizontal scroller enabled via scroll listener");
+            // Remove the scroll listener once enabled
+            window.removeEventListener('scroll', handleScroll);
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
     // Wait for DOM to be ready
     const timer = setTimeout(() => {
       const svg = document.querySelector('#svg') as SVGSVGElement
@@ -63,10 +96,11 @@ const MissionStatement = () => {
       // Create the timeline animation
       let tl = gsap.timeline({
         scrollTrigger: {
-          trigger: ".overlay-container",
+          trigger: ".mission-overlay-container",
           pin: true,
+          anticipatePin: 1,
           start: "top top",
-          end: "+=2500",
+          end: "+=3000",
           scrub: 1,
           markers: false,
           onUpdate: (self) => {
@@ -76,9 +110,53 @@ const MissionStatement = () => {
                 attr: { r: startRadius }
               })
             }
+            // Log when animation is complete
+            if (self.progress >= 0.99) {
+              console.log("Mission statement animation completed");
+            }
+            // Log progress for debugging
+            if (self.progress % 0.25 < 0.01) {
+              console.log(`Mission statement progress: ${Math.round(self.progress * 100)}%`);
+            }
+            
+            // Don't enable horizontal scroller during animation - only after it's completely done
+          },
+          onLeave: () => {
+            console.log("Mission statement left viewport");
+            // Only enable horizontal scroller when mission statement is completely out of view
+            if (horizontalScrollerTrigger && !horizontalScrollerEnabled) {
+              // Check if we're actually past the mission statement section
+              const missionSection = document.querySelector('.mission-overlay-container');
+              if (missionSection) {
+                const missionRect = missionSection.getBoundingClientRect();
+                // Only enable if the mission section is completely below the viewport
+                if (missionRect.top > window.innerHeight) {
+                  horizontalScrollerTrigger.enable();
+                  horizontalScrollerEnabled = true;
+                  console.log("Horizontal scroller trigger enabled - mission statement completely out of view");
+                } else {
+                  console.log("Mission statement still partially in view - waiting to enable horizontal scroller");
+                }
+              }
+            }
+          },
+          onEnterBack: () => {
+            console.log("Mission statement re-entered viewport");
+            // Disable horizontal scroller when going back up
+            if (horizontalScrollerTrigger) {
+              horizontalScrollerTrigger.disable();
+              horizontalScrollerEnabled = false;
+              console.log("Horizontal scroller trigger disabled");
+            }
           }
         }
       })
+      
+      // Register the ScrollTrigger
+      const scrollTrigger = tl.scrollTrigger;
+      if (scrollTrigger) {
+        registerScrollTrigger(triggerId, scrollTrigger);
+      }
       
       // Add animation to increase both circle radii with buffer
       tl.to([circle, rimCircle], {
@@ -118,7 +196,10 @@ const MissionStatement = () => {
       return () => {
         window.removeEventListener("resize", resize)
         window.removeEventListener("load", resize)
+        window.removeEventListener('scroll', handleScroll)
         tl.kill()
+        unregisterPinnedSection(sectionId)
+        unregisterScrollTrigger(triggerId)
       }
     }, 100) // Small delay to ensure DOM is ready
     
@@ -133,8 +214,8 @@ const MissionStatement = () => {
       <WireframeBackground />
 
       {/* Overlay Container - Mission Statement over 3D Scroll Component */}
-      <div className="relative overlay-container min-h-screen">
-        {/* 3D Scroll Effect Section (Background Layer) - Always visible */}
+      <div className="relative mission-overlay-container min-h-screen">
+        {/* 3D Scroll Effect Section (Background Layer) - Masked by circle */}
         <div className="relative z-0 properties-section" style={{
           position: 'absolute',
           inset: '0',
@@ -158,15 +239,16 @@ const MissionStatement = () => {
         <svg id="svg" className="absolute inset-0 w-full h-full pointer-events-none z-10">
           <defs>
             <mask id="overlay-mask">
-              <rect width="100%" height="100%" fill="white"></rect>
+              <rect width="100%" height="100%" fill="black"></rect>
               <circle
                 id="circle"
                 cx="10%"
                 cy="50%"
                 r="10"
-                fill="none"
+                fill="white"
               ></circle>
             </mask>
+
             <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#60a5fa" />
               <stop offset="50%" stopColor="#a78bfa" />

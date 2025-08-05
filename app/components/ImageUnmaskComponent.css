@@ -148,17 +148,17 @@ section.image-unmask {
 
 /* Animation ranges for each grid item - left to right progression with randomization */
 .grid-item:nth-of-type(1)  { animation-range: 27% 35%; } /* Left side - starts earliest */
-.grid-item:nth-of-type(2)  { animation-range: 31% 40%; }
+.grid-item:nth-of-type(2)  { animation-range: 31% 38%; }
 .grid-item:nth-of-type(3)  { animation-range: 27% 36%; }
-.grid-item:nth-of-type(4)  { animation-range: 35% 47%; }
+.grid-item:nth-of-type(4)  { animation-range: 33% 39%; }
 .grid-item:nth-of-type(5)  { animation-range: 29% 37%; }
-.grid-item:nth-of-type(6)  { animation-range: 37% 45%; }
+.grid-item:nth-of-type(6)  { animation-range: 35% 40%; }
 .grid-item:nth-of-type(7)  { animation-range: 31% 38%; }
 .grid-item:nth-of-type(8)  { animation-range: 32% 41%; }
 .grid-item:nth-of-type(9)  { animation-range: 33% 39%; }
 .grid-item:nth-of-type(10) { animation-range: 34% 42%; }
 .grid-item:nth-of-type(11) { animation-range: 35% 65%; } /* Special item - center, longer duration */
-.grid-item:nth-of-type(12) { animation-range: 36% 48%; }
+.grid-item:nth-of-type(12) { animation-range: 36% 43%; }
 .grid-item:nth-of-type(13) { animation-range: 37% 44%; }
 .grid-item:nth-of-type(14) { animation-range: 38% 45%; }
 .grid-item:nth-of-type(15) { animation-range: 39% 46%; }
