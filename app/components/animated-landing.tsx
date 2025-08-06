@@ -125,6 +125,9 @@ export default function AnimatedLanding() {
 
     if (!container || !mainBox || !boxesContainer || !welcomeText || !discoverText || !mediaText) return
 
+    // Check for saved scroll position
+    const savedY = sessionStorage.getItem("saved-scroll")
+
     // Define box order to match the layout
     const boxOrder = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'cyan']
 
@@ -142,7 +145,19 @@ export default function AnimatedLanding() {
         scrub: 0.4,
         pin: true,
         anticipatePin: 1,
-        preventOverlaps: true, // ← ADD THIS
+        preventOverlaps: true,
+        onRefresh: () => {
+          // Restore scroll position after ScrollTrigger is fully initialized
+          if (savedY !== null) {
+            setTimeout(() => {
+              window.scrollTo({
+                top: parseInt(savedY, 10),
+                behavior: "instant",
+              })
+              sessionStorage.removeItem("saved-scroll")
+            }, 100)
+          }
+        }
       }
     })
 
@@ -152,6 +167,17 @@ export default function AnimatedLanding() {
       {
         width: `${layoutConfig.mediumCenterWidth}vw`,
         height: `${layoutConfig.mediumCenterHeight}vh`,
+        backgroundColor: '#3b82f6', // Change to blue background
+        duration: 0.3,
+        ease: "power2.inOut",
+      },
+      0,
+    )
+    // Add border radius animation for Stage 1
+    .to(
+      mainBox,
+      {
+        borderRadius: "8px", // Add rounded corners when transitioning to medium
         duration: 0.3,
         ease: "power2.inOut",
       },
@@ -184,6 +210,7 @@ export default function AnimatedLanding() {
       {
         width: `${layoutConfig.finalCenterWidth}vw`,
         height: `${layoutConfig.finalCenterHeight}vh`,
+        backgroundColor: '#3b82f6', // Keep blue background
         duration: 1,
         ease: "power2.inOut",
       },
@@ -219,26 +246,28 @@ export default function AnimatedLanding() {
       // Set initial position (off-screen, scaled from final position)
       gsap.set(boxElement, {
         willChange: "transform, opacity",
-        transform: `translate(${layout.x * 3}vw, ${layout.y * 3}vh) scale(0.8)`,
-        transformOrigin: '50% 50%',
+        // Use x and y properties that will be added to the existing transform
         x: `${layout.x * 3}vw`,
         y: `${layout.y * 3}vh`,
         width: `${layout.width}vw`,
         height: `${layout.height}vh`,
         opacity: 0,
         scale: 0.8,
+        pointerEvents: "none", // Disable pointer events initially
       })
 
       // Animate to final position
       tl.to(
         boxElement,
         {
+          // Use x and y properties that will be added to the existing transform
           x: `${layout.x}vw`,
           y: `${layout.y}vh`,
           width: `${layout.width}vw`,
           height: `${layout.height}vh`,
           opacity: 1,
           scale: 1,
+          pointerEvents: "auto", // Enable pointer events when animation completes
           duration: 0.4,
           ease: "power2.out",
           immediateRender: false
@@ -254,25 +283,33 @@ export default function AnimatedLanding() {
   }, [])
 
   return (
-    <section className="relative w-full bg-white">
+    <section className="relative w-full bg-transparent">
       {/* Spacer to allow scrolling */}
-      <div className="h-screen"></div>
+      <div 
+        className="h-screen" 
+        style={{ 
+          background: 'linear-gradient(to bottom, transparent 20%, white 80%)'
+        }}
+      ></div>
 
       {/* Animation container */}
-      <div ref={containerRef} className="h-screen w-full flex items-center justify-center">
+      <div ref={containerRef} className="h-screen w-full flex items-center justify-center bg-white">
         {/* Main central box */}
         <div
           ref={mainBoxRef}
-          className="relative z-10 bg-blue-500 rounded-lg flex items-center justify-center shadow-lg"
+          className="relative z-10 flex items-center justify-center shadow-lg"
           style={{
             width: `${layoutConfig.initialCenterWidth}vw`,
             height: `${layoutConfig.initialCenterHeight}vh`,
+            backgroundColor: 'transparent', // Start transparent
+            border: '3px solid #3b82f6', // Blue border
+            borderRadius: '0px', // Start with square edges
           }}
         >
           {/* Welcome text (initial) */}
           <h2 
             ref={welcomeTextRef}
-            className="absolute text-white text-4xl font-bold text-center px-4"
+            className="absolute text-blue-600 text-4xl font-bold text-center px-4"
             style={{ opacity: 1 }}
           >
             Welcome
@@ -309,6 +346,14 @@ export default function AnimatedLanding() {
           <Box color="bg-cyan-400" title="Cyan" />
         </div>
       </div>
+
+      {/* Spacer to allow scrolling */}
+      <div 
+        className="h-screen" 
+        style={{ 
+          background: 'linear-gradient(to bottom, white 20%, transparent 80%)'
+        }}
+      ></div>
 
     </section>
   )

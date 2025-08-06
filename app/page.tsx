@@ -1,3 +1,5 @@
+"use client"
+
 import AnimatedLanding from "./components/animated-landing"
 import HeroSection from "./components/hero-section"
 import DigitalCanvasNetwork from "./components/digital-canvas-network"
