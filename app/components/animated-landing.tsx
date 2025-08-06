@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react"
 import { gsap, ScrollTrigger, initializeGSAP } from "@/lib/gsap-config"
 import Box from "./box"
+import { useScrollTriggerHeight } from '../hooks/useScrollTriggerHeight'
 
 export default function AnimatedLanding() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -11,6 +12,7 @@ export default function AnimatedLanding() {
   const welcomeTextRef = useRef<HTMLHeadingElement>(null)
   const discoverTextRef = useRef<HTMLHeadingElement>(null)
   const mediaTextRef = useRef<HTMLHeadingElement>(null)
+  const backgroundRef = useRef<HTMLDivElement>(null)
 
   // Define the new layout structure with three stages
   const layoutConfig = {
@@ -112,6 +114,13 @@ export default function AnimatedLanding() {
 
   const boxLayout = calculateBoxLayout()
 
+  // Calculate dynamic height based on ScrollTrigger
+  const sectionHeight = useScrollTriggerHeight({
+    triggerId: "animated-landing",
+    endValue: "+=1200",
+    fallbackHeight: "200vh"
+  })
+
   useEffect(() => {
     // Initialize GSAP using the centralized configuration
     initializeGSAP()
@@ -122,8 +131,9 @@ export default function AnimatedLanding() {
     const welcomeText = welcomeTextRef.current
     const discoverText = discoverTextRef.current
     const mediaText = mediaTextRef.current
+    const background = backgroundRef.current
 
-    if (!container || !mainBox || !boxesContainer || !welcomeText || !discoverText || !mediaText) return
+    if (!container || !mainBox || !boxesContainer || !welcomeText || !discoverText || !mediaText || !background) return
 
     // Check for saved scroll position
     const savedY = sessionStorage.getItem("saved-scroll")
@@ -134,6 +144,7 @@ export default function AnimatedLanding() {
     // Set initial text states
     gsap.set(discoverText, { opacity: 0 })
     gsap.set(mediaText, { opacity: 0 })
+    gsap.set(background, { backgroundColor: 'transparent' })
 
     // Create a timeline for the animation
     const tl = gsap.timeline({
@@ -178,6 +189,16 @@ export default function AnimatedLanding() {
       mainBox,
       {
         borderRadius: "8px", // Add rounded corners when transitioning to medium
+        duration: 0.3,
+        ease: "power2.inOut",
+      },
+      0,
+    )
+    // Add background transition from transparent to white
+    .to(
+      background,
+      {
+        backgroundColor: 'white',
         duration: 0.3,
         ease: "power2.inOut",
       },
@@ -284,16 +305,24 @@ export default function AnimatedLanding() {
 
   return (
     <section className="relative w-full bg-transparent">
+      {/* Background div that will transition from transparent to white */}
+      <div 
+        ref={backgroundRef}
+        className="absolute inset-0 z-0"
+        style={{ backgroundColor: 'transparent' }}
+      ></div>
+
       {/* Spacer to allow scrolling */}
       <div 
         className="h-screen" 
         style={{ 
-          background: 'linear-gradient(to bottom, transparent 20%, white 80%)'
+        //   background: 'linear-gradient(to bottom, transparent 20%, white 80%)'
+          background: 'linear-gradient(to bottom, transparent 20%, transparent 80%)'
         }}
       ></div>
 
       {/* Animation container */}
-      <div ref={containerRef} className="h-screen w-full flex items-center justify-center bg-white">
+      <div ref={containerRef} className="h-screen w-full flex items-center justify-center bg-transparent">
         {/* Main central box */}
         <div
           ref={mainBoxRef}

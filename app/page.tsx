@@ -7,22 +7,34 @@ import MissionStatement from "./components/mission-statement"
 import CallToAction from "./components/call-to-action"
 import Footer from "./components/footer"
 import Methodist from "./components/methodist"
-import ClientStart from "./components/client-start"
+import { useScrollTriggerHeight } from './hooks/useScrollTriggerHeight'
 
 export default function Home() {
+  const missionHeight = useScrollTriggerHeight({
+    triggerId: "mission-statement-trigger",
+    endValue: "+=3680",
+    fallbackHeight: "400vh"
+  })
+
+  const animatedLandingHeight = useScrollTriggerHeight({
+    triggerId: "animated-landing",
+    endValue: "+=2800",
+    fallbackHeight: "420vh"
+  })
+
   return (
     <main className="min-h-screen bg-neutral-900 relative overflow-hidden">
 
-      {/* Animated Landing - First thing users see */}
-      <AnimatedLanding />
-
-
       {/* <HeroSection /> */}
       <DigitalCanvasNetwork />
-      <MissionStatement />
 
-      {/* Animated Landing - First thing users see */}
-      {/* <AnimatedLanding /> */}
+      <section className={`relative z-10`} style={{ height: missionHeight }}>
+        <MissionStatement />
+      </section>
+
+      <section className={`relative z-10`} style={{ height: animatedLandingHeight }}>
+        <AnimatedLanding />
+      </section>
       
       <CallToAction />
       <Footer />

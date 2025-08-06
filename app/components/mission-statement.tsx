@@ -7,6 +7,7 @@ import { WireframeBackground } from "./wireframe-background"
 import "./ImageUnmaskComponent.css"
 import "remixicon/fonts/remixicon.css"
 import { redirect } from "next/dist/server/api-utils"
+import { useScrollTriggerHeight } from '../hooks/useScrollTriggerHeight'
 
 // Initialize GSAP once
 initializeGSAP();
@@ -38,6 +39,13 @@ const MissionStatement = () => {
     "Connection", "Inspiration", "Progress", "Excellence", "Partnership", "Success",
     "Development", "Advancement", "Empowerment", "Discovery", "Achievement", "Excellence"
   ]
+
+  // Calculate dynamic height based on ScrollTrigger
+  const sectionHeight = useScrollTriggerHeight({
+    triggerId: "mission-statement-trigger",
+    endValue: "+=3000",
+    fallbackHeight: "400vh"
+  })
 
   useEffect(() => {
     // Register this section as pinned
