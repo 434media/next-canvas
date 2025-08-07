@@ -19,11 +19,11 @@ export default function Home() {
   const animatedLandingHeight = useScrollTriggerHeight({
     triggerId: "animated-landing",
     endValue: "+=2800",
-    fallbackHeight: "420vh"
+    fallbackHeight: "380vh"
   })
 
   return (
-    <main className="min-h-screen bg-neutral-900 relative overflow-hidden">
+    <main className="min-h-screen bg-neutral-900 relative overflow-hidden bg-black">
 
       {/* <HeroSection /> */}
       <DigitalCanvasNetwork />

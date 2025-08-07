@@ -40,3 +40,14 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 *.mov
+*.jpg
+*.png
+*.mp4
+*.svg
+*.gif
+*.webp
+*.heic
+*.heif
+*.heif
+*.heif
+*.heif

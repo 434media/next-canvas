@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Play, Plus, ThumbsUp, ChevronLeft, ChevronRight, Globe, Instagram, Linkedin } from "lucide-react"
+import { Play, ChevronLeft, ChevronRight, Globe, Instagram, Linkedin } from "lucide-react"
 import { Button } from "./ui/button"
 
 interface DynamicItem {
@@ -10,10 +10,12 @@ interface DynamicItem {
   title: string
   description: string
   genre: string
-  year: string
-  rating: string
+  year?: string
+  rating?: string
   image: string
   backdrop: string
+  video?: string | null
+  mediaType?: "image" | "video"
   website?: { url: string; show: boolean }
   instagram?: { url: string; show: boolean }
   linkedin?: { url: string; show: boolean }
@@ -30,11 +32,64 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
   const [selectedMovie, setSelectedMovie] = useState(items[0])
   const [scrollPosition, setScrollPosition] = useState(0)
   const [currentItemIndex, setCurrentItemIndex] = useState(0)
+  const [videoDuration, setVideoDuration] = useState<number>(0)
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
+  const [showVideo, setShowVideo] = useState(false)
   const autoSwitchRef = useRef<NodeJS.Timeout | null>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const videoDelayRef = useRef<NodeJS.Timeout | null>(null)
 
   const cardWidth = 282 // 280px width + 2px gap
   const visibleCards = 5 // Number of cards visible at once
   const maxScroll = Math.max(0, (items.length - visibleCards) * cardWidth)
+
+  // Calculate switch duration based on media type
+  const getSwitchDuration = () => {
+    if (selectedMovie.mediaType === "video" && selectedMovie.video && isVideoLoaded) {
+      // Video duration + 5 seconds, minimum 10 seconds
+      return Math.max((videoDuration + 5) * 1000, 10000)
+    }
+    // Default 10 seconds for images
+    return 10000
+  }
+
+  // Handle video metadata loaded
+  const handleVideoLoadedMetadata = () => {
+    if (videoRef.current) {
+      setVideoDuration(videoRef.current.duration)
+      setIsVideoLoaded(true)
+    }
+  }
+
+  // Handle video error - fallback to image
+  const handleVideoError = (e: any) => {
+    setIsVideoLoaded(false)
+    setVideoDuration(0)
+  }
+
+  // Start video delay timer
+  const startVideoDelay = () => {
+    if (videoDelayRef.current) {
+      clearTimeout(videoDelayRef.current)
+    }
+    
+    if (selectedMovie.mediaType === "video" && selectedMovie.video) {
+      setShowVideo(false)
+      videoDelayRef.current = setTimeout(() => {
+        setShowVideo(true)
+      }, 5000) // 5 seconds delay
+    } else {
+      setShowVideo(false)
+    }
+  }
+
+  // Clear video delay timer
+  const clearVideoDelay = () => {
+    if (videoDelayRef.current) {
+      clearTimeout(videoDelayRef.current)
+      videoDelayRef.current = null
+    }
+  }
 
   // Auto-switch to next item
   const switchToNextItem = () => {
@@ -42,18 +97,30 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
     setCurrentItemIndex(nextIndex)
     setSelectedMovie(items[nextIndex])
     
+    // Reset video state for new item
+    setIsVideoLoaded(false)
+    setVideoDuration(0)
+    setShowVideo(false)
+    
+    // Clear any existing video delay
+    clearVideoDelay()
+    
+    // Start video delay for new item
+    startVideoDelay()
+    
     // Update scroll position to show the selected item
     const newScrollPosition = Math.min(nextIndex * cardWidth, maxScroll)
     setScrollPosition(newScrollPosition)
   }
 
   // Start auto-switch timer
-  const startAutoSwitch = () => {
+  const startAutoSwitch = useCallback(() => {
     if (autoSwitchRef.current) {
       clearInterval(autoSwitchRef.current)
     }
-    autoSwitchRef.current = setInterval(switchToNextItem, 10000) // 10 seconds
-  }
+    const duration = getSwitchDuration()
+    autoSwitchRef.current = setInterval(switchToNextItem, duration)
+  }, [videoDuration, isVideoLoaded, selectedMovie.mediaType, selectedMovie.video])
 
   // Stop auto-switch timer
   const stopAutoSwitch = () => {
@@ -73,28 +140,32 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
     }
   }, [currentItemIndex, startAutoSwitch]) // Restart timer when currentItemIndex changes
 
+  // Start video delay when selected movie changes
+  useEffect(() => {
+    startVideoDelay()
+    
+    // Cleanup on unmount
+    return () => {
+      clearVideoDelay()
+    }
+  }, [selectedMovie.id])
+
+  // Restart timer when video duration changes
+  useEffect(() => {
+    if (selectedMovie.mediaType === "video" && isVideoLoaded) {
+      stopAutoSwitch()
+      startAutoSwitch()
+    }
+  }, [videoDuration, isVideoLoaded, startAutoSwitch])
+
   const scrollLeft = () => {
     const newPosition = Math.max(0, scrollPosition - cardWidth)
-    const newIndex = Math.floor(newPosition / cardWidth)
     setScrollPosition(newPosition)
-    setCurrentItemIndex(newIndex)
-    setSelectedMovie(items[newIndex])
-    
-    // Reset auto-switch timer
-    stopAutoSwitch()
-    startAutoSwitch()
   }
 
   const scrollRight = () => {
     const newPosition = Math.min(scrollPosition + cardWidth, maxScroll)
-    const newIndex = Math.floor(newPosition / cardWidth)
     setScrollPosition(newPosition)
-    setCurrentItemIndex(newIndex)
-    setSelectedMovie(items[newIndex])
-    
-    // Reset auto-switch timer
-    stopAutoSwitch()
-    startAutoSwitch()
   }
 
   const renderSocialLinks = (item: DynamicItem) => {
@@ -157,24 +228,43 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
           transition={{ duration: 0.5 }}
           className="relative w-screen h-screen"
         >
-          {/* Full Width Backdrop Image */}
+          {/* Full Width Backdrop Media */}
           <motion.div
             initial={{ opacity: 0, scale: 1 , x: -0}}
             animate={{ opacity: 1, scale: 1 , x: -0}}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="absolute inset-0 z-0"
           >
-            <motion.img
-              key={selectedMovie.backdrop}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              src={selectedMovie.backdrop}
-              alt={selectedMovie.title}
-              className="w-full h-full object-cover"
-            />
-            {/* Black fade effect from left to right */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+            {/* Show image first, then video after 5 seconds */}
+            {selectedMovie.mediaType === "video" && selectedMovie.video && showVideo ? (
+              <motion.video
+                key={selectedMovie.video}
+                ref={videoRef}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                src={selectedMovie.video}
+                className="w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                onLoadedMetadata={handleVideoLoadedMetadata}
+                onError={handleVideoError}
+                playsInline
+              />
+            ) : (
+              <motion.img
+                key={selectedMovie.backdrop}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                src={selectedMovie.backdrop}
+                alt={selectedMovie.title}
+                className="w-full h-full object-cover"
+              />
+            )}
+            {/* Centered gradient overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
           </motion.div>
 
           {/* Content overlay */}
@@ -202,8 +292,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="flex items-center gap-4 text-sm text-gray-300 mb-4"
                 >
-                  <span className="bg-gray-700 px-2 py-1 rounded">{selectedMovie.rating}</span>
-                  <span>{selectedMovie.year}</span>
                   <span>{selectedMovie.genre}</span>
                 </motion.div>
               </div>
@@ -223,19 +311,12 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                 transition={{ duration: 0.6, delay: 0.6 }}
                 className="flex gap-4"
               >
-                <Button className="bg-white text-black hover:bg-gray-200 font-semibold px-8 py-2">
+                <Button 
+                  className="bg-white text-black hover:bg-gray-200 font-semibold px-8 py-2"
+                  onClick={() => selectedMovie.website?.show && selectedMovie.website?.url !== "#" ? window.open(selectedMovie.website.url, '_blank') : null}
+                >
                   <Play className="mr-2 h-5 w-5 fill-current" />
                   Learn More
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-gray-500 text-white hover:bg-gray-800 px-8 py-2 bg-transparent"
-                >
-                  <Plus className="mr-2 h-5 w-5" />
-                  Connect
-                </Button>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-800">
-                  <ThumbsUp className="h-5 w-5" />
                 </Button>
               </motion.div>
 
@@ -294,6 +375,17 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                     setCurrentItemIndex(movieIndex)
                     setSelectedMovie(movie)
                     
+                    // Reset video state for new item
+                    setIsVideoLoaded(false)
+                    setVideoDuration(0)
+                    setShowVideo(false)
+                    
+                    // Clear any existing video delay
+                    clearVideoDelay()
+                    
+                    // Start video delay for new item
+                    startVideoDelay()
+                    
                     // Update scroll position
                     const newScrollPosition = Math.min(movieIndex * cardWidth, maxScroll)
                     setScrollPosition(newScrollPosition)
@@ -315,6 +407,11 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                     <div className="absolute bottom-2 left-2 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
                       <h3 className="text-sm font-semibold">{movie.title}</h3>
                     </div>
+                    {movie.mediaType === "video" && (
+                      <div className="absolute top-2 right-2 bg-black/50 rounded-full p-1">
+                        <Play className="h-3 w-3 text-white" />
+                      </div>
+                    )}
                   </div>
                   {movie.id === selectedMovie.id && (
                     <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
