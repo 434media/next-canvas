@@ -15,7 +15,7 @@ import PricingSection from "../../components/events/pricing-section"
 import CallToActionSection from "../../components/events/call-to-action"
 
 // Import data
-import { weeklyProgram } from "../../data/prompt-to-product"
+import { weeklyProgram } from "../../../data/prompt-to-product"
 
 export default function PromptToProductPage() {
   const [isMobile, setIsMobile] = useState(false)

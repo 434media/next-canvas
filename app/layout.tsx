@@ -1,14 +1,30 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
-import Navbar from "./components/Navbar"
+import Navbar from "../components/navbar"
+import Footer from "../components/footer"
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/next"
+import { Suspense } from "react"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+})
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+})
+
+const mendaBlack = localFont({
+  src: "../fonts/Menda-Black.otf",
+  variable: "--font-menda-black",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
@@ -52,7 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.className} min-h-screen overflow-x-hidden scroll-auto bg-gray-50 antialiased selection:bg-sky-100 selection:text-sky-600`}
+        className={`${geistSans.variable} ${geistMono.variable} ${mendaBlack.variable} min-h-screen overflow-x-hidden scroll-auto bg-white antialiased selection:bg-sky-100 selection:text-sky-600`}
       >
         {/* Google Analytics */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-NY5R12BN23" strategy="afterInteractive" />
@@ -65,8 +81,11 @@ export default function RootLayout({
           `}
         </Script>
 
-        <Navbar />
-        {children}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Navbar />
+          {children}
+          <Footer />
+        </Suspense>
 
         <Analytics />
       </body>

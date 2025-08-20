@@ -1,43 +1,38 @@
 "use client"
 
-import AnimatedLanding from "./components/animated-landing"
-import HeroSection from "./components/hero-section"
-import DigitalCanvasNetwork from "./components/digital-canvas-network"
-import MissionStatement from "./components/mission-statement"
-import CallToAction from "./components/call-to-action"
-import Footer from "./components/footer"
-import Methodist from "./components/methodist"
-import { useScrollTriggerHeight } from './hooks/useScrollTriggerHeight'
+import MissionStatement from "../components/mission-statement"
+import DigitalCanvasNetwork from "../components/digital-canvas-network"
+import AnimatedLanding from "../components/animated-landing"
+import { useScrollTriggerHeight } from "../hooks/useScrollTriggerHeight"
+import LoadingPage from "../components/loading-page"
 
 export default function Home() {
   const missionHeight = useScrollTriggerHeight({
     triggerId: "mission-statement-trigger",
     endValue: "+=3680",
-    fallbackHeight: "400vh"
+    fallbackHeight: "400vh",
   })
 
   const animatedLandingHeight = useScrollTriggerHeight({
     triggerId: "animated-landing",
     endValue: "+=2800",
-    fallbackHeight: "380vh"
+    fallbackHeight: "380vh",
   })
 
   return (
-    <main className="min-h-screen bg-neutral-900 relative overflow-hidden bg-black">
+    <>
+      <LoadingPage />
+      <main className="min-h-screen bg-white relative overflow-hidden">
+        <section className={`relative z-10`} style={{ height: missionHeight }}>
+          <MissionStatement />
+        </section>
 
-      {/* <HeroSection /> */}
-      <DigitalCanvasNetwork />
+        <DigitalCanvasNetwork />
 
-      <section className={`relative z-10`} style={{ height: missionHeight }}>
-        <MissionStatement />
-      </section>
-
-      <section className={`relative z-10`} style={{ height: animatedLandingHeight }}>
-        <AnimatedLanding />
-      </section>
-      
-      <CallToAction />
-      <Footer />
-    </main>
+        <section className={`relative z-10`} style={{ height: animatedLandingHeight }}>
+          <AnimatedLanding />
+        </section>
+      </main>
+    </>
   )
 }
