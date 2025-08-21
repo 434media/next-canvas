@@ -1,5 +1,4 @@
 "use client"
-import { motion } from "motion/react"
 import DynamicSliderComponent from "./dynamic-slider"
 
 // Define the type for IP properties
@@ -14,7 +13,7 @@ interface IPProperty {
 }
 
 const ipProperties: IPProperty[] = [
-  {
+    {
     id: "overdrive",
     name: "OVERDRIVE",
     tagline: "The Creative Layer of 434 MEDIA",
@@ -68,37 +67,8 @@ const DynamicSliderSection = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col justify-center py-8 md:py-16">
-      <motion.div
-        className="px-4 md:px-8 lg:px-16 mb-8 md:mb-12"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        <div className="flex justify-center items-center min-h-[30vh] lg:min-h-[50vh]">
-          <motion.div
-            className="text-center max-w-6xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <motion.p
-              className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl text-black font-bold leading-tight tracking-tight px-4"
-              whileHover={{ scale: 1.01 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              Explore our{" "}
-              <span className="text-sky-600 underline decoration-4 underline-offset-8">creative ecosystem</span> of{" "}
-              <span className="text-violet-500 bg-purple-100 px-2 py-1 rounded-lg">innovative properties</span> and{" "}
-              <span className="text-emerald-500 italic">groundbreaking content</span>.
-            </motion.p>
-          </motion.div>
-        </div>
-      </motion.div>
-
       {/* Dynamic Slider */}
-      <div className="flex-1 w-full md:mt-32">
+      <div className="flex-1 w-full">
         <DynamicSliderComponent items={dynamicItems} />
       </div>
     </div>
