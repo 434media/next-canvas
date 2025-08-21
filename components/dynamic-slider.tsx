@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Play, Globe, Volume2, VolumeX, X, ChevronLeft, ChevronRight } from "lucide-react"
+import { motion, AnimatePresence } from "motion/react"
+import { Play, Volume2, VolumeX, X, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "./ui/button"
 
 interface DynamicItem {
@@ -147,26 +147,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
     setScrollPosition(newPosition)
   }
 
-  const renderSocialLinks = (item: DynamicItem) => {
-    const links = []
-
-    if (item.website?.show) {
-      links.push(
-        <Button
-          key="website"
-          variant="ghost"
-          size="icon"
-          className="text-white/60 hover:text-white hover:bg-white/10"
-          onClick={() => window.open(item.website!.url, "_blank")}
-        >
-          <Globe className="h-5 w-5" />
-        </Button>,
-      )
-    }
-
-    return links
-  }
-
   const openMobileModal = (item: DynamicItem) => {
     setModalItem(item)
     setShowMobileModal(true)
@@ -245,17 +225,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                   <h1 className="text-4xl lg:text-5xl font-bold">{selectedMovie.title}</h1>
                   <p className="text-lg text-gray-300 leading-relaxed line-clamp-3">{selectedMovie.description}</p>
                   <div className="flex gap-3">
-                    <Button
-                      className="bg-white text-black hover:bg-gray-200 font-semibold px-8 py-3 text-base"
-                      onClick={() =>
-                        selectedMovie.website?.show && selectedMovie.website?.url !== "#"
-                          ? window.open(selectedMovie.website.url, "_blank")
-                          : null
-                      }
-                    >
-                      <Play className="mr-2 h-5 w-5 fill-current" />
-                      Learn More
-                    </Button>
                     {selectedMovie.mediaType === "video" && selectedMovie.video && (
                       <Button
                         variant="outline"
@@ -267,7 +236,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                       </Button>
                     )}
                   </div>
-                  <div className="flex gap-2">{renderSocialLinks(selectedMovie)}</div>
                 </motion.div>
               </div>
             </motion.div>
@@ -390,18 +358,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
             <div className="absolute bottom-0 left-0 right-0 p-6">
               <h1 className="text-2xl font-bold mb-2">{selectedMovie.title}</h1>
               <div className="flex gap-3">
-                <Button
-                  size="default"
-                  className="bg-white text-black hover:bg-gray-200 font-semibold px-6"
-                  onClick={() =>
-                    selectedMovie.website?.show && selectedMovie.website?.url !== "#"
-                      ? window.open(selectedMovie.website.url, "_blank")
-                      : null
-                  }
-                >
-                  <Play className="mr-2 h-4 w-4 fill-current" />
-                  Learn More
-                </Button>
                 {selectedMovie.mediaType === "video" && selectedMovie.video && (
                   <Button
                     variant="outline"
@@ -504,18 +460,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                   </div>
                   <p className="text-sm text-gray-300 leading-relaxed line-clamp-3">{modalItem.description}</p>
                   <div className="flex gap-2 flex-wrap">
-                    <Button
-                      size="sm"
-                      className="bg-white text-black hover:bg-gray-200 font-semibold"
-                      onClick={() =>
-                        modalItem.website?.show && modalItem.website?.url !== "#"
-                          ? window.open(modalItem.website.url, "_blank")
-                          : null
-                      }
-                    >
-                      <Play className="mr-1 h-3 w-3 fill-current" />
-                      Learn More
-                    </Button>
                     {modalItem.mediaType === "video" && modalItem.video && (
                       <Button
                         variant="outline"
@@ -527,7 +471,6 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                       </Button>
                     )}
                   </div>
-                  <div className="flex gap-1">{renderSocialLinks(modalItem)}</div>
                 </div>
               </div>
             </motion.div>

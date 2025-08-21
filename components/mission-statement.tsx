@@ -1,382 +1,693 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import {
-  gsap,
-  ScrollTrigger,
-  initializeGSAP,
-  registerPinnedSection,
-  unregisterPinnedSection,
-  registerScrollTrigger,
-  unregisterScrollTrigger,
-} from "../lib/gsap-config"
-import "./ImageUnmaskComponent.css"
-import { useScrollTriggerHeight } from "../hooks/useScrollTriggerHeight"
-import { CreativeLayer } from "./creative-layer"
+import { useRef, useState, useEffect } from "react"
+import { motion, AnimatePresence } from "motion/react"
+import PulsingCircle from "./pulsing-circle"
+import { useMobile } from "../hooks/use-mobile"
+import { Vortex } from "./vortex"
+import { WavyBackground } from "./wavy-background"
 
-// Initialize GSAP once
-initializeGSAP()
-
-// Global reference to horizontal scroller trigger
-let horizontalScrollerTrigger: ScrollTrigger | null = null
-let horizontalScrollerEnabled = false
-
-// Function to set the horizontal scroller trigger reference
-export const setHorizontalScrollerTrigger = (trigger: ScrollTrigger) => {
-  horizontalScrollerTrigger = trigger
-  console.log("Horizontal scroller trigger registered")
-}
+// Background environment types
+type BackgroundType = "comic" | "video1" | "crt" | "video3" | "vortex" | "video2" | "wavy"
 
 const MissionStatement = () => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const textRef = useRef<HTMLDivElement>(null)
-  const creativeLayerRef = useRef<HTMLDivElement>(null)
-  const sectionId = "mission-statement"
-  const triggerId = "mission-statement-trigger"
-
-  const colorParticles = [
-    { color: "#FF6B6B", size: "w-6 h-6", delay: 0 },
-    { color: "#4ECDC4", size: "w-8 h-8", delay: 0.1 },
-    { color: "#45B7D1", size: "w-5 h-5", delay: 0.2 },
-    { color: "#96CEB4", size: "w-7 h-7", delay: 0.3 },
-    { color: "#FFEAA7", size: "w-6 h-6", delay: 0.4 },
-    { color: "#DDA0DD", size: "w-8 h-8", delay: 0.5 },
-    { color: "#98D8C8", size: "w-5 h-5", delay: 0.6 },
-    { color: "#F7DC6F", size: "w-7 h-7", delay: 0.7 },
-    { color: "#BB8FCE", size: "w-6 h-6", delay: 0.8 },
-    { color: "#85C1E9", size: "w-8 h-8", delay: 0.9 },
-    { color: "#F8C471", size: "w-5 h-5", delay: 1.0 },
-    { color: "#82E0AA", size: "w-7 h-7", delay: 1.1 },
-    { color: "#F1948A", size: "w-6 h-6", delay: 1.2 },
-    { color: "#AED6F1", size: "w-8 h-8", delay: 1.3 },
-    { color: "#A9DFBF", size: "w-5 h-5", delay: 1.4 },
-    { color: "#F9E79F", size: "w-7 h-7", delay: 1.5 },
-    { color: "#D7BDE2", size: "w-6 h-6", delay: 1.6 },
-    { color: "#A3E4D7", size: "w-8 h-8", delay: 1.7 },
-    { color: "#FAD7A0", size: "w-5 h-5", delay: 1.8 },
-    { color: "#D5A6BD", size: "w-7 h-7", delay: 1.9 },
-    { color: "#87CEEB", size: "w-6 h-6", delay: 2.0 },
-    { color: "#FFB6C1", size: "w-8 h-8", delay: 2.1 },
-    { color: "#20B2AA", size: "w-5 h-5", delay: 2.2 },
-    { color: "#FF7F50", size: "w-7 h-7", delay: 2.3 },
-    { color: "#9370DB", size: "w-6 h-6", delay: 2.4 },
-    { color: "#FF1493", size: "w-8 h-8", delay: 2.5 },
-    { color: "#00CED1", size: "w-5 h-5", delay: 2.6 },
-    { color: "#FF4500", size: "w-7 h-7", delay: 2.7 },
-    { color: "#8A2BE2", size: "w-6 h-6", delay: 2.8 },
-    { color: "#00FA9A", size: "w-8 h-8", delay: 2.9 },
-    { color: "#FFD700", size: "w-5 h-5", delay: 3.0 },
-    { color: "#DC143C", size: "w-7 h-7", delay: 3.1 },
-    { color: "#00BFFF", size: "w-6 h-6", delay: 3.2 },
-    { color: "#ADFF2F", size: "w-8 h-8", delay: 3.3 },
-    { color: "#FF69B4", size: "w-5 h-5", delay: 3.4 },
-    { color: "#1E90FF", size: "w-7 h-7", delay: 3.5 },
-    { color: "#32CD32", size: "w-6 h-6", delay: 3.6 },
-    { color: "#FF8C00", size: "w-8 h-8", delay: 3.7 },
-    { color: "#BA55D3", size: "w-5 h-5", delay: 3.8 },
-    { color: "#00FF7F", size: "w-7 h-7", delay: 3.9 },
-    { color: "#FF6347", size: "w-6 h-6", delay: 4.0 },
-    { color: "#4169E1", size: "w-8 h-8", delay: 4.1 },
-    { color: "#7FFF00", size: "w-5 h-5", delay: 4.2 },
-    { color: "#DA70D6", size: "w-7 h-7", delay: 4.3 },
-    { color: "#00FFFF", size: "w-6 h-6", delay: 4.4 },
-    { color: "#FFA500", size: "w-8 h-8", delay: 4.5 },
-    { color: "#9932CC", size: "w-5 h-5", delay: 4.6 },
-    { color: "#00FF00", size: "w-7 h-7", delay: 4.7 },
-    { color: "#FF0000", size: "w-6 h-6", delay: 4.8 },
-    { color: "#0000FF", size: "w-8 h-8", delay: 4.9 },
-  ]
-
-  // Calculate dynamic height based on ScrollTrigger
-  const sectionHeight = useScrollTriggerHeight({
-    triggerId: "mission-statement-trigger",
-    endValue: "+=3000",
-    fallbackHeight: "400vh",
-  })
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [currentBackground, setCurrentBackground] = useState<BackgroundType>("comic")
+  const [isActive, setIsActive] = useState(false)
+  const isMobile = useMobile()
 
   useEffect(() => {
-    // Register this section as pinned
-    registerPinnedSection(sectionId)
+    const canvas = canvasRef.current
+    if (!canvas) return
 
-    // Add scroll listener for better coordination
-    const handleScroll = () => {
-      if (horizontalScrollerTrigger && !horizontalScrollerEnabled) {
-        const missionSection = document.querySelector(".mission-overlay-container")
-        if (missionSection) {
-          const missionRect = missionSection.getBoundingClientRect()
-          // Enable horizontal scroller only when mission section is completely below viewport
-          if (missionRect.top > window.innerHeight + 100) {
-            // Add 100px buffer
-            horizontalScrollerTrigger.enable()
-            horizontalScrollerEnabled = true
-            console.log("Horizontal scroller enabled via scroll listener")
-            // Remove the scroll listener once enabled
-            window.removeEventListener("scroll", handleScroll)
-          }
-        }
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    const particles: Array<{
+      x: number
+      y: number
+      vx: number
+      vy: number
+      size: number
+      color: string
+      alpha: number
+    }> = []
+
+    const createParticles = () => {
+      particles.length = 0
+      const particleCount = 30
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2,
+          size: Math.random() * 3 + 1,
+          color: getParticleColor(),
+          alpha: Math.random() * 0.8 + 0.2,
+        })
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
-
-    // Wait for DOM to be ready
-    const timer = setTimeout(() => {
-      const svg = document.querySelector("#svg") as SVGSVGElement
-      const circle = document.querySelector("#circle") as SVGCircleElement
-      const creativeLayerElement = creativeLayerRef.current
-
-      if (!svg || !circle || !creativeLayerElement) {
-        console.warn("Required elements not found", {
-          svg: !!svg,
-          circle: !!circle,
-          creativeLayer: !!creativeLayerElement,
-        })
-        return
+    const getParticleColor = () => {
+      switch (currentBackground) {
+        case "crt":
+          return "#00ff00"
+        case "vortex":
+          return "#6366f1"
+        case "comic":
+          return "#fbbf24"
+        case "video1":
+        case "video2":
+        case "video3":
+          return "#ffffff"
+        case "wavy":
+          return "#38bdf8"
+        default:
+          return "#6b7280"
       }
+    }
 
-      console.log("GSAP color feeding animation setup successful")
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Start with a small circle radius
-      const startRadius = 0
-      // End with a large circle radius - will be calculated
-      let maxRadius = 1000
+      particles.forEach((particle) => {
+        particle.x += particle.vx
+        particle.y += particle.vy
 
-      // Set initial circle radius
-      gsap.set(circle, {
-        attr: { r: startRadius },
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
+
+        ctx.globalAlpha = particle.alpha
+        ctx.fillStyle = particle.color
+        ctx.beginPath()
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
+        ctx.fill()
+
+        ctx.shadowBlur = 10
+        ctx.shadowColor = particle.color
+        ctx.fill()
+        ctx.shadowBlur = 0
       })
 
-      const particles = document.querySelectorAll(".color-particle")
+      requestAnimationFrame(animate)
+    }
 
-      particles.forEach((particle, index) => {
-        const angle = (index / particles.length) * Math.PI * 2
-        const distance = 400 + Math.random() * 300 // Larger spread
-        const x = Math.cos(angle) * distance
-        const y = Math.sin(angle) * distance
+    createParticles()
+    animate()
 
-        gsap.set(particle, {
-          x: x,
-          y: y,
-          scale: 1,
-          opacity: 1,
-        })
-      })
+    const handleResize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      createParticles()
+    }
 
-      gsap.set(creativeLayerElement, {
-        scale: 1,
-        opacity: 1,
-      })
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [currentBackground])
 
-      // Create the timeline animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".mission-overlay-container",
-          pin: true,
-          anticipatePin: 1,
-          start: "top top",
-          end: "+=3000",
-          scrub: 1,
-          markers: false,
-          onUpdate: (self) => {
-            // Add buffer - don't start animation until 10% scroll progress
-            if (self.progress < 0.1) {
-              gsap.set(circle, {
-                attr: { r: startRadius },
-              })
-            }
-            // Log when animation is complete
-            if (self.progress >= 0.99) {
-              console.log("Mission statement animation completed")
-            }
-            // Log progress for debugging
-            if (self.progress % 0.25 < 0.01) {
-              console.log(`Mission statement progress: ${Math.round(self.progress * 100)}%`)
-            }
-          },
-          onLeave: () => {
-            console.log("Mission statement left viewport")
-            if (horizontalScrollerTrigger) {
-              horizontalScrollerTrigger.disable()
-              horizontalScrollerEnabled = false
-              console.log("Horizontal scroller trigger disabled")
-            }
-          },
-          onEnterBack: () => {
-            console.log("Mission statement re-entered viewport")
-            if (horizontalScrollerTrigger) {
-              horizontalScrollerTrigger.disable()
-              horizontalScrollerEnabled = false
-              console.log("Horizontal scroller trigger disabled")
-            }
-          },
-        },
-      })
+  useEffect(() => {
+    const handleMouseEnter = () => setIsActive(true)
+    const handleMouseLeave = () => setIsActive(false)
 
-      // Register the ScrollTrigger
-      const scrollTrigger = tl.scrollTrigger
-      if (scrollTrigger) {
-        registerScrollTrigger(triggerId, scrollTrigger)
-      }
-
-      particles.forEach((particle, index) => {
-        const colorData = colorParticles[index % colorParticles.length]
-        tl.to(
-          particle,
-          {
-            x: 0,
-            y: 0,
-            scale: 0.2,
-            opacity: 0,
-            ease: "power2.in",
-            duration: 0.8,
-          },
-          colorData.delay * 0.1, // Faster sequence
-        )
-      })
-
-      tl.to(
-        creativeLayerElement,
-        {
-          scale: 0.3,
-          opacity: 0.8,
-          ease: "power2.out",
-          duration: 1.5,
-        },
-        0.5, // Start shrinking as colors are being absorbed
-      )
-
-      tl.to(
-        creativeLayerElement,
-        {
-          scale: 0,
-          opacity: 0,
-          ease: "power2.in",
-          duration: 0.8,
-        },
-        2.0, // Near the end of the animation
-      )
-
-      // Add animation to increase circle radius for the mask reveal
-      tl.to(
-        circle,
-        {
-          attr: { r: maxRadius },
-          ease: "power2.out",
-          duration: 0.6,
-          delay: 0.1,
-        },
-        2.5, // After creative layer disappears
-      )
-
-      // Function to handle resizing
-      function resize() {
-        if (!svg) return
-
-        // Calculate container dimensions
-        const r = svg.getBoundingClientRect()
-        const rectWidth = r.width + 4
-        const rectHeight = r.height + 4
-
-        // Calculate maximum radius (diagonal of the container)
-        const dx = rectWidth / 2
-        const dy = rectHeight / 2
-        maxRadius = Math.sqrt(dx * dx + dy * dy) * 2
-
-        // Reset timeline and refresh ScrollTrigger
-        tl.invalidate()
-        ScrollTrigger.refresh()
-      }
-
-      // Add event listeners
-      window.addEventListener("resize", resize)
-      window.addEventListener("load", resize)
-
-      // Initial resize
-      resize()
-
-      // Cleanup function
-      return () => {
-        window.removeEventListener("resize", resize)
-        window.removeEventListener("load", resize)
-        window.removeEventListener("scroll", handleScroll)
-        tl.kill()
-        unregisterPinnedSection(sectionId)
-        unregisterScrollTrigger(triggerId)
-      }
-    }, 100)
+    const container = containerRef.current
+    if (container) {
+      container.addEventListener("mouseenter", handleMouseEnter)
+      container.addEventListener("mouseleave", handleMouseLeave)
+    }
 
     return () => {
-      clearTimeout(timer)
+      if (container) {
+        container.removeEventListener("mouseenter", handleMouseEnter)
+        container.removeEventListener("mouseleave", handleMouseLeave)
+      }
     }
   }, [])
 
-  return (
-    <section className="relative min-h-screen overflow-hidden bg-white" ref={containerRef}>
-      {/* Overlay Container - Mission Statement over Color Feeding */}
-      <div className="relative mission-overlay-container min-h-screen">
-        <div
-          className="relative z-0 flex items-center justify-center"
-          style={{
-            position: "absolute",
-            inset: "0",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          {colorParticles.map((particle, index) => (
-            <div
-              key={index}
-              className={`color-particle absolute rounded-full ${particle.size} opacity-90`}
+  const handleBackgroundChange = () => {
+    const backgrounds: BackgroundType[] = ["comic", "video1", "crt", "video3", "vortex", "video2", "wavy"]
+    const currentIndex = backgrounds.indexOf(currentBackground)
+    const nextIndex = (currentIndex + 1) % backgrounds.length
+    setCurrentBackground(backgrounds[nextIndex])
+
+    try {
+      const audio = new Audio(
+        "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT",
+      )
+      audio.volume = 0.1
+      audio.play().catch(() => {})
+    } catch (e) {}
+  }
+
+  const getLogoStyle = () => {
+    switch (currentBackground) {
+      case "crt":
+        return {
+          filter: "drop-shadow(0 0 10px #00ff00) contrast(1.2) brightness(1.1)",
+          fontFamily: "monospace",
+        }
+      case "vortex":
+        return {
+          filter: "drop-shadow(0 0 20px #6366f1) drop-shadow(0 0 40px #4f46e5)",
+          animation: "pulse 2s infinite",
+        }
+      case "comic":
+        return {
+          filter: "drop-shadow(4px 4px 0px #000) drop-shadow(8px 8px 0px #fbbf24)",
+        }
+      case "video1":
+      case "video2":
+      case "video3":
+        return {
+          filter: "drop-shadow(0 0 15px #ffffff) drop-shadow(0 0 30px #ffffff)",
+          animation: "pulse 2s infinite",
+        }
+      case "wavy":
+        return {
+          filter: "drop-shadow(0 0 15px #38bdf8) drop-shadow(0 0 30px #818cf8)",
+          animation: "pulse 3s infinite",
+        }
+      default:
+        return {
+          filter: "drop-shadow(2px 2px 4px rgba(0,0,0,0.3))",
+          color: "#000000",
+        }
+    }
+  }
+
+  const getBannerStyle = () => {
+    switch (currentBackground) {
+      case "crt":
+        return {
+          background: "rgba(0, 255, 0, 0.1)",
+          border: "2px solid #00ff00",
+          color: "#00ff00",
+          fontFamily: "monospace",
+          textShadow: "0 0 10px #00ff00",
+        }
+      case "vortex":
+        return {
+          background: "linear-gradient(45deg, #6366f1, #4f46e5)",
+          border: "2px solid #818cf8",
+          boxShadow: "0 0 40px rgba(99, 102, 241, 0.8)",
+        }
+      case "comic":
+        return {
+          background: "#fbbf24",
+          color: "#000",
+          border: "4px solid #000",
+          boxShadow: "8px 8px 0px #000",
+        }
+      case "video1":
+      case "video2":
+      case "video3":
+        return {
+          background: "rgba(255, 255, 255, 0.9)",
+          color: "#000",
+          border: "2px solid #ffffff",
+          boxShadow: "0 0 25px rgba(255, 255, 255, 0.7)",
+        }
+      case "wavy":
+        return {
+          background: "rgba(56, 189, 248, 0.15)",
+          color: "#ffffff",
+          border: "2px solid #38bdf8",
+          boxShadow: "0 0 30px rgba(56, 189, 248, 0.5)",
+          backdropFilter: "blur(10px)",
+        }
+      default:
+        return {
+          background: "#fff",
+          color: "#000",
+          border: "2px solid #000000",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
+        }
+    }
+  }
+
+  const renderBackground = () => {
+    switch (currentBackground) {
+      case "crt":
+        return (
+          <motion.div
+            key="crt"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 bg-black"
+            style={{
+              background: `
+                repeating-linear-gradient(
+                  0deg,
+                  transparent,
+                  transparent 2px,
+                  rgba(0, 255, 0, 0.03) 2px,
+                  rgba(0, 255, 0, 0.03) 4px
+                ),
+                radial-gradient(ellipse at center, rgba(0, 255, 0, 0.1) 0%, transparent 70%),
+                #000000
+              `,
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 opacity-30"
               style={{
-                backgroundColor: particle.color,
-                boxShadow: `0 0 30px ${particle.color}60, 0 0 60px ${particle.color}30`,
+                background: `
+                  repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(0, 255, 0, 0.1) 1px,
+                    transparent 2px
+                  )
+                `,
+              }}
+              animate={{
+                x: [0, 10, 0],
+              }}
+              transition={{
+                duration: 0.1,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "linear",
               }}
             />
-          ))}
-        </div>
 
-        {/* SVG Mask - Only for the text layer */}
-        <svg id="svg" className="absolute inset-0 w-full h-full pointer-events-none z-10">
-          <defs>
-            <mask id="overlay-mask">
-              <rect width="100%" height="100%" fill="black"></rect>
-              <circle id="circle" cx="50%" cy="50%" r="10" fill="white"></circle>
-            </mask>
+            <motion.div
+              className="absolute inset-0 opacity-40"
+              style={{
+                background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`,
+                mixBlendMode: "screen",
+              }}
+              animate={{
+                opacity: [0.2, 0.6, 0.1, 0.4],
+                scale: [1, 1.01, 0.99, 1],
+              }}
+              transition={{
+                duration: 0.08,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "linear",
+              }}
+            />
 
-            <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#FF6B6B" />
-              <stop offset="25%" stopColor="#4ECDC4" />
-              <stop offset="50%" stopColor="#45B7D1" />
-              <stop offset="75%" stopColor="#FFEAA7" />
-              <stop offset="100%" stopColor="#DDA0DD" />
-            </linearGradient>
-          </defs>
-          <rect width="100%" height="100%" fill="white" opacity="0" mask="url(#overlay-mask)"></rect>
-        </svg>
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                background: "rgba(255, 255, 255, 0.1)",
+                mixBlendMode: "screen",
+              }}
+              animate={{
+                opacity: [0, 0, 0, 0.3, 0, 0, 0, 0.1, 0],
+              }}
+              transition={{
+                duration: 0.5,
+                repeat: Number.POSITIVE_INFINITY,
+                times: [0, 0.1, 0.2, 0.21, 0.22, 0.5, 0.7, 0.71, 1],
+              }}
+            />
 
-        {/* Mission Statement Content (Foreground Layer) - Masked */}
-        <div
-          ref={textRef}
-          className="relative z-20 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8"
-          style={{
-            mask: "url(#overlay-mask)",
-            WebkitMask: "url(#overlay-mask)",
-            maskSize: "100% 100%",
-            WebkitMaskSize: "100% 100%",
-            maskRepeat: "no-repeat",
-            WebkitMaskRepeat: "no-repeat",
-          }}
-        >
-          <div className="w-full max-w-4xl mx-auto">
-            <div ref={creativeLayerRef}>
-              <CreativeLayer />
+            <div className="absolute inset-0 opacity-40">
+              {Array.from({ length: 30 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute text-green-400 font-mono text-xs"
+                  style={{ left: `${i * 3.33}%`, top: "-100px" }}
+                  animate={{
+                    y: [0, window.innerHeight + 100],
+                    opacity: [0, 1, 1, 0],
+                  }}
+                  transition={{
+                    duration: 2 + Math.random() * 3,
+                    repeat: Number.POSITIVE_INFINITY,
+                    delay: Math.random() * 2,
+                    ease: "linear",
+                  }}
+                >
+                  {Array.from({ length: 15 })
+                    .map(() => String.fromCharCode(0x30a0 + Math.random() * 96))
+                    .join("")}
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              className="absolute inset-0 bg-green-500 mix-blend-multiply"
+              animate={{
+                opacity: [0, 0, 0, 0.08, 0],
+              }}
+              transition={{
+                duration: 0.15,
+                repeat: Number.POSITIVE_INFINITY,
+                times: [0, 0.94, 0.96, 0.98, 1],
+              }}
+            />
+          </motion.div>
+        )
+      case "vortex":
+        return (
+          <motion.div
+            key="vortex"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0"
+            style={{ backgroundColor: "#1e1b4b" }}
+          >
+            <Vortex
+              backgroundColor="transparent"
+              particleCount={1200}
+              baseHue={240}
+              baseSpeed={0.15}
+              rangeSpeed={3}
+              baseRadius={1.5}
+              rangeRadius={4}
+            />
+          </motion.div>
+        )
+      case "comic":
+        return (
+          <motion.div
+            key="comic"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 overflow-hidden"
+            style={{
+              background: `
+                radial-gradient(circle at 20% 20%, #ff6b6b 0%, transparent 25%),
+                radial-gradient(circle at 80% 80%, #4ecdc4 0%, transparent 25%),
+                radial-gradient(circle at 60% 40%, #45b7d1 0%, transparent 25%),
+                radial-gradient(circle at 30% 70%, #96ceb4 0%, transparent 25%),
+                radial-gradient(circle at 70% 20%, #feca57 0%, transparent 25%),
+                #ffd93d
+              `,
+            }}
+          >
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                background: `
+                  repeating-linear-gradient(
+                    45deg,
+                    transparent 0px,
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 12px
+                  ),
+                  repeating-linear-gradient(
+                    -45deg,
+                    transparent 0px,
+                    rgba(0, 0, 0, 0.08) 1px,
+                    transparent 18px
+                  ),
+                  radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.1) 2px, transparent 2px),
+                  radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.1) 2px, transparent 2px)
+                `,
+                backgroundSize: "20px 20px, 25px 25px, 15px 15px, 15px 15px",
+              }}
+            />
+          </motion.div>
+        )
+      case "video1":
+        return (
+          <motion.div
+            key="video1"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 overflow-hidden"
+          >
+            <video
+              ref={videoRef}
+              className="absolute inset-0 w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              onLoadedData={() => {
+                if (videoRef.current) {
+                  videoRef.current.playbackRate = 0.8
+                }
+              }}
+            >
+              <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/deepmind.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-black/20" />
+          </motion.div>
+        )
+      case "video2":
+        return (
+          <motion.div
+            key="video2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 overflow-hidden"
+          >
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              onLoadedData={(e) => {
+                const video = e.target as HTMLVideoElement
+                video.playbackRate = 0.6
+              }}
+            >
+              <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/pexels-deepmind-growth.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-purple-900/30" />
+          </motion.div>
+        )
+      case "video3":
+        return (
+          <motion.div
+            key="video3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 overflow-hidden"
+          >
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              onLoadedData={(e) => {
+                const video = e.target as HTMLVideoElement
+                video.playbackRate = 1.2
+              }}
+            >
+              <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/pexel-deepmind-colors.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-cyan-900/25" />
+          </motion.div>
+        )
+      case "wavy":
+        return (
+          <motion.div
+            key="wavy"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0"
+          >
+            <WavyBackground
+              colors={["#38bdf8", "#818cf8", "#c084fc", "#e879f9", "#22d3ee"]}
+              waveWidth={50}
+              backgroundFill="#0f172a"
+              blur={10}
+              speed="fast"
+              waveOpacity={0.6}
+              className="absolute inset-0"
+            />
+          </motion.div>
+        )
+      default:
+        return (
+          <motion.div
+            key="comic"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 overflow-hidden"
+            style={{
+              background: `
+                radial-gradient(circle at 20% 20%, #ff6b6b 0%, transparent 25%),
+                radial-gradient(circle at 80% 80%, #4ecdc4 0%, transparent 25%),
+                radial-gradient(circle at 60% 40%, #45b7d1 0%, transparent 25%),
+                radial-gradient(circle at 30% 70%, #96ceb4 0%, transparent 25%),
+                radial-gradient(circle at 70% 20%, #feca57 0%, transparent 25%),
+                #ffd93d
+              `,
+            }}
+          >
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                background: `
+                  repeating-linear-gradient(
+                    45deg,
+                    transparent 0px,
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 12px
+                  ),
+                  repeating-linear-gradient(
+                    -45deg,
+                    transparent 0px,
+                    rgba(0, 0, 0, 0.08) 1px,
+                    transparent 18px
+                  ),
+                  radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.1) 2px, transparent 2px),
+                  radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.1) 2px, transparent 2px)
+                `,
+                backgroundSize: "20px 20px, 25px 25px, 15px 15px, 15px 15px",
+              }}
+            />
+          </motion.div>
+        )
+    }
+  }
+
+  return (
+    <section className="relative min-h-screen overflow-hidden" ref={containerRef}>
+      <AnimatePresence mode="wait">{renderBackground()}</AnimatePresence>
+
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none z-5"
+        style={{ mixBlendMode: currentBackground === "comic" ? "multiply" : "screen" }}
+      />
+
+      <div className="absolute inset-0 z-5 bg-gradient-to-br from-white/5 via-transparent to-black/5 backdrop-blur-[0.5px]" />
+
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl mx-auto">
+          <div className="min-h-screen bg-transparent w-full flex items-center justify-center relative overflow-visible">
+            <div className="relative z-10 text-center space-y-6 sm:space-y-8 w-full">
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                style={getLogoStyle()}
+              >
+                <img
+                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
+                  alt="Digital Canvas"
+                  className={`${isMobile ? "w-80 max-w-[90vw]" : "w-[600px] max-w-[80vw]"} h-auto mx-auto transition-all duration-500`}
+                />
+              </motion.div>
+
+              <motion.div
+                className="relative text-white p-4 sm:p-6 transform shadow-2xl mx-auto transition-all duration-500 max-w-[95vw] sm:max-w-4xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                style={getBannerStyle()}
+              >
+                <p
+                  className="text-lg sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight text-center leading-tight"
+                  style={{ fontFamily: "Arial Black, sans-serif" }}
+                >
+                  The Creative Layer of{" "}
+                  <span className="bg-white/5 text-black border px-1 py-1 sm:px-2 sm:py-1 md:px-3 md:py-2 font-menda-black inline-block mt-1 sm:mt-0">
+                    434 MEDIA
+                  </span>
+                </p>
+              </motion.div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Additional scroll space for the effect */}
-      <div className="h-screen"></div>
+      <div className="absolute bottom-8 right-8 z-30">
+        <div
+          className="relative w-20 h-20 flex items-center justify-center cursor-pointer group"
+          onClick={handleBackgroundChange}
+        >
+          <PulsingCircle />
+
+          <motion.div
+            className="absolute inset-0 rounded-full border-2 border-white/20"
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.5, 0, 0.5],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+
+          <motion.div
+            className="absolute inset-0 rounded-full border border-white/10"
+            animate={{
+              scale: [1, 2, 1],
+              opacity: [0.3, 0, 0.3],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+              delay: 0.5,
+            }}
+          />
+
+          <motion.svg
+            className="absolute inset-0 w-full h-full pointer-events-none group-hover:scale-110 transition-transform duration-300"
+            viewBox="0 0 100 100"
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 20,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "linear",
+            }}
+            style={{ transform: "scale(1.6)" }}
+          >
+            <defs>
+              <path id="circle-text" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
+            </defs>
+            <text className="text-sm fill-black/70 font-geist-mono drop-shadow-lg">
+              <textPath href="#circle-text" startOffset="0%">
+                434 MEDIA• Creative • House
+              </textPath>
+            </text>
+          </motion.svg>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+        @keyframes flicker {
+          0% { opacity: 1; }
+          50% { opacity: 0.8; }
+          100% { opacity: 1; }
+        }
+        @keyframes crt-flicker {
+          0% { opacity: 1; }
+          98% { opacity: 1; }
+          99% { opacity: 0.98; }
+          100% { opacity: 1; }
+        }
+      `}</style>
     </section>
   )
 }

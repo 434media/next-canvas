@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "motion/react"
-import { WireframeBackground } from "./wireframe-background"
 import { useEffect, useState } from "react"
 
 export default function LoadingPage() {
@@ -19,7 +18,7 @@ export default function LoadingPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false)
-    }, 5000)
+    }, 3000)
 
     const backgrounds = ["#fbbf24", "#f59e0b", "#f97316", "#f43f5e", "#0ea5e9"]
     const arr = Array.from({ length: 12 }, (_, i) => ({
@@ -151,7 +150,7 @@ export default function LoadingPage() {
               backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"],
             }}
             transition={{
-              width: { duration: 4.5, ease: "easeInOut", delay: 0.5 },
+              width: { duration: 2.5, ease: "easeInOut", delay: 0.5 },
               backgroundPosition: { duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
             }}
           />

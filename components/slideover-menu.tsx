@@ -4,7 +4,7 @@ import type React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "motion/react"
 import { useState } from "react"
-import { House, HouseIcon, X } from "lucide-react"
+import { X } from "lucide-react"
 
 interface SlideoverMenuProps {
   isOpen: boolean
@@ -30,39 +30,6 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
       }, 3000)
     }, 1500)
   }
-
-  const ipChannels = [
-    {
-      href: "https://devsa.io",
-      label: "DEVSA",
-      description: "San Antonio's premier developer community",
-    },
-    {
-      href: "https://ampdproject.com",
-      label: "AMPD Project",
-      description: "Amplifying creative voices and projects",
-    },
-    {
-      href: "https://vemosvamos.com",
-      label: "Vemos Vamos",
-      description: "Connecting Latino entrepreneurs and creators",
-    },
-    {
-      href: "https://txmxboxing.com",
-      label: "TXMX Boxing",
-      description: "Championship boxing content and events",
-    },
-    {
-      href: "https://salutetotroops.org",
-      label: "Salute to Troops",
-      description: "Honoring military service and stories",
-    },
-    {
-      href: "https://aimsatx.com",
-      label: "AIM SATX",
-      description: "Advancing innovation and mentorship",
-    },
-  ]
 
   return (
     <AnimatePresence>
@@ -148,10 +115,57 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
                   >
-                    <p
-                      className="text-base font-bold uppercase tracking-wide text-center whitespace-nowrap overflow-hidden">
-                      The Creative Layer of <span className="bg-white text-black px-1 sm:px-2 py-1 font-menda-black">434 MEDIA</span>
+                    <p className="text-sm sm:text-base font-bold uppercase tracking-wide text-center break-words">
+                      The Creative Layer of{" "}
+                      <span className="bg-white text-black px-1 sm:px-2 py-1 font-menda-black">434 MEDIA</span>
                     </p>
+                  </motion.div>
+                  {/* HQ */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
+                    className="relative bg-white border-2 border-black p-6 transform -rotate-1 shadow-lg overflow-hidden"
+                    style={{
+                      filter: "drop-shadow(4px 4px 0px black)",
+                    }}
+                  >
+                    <div
+                      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                      style={{
+                        backgroundImage: "url(https://ampd-asset.s3.us-east-2.amazonaws.com/finesilver.jpg)",
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/40" />
+
+                    <div className="relative z-10">
+                      <h3
+                        className="text-white font-bold mb-4 text-lg uppercase tracking-wide drop-shadow-lg"
+                        style={{ fontFamily: "Arial Black, sans-serif" }}
+                      >
+                        Our creative house
+                      </h3>
+
+                      <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
+                        className="text-white/90 text-sm drop-shadow-md"
+                      >
+                        <span className="block font-bold">FINESILVER</span>
+                        816 Camaron St, San Antonio, TX, USA
+                      </motion.p>
+
+                      <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.8, duration: 0.4, ease: "easeOut" }}
+                        className="text-white/80 text-xs mt-3 drop-shadow-md"
+                      >
+                        Come explore our creative space where innovation meets collaboration. Join our team in bringing
+                        digital visions to life.
+                      </motion.p>
+                    </div>
                   </motion.div>
 
                   {/* Newsletter Signup */}
@@ -159,7 +173,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
-                    className="bg-white border-2 border-black p-6 transform -rotate-1 shadow-lg"
+                    className="bg-white border-2 border-black p-6 transform rotate-1 shadow-lg"
                     style={{
                       filter: "drop-shadow(4px 4px 0px black)",
                     }}
@@ -206,79 +220,6 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                       </form>
                     )}
                   </motion.div>
-
-                   {/* HQ */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
-                    className="bg-white border-2 border-black p-6 transform rotate-1 shadow-lg"
-                    style={{
-                      filter: "drop-shadow(4px 4px 0px black)",
-                    }}
-                  >
-                    <h3
-                      className="text-black font-bold mb-4 text-lg uppercase tracking-wide"
-                      style={{ fontFamily: "Arial Black, sans-serif" }}
-                    >
-                      Our creative house
-                    </h3>
-
-                    <motion.p
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
-                      className="text-black/70 text-sm"
-                    >
-                      <span className="block font-bold">FINESILVER</span>
-                      816 Camaron St, San Antonio, TX, USA
-                    </motion.p>
-                  </motion.div>
-
-                  {/* IP Channels Section */}
-                  {/* <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.4, ease: "easeOut" }}
-                  >
-                    <h3
-                      className="text-black font-bold mb-6 text-lg uppercase tracking-wide"
-                      style={{ fontFamily: "Arial Black, sans-serif" }}
-                    >
-                      OUR HOUSE
-                    </h3>
-
-                    <div className="grid grid-cols-1 gap-3">
-                      {ipChannels.map((channel, index) => (
-                        <motion.a
-                          key={channel.label}
-                          href={channel.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group flex items-center justify-between p-4 bg-white border-2 border-black transition-all duration-300 hover:bg-black hover:text-white transform hover:rotate-1"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.6 + index * 0.1, duration: 0.4, ease: "easeOut" }}
-                          style={{
-                            filter: "drop-shadow(2px 2px 0px black)",
-                          }}
-                        >
-                          <div className="flex-1">
-                            <div
-                              className="font-bold text-lg uppercase tracking-wide"
-                              style={{ fontFamily: "Arial Black, sans-serif" }}
-                            >
-                              {channel.label}
-                            </div>
-                            <div className="text-sm opacity-70">{channel.description}</div>
-                          </div>
-                          <div className="text-xl">→</div>
-                        </motion.a>
-                      ))}
-                    </div>
-                  </motion.div> */}
                 </div>
 
                 {/* Footer */}

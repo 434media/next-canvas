@@ -1,33 +1,23 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import * as React from "react"
 
-export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false)
+const MOBILE_BREAKPOINT = 768
 
-  useEffect(() => {
-    const media = window.matchMedia(query)
+export function useIsMobile() {
+  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
 
-    // Initial check
-    setMatches(media.matches)
-
-    // Update matches when the media query changes
-    const listener = (e: MediaQueryListEvent) => {
-      setMatches(e.matches)
+  React.useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
+    const onChange = () => {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
     }
+    mql.addEventListener("change", onChange)
+    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    return () => mql.removeEventListener("change", onChange)
+  }, [])
 
-    // Add listener
-    media.addEventListener("change", listener)
-
-    // Clean up
-    return () => {
-      media.removeEventListener("change", listener)
-    }
-  }, [query])
-
-  return matches
+  return !!isMobile
 }
 
-export function useMobile(): boolean {
-  return useMediaQuery("(max-width: 768px)")
-}
+export { useIsMobile as useMobile }
