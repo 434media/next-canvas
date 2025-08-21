@@ -182,7 +182,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                       className="text-black font-bold mb-4 text-lg uppercase tracking-wide"
                       style={{ fontFamily: "Arial Black, sans-serif" }}
                     >
-                      Stay Updated
+                      Stay Connected
                     </h3>
 
                     {isSubmitted ? (
