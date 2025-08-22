@@ -11,12 +11,12 @@ const trustedByIcons = [
   },
   {
     name: "Alt Bionics",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/vemos-vamos/alt-bionics.jpg",
+    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/altbionics.png",
     website: "https://www.altbionics.com/",
   },
   {
     name: "The Health Cell",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/healthcell.webp",
+    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/healthcell.png",
     website: "https://thehealthcell.org/",
   },
   {
@@ -30,9 +30,9 @@ const trustedByIcons = [
     website: "https://www.univision.com/",
   },
   {
-    name: "Alamo Angels",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/angels.webp",
-    website: "https://alamoangels.com/",
+    name: "Methodist Healthcare Ministries",
+    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/mhm.png",
+    website: "https://www.mhm.org/",
   },
   {
     name: "Akshar Staffing",
@@ -40,14 +40,14 @@ const trustedByIcons = [
     website: "https://www.aksharstaffing.com/",
   },
   {
-    name: "Methodist Healthcare Ministries",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/mhm.png",
-    website: "https://www.mhm.org/",
+    name: "Alamo Angels",
+    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/angels.png",
+    website: "https://alamoangels.com/",
   },
   {
-    name: "SDOH",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/que.svg",
-    website: "https://434media.com/sdoh/",
+    name: "Tech Bloc",
+    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/healthcell-2-techbloc.png",
+    website: "https://satechbloc.com/",
   },
 ]
 

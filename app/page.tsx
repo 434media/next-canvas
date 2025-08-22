@@ -8,18 +8,10 @@ import TrustedBy from "../components/trusted-by"
 export default function Home() {
   return (
     <>
-      <main className="min-h-screen bg-white relative overflow-hidden">
-        <section className="">
-          <MissionStatement />
-        </section>
-        
-        <TrustedBy />
-        <DigitalCanvasNetwork />
-
-        <section className="">
-          <AnimatedLanding />
-        </section>
-      </main>
+      <MissionStatement />
+      <TrustedBy />
+      <DigitalCanvasNetwork />
+      <AnimatedLanding />
     </>
   )
 }

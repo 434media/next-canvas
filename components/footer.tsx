@@ -77,7 +77,7 @@ const Footer = () => {
               whileHover={{ color: "rgba(255,255,255,0.7)" }}
               transition={{ duration: 0.2 }}
             >
-              &copy; 2025 434 MEDIA | Digital Canvas. All rights reserved.
+              &copy; 2025 434 MEDIA All rights reserved.
             </motion.p>
 
             <motion.div className="flex items-center" variants={containerVariants}>

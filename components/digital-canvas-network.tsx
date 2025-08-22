@@ -44,7 +44,7 @@ const ipProperties: IPProperty[] = [
     id: "aim2025",
     name: "AIM HEALTH R&D SUMMIT",
     tagline: "Military Medical Innovation",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/mtec-speaker.jpg",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/recap-poster-group",
     video: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Cut+Down+Website.mp4",
     mediaType: "video",
     website: { url: "https://aimsatx.com", show: true },
