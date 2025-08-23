@@ -187,24 +187,10 @@ const UniqueBentoBox = ({
 
 export default function AnimatedLanding() {
   const [selectedItem, setSelectedItem] = useState<BentoItem | null>(null)
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
 
-  const toggleVideo = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        videoRef.current.pause()
-        setIsVideoPlaying(false)
-      } else {
-        videoRef.current.play()
-        setIsVideoPlaying(true)
-      }
-    }
-  }
 
   return (
-    <section className="py-24 md:py-32">
+    <section className="md:py-32 mb-24 md:mb-0">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -282,7 +268,7 @@ export default function AnimatedLanding() {
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/40" />
-            <div className="px-8 pt-8 sm:px-10 sm:pt-10 relative z-10">
+            <div className="px-8 pt-8 sm:px-10 sm:pt-10 relative z-10 h-80 md:h-full">
               <span
                 className={`inline-block px-3 py-1 bg-white bg-opacity-20 backdrop-blur-sm rounded-full text-black text-sm font-medium mb-2 shadow-sm`}
               >
@@ -317,7 +303,7 @@ export default function AnimatedLanding() {
               }}
               transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
             />
-            <div className="relative z-10 px-8 pt-8 sm:px-10 sm:pt-10">
+            <div className="relative z-10 px-8 pt-8 sm:px-10 sm:pt-10 h-80 md:h-full">
               <span
                 className={`inline-block px-3 py-1 bg-white bg-opacity-20 backdrop-blur-sm rounded-full text-black text-sm font-medium mb-2 shadow-sm`}
               >
@@ -381,7 +367,7 @@ export default function AnimatedLanding() {
                   <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/50" />
                 </>
               )}
-              <div className="px-6 pt-6 pb-2 relative z-10">
+              <div className="px-6 pt-6 pb-2 relative z-10 h-80 md:h-full">
                 <span
                   className={`inline-block px-3 py-1 bg-white bg-opacity-20 backdrop-blur-sm rounded-full ${item.id === 5 || item.id === 6 || item.id === 7 ? "text-black" : "text-black"} text-sm font-medium mb-2 shadow-sm`}
                 >

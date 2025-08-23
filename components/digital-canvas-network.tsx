@@ -66,7 +66,7 @@ const DynamicSliderSection = () => {
   }))
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-center py-8 md:py-16">
+    <div className="relative min-h-screen flex flex-col justify-center py-0 md:py-16">
       {/* Dynamic Slider */}
       <div className="flex-1 w-full">
         <DynamicSliderComponent items={dynamicItems} />
