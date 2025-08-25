@@ -433,7 +433,7 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
         </div>
 
         {/* Netflix-style Horizontal Scroll Section - Mobile */}
-        <div className="h-[40vh] p-4 bg-white/10 backdrop-blur-sm">
+        <div className="xs:h-[35vh] h-[40vh] p-4 bg-white/10 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-black">Digital Canvas Network</h2>
             <div className="flex gap-2">

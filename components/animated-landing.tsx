@@ -190,7 +190,7 @@ export default function AnimatedLanding() {
 
 
   return (
-    <section className="md:py-32 mb-24 md:mb-0">
+    <section className="md:py-32 mb-24 md:mb-0 -mt-4 md:mt-0">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <motion.div
           className="text-center mb-16"
