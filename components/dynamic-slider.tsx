@@ -31,6 +31,7 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const [showVideo, setShowVideo] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
+  const [isManualSelection, setIsManualSelection] = useState(false)
   const autoSwitchRef = useRef<NodeJS.Timeout | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const modalVideoRef = useRef<HTMLVideoElement>(null)
@@ -65,29 +66,23 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
     setVideoDuration(0)
   }
 
-  const startVideoDelay = () => {
-    if (videoDelayRef.current) {
-      clearTimeout(videoDelayRef.current)
-    }
-
-    if (selectedMovie.mediaType === "video" && selectedMovie.video) {
-      setShowVideo(false)
-      videoDelayRef.current = setTimeout(() => {
-        setShowVideo(true)
-      }, 5000)
-    } else {
-      setShowVideo(false)
+  const handleVideoEnded = () => {
+    if (isManualSelection) {
+      setIsManualSelection(false)
+      startAutoSwitch()
     }
   }
 
-  const clearVideoDelay = () => {
-    if (videoDelayRef.current) {
-      clearTimeout(videoDelayRef.current)
-      videoDelayRef.current = null
+  const stopCurrentVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.pause()
+      videoRef.current.currentTime = 0
     }
   }
 
   const switchToNextItem = () => {
+    stopCurrentVideo()
+
     const nextIndex = (currentItemIndex + 1) % items.length
     setCurrentItemIndex(nextIndex)
     setSelectedMovie(items[nextIndex])
@@ -105,18 +100,35 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
   }
 
   const startAutoSwitch = useCallback(() => {
+    if (isManualSelection) {
+      return
+    }
+
     if (autoSwitchRef.current) {
       clearInterval(autoSwitchRef.current)
     }
     const duration = getSwitchDuration()
     autoSwitchRef.current = setInterval(switchToNextItem, duration)
-  }, [videoDuration, isVideoLoaded, selectedMovie.mediaType, selectedMovie.video])
+  }, [videoDuration, isVideoLoaded, selectedMovie.mediaType, selectedMovie.video, isManualSelection])
 
   const stopAutoSwitch = () => {
     if (autoSwitchRef.current) {
       clearInterval(autoSwitchRef.current)
       autoSwitchRef.current = null
     }
+  }
+
+  const clearVideoDelay = () => {
+    if (videoDelayRef.current) {
+      clearTimeout(videoDelayRef.current)
+      videoDelayRef.current = null
+    }
+  }
+
+  const startVideoDelay = () => {
+    videoDelayRef.current = setTimeout(() => {
+      setShowVideo(true)
+    }, 2000) // Adjust the delay time as needed
   }
 
   useEffect(() => {
@@ -136,11 +148,11 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
   }, [selectedMovie.id])
 
   useEffect(() => {
-    if (selectedMovie.mediaType === "video" && isVideoLoaded) {
+    if (selectedMovie.mediaType === "video" && isVideoLoaded && !isManualSelection) {
       stopAutoSwitch()
       startAutoSwitch()
     }
-  }, [videoDuration, isVideoLoaded, startAutoSwitch])
+  }, [videoDuration, isVideoLoaded, startAutoSwitch, isManualSelection])
 
   const scrollLeft = () => {
     const newPosition = Math.max(0, scrollPosition - cardWidth)
@@ -196,6 +208,21 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
     }
   }
 
+  const handleVideoSwitch = (movie: DynamicItem) => {
+    stopCurrentVideo()
+    stopAutoSwitch()
+    setIsManualSelection(true)
+
+    const movieIndex = items.findIndex((item) => item.id === movie.id)
+    setCurrentItemIndex(movieIndex)
+    setSelectedMovie(movie)
+    setIsVideoLoaded(false)
+    setVideoDuration(0)
+    setShowVideo(false)
+    clearVideoDelay()
+    startVideoDelay()
+  }
+
   return (
     <div className="min-h-screen text-white">
       <div className="hidden md:block md:h-screen">
@@ -223,9 +250,10 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                       className="w-full h-full object-cover rounded-lg"
                       autoPlay
                       muted={isMuted}
-                      loop
+                      loop={!isManualSelection}
                       onLoadedMetadata={handleVideoLoadedMetadata}
                       onError={handleVideoError}
+                      onEnded={handleVideoEnded}
                       playsInline
                     />
                   ) : (
@@ -269,7 +297,7 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
           </AnimatePresence>
         </div>
 
-        <div className="h-1/4 p-8 bg-black/10 backdrop-blur-sm">
+        <div className="h-1/4 p-8 bg-black/20 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-white">Digital Canvas Network</h2>
             <div className="flex gap-2">
@@ -307,18 +335,7 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                   className={`cursor-pointer group/card transition-all duration-300 relative rounded-lg overflow-hidden flex-shrink-0 w-70 ${
                     movie.id === selectedMovie.id ? "ring-2 ring-white" : ""
                   }`}
-                  onClick={() => {
-                    const movieIndex = items.findIndex((item) => item.id === movie.id)
-                    setCurrentItemIndex(movieIndex)
-                    setSelectedMovie(movie)
-                    setIsVideoLoaded(false)
-                    setVideoDuration(0)
-                    setShowVideo(false)
-                    clearVideoDelay()
-                    startVideoDelay()
-                    stopAutoSwitch()
-                    startAutoSwitch()
-                  }}
+                  onClick={() => handleVideoSwitch(movie)}
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", damping: 20, stiffness: 300 }}
                 >
@@ -369,9 +386,10 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                     className="w-full h-full object-cover"
                     autoPlay
                     muted={isMuted}
-                    loop
+                    loop={!isManualSelection}
                     onLoadedMetadata={handleVideoLoadedMetadata}
                     onError={handleVideoError}
+                    onEnded={handleVideoEnded}
                     playsInline
                   />
                 ) : (
@@ -415,7 +433,7 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
         </div>
 
         {/* Netflix-style Horizontal Scroll Section - Mobile */}
-        <div className="h-[40vh] p-4 bg-white backdrop-blur-sm">
+        <div className="h-[40vh] p-4 bg-white/10 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-black">Digital Canvas Network</h2>
             <div className="flex gap-2">
@@ -456,18 +474,7 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                   className={`cursor-pointer group/card transition-all duration-300 relative rounded-lg overflow-hidden flex-shrink-0 w-48 ${
                     movie.id === selectedMovie.id ? "ring-2 ring-white" : ""
                   }`}
-                  onClick={() => {
-                    const movieIndex = items.findIndex((item) => item.id === movie.id)
-                    setCurrentItemIndex(movieIndex)
-                    setSelectedMovie(movie)
-                    setIsVideoLoaded(false)
-                    setVideoDuration(0)
-                    setShowVideo(false)
-                    clearVideoDelay()
-                    startVideoDelay()
-                    stopAutoSwitch()
-                    startAutoSwitch()
-                  }}
+                  onClick={() => handleVideoSwitch(movie)}
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", damping: 20, stiffness: 300 }}
                 >

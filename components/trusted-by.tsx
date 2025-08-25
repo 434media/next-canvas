@@ -1,5 +1,5 @@
 "use client"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { useState } from "react"
 import { Vortex } from "./vortex"
 
@@ -70,7 +70,7 @@ const TrustedBy = () => {
           viewport={{ once: true }}
         >
           <motion.p
-            className="text-2xl md:text-5xl lg:text-6xl xl:text-7xl text-black font-bold leading-tight tracking-tight"
+            className="text-xl md:text-5xl lg:text-6xl xl:text-7xl text-black font-bold leading-tight tracking-tight"
             whileHover={{ scale: 1.01 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >

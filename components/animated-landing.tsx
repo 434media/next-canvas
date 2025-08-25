@@ -198,15 +198,15 @@ export default function AnimatedLanding() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="mx-auto mt-2 max-w-4xl text-center text-5xl font-black tracking-tight text-balance text-gray-950 sm:text-6xl lg:text-7xl">
-            Meet the{" "}
+          <h2 className="mx-auto mt-2 max-w-4xl text-center text-5xl font-black tracking-tight text-balance text-neutral-950 sm:text-6xl lg:text-7xl">
+            Meet The{" "}
             <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
               Creative Team
             </span>{" "}
           </h2>
-          <p className="mx-auto mt-8 max-w-3xl text-center text-xl leading-relaxed text-gray-700 sm:text-2xl lg:text-2xl font-medium">
+          <p className="mx-auto mt-8 max-w-3xl text-center text-xl leading-relaxed text-neutral-700 sm:text-2xl lg:text-2xl font-medium">
             From bicultural media to military medicine, explore the{" "}
-            <span className="font-black text-gray-900">diverse ecosystem</span> of brands and that fuel our creative
+            <span className="font-black text-neutral-900">diverse ecosystem</span> of brands that fuel our creative
             canvas
           </p>
         </motion.div>
@@ -228,16 +228,16 @@ export default function AnimatedLanding() {
               >
                 {bentoItems[0].category}
               </span>
-              <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
+              <p className="mt-2 text-lg font-medium tracking-tight text-neutral-950 max-lg:text-center">
                 {bentoItems[0].title}
               </p>
-              <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
+              <p className="mt-2 max-w-lg text-sm/6 text-neutral-600 max-lg:text-center">
                 {bentoItems[0].description.slice(0, 100)}
               </p>
             </div>
             <div className="@container relative min-h-120 w-full grow max-lg:mx-auto max-lg:max-w-sm">
               <motion.div
-                className="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-gray-700 bg-gray-900 shadow-2xl"
+                className="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-neutral-700 bg-neutral-900 shadow-2xl"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 <video className="size-full object-cover object-top" autoPlay muted loop playsInline>
@@ -323,16 +323,16 @@ export default function AnimatedLanding() {
               >
                 {bentoItems[3].category}
               </span>
-              <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
+              <p className="mt-2 text-lg font-medium tracking-tight text-neutral-950 max-lg:text-center">
                 {bentoItems[3].title}
               </p>
-              <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
+              <p className="mt-2 max-w-lg text-sm/6 text-neutral-600 max-lg:text-center">
                 {bentoItems[3].description.slice(0, 100)}
               </p>
             </div>
             <div className="relative min-h-120 w-full grow">
               <motion.div
-                className="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-gray-900 shadow-2xl outline outline-white/10"
+                className="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-neutral-900 shadow-2xl outline outline-white/10"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 <img
@@ -441,14 +441,14 @@ export default function AnimatedLanding() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
 
                   <div className="absolute top-6 left-6">
-                    <span className="inline-block px-4 py-2 bg-white bg-opacity-90 backdrop-blur-sm rounded-full text-gray-900 text-sm font-medium">
+                    <span className="inline-block px-4 py-2 bg-white bg-opacity-90 backdrop-blur-sm rounded-full text-neutral-900 text-sm font-medium">
                       {selectedItem.category}
                     </span>
                   </div>
 
                   <button
                     onClick={() => setSelectedItem(null)}
-                    className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white bg-opacity-90 backdrop-blur-sm flex items-center justify-center text-gray-900 hover:bg-opacity-100 transition-all duration-200 shadow-lg"
+                    className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white bg-opacity-90 backdrop-blur-sm flex items-center justify-center text-neutral-900 hover:bg-opacity-100 transition-all duration-200 shadow-lg"
                     aria-label="Close modal"
                   >
                     <X size={24} />
@@ -467,7 +467,7 @@ export default function AnimatedLanding() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
                   >
-                    <p className="text-gray-700 leading-relaxed text-base mb-6">{selectedItem.description}</p>
+                    <p className="text-neutral-700 leading-relaxed text-base mb-6">{selectedItem.description}</p>
                   </motion.div>
 
                   <div className="flex gap-4">
@@ -475,7 +475,7 @@ export default function AnimatedLanding() {
                       href={selectedItem.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition-colors duration-200"
                     >
                       <ExternalLink size={16} />
                       Visit Website
