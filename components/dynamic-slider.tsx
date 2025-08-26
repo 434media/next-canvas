@@ -433,7 +433,7 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
         </div>
 
         {/* Netflix-style Horizontal Scroll Section - Mobile */}
-        <div className="xs:h-[35vh] h-[40vh] p-4 bg-white/10 backdrop-blur-sm">
+        <div className="xs:h-[35vh] h-[40vh] p-4 bg-transparent">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-black">Digital Canvas Network</h2>
             <div className="flex gap-2">
@@ -460,18 +460,18 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
 
           <div
             ref={mobileScrollRef}
-            className="overflow-x-auto overflow-y-hidden scrollbar-hide"
+            className="overflow-x-auto overflow-y-visible scrollbar-hide"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
               WebkitOverflowScrolling: "touch",
             }}
           >
-            <div className="flex gap-3 pb-2" style={{ width: `${items.length * mobileCardWidth}px` }}>
+            <div className="flex gap-3 pb-0" style={{ width: `${items.length * mobileCardWidth}px` }}>
               {items.map((movie) => (
                 <motion.div
                   key={movie.id}
-                  className={`cursor-pointer group/card transition-all duration-300 relative rounded-lg overflow-hidden flex-shrink-0 w-48 ${
+                  className={`cursor-pointer group/card transition-all duration-300 relative rounded-lg overflow-hidden flex-shrink-0 w-72 ${
                     movie.id === selectedMovie.id ? "ring-2 ring-white" : ""
                   }`}
                   onClick={() => handleVideoSwitch(movie)}
