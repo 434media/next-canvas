@@ -6,7 +6,7 @@ import DigitalCanvasNetwork from "./components/digital-canvas-network"
 import MissionStatement from "./components/mission-statement"
 import CallToAction from "./components/call-to-action"
 import Footer from "./components/footer"
-import Methodist from "./components/methodist"
+import Methodist from "./boxes/methodist/page"
 import { useScrollTriggerHeight } from './hooks/useScrollTriggerHeight'
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
   const animatedLandingHeight = useScrollTriggerHeight({
     triggerId: "animated-landing",
     endValue: "+=2800",
-    fallbackHeight: "380vh"
+    fallbackHeight: "580vh"
   })
 
   return (

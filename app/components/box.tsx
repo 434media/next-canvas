@@ -11,8 +11,59 @@ interface BoxProps {
 }
 
 export default function Box({ color, title, width, height }: BoxProps) {
-  // Convert title to URL-friendly slug
-  const slug = title.toLowerCase().replace(/\s+/g, '-') 
+  // Function to get the page slug based on box color and title
+  const getPageSlug = (boxColor: string, boxTitle: string) => {
+    // Special case for Methodist Healthcare Ministries
+    if (boxTitle === "Methodist Healthcare Ministries") {
+      return "methodist"
+    }
+    
+    // Default color-based routing
+    switch (boxColor) {
+      case "bg-red-400":
+        return "red"
+      case "bg-blue-400":
+        return "blue"
+      case "bg-green-400":
+        return "green"
+      case "bg-yellow-400":
+        return "yellow"
+      case "bg-orange-400":
+        return "orange"
+      case "bg-purple-400":
+        return "purple"
+      case "bg-pink-400":
+        return "pink"
+      case "bg-cyan-400":
+        return "cyan"
+      default:
+        return "red"
+    }
+  }
+  
+  // Function to get darker text color based on box color
+  const getTextColor = (boxColor: string) => {
+    switch (boxColor) {
+      case "bg-red-400":
+        return "text-red-800"
+      case "bg-blue-400":
+        return "text-blue-800"
+      case "bg-green-400":
+        return "text-green-800"
+      case "bg-yellow-400":
+        return "text-yellow-800"
+      case "bg-orange-400":
+        return "text-orange-800"
+      case "bg-purple-400":
+        return "text-purple-800"
+      case "bg-pink-400":
+        return "text-pink-800"
+      case "bg-cyan-400":
+        return "text-cyan-800"
+      default:
+        return "text-white"
+    }
+  }
   
   const handleClick = () => {
     // Save current scroll position before navigating
@@ -20,7 +71,7 @@ export default function Box({ color, title, width, height }: BoxProps) {
   }
   
   return (
-    <Link href={`/boxes/${slug}`} className="block" onClick={handleClick}>
+    <Link href={`/boxes/${getPageSlug(color, title)}`} className="block" onClick={handleClick}>
       <div
         className={`box ${color} absolute ${color} rounded-lg flex items-center justify-center cursor-pointer shadow-md hover:scale-[1.03] transition-transform duration-200 will-change-transform`}
         style={{
@@ -33,7 +84,7 @@ export default function Box({ color, title, width, height }: BoxProps) {
           backfaceVisibility: "hidden",
         }}
       >
-        <h3 className={`text-xl font-semibold ${color === "bg-yellow-400" ? "text-gray-800" : "text-white"}`}>{title}</h3>
+        <h3 className={`absolute top-3 left-3 text-2xl md:text-3xl font-bold ${getTextColor(color)}`}>{title}</h3>
       </div>
     </Link>
   )

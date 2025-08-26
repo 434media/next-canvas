@@ -5,6 +5,7 @@ import "./globals.css"
 import Navbar from "./components/Navbar"
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/next"
+import ConditionalNavbar from "./components/ConditionalNavbar"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,7 +66,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        <Navbar />
+        <ConditionalNavbar />
         {children}
 
         <Analytics />

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, useScroll, useTransform } from "motion/react"
@@ -11,6 +11,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { scrollY } = useScroll()
+  const lastYRef = useRef(0)
+  const [showNavbar, setShowNavbar] = useState(true)
 
   // Start blur immediately when content touches navbar
   const navbarOpacity = useTransform(scrollY, [0, 50], [0.75, 0.98])
@@ -26,11 +28,34 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Hide navbar on scroll down, show on scroll up
+  useEffect(() => {
+    const unsubscribe = scrollY.on("change", (current) => {
+      const last = lastYRef.current
+      const delta = current - last
+
+      if (current <= 0) {
+        setShowNavbar(true)
+      } else if (delta > 0 && current > 80) {
+        // scrolling down past threshold -> hide
+        setShowNavbar(false)
+      } else if (delta < 0) {
+        // scrolling up -> show
+        setShowNavbar(true)
+      }
+
+      lastYRef.current = current
+    })
+    return () => unsubscribe()
+  }, [scrollY])
+
   return (
     <>
       {/* Main Navbar */}
       <motion.header
         className="fixed top-0 left-0 right-0 z-40"
+        animate={{ y: showNavbar ? 0 : -100 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
         style={{
           backdropFilter: `blur(${navbarBlur}px) saturate(200%)`,
           WebkitBackdropFilter: `blur(${navbarBlur}px) saturate(200%)`,
@@ -115,15 +140,6 @@ const Navbar = () => {
                         transition={{ duration: 0.3, ease: "easeOut" }}
                       />
                     </div>
-
-                    {/* <motion.div
-                      className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-blue-400 font-medium opacity-0 group-hover:opacity-100 whitespace-nowrap"
-                      initial={{ y: 5, opacity: 0 }}
-                      whileHover={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                    >
-                      The Creative Layer of 434 MEDIA
-                    </motion.div> */}
                   </motion.div>
                 </Link>
               </motion.div>

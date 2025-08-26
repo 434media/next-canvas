@@ -13,6 +13,8 @@ export default function AnimatedLanding() {
   const discoverTextRef = useRef<HTMLHeadingElement>(null)
   const mediaTextRef = useRef<HTMLHeadingElement>(null)
   const backgroundRef = useRef<HTMLDivElement>(null)
+  const reverseOneTextRef = useRef<HTMLHeadingElement>(null)
+  const reverseTwoTextRef = useRef<HTMLHeadingElement>(null)
 
   // Define the new layout structure with three stages
   const layoutConfig = {
@@ -117,8 +119,8 @@ export default function AnimatedLanding() {
   // Calculate dynamic height based on ScrollTrigger
   const sectionHeight = useScrollTriggerHeight({
     triggerId: "animated-landing",
-    endValue: "+=1200",
-    fallbackHeight: "200vh"
+    endValue: "+=3000",
+    fallbackHeight: "500vh"
   })
 
   useEffect(() => {
@@ -132,8 +134,10 @@ export default function AnimatedLanding() {
     const discoverText = discoverTextRef.current
     const mediaText = mediaTextRef.current
     const background = backgroundRef.current
+    const reverseOneText = reverseOneTextRef.current
+    const reverseTwoText = reverseTwoTextRef.current
 
-    if (!container || !mainBox || !boxesContainer || !welcomeText || !discoverText || !mediaText || !background) return
+    if (!container || !mainBox || !boxesContainer || !welcomeText || !discoverText || !mediaText || !background || !reverseOneText || !reverseTwoText) return
 
     // Check for saved scroll position
     const savedY = sessionStorage.getItem("saved-scroll")
@@ -145,6 +149,8 @@ export default function AnimatedLanding() {
     gsap.set(discoverText, { opacity: 0 })
     gsap.set(mediaText, { opacity: 0 })
     gsap.set(background, { backgroundColor: 'transparent' })
+    gsap.set(reverseOneText, { opacity: 0 })
+    gsap.set(reverseTwoText, { opacity: 0 })
 
     // Create a timeline for the animation
     const tl = gsap.timeline({
@@ -152,7 +158,7 @@ export default function AnimatedLanding() {
         id: "animated-landing",
         trigger: container,
         start: "top top",
-        end: "+=1200",
+        end: "+=3000", // Extended to accommodate reverse animation with buffer
         scrub: 0.4,
         pin: true,
         anticipatePin: 1,
@@ -297,6 +303,118 @@ export default function AnimatedLanding() {
       )
     })
 
+    // BUFFER TIME - Hold the final state (1.0-1.5)
+    // No animations during this time, just hold the completed state
+
+    // REVERSE ANIMATION - Stage 5: Boxes move outward (1.5-1.9)
+    gsap.utils.toArray('.box').forEach((box, index) => {
+      const boxKey = boxOrder[boxOrder.length - 1 - index] // Reverse order
+      const boxElement = box as HTMLElement
+
+      tl.to(
+        boxElement,
+        {
+          x: `${boxLayout[boxKey as keyof typeof boxLayout].x * 3}vw`,
+          y: `${boxLayout[boxKey as keyof typeof boxLayout].y * 3}vh`,
+          opacity: 0,
+          scale: 0.8,
+          pointerEvents: "none",
+          duration: 0.4,
+          ease: "power2.in",
+          immediateRender: false
+        },
+        1.5 + index * 0.05,
+      )
+    })
+
+    // Stage 6: Text transition - 434 Media to Reverse Stage 1 (unique) (1.9-2.0)
+    tl.to(
+      mediaText,
+      {
+        opacity: 0,
+        duration: 0.1,
+        ease: "power2.inOut",
+      },
+      2.3,
+    )
+    .to(
+      reverseOneText,
+      {
+        opacity: 1,
+        duration: 0.1,
+        ease: "power2.inOut",
+      },
+      2.3,
+    )
+
+    // Stage 7: Small to Medium (2.0-3.0) — match initial Stage 3 duration (1.0s)
+    tl.to(
+      mainBox,
+      {
+        width: `${layoutConfig.mediumCenterWidth}vw`,
+        height: `${layoutConfig.mediumCenterHeight}vh`,
+        backgroundColor: '#3b82f6',
+        duration: 1.0,
+        ease: "power2.inOut",
+      },
+      1.9,
+    )
+
+    // Stage 8: Text transition - Reverse Stage 1 to Reverse Stage 2 (unique) (3.0-3.1)
+    tl.to(
+      reverseOneText,
+      {
+        opacity: 0,
+        duration: 0.1,
+        ease: "power2.inOut",
+      },
+      3.3,
+    )
+    .to(
+      reverseTwoText,
+      {
+        opacity: 1,
+        duration: 0.1,
+        ease: "power2.inOut",
+      },
+      3.3,
+    )
+
+    // Stage 9: Medium to Large (3.1-3.4) — match initial Stage 1 duration (0.3s)
+    tl.to(
+      mainBox,
+      {
+        width: `${layoutConfig.initialCenterWidth}vw`,
+        height: `${layoutConfig.initialCenterHeight}vh`,
+        backgroundColor: 'transparent',
+        border: '3px solid #3b82f6',
+        borderRadius: '0px',
+        duration: 0.3,
+        ease: "power2.inOut",
+      },
+      3.1,
+    )
+    // Revert border radius
+    .to(
+      mainBox,
+      {
+        borderRadius: "0px",
+        duration: 0.3,
+        ease: "power2.inOut",
+      },
+      3.1,
+    )
+    // Revert background to transparent
+    .to(
+      background,
+      {
+        backgroundColor: 'transparent',
+        duration: 0.3,
+        ease: "power2.inOut",
+      },
+      3.1,
+    )
+
     return () => {
       // Clean up ScrollTrigger
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
@@ -338,19 +456,19 @@ export default function AnimatedLanding() {
           {/* Welcome text (initial) */}
           <h2 
             ref={welcomeTextRef}
-            className="absolute text-blue-600 text-4xl font-bold text-center px-4"
+            className="absolute top-4 left-4 text-blue-600 text-2xl md:text-3xl lg:text-4xl font-bold text-left pr-6"
             style={{ opacity: 1 }}
           >
-            Welcome
+            At Digital Canvas, <br /> we bring creativity, <br /> imagination, and bold thinking <br /> to industries shaping the future.
           </h2>
           
           {/* Discover text (transition) */}
           <h2 
             ref={discoverTextRef}
-            className="absolute text-white text-3xl font-bold text-center px-4"
+            className="absolute top-4 left-4 text-white text-3xl md:text-4xl lg:text-5xl font-bold text-left pr-6"
             style={{ opacity: 0 }}
           >
-            Discover More
+            From healthcare to defense, energy to education, our partners help us transform ambitious ideas into meaningful impact.
           </h2>
 
           {/* 434 Media text (final) */}
@@ -361,28 +479,36 @@ export default function AnimatedLanding() {
           >
             434 Media
           </h2>
+
+          {/* Reverse unique stage texts inside the main box */}
+          <h2 
+            ref={reverseOneTextRef}
+            className="absolute top-4 left-4 text-white text-2xl md:text-3xl lg:text-4xl font-bold text-left pr-6"
+            style={{ opacity: 0 }}
+          >
+            As we move forward, <br /> so do our partners <br /> — <br /> bold, curious, <br /> and ready to <br /> build the future <br /> with us.
+          </h2>
+          <h2 
+            ref={reverseTwoTextRef}
+            className="absolute top-4 left-4 text-blue-600 text-3xl md:text-4xl lg:text-5xl font-bold text-left pr-6"
+            style={{ opacity: 0 }}
+          >
+            Innovation doesn’t <br /> happen in isolation <br /> —  <br />it’s what we create <br /> together that defines <br /> progress.
+          </h2>
         </div>
 
         {/* Secondary boxes that will slide in - only 8 boxes, no center */}
         <div ref={boxesRef} className="absolute inset-0 flex items-center justify-center">
-          <Box color="bg-red-400" title="Red" />
-          <Box color="bg-blue-400" title="Blue" />
-          <Box color="bg-green-400" title="Green" />
-          <Box color="bg-yellow-400" title="Yellow" />
-          <Box color="bg-orange-400" title="Orange" />
-          <Box color="bg-purple-400" title="Purple" />
+          <Box color="bg-red-400" title="VelocityTX" />
+          <Box color="bg-blue-400" title="Health Cell SOI" />
+          <Box color="bg-green-400" title="AIM Health R&D Summit" />
+          <Box color="bg-yellow-400" title="Tech Bloc" />
+          <Box color="bg-orange-400" title="Alamo Angels" />
+          <Box color="bg-purple-400" title="Methodist Healthcare Ministries" />
           <Box color="bg-pink-400" title="Pink" />
           <Box color="bg-cyan-400" title="Cyan" />
         </div>
       </div>
-
-      {/* Spacer to allow scrolling */}
-      <div 
-        className="h-screen" 
-        style={{ 
-          background: 'linear-gradient(to bottom, white 20%, transparent 80%)'
-        }}
-      ></div>
 
     </section>
   )
