@@ -198,7 +198,7 @@ export default function AnimatedLanding() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="mx-auto mt-2 max-w-4xl text-center text-5xl font-black tracking-tight text-balance text-neutral-950 sm:text-6xl lg:text-7xl">
+          <h2 className="mx-auto mt-2 max-w-4xl text-center text-5xl font-black tracking-tighter text-balance text-neutral-950 sm:text-6xl lg:text-7xl">
             Meet The{" "}
             <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
               Creative Team
