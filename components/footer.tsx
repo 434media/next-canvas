@@ -1,30 +1,17 @@
 "use client"
 import { useState, useEffect } from "react"
 import type React from "react"
-
 import { motion, useAnimation } from "motion/react"
+import { Newsletter } from "./newsletter"
 
 const Footer = () => {
   const [isClient, setIsClient] = useState(false)
-  const [email, setEmail] = useState("")
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const controls = useAnimation()
 
   useEffect(() => {
     setIsClient(true)
     controls.start("visible")
   }, [controls])
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (email) {
-      setIsSubmitted(true)
-      setTimeout(() => {
-        setIsSubmitted(false)
-        setEmail("")
-      }, 3000)
-    }
-  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -81,26 +68,7 @@ const Footer = () => {
             </motion.p>
 
             <motion.div className="flex items-center" variants={containerVariants}>
-              <form onSubmit={handleNewsletterSubmit} className="flex items-center space-x-3">
-                <motion.input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Stay Connected"
-                  className="bg-white/10 border border-white/20 px-4 py-2 text-white placeholder-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-300 w-64"
-                  whileFocus={{ scale: 1.02 }}
-                  variants={itemVariants}
-                />
-                <motion.button
-                  type="submit"
-                  className="bg-white text-black px-4 py-2 text-sm font-medium hover:bg-white/90 transition-colors duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  variants={itemVariants}
-                >
-                  {isSubmitted ? "Thanks!" : "Subscribe"}
-                </motion.button>
-              </form>
+              <Newsletter />
             </motion.div>
           </div>
 
