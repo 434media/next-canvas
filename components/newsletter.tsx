@@ -19,10 +19,10 @@ const isDevelopment = process.env.NODE_ENV === "development"
 
 export function Newsletter() {
   // Newsletter static strings
-  const EMAIL_PLACEHOLDER = "Stay Connected"
+  const EMAIL_PLACEHOLDER = "Enter your email"
   const SUBSCRIBING = "Subscribing..."
   const SUBSCRIBE = "Subscribe"
-  const SUCCESS_MESSAGE = "Thanks for subscribing!"
+  const SUCCESS_MESSAGE = "Thanks for subscribing! Check your email for confirmation."
   const ERROR_PREFIX = "Error:"
 
   const [email, setEmail] = useState("")
@@ -116,14 +116,12 @@ export function Newsletter() {
         {!isSuccess ? (
           <motion.form
             key="subscribe-form"
-            className="flex items-center space-x-3"
+            className="space-y-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             onSubmit={handleSubmit}
           >
-            {/* Turnstile ref first */}
-            {!isDevelopment && <div ref={turnstileRef} data-size="normal" className="w-full" />}
             <motion.input
               type="email"
               name="email"
@@ -133,28 +131,33 @@ export function Newsletter() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={EMAIL_PLACEHOLDER}
-              className="bg-white/10 border border-white/20 px-4 py-2 text-white placeholder-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-300 w-64"
+              className="w-full px-4 py-3 bg-white border-2 border-black text-black placeholder-black/50 focus:outline-none focus:ring-0 transition-all duration-300"
               whileFocus={{ scale: 1.02 }}
             />
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="bg-white text-black px-4 py-2 text-sm font-medium hover:bg-white/90 transition-colors duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="w-full px-4 py-3 bg-black text-white font-bold uppercase tracking-wide transition-all duration-300 hover:bg-white hover:text-black border-2 border-black disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              style={{ fontFamily: "Arial Black, sans-serif" }}
             >
               {isSubmitting ? SUBSCRIBING : SUBSCRIBE}
             </motion.button>
-            {error && <p className="text-white/80 text-sm">{error}</p>}
+            {!isDevelopment && <div ref={turnstileRef} data-size="normal" className="w-full mt-2" />}
+            {error && <p className="text-black/80 text-sm">{error}</p>}
           </motion.form>
         ) : (
           <motion.div
             key="success"
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white/10 text-white px-4 py-3 rounded-lg border border-white/20"
+            className="text-center py-4"
           >
-            {SUCCESS_MESSAGE}
+            <div className="text-black text-3xl mb-2">✓</div>
+            <p className="text-black font-bold">Thanks for subscribing!</p>
+            <p className="text-black/70 text-sm">Check your email for confirmation.</p>
           </motion.div>
         )}
       </AnimatePresence>

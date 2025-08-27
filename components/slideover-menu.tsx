@@ -3,7 +3,7 @@
 import type React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "motion/react"
-import { useState } from "react"
+import { Newsletter } from "./newsletter"
 import { X } from "lucide-react"
 
 interface SlideoverMenuProps {
@@ -12,24 +12,6 @@ interface SlideoverMenuProps {
 }
 
 const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
-  const [email, setEmail] = useState("")
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-      setTimeout(() => {
-        setIsSubmitted(false)
-        setEmail("")
-      }, 3000)
-    }, 1500)
-  }
 
   return (
     <AnimatePresence>
@@ -185,40 +167,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                       Stay Connected
                     </h3>
 
-                    {isSubmitted ? (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="text-center py-4"
-                      >
-                        <div className="text-black text-3xl mb-2">✓</div>
-                        <p className="text-black font-bold">Thanks for subscribing!</p>
-                        <p className="text-black/70 text-sm">Check your email for confirmation.</p>
-                      </motion.div>
-                    ) : (
-                      <form onSubmit={handleSubmit} className="space-y-4">
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter your email"
-                          required
-                          className="w-full px-4 py-3 bg-white border-2 border-black text-black placeholder-black/50 focus:outline-none focus:ring-0 transition-all duration-300"
-                        />
-                        <motion.button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className="w-full px-4 py-3 bg-black text-white font-bold uppercase tracking-wide transition-all duration-300 hover:bg-white hover:text-black border-2 border-black disabled:opacity-50 disabled:cursor-not-allowed"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          transition={{ duration: 0.2, ease: "easeOut" }}
-                          style={{ fontFamily: "Arial Black, sans-serif" }}
-                        >
-                          {isSubmitting ? "Subscribing..." : "Subscribe"}
-                        </motion.button>
-                      </form>
-                    )}
+                    <Newsletter />
                   </motion.div>
                 </div>
 

@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react"
 import type React from "react"
 import { motion, useAnimation } from "motion/react"
-import { Newsletter } from "./newsletter"
 
 const Footer = () => {
   const [isClient, setIsClient] = useState(false)
@@ -43,20 +42,6 @@ const Footer = () => {
         initial="hidden"
         animate={controls}
       >
-        {/* Decorative line animation */}
-        <motion.div
-          className="absolute top-0 left-0 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent"
-          animate={{
-            width: ["0%", "100%", "0%"],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <motion.p
@@ -66,27 +51,7 @@ const Footer = () => {
             >
               &copy; 2025 434 MEDIA All rights reserved.
             </motion.p>
-
-            <motion.div className="flex items-center" variants={containerVariants}>
-              <Newsletter />
-            </motion.div>
           </div>
-
-          {/* Floating "Back to Top" indicator */}
-          <motion.div
-            className="absolute -top-8 right-0 text-white/30"
-            animate={{
-              y: [0, -5, 0],
-              opacity: [0.3, 0.7, 0.3],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          >
-            <i className="ri-arrow-up-line text-sm"></i>
-          </motion.div>
         </div>
       </motion.div>
     </footer>
