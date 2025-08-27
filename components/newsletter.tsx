@@ -134,7 +134,7 @@ export function Newsletter() {
               className="bg-white/10 border border-white/20 px-4 py-2 text-white placeholder-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-300 w-64"
               whileFocus={{ scale: 1.02 }}
             />
-            {!isDevelopment && <div ref={turnstileRef} data-size="normal" className="w-full" />}
+            {!isDevelopment && <div ref={turnstileRef} data-size="compact" data-appearance="interaction-only"className="w-full" />}
             <motion.button
               type="submit"
               disabled={isSubmitting}
