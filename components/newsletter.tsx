@@ -145,7 +145,7 @@ export function Newsletter() {
             >
               {isSubmitting ? SUBSCRIBING : SUBSCRIBE}
             </motion.button>
-            {!isDevelopment && <div ref={turnstileRef} data-size="normal" className="w-full mt-2" />}
+            {!isDevelopment && <div ref={turnstileRef} data-size="flexible" className="w-full mt-0.5" />}
             {error && <p className="text-black/80 text-sm">{error}</p>}
           </motion.form>
         ) : (
