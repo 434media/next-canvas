@@ -1,32 +1,43 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
-import Navbar from "./components/Navbar"
-import Footer from "./components/footer"
+import Navbar from "../components/navbar"
+import Footer from "../components/footer"
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/next"
+import { Suspense } from "react"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 })
 
-/* const geistMono = Geist_Mono({
+const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-}) */
+  display: "swap",
+})
+
+const mendaBlack = localFont({
+  src: "../fonts/Menda-Black.otf",
+  variable: "--font-menda-black",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
-  title: "Digital Canvas | San Antonio's Creative Tech Community",
+  title: "Digital Canvas | The Creative Layer of 434 MEDIA",
   description:
-    "Connect with fellow creators, share your projects, and dive into the dynamic intersection of art, tech, and music in San Antonio.",
-  keywords: "creative tech, San Antonio, coworking, community, design, development, photography, videography",
-  authors: [{ name: "Digital Canvas Team" }],
+    "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network. From innovative properties to transformative partnerships.",
+  keywords:
+    "434 MEDIA, creative layer, digital canvas, IP properties, client partnerships, creative network, San Antonio",
+  authors: [{ name: "434 MEDIA Team" }],
   openGraph: {
-    title: "Digital Canvas | San Antonio's Creative Tech Community",
+    title: "Digital Canvas | The Creative Layer of 434 MEDIA",
     description:
-      "Connect with fellow creators, share your projects, and dive into the dynamic intersection of art, tech, and music in San Antonio.",
+      "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network.",
     url: "https://digitalcanvas.community",
     siteName: "Digital Canvas",
     images: [
@@ -34,7 +45,7 @@ export const metadata: Metadata = {
         url: "https://digitalcanvas.community/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Digital Canvas - Where Creativity Meets Technology",
+        alt: "Digital Canvas - The Creative Layer of 434 MEDIA",
       },
     ],
     locale: "en_US",
@@ -42,9 +53,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Canvas | San Antonio's Creative Tech Community",
+    title: "Digital Canvas | The Creative Layer of 434 MEDIA",
     description:
-      "Connect with fellow creators, share your projects, and dive into the dynamic intersection of art, tech, and music in San Antonio.",
+      "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network.",
     images: ["https://digitalcanvas.community/opengraph-image.png"],
   },
 }
@@ -57,7 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.className} min-h-screen overflow-x-hidden scroll-auto bg-gray-50 antialiased selection:bg-sky-100 selection:text-sky-600`}
+        className={`${geistSans.variable} ${geistMono.variable} ${mendaBlack.variable} min-h-screen overflow-x-hidden scroll-auto bg-white antialiased selection:bg-sky-100 selection:text-sky-600`}
       >
         {/* Google Analytics */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-NY5R12BN23" strategy="afterInteractive" />
@@ -70,9 +81,11 @@ export default function RootLayout({
           `}
         </Script>
 
-        <Navbar />
-        {children}
-        <Footer />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Navbar />
+          {children}
+          <Footer />
+        </Suspense>
 
         <Analytics />
       </body>

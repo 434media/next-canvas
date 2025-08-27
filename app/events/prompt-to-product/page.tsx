@@ -6,16 +6,16 @@ import Image from "next/image"
 import "remixicon/fonts/remixicon.css"
 
 // Import organized components
-import WireframeButton from "../../components/events/wireframe-button"
-import RegistrationForm from "../../components/events/registration-form"
-import EventDetails from "../../components/events/event-details"
-import WeekCard from "../../components/events/week-card"
-import FAQSection from "../../components/events/faq-section"
-import PricingSection from "../../components/events/pricing-section"
-import CallToActionSection from "../../components/events/call-to-action"
+import WireframeButton from "../../../components/events/wireframe-button"
+import RegistrationForm from "../../../components/events/registration-form"
+import EventDetails from "../../../components/events/event-details"
+import WeekCard from "../../../components/events/week-card"
+import FAQSection from "../../../components/events/faq-section"
+import PricingSection from "../../../components/events/pricing-section"
+import CallToActionSection from "../../../components/events/call-to-action"
 
 // Import data
-import { weeklyProgram } from "../../data/prompt-to-product"
+import { weeklyProgram } from "../../../data/prompt-to-product"
 
 export default function PromptToProductPage() {
   const [isMobile, setIsMobile] = useState(false)

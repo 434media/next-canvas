@@ -81,4 +81,4 @@ To contribute to the project, please follow this standard GitHub workflow:
     Go to the repository on GitHub and open a new pull request. Set your branch as the source and `main` as the target. Provide a clear title and description for your PR.
 
 6.  **Merge the PR:**
-    Once the pull request has been reviewed and approved by the maintainers, it will be merged into the
+    Once the pull request has been reviewed and approved, it will be merged into the `main` branch.

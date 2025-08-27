@@ -1,37 +1,62 @@
 "use client"
 
+import type React from "react"
+
 import { motion, useScroll, useTransform } from "motion/react"
 import { useEffect, useState, useRef } from "react"
+import { Palette, Code, Camera, Film, Brush, Wand2, Ruler, Compass, Lightbulb, Rocket } from "lucide-react"
 
 interface Particle {
   id: number
   x: number
   y: number
-  icon: string
+  icon: React.ComponentType<{ className?: string }>
   delay: number
   scale: number
 }
 
-const creativeIcons = [
-  "ri-palette-line",
-  "ri-code-s-slash-line",
-  "ri-camera-line",
-  "ri-film-line",
-  "ri-brush-line",
-  "ri-magic-line",
-  "ri-pencil-ruler-2-line",
-  "ri-compasses-2-line",
-  "ri-lightbulb-line",
-  "ri-rocket-line",
-]
+const creativeIcons = [Palette, Code, Camera, Film, Brush, Wand2, Ruler, Compass, Lightbulb, Rocket]
 
-export const WireframeBackground = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+interface WireframeBackgroundProps {
+  theme?: "light" | "dark"
+}
+
+export const WireframeBackground = ({ theme = "light" }: WireframeBackgroundProps) => {
   const [particles, setParticles] = useState<Particle[]>([])
   const [isClient, setIsClient] = useState(false)
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
   const containerRef = useRef<HTMLDivElement>(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 })
+
+  const colors =
+    theme === "light"
+      ? {
+          grid: "rgba(251, 191, 36, 0.1)", // yellow-400 with low opacity
+          nodes: "bg-yellow-400/20",
+          nodeGlow: "rgba(251, 191, 36, 0.4)",
+          particles: "text-amber-600/30",
+          lines: {
+            primary: "rgb(251, 191, 36)", // yellow-400
+            secondary: "rgb(251, 146, 60)", // orange-400 (ember)
+            tertiary: "rgb(244, 63, 94)", // rose-500
+            quaternary: "rgb(14, 165, 233)", // sky-500 (sky blue)
+          },
+          shapes: "border-yellow-400/20",
+        }
+      : {
+          grid: "rgba(200, 255, 255, 0.03)",
+          nodes: "bg-blue-400/30",
+          nodeGlow: "rgba(59, 130, 246, 0.6)",
+          particles: "text-blue-400/20",
+          lines: {
+            primary: "rgb(59, 130, 246)",
+            secondary: "rgb(168, 85, 247)",
+            tertiary: "rgb(20, 184, 166)",
+            quaternary: "rgb(56, 189, 248)", // sky-400 (sky blue)
+          },
+          shapes: "border-blue-400/20",
+        }
 
   // Generate particles only on client to avoid hydration issues
   useEffect(() => {
@@ -42,7 +67,7 @@ export const WireframeBackground = () => {
       for (let i = 0; i < 15; i++) {
         newParticles.push({
           id: i,
-          x: (i * 7 + 10) % 100, // Use deterministic positioning based on index
+          x: (i * 7 + 10) % 100,
           y: (i * 11 + 15) % 100,
           icon: creativeIcons[i % creativeIcons.length],
           delay: i * 0.3,
@@ -77,8 +102,8 @@ export const WireframeBackground = () => {
         className="absolute inset-0"
         style={{
           backgroundImage: `
-            linear-gradient(to bottom right, rgba(200, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(to bottom right, rgba(200, 255, 255, 0.03) 1px, transparent 1px)
+            linear-gradient(to bottom right, ${colors.grid} 1px, transparent 1px),
+            linear-gradient(to bottom right, ${colors.grid} 1px, transparent 1px)
           `,
           backgroundSize: "40px 40px",
           backgroundPosition: "center",
@@ -89,7 +114,7 @@ export const WireframeBackground = () => {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-blue-400/30 rounded-full"
+            className={`absolute w-1 h-1 ${colors.nodes} rounded-full`}
             style={{
               left: `${(i % 5) * 25}%`,
               top: `${Math.floor(i / 5) * 25}%`,
@@ -97,11 +122,7 @@ export const WireframeBackground = () => {
             animate={{
               scale: [1, 1.5, 1],
               opacity: [0.3, 0.8, 0.3],
-              boxShadow: [
-                "0 0 0 rgba(59, 130, 246, 0)",
-                "0 0 20px rgba(59, 130, 246, 0.6)",
-                "0 0 0 rgba(59, 130, 246, 0)",
-              ],
+              boxShadow: ["0 0 0 rgba(0, 0, 0, 0)", `0 0 20px ${colors.nodeGlow}`, "0 0 0 rgba(0, 0, 0, 0)"],
             }}
             transition={{
               duration: 3,
@@ -113,51 +134,45 @@ export const WireframeBackground = () => {
         ))}
       </motion.div>
 
-      {/* Mouse-following gradient */}
-      <motion.div
-        className="absolute inset-0"
-        animate={{
-          background: `radial-gradient(circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(59, 130, 246, 0.15), rgba(168, 85, 247, 0.1) 30%, transparent 60%)`,
-        }}
-        transition={{ type: "spring", damping: 15 }}
-      />
-
       {/* Floating creative tool particles - only render on client */}
       {isClient &&
-        particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            className="absolute text-blue-400/20 pointer-events-none"
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              fontSize: `${particle.scale * 24}px`,
-            }}
-            animate={{
-              x: [0, 50, -30, 0],
-              y: [0, -30, 20, 0],
-              rotate: [0, 180, 360],
-              opacity: [0.2, 0.6, 0.2],
-              scale: [particle.scale, particle.scale * 1.3, particle.scale],
-            }}
-            transition={{
-              duration: 8 + particle.delay,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-              delay: particle.delay,
-            }}
-          >
-            <i className={particle.icon} />
-          </motion.div>
-        ))}
+        particles.map((particle) => {
+          const IconComponent = particle.icon
+          return (
+            <motion.div
+              key={particle.id}
+              className={`absolute ${colors.particles} pointer-events-none`}
+              style={{
+                left: `${particle.x}%`,
+                top: `${particle.y}%`,
+              }}
+              animate={{
+                x: [0, 50, -30, 0],
+                y: [0, -30, 20, 0],
+                rotate: [0, 180, 360],
+                opacity: [0.2, 0.6, 0.2],
+                scale: [particle.scale, particle.scale * 1.3, particle.scale],
+              }}
+              transition={{
+                duration: 8 + particle.delay,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: particle.delay,
+              }}
+            >
+              <IconComponent className={`w-6 h-6`} />
+            </motion.div>
+          )
+        })}
 
       {/* Animated connection lines */}
       <svg className="absolute inset-0 w-full h-full" style={{ opacity: 0.1 }}>
         <defs>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgb(59, 130, 246)" stopOpacity="0.6" />
-            <stop offset="50%" stopColor="rgb(168, 85, 247)" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="rgb(20, 184, 166)" stopOpacity="0.6" />
+            <stop offset="0%" stopColor={colors.lines.primary} stopOpacity="0.6" />
+            <stop offset="33%" stopColor={colors.lines.secondary} stopOpacity="0.4" />
+            <stop offset="66%" stopColor={colors.lines.tertiary} stopOpacity="0.6" />
+            <stop offset="100%" stopColor={colors.lines.quaternary} stopOpacity="0.5" />
           </linearGradient>
         </defs>
 
@@ -233,13 +248,32 @@ export const WireframeBackground = () => {
             ease: "easeInOut",
           }}
         />
+
+        {/* New animated path with sky blue emphasis */}
+        <motion.path
+          d="M400,0 Q450,300 400,600 T400,1200"
+          stroke={colors.lines.quaternary}
+          strokeWidth="1.5"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{
+            pathLength: [0, 1, 0],
+            opacity: [0, 0.7, 0],
+          }}
+          transition={{
+            duration: 5.5,
+            delay: 1.5,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+          }}
+        />
       </svg>
 
       {/* Floating geometric shapes */}
       {[...Array(8)].map((_, i) => (
         <motion.div
           key={`shape-${i}`}
-          className="absolute border border-blue-400/20 pointer-events-none"
+          className={`absolute ${colors.shapes} pointer-events-none`}
           style={{
             left: `${10 + i * 12}%`,
             top: `${20 + (i % 3) * 30}%`,
@@ -262,35 +296,6 @@ export const WireframeBackground = () => {
           }}
         />
       ))}
-
-      {/* Interactive mouse trail effect */}
-      <motion.div
-        className="absolute w-32 h-32 pointer-events-none"
-        style={{
-          left: `${mousePosition.x * 100}%`,
-          top: `${mousePosition.y * 100}%`,
-          transform: "translate(-50%, -50%)",
-        }}
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      >
-        <div className="w-full h-full border border-blue-400/30 rounded-full animate-pulse" />
-        <div
-          className="absolute inset-4 border border-purple-400/20 rounded-full animate-pulse"
-          style={{ animationDelay: "0.5s" }}
-        />
-        <div
-          className="absolute inset-8 border border-teal-400/20 rounded-full animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-      </motion.div>
     </div>
   )
 }
