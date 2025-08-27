@@ -123,7 +123,7 @@ export function Newsletter() {
             onSubmit={handleSubmit}
           >
             {/* Turnstile ref first */}
-            {!isDevelopment && <div ref={turnstileRef} data-size="compact" className="w-full" />}
+            {!isDevelopment && <div ref={turnstileRef} data-size="normal" className="w-full" />}
             <motion.input
               type="email"
               name="email"
