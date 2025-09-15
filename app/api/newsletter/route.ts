@@ -89,7 +89,7 @@ export async function POST(request: Request) {
         {
           email_address: email,
           status: "subscribed",
-          tags: ["web-digitalcanvas"],
+          tags: ["web-digitalcanvas", "newsletter-signup"],
         },
         {
           auth: {
@@ -135,7 +135,7 @@ export async function POST(request: Request) {
             await axios.patch(
               `https://${mailchimpDatacenter}.api.mailchimp.com/3.0/lists/${mailchimpListId}/members/${emailHash}`,
               {
-                tags: ["web-digitalcanvas"],
+                tags: ["web-digitalcanvas", "newsletter-signup"],
               },
               {
                 auth: {
