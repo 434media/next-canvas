@@ -1,11 +1,23 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import MissionStatement from "../components/mission-statement"
 import DigitalCanvasNetwork from "../components/digital-canvas-network"
 import AnimatedLanding from "../components/animated-landing"
 import TrustedBy from "../components/trusted-by"
+import PaintNewsletter from "../components/paint-newsletter"
 
 export default function Home() {
+  const [showNewsletter, setShowNewsletter] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowNewsletter(true)
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <div>
       <MissionStatement />
@@ -17,6 +29,8 @@ export default function Home() {
           <AnimatedLanding />
         </div>
       </div>
+
+      <PaintNewsletter isOpen={showNewsletter} onClose={() => setShowNewsletter(false)} />
     </div>
   )
 }
