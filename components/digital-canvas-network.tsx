@@ -1,5 +1,6 @@
 "use client"
 import DynamicSliderComponent from "./dynamic-slider"
+import { motion } from "motion/react"
 
 // Define the type for IP properties
 interface IPProperty {
@@ -13,10 +14,10 @@ interface IPProperty {
 }
 
 const ipProperties: IPProperty[] = [
-    {
+  {
     id: "overdrive",
     name: "OVERDRIVE",
-    tagline: "The Creative Layer of 434 MEDIA",
+    tagline: "In a world where music is outlawed, one rebel plugs in.",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/overdrive-poster.png",
     video: "https://ampd-asset.s3.us-east-2.amazonaws.com/OVERDRIVE_1080_v02.MOV",
     mediaType: "video",
@@ -48,6 +49,33 @@ const ipProperties: IPProperty[] = [
     video: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Cut+Down+Website.mp4",
     mediaType: "video",
     website: { url: "https://aimsatx.com", show: true },
+  },
+  {
+    id: "alamo-angels",
+    name: "ALAMO ANGELS",
+    tagline: "Empowering Innovation and Economic Growth",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/angels-poster.png",
+    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Alamo+Angels.mp4",
+    mediaType: "video",
+    website: { url: "https://www.alamoangels.com/", show: true },
+  },
+  {
+    id: "mhm",
+    name: "Methodist Healthcare Ministries",
+    tagline: "South Texas Community Health Accelerator",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/sdoh-poster.png",
+    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Start+Up+Week+Post+Promo+WEB.mp4",
+    mediaType: "video",
+    website: { url: "https://www.434media.com/sdoh", show: true },
+  },
+  {
+    id: "milcityusa",
+    name: "MILCITY USA",
+    tagline: "Celebrating Military Innovation and Entrepreneurialism",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/recap+poster.png",
+    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/MilCity.mp4",
+    mediaType: "video",
+    website: { url: "https://www.salutetotroops.com/", show: true },
   },
 ]
 
@@ -84,6 +112,20 @@ const DigitalCanvasNetwork = () => {
     >
       {/* Main Content */}
       <div className="relative z-10 h-full">
+        <motion.div
+          className="text-center max-w-6xl mx-auto mb-10 md:mb-20 pt-16 px-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-xl md:text-4xl lg:text-5xl xl:text-6xl text-black leading-tight tracking-tight">
+            Explore our <span className="font-bold">creative ecosystem</span> of{" "}
+            <span className="font-semibold">innovative properties</span> and{" "}
+            <span className="font-light italic">groundbreaking content</span>.
+          </p>
+        </motion.div>
+
         {/* In-House Properties Section - Netflix-style full height */}
         <div className="relative z-0 h-full">
           <DynamicSliderSection />

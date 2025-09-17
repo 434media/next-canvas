@@ -106,13 +106,15 @@ export default function PaintNewsletter({ isOpen, onClose }: PaintNewsletterProp
   const handleFileClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    setShowPaintSession(true)
+    setShowBootScreen(true)
+    setBootProgress(0)
+    setBootMessages([])
   }, [])
 
   const handleEditClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    setShowTerminal(true)
+    setShowPaintSession(true)
   }, [])
 
   const handleViewClick = useCallback((e: React.MouseEvent) => {
@@ -379,20 +381,10 @@ export default function PaintNewsletter({ isOpen, onClose }: PaintNewsletterProp
   }, [showBootScreen])
 
   useEffect(() => {
-    if (isOpen && !showMainInterface) {
-      setShowBootScreen(true)
-      setBootProgress(0)
-      setBootMessages([])
-
-      // Auto-close boot screen after completion
-      const bootTimer = setTimeout(() => {
-        setShowBootScreen(false)
-        setShowMainInterface(true)
-      }, 5000) // 5 seconds for full boot sequence
-
-      return () => clearTimeout(bootTimer)
+    if (isOpen) {
+      setShowMainInterface(true)
     }
-  }, [isOpen, showMainInterface])
+  }, [isOpen])
 
   if (!isOpen) return null
 
@@ -622,22 +614,19 @@ export default function PaintNewsletter({ isOpen, onClose }: PaintNewsletterProp
                   <div className="p-4 relative">
                     <div className="text-center mb-4">
                       <div
-                        className="inline-block p-2 border-2 cursor-pointer relative overflow-hidden"
+                        className="relative flex items-center justify-center p-2 cursor-pointer transition-all duration-200 hover:bg-gray-100"
                         style={{
-                          borderTopColor: "#404040",
-                          borderLeftColor: "#404040",
-                          borderRightColor: "#ffffff",
-                          borderBottomColor: "#ffffff",
-                          backgroundColor: "#ffffff",
-                          boxShadow: "inset 2px 2px 4px rgba(0,0,0,0.3)",
+                          borderTopColor: "#c0c0c0",
+                          borderLeftColor: "#c0c0c0",
+                          borderRightColor: "#808080",
+                          borderBottomColor: "#808080",
+                          backgroundColor: "#c0c0c0",
+                          boxShadow: "inset 1px 1px 2px rgba(255,255,255,0.8), inset -1px -1px 2px rgba(0,0,0,0.3)",
                         }}
                         onClick={(e) => {
                           e.preventDefault()
                           e.stopPropagation()
-                          setClickCount((prev) => prev + 1)
-                          if (clickCount > 5) {
-                            setShowEasterEgg(true)
-                          }
+                          setShowTerminal(true)
                         }}
                       >
                         <div className="relative z-10">
@@ -984,7 +973,7 @@ export default function PaintNewsletter({ isOpen, onClose }: PaintNewsletterProp
         )}
       </AnimatePresence>
 
-      {/* Terminal popup for Edit button */}
+      {/* Terminal popup - now triggered by Digital Canvas logo */}
       <AnimatePresence>
         {showTerminal && (
           <motion.div
@@ -995,39 +984,95 @@ export default function PaintNewsletter({ isOpen, onClose }: PaintNewsletterProp
             onClick={() => setShowTerminal(false)}
           >
             <motion.div
-              initial={{ y: 50 }}
-              animate={{ y: 0 }}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.3 }}
               className="bg-black text-green-400 font-mono text-sm border-2 border-green-400 w-full max-w-2xl mx-4 p-6 rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4 border-b border-green-400 pb-2">
                 <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <motion.div
+                    className="w-3 h-3 bg-red-500 rounded-full"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.1 }}
+                  ></motion.div>
+                  <motion.div
+                    className="w-3 h-3 bg-yellow-500 rounded-full"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                  ></motion.div>
+                  <motion.div
+                    className="w-3 h-3 bg-green-500 rounded-full"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3 }}
+                  ></motion.div>
                 </div>
-                <span className="text-green-400">Terminal - Digital Canvas</span>
+                <motion.span
+                  className="text-green-400"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  Terminal - Digital Canvas
+                </motion.span>
                 <button onClick={() => setShowTerminal(false)} className="text-green-400 hover:text-white">
                   ×
                 </button>
               </div>
 
               <div className="space-y-2">
-                <div className="text-green-400">$ cat creative_team.txt</div>
-                <div className="text-white mt-4 leading-relaxed">
-                  <div className="text-green-400 font-bold text-lg mb-3">Meet The Creative Team</div>
-                  <div className="text-green-300">
+                <motion.div
+                  className="text-green-400"
+                  initial={{ width: 0 }}
+                  animate={{ width: "auto" }}
+                  transition={{ delay: 0.5, duration: 1 }}
+                  style={{ overflow: "hidden", whiteSpace: "nowrap" }}
+                >
+                  $ cat creative_team.txt
+                </motion.div>
+                <motion.div
+                  className="text-white mt-4 leading-relaxed"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.5 }}
+                >
+                  <motion.div
+                    className="text-green-400 font-bold text-lg mb-3"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 1.7 }}
+                  >
+                    Meet The Creative Team
+                  </motion.div>
+                  <motion.div
+                    className="text-green-300"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 2 }}
+                  >
                     From bicultural media to military medicine, explore the diverse ecosystem of brands that fuel our
-                    creative canvas. Our interdisciplinary collective spans industries, cultures, and creative
-                    disciplines - each bringing unique perspectives that shape tomorrow's digital experiences.
-                  </div>
-                  <div className="mt-4 text-green-400">&gt; Connecting visionaries across boundaries</div>
-                  <div className="text-green-400">&gt; Building bridges through creative innovation</div>
-                  <div className="text-green-400">&gt; Transforming ideas into digital reality</div>
-                </div>
-                <div className="mt-6 text-green-400">
-                  $ <span className="animate-pulse">_</span>
-                </div>
+                    creative canvas. Our network spans innovative storytelling, cutting-edge technology, and
+                    groundbreaking content creation.
+                  </motion.div>
+                  <motion.div
+                    className="mt-4 text-green-400"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 2.5 }}
+                  >
+                    $ _
+                    <motion.span
+                      animate={{ opacity: [1, 0, 1] }}
+                      transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
+                    >
+                      |
+                    </motion.span>
+                  </motion.div>
+                </motion.div>
               </div>
             </motion.div>
           </motion.div>
