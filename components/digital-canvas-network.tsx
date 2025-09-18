@@ -34,8 +34,8 @@ const ipProperties: IPProperty[] = [
   },
   {
     id: "learn2ai",
-    name: "LEARN 2 AI",
-    tagline: "What if San Antonio could be the most AI-literate city?",
+    name: "LEARN2AI",
+    tagline: "What if San Antonio could be the most AI-literate city by 2030?",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/learn2ai-poster.png",
     video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Learn2AI+-+081825+G.mp4",
     mediaType: "video",
@@ -49,6 +49,15 @@ const ipProperties: IPProperty[] = [
     video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Alejandro+Ferna%CC%81ndez+Concert+.mov",
     mediaType: "video",
     website: { url: "https://www.vemosvamos.com/", show: true },
+  },
+  {
+    id: "alamo-angels",
+    name: "ALAMO ANGELS",
+    tagline: "Empowering Innovation and Economic Growth",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/angels-poster.png",
+    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Alamo+Angels+-+Trailer+01+1080p.mp4",
+    mediaType: "video",
+    website: { url: "https://www.alamoangels.com/", show: true },
   },
   {
     id: "txmx-boxing",
@@ -67,15 +76,6 @@ const ipProperties: IPProperty[] = [
     video: "https://ampd-asset.s3.us-east-2.amazonaws.com/AIM+Cut+Down+Website.mp4",
     mediaType: "video",
     website: { url: "https://aimsatx.com", show: true },
-  },
-  {
-    id: "alamo-angels",
-    name: "ALAMO ANGELS",
-    tagline: "Empowering Innovation and Economic Growth",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/angels-poster.png",
-    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Alamo+Angels+-+Trailer+01+1080p.mp4",
-    mediaType: "video",
-    website: { url: "https://www.alamoangels.com/", show: true },
   },
   {
     id: "mhm",
