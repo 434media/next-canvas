@@ -15,6 +15,15 @@ interface IPProperty {
 
 const ipProperties: IPProperty[] = [
   {
+    id: "introducing",
+    name: "ACTIONS SPEAK LOUDER",
+    tagline: "Introducing the Digital Canvas Network",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/dc-poster-2.png",
+    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/DC_V01_no_color.MOV",
+    mediaType: "video",
+    website: { url: "434media.com", show: true },
+  },
+  {
     id: "overdrive",
     name: "OVERDRIVE",
     tagline: "In a world where music is outlawed, one rebel plugs in.",
@@ -24,13 +33,22 @@ const ipProperties: IPProperty[] = [
     website: { url: "https://434media.com", show: true },
   },
   {
-    id: "introducing",
-    name: "ACTIONS SPEAK LOUDER",
-    tagline: "Introducing the Digital Canvas Network",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/dc-poster-2.png",
-    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/DC_V01_no_color.MOV",
+    id: "learn2ai",
+    name: "LEARN 2 AI",
+    tagline: "What if San Antonio could be the most AI-literate city?",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/learn2ai-poster.png",
+    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Learn2AI+-+081825+G.mp4",
     mediaType: "video",
-    website: { url: "434media.com", show: true },
+    website: { url: "https://www.linkedin.com/company/learn2ai/", show: true },
+  },
+  {
+    id: "vemos-vamos",
+    name: "VEMOS VAMOS",
+    tagline: "Bicultural Media for a new generation.",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/vemos-vamos/Pitch+Deck.png",
+    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Alejandro+Ferna%CC%81ndez+Concert+.mov",
+    mediaType: "video",
+    website: { url: "https://www.vemosvamos.com/", show: true },
   },
   {
     id: "txmx-boxing",
@@ -55,7 +73,7 @@ const ipProperties: IPProperty[] = [
     name: "ALAMO ANGELS",
     tagline: "Empowering Innovation and Economic Growth",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/angels-poster.png",
-    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Alamo+Angels.mp4",
+    video: "https://ampd-asset.s3.us-east-2.amazonaws.com/Alamo+Angels+-+Trailer+01+1080p.mp4",
     mediaType: "video",
     website: { url: "https://www.alamoangels.com/", show: true },
   },

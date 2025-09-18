@@ -232,7 +232,7 @@ export default function AnimatedLanding() {
                 {bentoItems[0].title}
               </p>
               <p className="mt-2 max-w-lg text-sm/6 text-neutral-600 max-lg:text-center">
-                {bentoItems[0].description.slice(0, 100)}
+                {bentoItems[0].description.slice(0, 100)}...
               </p>
             </div>
             <div className="@container relative min-h-120 w-full grow max-lg:mx-auto max-lg:max-w-sm">
