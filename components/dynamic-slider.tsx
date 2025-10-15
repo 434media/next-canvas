@@ -95,8 +95,21 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
 
     startVideoDelay()
 
-    const newScrollPosition = Math.min(nextIndex * cardWidth, maxScroll)
+    const containerWidth = desktopScrollRef.current?.clientWidth || 0
+    const totalWidth = items.length * cardWidth
+    const targetPosition = nextIndex * cardWidth
+
+    // Center the selected item if possible
+    const centeredPosition = targetPosition - containerWidth / 2 + cardWidth / 2
+    const newScrollPosition = Math.max(0, Math.min(centeredPosition, totalWidth - containerWidth))
+
     setScrollPosition(newScrollPosition)
+    if (desktopScrollRef.current) {
+      desktopScrollRef.current.scrollTo({
+        left: newScrollPosition,
+        behavior: "smooth",
+      })
+    }
   }
 
   const startAutoSwitch = useCallback(() => {
@@ -155,7 +168,8 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
   }, [videoDuration, isVideoLoaded, startAutoSwitch, isManualSelection])
 
   const scrollLeft = () => {
-    const newPosition = Math.max(0, scrollPosition - cardWidth)
+    const scrollAmount = cardWidth * 2
+    const newPosition = Math.max(0, scrollPosition - scrollAmount)
     setScrollPosition(newPosition)
     if (desktopScrollRef.current) {
       desktopScrollRef.current.scrollTo({
@@ -166,7 +180,10 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
   }
 
   const scrollRight = () => {
-    const newPosition = Math.min(scrollPosition + cardWidth, maxScroll)
+    const scrollAmount = cardWidth * 2
+    const containerWidth = desktopScrollRef.current?.clientWidth || 0
+    const totalWidth = items.length * cardWidth
+    const newPosition = Math.min(scrollPosition + scrollAmount, totalWidth - containerWidth)
     setScrollPosition(newPosition)
     if (desktopScrollRef.current) {
       desktopScrollRef.current.scrollTo({
@@ -221,6 +238,20 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
     setShowVideo(false)
     clearVideoDelay()
     startVideoDelay()
+
+    const containerWidth = desktopScrollRef.current?.clientWidth || 0
+    const totalWidth = items.length * cardWidth
+    const targetPosition = movieIndex * cardWidth
+    const centeredPosition = targetPosition - containerWidth / 2 + cardWidth / 2
+    const newScrollPosition = Math.max(0, Math.min(centeredPosition, totalWidth - containerWidth))
+
+    setScrollPosition(newScrollPosition)
+    if (desktopScrollRef.current) {
+      desktopScrollRef.current.scrollTo({
+        left: newScrollPosition,
+        behavior: "smooth",
+      })
+    }
   }
 
   return (
@@ -322,13 +353,16 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
             </div>
           </div>
 
-          <div className="relative overflow-hidden">
-            <motion.div
-              ref={desktopScrollRef}
-              className="flex gap-4"
-              animate={{ x: -scrollPosition }}
-              transition={{ type: "spring", damping: 20, stiffness: 300 }}
-            >
+          <div
+            ref={desktopScrollRef}
+            className="overflow-x-auto overflow-y-visible scrollbar-hide"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
+            <div className="flex gap-4 pb-0" style={{ width: `${items.length * cardWidth}px` }}>
               {items.map((movie) => (
                 <motion.div
                   key={movie.id}
@@ -357,7 +391,7 @@ export default function DynamicSlider({ items }: DynamicSliderProps) {
                   </div>
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
