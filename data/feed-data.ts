@@ -120,7 +120,7 @@ export const feedItems: FeedItem[] = [
       heroImage: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/goober.jpg",
       foundersNote: {
         text: "Ten years. That's how long San Antonio Startup Week has been bringing together the brightest minds in our city. This year, we didn't just attend—we crashed the party with 434 of our closest friends, collaborators, and dreamers. What unfolded was a week of pure creative chaos, meaningful connections, and a reminder that San Antonio's startup scene isn't just growing—it's thriving.",
-        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/foundersnote.png",
+        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/LTAISASW-2.jpg",
       },
       lastMonthGif: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/motion.gif",
       spotlights: [

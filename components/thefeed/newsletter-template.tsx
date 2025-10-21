@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import type { NewsletterContent } from "@/data/feed-data"
 import { ArrowRight } from "lucide-react"
 
@@ -13,18 +13,18 @@ interface NewsletterTemplateProps {
 export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
   return (
     <div className="space-y-16 md:space-y-24">
-      {/* Hero Image - 4:5 aspect ratio */}
+      {/* Hero Image - 4:5 aspect ratio, centered on desktop with max-width */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full aspect-[4/5] border-4 border-black overflow-hidden bg-gray-100"
+        className="relative w-full aspect-[4/5] md:max-w-4xl md:mx-auto border-4 border-black overflow-hidden bg-gray-100"
       >
         <Image
           src={content.heroImage || "/placeholder.svg"}
           alt="Newsletter hero"
           fill
-          className="object-cover"
+          className="object-cover md:object-contain"
           priority
         />
       </motion.div>
@@ -34,7 +34,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="border-4 border-black p-6 md:p-8 lg:p-12 bg-white"
+        className="border-4 border-black p-6 md:p-8 lg:p-12 bg-white relative"
       >
         <h2 className="text-2xl md:text-3xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight mb-8 border-b-4 border-black pb-4">
           Founder's Note
@@ -43,7 +43,20 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
           <div className="space-y-4">
             <p className="text-base md:text-lg leading-relaxed text-gray-800">{content.foundersNote.text}</p>
           </div>
-          <div className="relative aspect-square border-4 border-black overflow-hidden bg-gray-100">
+          <div className="relative aspect-square border-4 border-black overflow-visible bg-gray-100">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+              animate={{ opacity: 1, scale: 1, rotate: -8 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="absolute -top-6 -left-6 md:-top-8 md:-left-8 w-32 h-16 md:w-40 md:h-20 z-10"
+            >
+              <Image
+                src="https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/ActionsSpeakLouder.png"
+                alt="Actions Speak Louder"
+                fill
+                className="object-contain drop-shadow-lg"
+              />
+            </motion.div>
             <Image
               src={content.foundersNote.image || "/placeholder.svg"}
               alt="Founder's note"
@@ -86,7 +99,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
               }`}
             >
               <div
-                className={`relative aspect-[3/2] border-4 border-black overflow-hidden bg-gray-100 ${
+                className={`relative aspect-[4/5] border-4 border-black overflow-hidden bg-gray-100 ${
                   index % 2 === 1 ? "md:col-start-2" : ""
                 }`}
               >
@@ -104,6 +117,8 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
                 <p className="text-base leading-relaxed text-gray-700">{spotlight.description}</p>
                 <Link
                   href={spotlight.ctaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-800 transition-colors w-fit border-2 border-black group"
                 >
                   {spotlight.ctaText}
@@ -153,7 +168,21 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         </div>
 
         {/* Upcoming Event CTA */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 border-4 border-black bg-black text-white overflow-hidden">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 border-4 border-black bg-black text-white overflow-visible relative">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
+            animate={{ opacity: 1, scale: 1, rotate: 12 }}
+            transition={{ duration: 0.5, delay: 1 }}
+            className="absolute -right-7 -top-10 md:-top-10 md:-right-10 w-24 h-24 md:w-32 md:h-32 z-10"
+          >
+            <Image
+              src="https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/434Featured.png"
+              alt="434 Featured Event"
+              fill
+              className="object-contain drop-shadow-2xl"
+            />
+          </motion.div>
+
           <div className="relative aspect-[4/3] bg-gray-800">
             <Image
               src={content.upcomingEvent.image || "/placeholder.svg"}
@@ -169,6 +198,8 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             <p className="text-base leading-relaxed text-gray-200">{content.upcomingEvent.description}</p>
             <Link
               href={content.upcomingEvent.ctaLink}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-200 transition-colors w-fit border-2 border-white group"
             >
               {content.upcomingEvent.ctaText}
