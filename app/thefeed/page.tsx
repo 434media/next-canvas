@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import FeedHeader from "../../components/thefeed/feed-header"
-import FeedFilters from "../../components/thefeed/feed-filters"
-import FeedList from "../../components/thefeed/feed-list"
-import { feedItems } from "../../data/feed-data"
+import FeedHeader from "@/components/thefeed/feed-header"
+import FeedFilters from "@/components/thefeed/feed-filters"
+import FeedList from "@/components/thefeed/feed-list"
+import { feedItems } from "@/data/feed-data"
 
 export default function TheFeedPage() {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
@@ -12,14 +12,16 @@ export default function TheFeedPage() {
   const [selectedAuthors, setSelectedAuthors] = useState<string[]>([])
 
   const filteredItems = useMemo(() => {
-    return feedItems.filter((item) => {
-      const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(item.type)
-      const topicMatch = selectedTopics.length === 0 || item.topics.some((topic) => selectedTopics.includes(topic))
-      const authorMatch =
-        selectedAuthors.length === 0 || item.authors.some((author) => selectedAuthors.includes(author))
+    return feedItems
+      .filter((item) => {
+        const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(item.type)
+        const topicMatch = selectedTopics.length === 0 || item.topics.some((topic) => selectedTopics.includes(topic))
+        const authorMatch =
+          selectedAuthors.length === 0 || item.authors.some((author) => selectedAuthors.includes(author))
 
-      return typeMatch && topicMatch && authorMatch
-    })
+        return typeMatch && topicMatch && authorMatch
+      })
+      .reverse()
   }, [selectedTypes, selectedTopics, selectedAuthors])
 
   const handleTypeToggle = (type: string) => {

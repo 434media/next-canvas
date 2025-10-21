@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { feedItems } from "../../../data/feed-data"
+import { feedItems } from "@/data/feed-data"
 import { ArrowLeft } from "lucide-react"
+import { NewsletterTemplate } from "../../../components/thefeed/newsletter-template"
 
 interface FeedDetailPageProps {
   params: Promise<{
@@ -87,11 +88,11 @@ export default async function FeedDetailPage({ params }: FeedDetailPageProps) {
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight mb-6">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight mb-6 text-balance">
             {item.title}
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">{item.summary}</p>
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 text-pretty">{item.summary}</p>
 
           {/* Meta Info */}
           <div className="flex flex-wrap gap-6 text-sm">
@@ -121,22 +122,28 @@ export default async function FeedDetailPage({ params }: FeedDetailPageProps) {
         </header>
 
         {/* Content */}
-        <div className="prose prose-lg max-w-none">
-          <div className="border-4 border-black p-8 bg-gray-50 mb-8">
-            <p className="text-center text-gray-600 font-mono">[Content for this feed item would be displayed here]</p>
-          </div>
+        {item.newsletterContent ? (
+          <NewsletterTemplate content={item.newsletterContent} />
+        ) : (
+          <div className="prose prose-lg max-w-none">
+            <div className="border-4 border-black p-8 bg-gray-50 mb-8">
+              <p className="text-center text-gray-600 font-mono">
+                [Content for this feed item would be displayed here]
+              </p>
+            </div>
 
-          <div className="space-y-6 text-gray-800 leading-relaxed">
-            <p>
-              This is a placeholder for the full content of the newsletter or article. In a real implementation, you
-              would fetch the full content from your CMS or database and render it here.
-            </p>
-            <p>
-              The content could include rich text, images, videos, code snippets, and other media elements that make up
-              the complete story.
-            </p>
+            <div className="space-y-6 text-gray-800 leading-relaxed">
+              <p>
+                This is a placeholder for the full content of the newsletter or article. In a real implementation, you
+                would fetch the full content from your CMS or database and render it here.
+              </p>
+              <p>
+                The content could include rich text, images, videos, code snippets, and other media elements that make
+                up the complete story.
+              </p>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Footer CTA */}
         <footer className="mt-12 pt-8 border-t-4 border-black">
