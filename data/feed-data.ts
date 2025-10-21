@@ -7,7 +7,10 @@ export interface NewsletterSpotlight {
 }
 
 export interface NewsletterContent {
-  heroImage: string
+  heroImage: {
+    desktop: string
+    mobile: string
+  }
   foundersNote: {
     text: string
     image: string
@@ -57,7 +60,10 @@ export const feedItems: FeedItem[] = [
     slug: "the-road-to-rgvsw",
     ogImage: "/images/feed/rgvsw-og.png",
     newsletterContent: {
-      heroImage: "/rgv-startup-week-hero-image.jpg",
+      heroImage: {
+        desktop: "/rgv-startup-week-hero-image.jpg",
+        mobile: "/rgv-startup-week-hero-image.jpg",
+      },
       foundersNote: {
         text: "This month, we packed our bags and headed south to Brownsville for RGV Startup Week 2025. What we found was a community bursting with energy, innovation, and the kind of authentic storytelling that can only happen when you show up in person. From late-night conversations with founders to witnessing the next generation of Texas entrepreneurs take the stage, this trip reminded us why we do what we do—to amplify the voices shaping the future of our state.",
         image: "/founders-at-rgv-startup-week.jpg",
@@ -91,7 +97,7 @@ export const feedItems: FeedItem[] = [
         title: "Behind the Scenes: Our Journey to Brownsville",
         image: "/road-trip-to-brownsville.jpg",
         content:
-          "The drive from San Antonio to Brownsville is more than just miles on a highway—it's a journey through the heart of Texas entrepreneurship. Along the way, we stopped to meet founders, visit co-working spaces, and document the stories that don't always make it to the headlines. This is what we learned about building community, one conversation at a time.",
+          "<p>The drive from San Antonio to Brownsville is more than just miles on a highway—it's a journey through the heart of Texas entrepreneurship.</p><br/><p>Along the way, we stopped to meet founders, visit co-working spaces, and document the stories that don't always make it to the headlines.</p><br/><p><strong>This is what we learned about building community, one conversation at a time.</strong></p><br/><p>Key takeaways from our journey:</p><ul><li><strong>Authenticity matters:</strong> Real connections happen face-to-face</li><li><strong>Community first:</strong> Success is built on relationships</li><li><strong>Show up:</strong> The best stories can't be told from a distance</li></ul>",
       },
       theDropGif: "/the-drop-animated-header.jpg",
       upcomingEvent: {
@@ -117,9 +123,12 @@ export const feedItems: FeedItem[] = [
     slug: "434-crashes-sasw-10th-year",
     ogImage: "/images/feed/434-crashes-sasw-10th-year-og.png",
     newsletterContent: {
-      heroImage: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/goober.jpg",
+      heroImage: {
+        desktop: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/November+Cover_Desktop.jpg",
+        mobile: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/November+Cover.jpg",
+      },
       foundersNote: {
-        text: "Ten years. That's how long San Antonio Startup Week has been bringing together the brightest minds in our city. This year, we didn't just attend—we crashed the party with 434 of our closest friends, collaborators, and dreamers. What unfolded was a week of pure creative chaos, meaningful connections, and a reminder that San Antonio's startup scene isn't just growing—it's thriving.",
+        text: "Ten years. That's how long San Antonio Startup Week has been bringing together the brightest minds in our city. This year, we didn't just attend, we crashed the party with 434 of our closest friends, collaborators, and dreamers. What unfolded was a week of pure creative chaos, meaningful connections, and a reminder that San Antonio's startup scene isn't just growing, it's thriving.",
         image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/LTAISASW-2.jpg",
       },
       lastMonthGif: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/motion.gif",
@@ -142,7 +151,8 @@ export const feedItems: FeedItem[] = [
         },
         {
           title: "Sending Agents on Their Multi-step Mission",
-          description: "San Antonio Startup Week may have wrapped up, but the energy of the event is still with us. This year, we took a new approach to empowering our tech community through a powerful partnership between Learn2AI, 434 MEDIA, and DEVSA.",
+          description:
+            "San Antonio Startup Week may have wrapped up, but the energy of the event is still with us. This year, we took a new approach to empowering our tech community through a powerful partnership between Learn2AI, 434 MEDIA, and DEVSA.",
           image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/agents.png",
           ctaText: "Learn More",
           ctaLink: "https://www.434media.com/blog/a-new-chapter-for-san-antonios-tech-community",
@@ -152,7 +162,8 @@ export const feedItems: FeedItem[] = [
         title: "434 MEDIA Crashes 10 Years of SASW",
         image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/saswcrash.jpeg",
         content:
-          "As the sun set over downtown from the top of 300 Main, our team joined hundreds of founders, creators, and dreamers at TechBloc’s networking mixer during San Antonio Startup Week 2025. The space was alive with conversation,  ideas traded hands as easily as handshakes, and the view mirrored the energy of a city on the rise. It was also a night of milestones, as Beto Altamirano took the mic for his first public address as TechBloc’s new CEO, sharing a message that resonated across the rooftop: “The next Rackspace, the next tech company to put San Antonio on the global map is already taking shape.” During San Antonio Startup Week, we teamed up with VelocityTX, Univision San Antonio, and Methodist Healthcare Ministries to lead conversations around innovation and inclusion reaching over 800,000 impressions across platforms. If SASW 2025 proved anything, it’s that San Antonio has incredible momentum right now and it’s fueled by those bold enough to imagine what’s next.",
+                    "As the sun set over downtown from the top of 300 Main, our team joined hundreds of founders, creators, and dreamers at TechBloc’s networking mixer during <strong>San Antonio Startup Week 2025</strong>. The space was alive with conversation, ideas traded hands as easily as handshakes, and the view mirrored the energy of a city on the rise. <br/> <br/> It was also a night of milestones, as Beto Altamirano took the mic for his first public address as TechBloc’s new CEO, sharing a message that resonated across the rooftop: <br/> <br/> “The next Rackspace, the next tech company to put San Antonio on the global map is already taking shape.” <br/> <br/> During San Antonio Startup Week, we teamed up with <strong>VelocityTX, Univision San Antonio, and Methodist Healthcare Ministries</strong> to lead conversations around innovation and inclusion reaching over 800,000 impressions across platforms. <br/> <br/> If SASW 2025 proved anything, it’s that San Antonio has incredible momentum right now and it’s fueled by those bold enough to imagine what’s next.",
+
       },
       theDropGif: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/drop.gif",
       upcomingEvent: {

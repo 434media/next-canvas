@@ -14,17 +14,34 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
   return (
     <div className="space-y-16 md:space-y-24">
       {/* Hero Image - 4:5 aspect ratio, centered on desktop with max-width */}
+      {/* Mobile Hero Image - 4:5 aspect ratio */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full aspect-[4/5] md:max-w-4xl md:mx-auto border-4 border-black overflow-hidden bg-gray-100"
+        className="relative w-full aspect-[4/5] border-4 border-black overflow-hidden bg-gray-100 md:hidden"
       >
         <Image
-          src={content.heroImage || "/placeholder.svg"}
+          src={content.heroImage.mobile || "/placeholder.svg"}
           alt="Newsletter hero"
           fill
-          className="object-cover md:object-contain"
+          className="object-cover"
+          priority
+        />
+      </motion.div>
+
+      {/* Desktop Hero Image - Wide format, centered with max-width */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative w-full aspect-[16/9] md:max-w-6xl md:mx-auto border-4 border-black overflow-hidden bg-gray-100 hidden md:block"
+      >
+        <Image
+          src={content.heroImage.desktop || "/placeholder.svg"}
+          alt="Newsletter hero"
+          fill
+          className="object-cover"
           priority
         />
       </motion.div>
@@ -149,7 +166,10 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight border-b-4 border-black pb-4">
             {content.featuredPost.title}
           </h2>
-          <p className="text-base md:text-lg leading-relaxed text-gray-800">{content.featuredPost.content}</p>
+          <div
+            className="prose prose-lg max-w-none text-gray-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: content.featuredPost.content }}
+          />
         </div>
       </motion.section>
 
@@ -173,7 +193,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
             animate={{ opacity: 1, scale: 1, rotate: 12 }}
             transition={{ duration: 0.5, delay: 1 }}
-            className="absolute -right-7 -top-10 md:-top-10 md:-right-10 w-24 h-24 md:w-32 md:h-32 z-10"
+            className="absolute -right-5 -top-10 md:-top-8 md:-right-10 w-24 h-24 md:w-32 md:h-32 z-10"
           >
             <Image
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/434Featured.png"
