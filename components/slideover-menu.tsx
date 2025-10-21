@@ -2,6 +2,7 @@
 
 import type React from "react"
 import Image from "next/image"
+import NextLink from "next/link"
 import { motion, AnimatePresence } from "motion/react"
 import { Newsletter } from "./newsletter"
 import { X } from "lucide-react"
@@ -12,7 +13,6 @@ interface SlideoverMenuProps {
 }
 
 const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -65,13 +65,15 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
                     >
-                      <Image
-                        src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
-                        alt="Digital Canvas Logo"
-                        width={150}
-                        height={40}
-                        className="invert"
-                      />
+                      <NextLink href="/" onClick={onClose} className="block hover:opacity-80 transition-opacity">
+                        <Image
+                          src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
+                          alt="Digital Canvas Logo"
+                          width={150}
+                          height={40}
+                          className="invert"
+                        />
+                      </NextLink>
                     </motion.div>
                     <motion.button
                       onClick={onClose}
