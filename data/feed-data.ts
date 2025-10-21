@@ -61,52 +61,52 @@ export const feedItems: FeedItem[] = [
     ogImage: "/images/feed/rgvsw-og.png",
     newsletterContent: {
       heroImage: {
-        desktop: "/rgv-startup-week-hero-image.jpg",
-        mobile: "/rgv-startup-week-hero-image.jpg",
+        desktop: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/junehero.jpg",
+        mobile: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/june-mobile.png",
       },
       foundersNote: {
-        text: "This month, we packed our bags and headed south to Brownsville for RGV Startup Week 2025. What we found was a community bursting with energy, innovation, and the kind of authentic storytelling that can only happen when you show up in person. From late-night conversations with founders to witnessing the next generation of Texas entrepreneurs take the stage, this trip reminded us why we do what we do—to amplify the voices shaping the future of our state.",
-        image: "/founders-at-rgv-startup-week.jpg",
+        text: "Whether it’s SDOH work in the Valley, closing the digital gap with TechBloc, supporting ecosystem builders at Emerge and Rise, or sharing a message with a connected community — it all comes back to one thing: access. Access to health, tech, capital, or simply a seat at the table. The stories we tell are about real people building real things. Actions Speak Louder!",
+        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/june-founder.png",
       },
-      lastMonthGif: "/rgv-startup-week-highlights-animated.jpg",
+      lastMonthGif: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/motion.gif",
       spotlights: [
         {
-          title: "The Valley's Rising Tech Scene",
+          title: "Emerge and Rise Open House ",
           description:
-            "Discover how the Rio Grande Valley is becoming a hotbed for tech innovation and entrepreneurship.",
-          image: "/rgv-tech-scene.jpg",
-          ctaText: "Read More",
-          ctaLink: "#",
-        },
-        {
-          title: "Founders Making Waves",
-          description: "Meet the entrepreneurs who are putting RGV on the map with their groundbreaking startups.",
-          image: "/rgv-founders.jpg",
+            "Vemos Vamos & DevSA link up with Lina Rugova and Christine Colburn for a closer look at the vision behind Emerge and Rise.",
+          image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/emergeopenhouse.jpeg",
           ctaText: "Learn More",
-          ctaLink: "#",
+          ctaLink: "https://emergeandrise.org/",
         },
         {
-          title: "Community First Approach",
-          description: "How RGV Startup Week is building a sustainable ecosystem for long-term growth.",
-          image: "/rgv-community.jpg",
-          ctaText: "Explore",
-          ctaLink: "#",
+          title: "Cine Las Americas",
+          description: "Our very own Miguel Cedillo struck a chord at this years Cine Las Americas International Film Festival.",
+          image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/cinemiguel.jpeg",
+          ctaText: "Learn More",
+          ctaLink: "https://cinelasamericas.org/",
+        },
+        {
+          title: "Closing the Digital Gap",
+          description: "What happens when 110 families suddenly get access to tech they never had? TechBloc, Human-I-T, and SA Hope Center teamed up to find out. See how access to technology is still reshaping health and economic equity.",
+          image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/closinggap.jpg",
+          ctaText: "Learn More",
+          ctaLink: "https://www.sanantoniotechday.com/",
         },
       ],
       featuredPost: {
-        title: "Behind the Scenes: Our Journey to Brownsville",
-        image: "/road-trip-to-brownsville.jpg",
+        title: "The Road to RGVSW: Proximity Matters",
+        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/junefeatured.jpeg",
         content:
-          "<p>The drive from San Antonio to Brownsville is more than just miles on a highway—it's a journey through the heart of Texas entrepreneurship.</p><br/><p>Along the way, we stopped to meet founders, visit co-working spaces, and document the stories that don't always make it to the headlines.</p><br/><p><strong>This is what we learned about building community, one conversation at a time.</strong></p><br/><p>Key takeaways from our journey:</p><ul><li><strong>Authenticity matters:</strong> Real connections happen face-to-face</li><li><strong>Community first:</strong> Success is built on relationships</li><li><strong>Show up:</strong> The best stories can't be told from a distance</li></ul>",
+          "You can’t tell meaningful stories from a distance which is why our team headed to Brownsville for RGV Startup Week 2025. This wasn’t a one-off trip. We’ve been building relationships in the Rio Grande Valley for months. <br/><br/> At 434 Media, we believe storytelling is a team sport. It takes care, consistency, and cultural awareness to bring someone else’s vision to life, especially when those stories are shaping the future of public health, economic opportunity, and innovation. <br/><br/><strong>Que es SDOH? Glad you asked!</strong>",
       },
-      theDropGif: "/the-drop-animated-header.jpg",
+      theDropGif: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/drop.gif",
       upcomingEvent: {
-        title: "Digital Canvas Community Meetup",
+        title: "AIM 2025 Health R&D Summit",
         description:
-          "Join us for our monthly community gathering where we connect, collaborate, and celebrate the creative entrepreneurs shaping Texas.",
-        image: "/community-meetup-event.jpg",
-        ctaText: "View Calendar",
-        ctaLink: "/calendar",
+          "Never miss a meetup. Explore our new community events page. Events are added weekly so check back often!",
+        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/aim-group.jpg",
+        ctaText: "Explore Events",
+        ctaLink: "https://www.434media.com/events",
       },
     },
   },
@@ -162,8 +162,7 @@ export const feedItems: FeedItem[] = [
         title: "434 MEDIA Crashes 10 Years of SASW",
         image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/saswcrash.jpeg",
         content:
-                    "As the sun set over downtown from the top of 300 Main, our team joined hundreds of founders, creators, and dreamers at TechBloc’s networking mixer during <strong>San Antonio Startup Week 2025</strong>. The space was alive with conversation, ideas traded hands as easily as handshakes, and the view mirrored the energy of a city on the rise. <br/> <br/> It was also a night of milestones, as Beto Altamirano took the mic for his first public address as TechBloc’s new CEO, sharing a message that resonated across the rooftop: <br/> <br/> “The next Rackspace, the next tech company to put San Antonio on the global map is already taking shape.” <br/> <br/> During San Antonio Startup Week, we teamed up with <strong>VelocityTX, Univision San Antonio, and Methodist Healthcare Ministries</strong> to lead conversations around innovation and inclusion reaching over 800,000 impressions across platforms. <br/> <br/> If SASW 2025 proved anything, it’s that San Antonio has incredible momentum right now and it’s fueled by those bold enough to imagine what’s next.",
-
+          "As the sun set over downtown from the top of 300 Main, our team joined hundreds of founders, creators, and dreamers at TechBloc’s networking mixer during <strong>San Antonio Startup Week 2025</strong>. The space was alive with conversation, ideas traded hands as easily as handshakes, and the view mirrored the energy of a city on the rise. <br/> <br/> It was also a night of milestones, as Beto Altamirano took the mic for his first public address as TechBloc’s new CEO, sharing a message that resonated across the rooftop: <br/> <br/> “The next Rackspace, the next tech company to put San Antonio on the global map is already taking shape.” <br/> <br/> During San Antonio Startup Week, we teamed up with <strong>VelocityTX, Univision San Antonio, and Methodist Healthcare Ministries</strong> to lead conversations around innovation and inclusion reaching over 800,000 impressions across platforms. <br/> <br/> If SASW 2025 proved anything, it’s that San Antonio has incredible momentum right now and it’s fueled by those bold enough to imagine what’s next.",
       },
       theDropGif: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/drop.gif",
       upcomingEvent: {
