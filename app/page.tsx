@@ -4,18 +4,27 @@ import { useState, useEffect } from "react"
 import MissionStatement from "../components/mission-statement"
 import DigitalCanvasNetwork from "../components/digital-canvas-network"
 import AnimatedLanding from "../components/animated-landing"
-import PaintNewsletter from "../components/paint-newsletter"
+import NewsletterPopup from "../components/newsletter-popup"
 
 export default function Home() {
-  const [showNewsletter, setShowNewsletter] = useState(false)
+   const [showPopup, setShowPopup] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowNewsletter(true)
-    }, 3000)
+    const hasShownPopup = sessionStorage.getItem("aim2026-popup-shown")
 
-    return () => clearTimeout(timer)
+    if (!hasShownPopup) {
+      const timer = setTimeout(() => {
+        setShowPopup(true)
+      }, 3000)
+
+      return () => clearTimeout(timer)
+    }
   }, [])
+
+  const handleClosePopup = () => {
+    setShowPopup(false)
+    sessionStorage.setItem("aim2026-popup-shown", "true")
+  }
 
   return (
     <div>
@@ -28,7 +37,7 @@ export default function Home() {
         </div>
       </div>
 
-      <PaintNewsletter isOpen={showNewsletter} onClose={() => setShowNewsletter(false)} />
+      <NewsletterPopup showModal={showPopup} onClose={handleClosePopup} />
     </div>
   )
 }

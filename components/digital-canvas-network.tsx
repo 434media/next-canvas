@@ -131,7 +131,7 @@ const DigitalCanvasNetwork = () => {
       {/* Main Content */}
       <div className="relative z-10 h-full">
         <motion.div
-          className="text-center max-w-6xl mx-auto mb-10 md:mb-20 pt-16 px-4"
+          className="text-center max-w-5xl mx-auto mb-10 md:mb-20 pt-16 px-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
