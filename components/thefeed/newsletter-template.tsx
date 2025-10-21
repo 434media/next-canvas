@@ -183,7 +183,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             />
           </motion.div>
 
-          <div className="relative aspect-[4/3] bg-gray-800">
+          <div className="relative aspect-[4/5] bg-gray-800">
             <Image
               src={content.upcomingEvent.image || "/placeholder.svg"}
               alt={content.upcomingEvent.title}
