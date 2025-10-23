@@ -58,9 +58,12 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         </h2>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           <div className="space-y-4">
-            <p className="text-base md:text-lg leading-relaxed text-gray-800">{content.foundersNote.text}</p>
+            <div
+              className="prose prose-lg max-w-none text-gray-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: content.foundersNote.text }}
+            />
           </div>
-          <div className="relative aspect-square border-4 border-black overflow-visible bg-gray-100">
+          <div className="relative aspect-[4/5] border-4 border-black overflow-visible bg-gray-100">
             <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
               animate={{ opacity: 1, scale: 1, rotate: -8 }}
@@ -131,7 +134,10 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
                 <h3 className="text-xl md:text-2xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight">
                   {spotlight.title}
                 </h3>
-                <p className="text-base leading-relaxed text-gray-700">{spotlight.description}</p>
+                <div
+                  className="prose prose-lg max-w-none md:tracking-tight text-gray-700 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: spotlight.description }}
+                />
                 <Link
                   href={spotlight.ctaLink}
                   target="_blank"

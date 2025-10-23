@@ -128,47 +128,47 @@ export const feedItems: FeedItem[] = [
         mobile: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/November+Cover.jpg",
       },
       foundersNote: {
-        text: "Ten years. That's how long San Antonio Startup Week has been bringing together the brightest minds in our city. This year, we didn't just attend, we crashed the party with 434 of our closest friends, collaborators, and dreamers. What unfolded was a week of pure creative chaos, meaningful connections, and a reminder that San Antonio's startup scene isn't just growing, it's thriving.",
-        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/LTAISASW-2.jpg",
+        text: "It’s been a busy month! From Texas Venture Fest, where we talked a lil’ pinche, through San Antonio Startup Week, one theme kept echoing: <br/> <br/> San Antonio Rising! <br/> <br/> As we stand on the precipice of a historic vote (read: <a href=\"https://sanantonioreport.org/what-is-prop-a-prop-b-bexar-county-venue-tax-election-ballot-language-explainer/\" style=\"color: blue; text-decoration: underline;\">What are Prop A and Prop B</a>), I’m reminded of the confidence we found in the people and partners shaping this city’s future. The energy, ambition, and creativity we witnessed this week — and in so many others working to leave a legacy that’s both rich and enriching — are proof that San Antonio’s future is as bright as the minds fueling the current conversation. <br/> <br/> As for 11/4: Don’t be a Goober…<a href=\"https://sanantonioreport.org/uber-leave-san-antonio-lyft-fence/\" style=\"color: blue; text-decoration: underline;\">again</a>.",
+        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/Marcos5.PNG",
       },
       lastMonthGif: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/motion.gif",
       spotlights: [
         {
-          title: "2026 AIM Health R&D Summit Announced!",
+          title: "Expanding the Mission of Collaboration",
           description:
-            "AIM 2026 returns with an expanded focus on creating an always-on environment that connects AIM programming to the broader innovation ecosystem through VelocityTX and community partnerships.",
+            "<strong>AIM 2026</strong> returns with an expanded focus on creating an always-on environment that connects AIM programming to the broader innovation ecosystem through <strong>VelocityTX</strong> and community partnerships. This year-round approach strengthens collaboration across academia, industry, and the military—cementing San Antonio’s position as a national hub for bioscience, dual-use innovation, and economic growth. Curious about innovating in the Federal space?",
           image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/aimannounced.png",
           ctaText: "Register Now!",
           ctaLink: "https://www.aimsatx.com/",
         },
         {
-          title: "Curated Insights for the Bilingual Creative Community",
+          title: "Vemos Vamos Launches The Culture Deck",
           description:
-            "During SASW, we brought that strategy to life: participating in panels, meeting local founders, distributing flyers with QR codes to invite people to join our growing network, and hosting small meetups to foster face-to-face conversations that spark collaboration.",
+            "You’re early — and that’s a good thing. This growing library functions like a hand of cards, a set of creative insights and cultural drops you can use to play smarter in business and storytelling. Be the first to receive The Culture Deck when it launches.",
           image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/vemosinsights.jpg",
           ctaText: "Subscribe Here",
           ctaLink: "https://www.vemosvamos.com/",
         },
         {
-          title: "Sending Agents on Their Multi-step Mission",
+          title: "learn2AI Launched with a Bold Vision for the 210",
           description:
-            "San Antonio Startup Week may have wrapped up, but the energy of the event is still with us. This year, we took a new approach to empowering our tech community through a powerful partnership between Learn2AI, 434 MEDIA, and DEVSA.",
+            "<strong>San Antonio Startup Week</strong> may have wrapped, but the momentum continues. This year, <a href=\"https://www.learn2ai.co/\" style=\"color: blue; text-decoration: underline;\">Learn2AI</a>, <a href=\"https://www.434media.com/\" style=\"color: blue; text-decoration: underline;\">434 MEDIA</a>, and <a href=\"https://www.devsa.community/\" style=\"color: blue; text-decoration: underline;\">DEVSA</a> set out to make San Antonio one of the most AI-literate cities by 2030. <br/> <br/> The collaboration debuted with an interactive workshop where founders and small businesses got a peek under the hood of agenticAI, exploring the technical layers behind how functional AI agents are built and applied in real-world use cases. <br/> <br/>  Read the full story and see what’s next for this collaboration.",
           image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/agents.png",
           ctaText: "Learn More",
           ctaLink: "https://www.434media.com/blog/a-new-chapter-for-san-antonios-tech-community",
         },
       ],
       featuredPost: {
-        title: "434 MEDIA Crashes 10 Years of SASW",
+        title: "434 Crashes SASW 10th Year",
         image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/saswcrash.jpeg",
         content:
-          "As the sun set over downtown from the top of 300 Main, our team joined hundreds of founders, creators, and dreamers at TechBloc’s networking mixer during <strong>San Antonio Startup Week 2025</strong>. The space was alive with conversation, ideas traded hands as easily as handshakes, and the view mirrored the energy of a city on the rise. <br/> <br/> It was also a night of milestones, as Beto Altamirano took the mic for his first public address as TechBloc’s new CEO, sharing a message that resonated across the rooftop: <br/> <br/> “The next Rackspace, the next tech company to put San Antonio on the global map is already taking shape.” <br/> <br/> During San Antonio Startup Week, we teamed up with <strong>VelocityTX, Univision San Antonio, and Methodist Healthcare Ministries</strong> to lead conversations around innovation and inclusion reaching over 800,000 impressions across platforms. <br/> <br/> If SASW 2025 proved anything, it’s that San Antonio has incredible momentum right now and it’s fueled by those bold enough to imagine what’s next.",
+          "As the sun set over downtown from the top of 300 Main, our team joined hundreds of founders, creators, and dreamers at TechBloc’s networking mixer during <strong>San Antonio Startup Week 2025</strong>. The space was alive with conversation, ideas traded hands as easily as handshakes, and the view mirrored the energy of a city on the rise. <br/> <br/> It was also a night of milestones, as <strong>Beto Altamirano</strong> took the mic for his first public address as <strong>TechBloc’s new CEO</strong>, sharing a message that resonated across the rooftop: <br/> <br/> “The next Rackspace, the next tech company to put San Antonio on the global map is already taking shape.” <br/> <br/> During <strong>San Antonio Startup Week</strong>, we teamed up with <strong>VelocityTX</strong>, <strong>Univision San Antonio</strong>, and <strong>Methodist Healthcare Ministries</strong> to lead conversations around innovation and inclusion reaching over <strong>800,000</strong> impressions across platforms. <br/> <br/> If SASW 2025 proved anything, it’s that San Antonio has incredible momentum right now and it’s fueled by those bold enough to imagine what’s next.",
       },
       theDropGif: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/drop.gif",
       upcomingEvent: {
         title: "PyTexas is Coming to San Antonio!",
         description:
-          "The PyTexas Foundation, Alamo Python, and DEVSA are hosting a Python conference at Geekdom on Saturday, November 8",
+          "The PyTexas Foundation, Alamo Python, and DEVSA are hosting the first Python conference in San Antonio! Join us for a day of learning, networking, and fun with fellow Python enthusiasts.",
         image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/flyers-27-devsa+(6).png",
         ctaText: "Explore Events",
         ctaLink: "https://www.434media.com/events",

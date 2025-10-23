@@ -166,7 +166,7 @@ export default function NewsletterPopup({ showModal, onClose }: NewsletterPopupP
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 z-20 p-3 bg-black border-2 border-black text-white hover:bg-neutral-500 hover:border-neutral-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 focus:ring-offset-white rounded-lg"
+            className="absolute top-2 right-2 md:top-6 md:right-6 z-20 p-0.5 md:p-3 bg-black border-2 border-black text-white hover:bg-neutral-500 hover:border-neutral-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 focus:ring-offset-white rounded-lg"
             aria-label="Close digital-canvas 2026 announcement"
           >
             <X className="h-5 w-5" />
@@ -200,8 +200,8 @@ export default function NewsletterPopup({ showModal, onClose }: NewsletterPopupP
                       <Image
                         src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
                         alt="Digital Canvas Logo"
-                        width={200}
-                        height={80}
+                        width={260}
+                        height={20}
                         className="object-contain"
                       />
                     </div>
