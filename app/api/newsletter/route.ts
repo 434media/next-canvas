@@ -5,17 +5,17 @@ import crypto from "crypto"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 
-const airtableBaseEmail = process.env.AIRTABLE_BASE_EMAIL
+const airtableBaseId = process.env.AIRTABLE_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
 const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY
 const mailchimpApiKey = process.env.MAILCHIMP_API_KEY
 const mailchimpListId = process.env.MAILCHIMP_AUDIENCE_ID
 
-if (!airtableBaseEmail || !airtableApiKey) {
+if (!airtableBaseId || !airtableApiKey) {
   throw new Error("Airtable configuration is missing")
 }
 
-const base = new Airtable({ apiKey: airtableApiKey }).base(airtableBaseEmail)
+const base = new Airtable({ apiKey: airtableApiKey }).base(airtableBaseId)
 
 const mailchimpDatacenter = mailchimpApiKey ? mailchimpApiKey.split("-").pop() : null
 
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     const turnstileToken = request.headers.get("cf-turnstile-response")
     const remoteIp = request.headers.get("CF-Connecting-IP")
 
-    if (!airtableBaseEmail || !airtableApiKey) {
+    if (!airtableBaseId || !airtableApiKey) {
       console.error("Airtable configuration is missing")
       return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
     }
