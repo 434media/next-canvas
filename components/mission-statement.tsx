@@ -4,113 +4,15 @@ import { useRef, useState, useEffect } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import PulsingCircle from "./pulsing-circle"
 import { useMobile } from "../hooks/use-mobile"
-import { Vortex } from "./vortex"
-import { WavyBackground } from "./wavy-background"
 
-// Background environment types
-type BackgroundType = "comic" | "video1" | "crt" | "video3" | "vortex" | "video2" | "wavy"
+type BackgroundType = "video1" | "video3" | "video2"
 
 const MissionStatement = () => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [currentBackground, setCurrentBackground] = useState<BackgroundType>("comic")
+  const [currentBackground, setCurrentBackground] = useState<BackgroundType>("video1")
   const [isActive, setIsActive] = useState(false)
   const isMobile = useMobile()
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-
-    const particles: Array<{
-      x: number
-      y: number
-      vx: number
-      vy: number
-      size: number
-      color: string
-      alpha: number
-    }> = []
-
-    const createParticles = () => {
-      particles.length = 0
-      const particleCount = 30
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 2,
-          size: Math.random() * 3 + 1,
-          color: getParticleColor(),
-          alpha: Math.random() * 0.8 + 0.2,
-        })
-      }
-    }
-
-    const getParticleColor = () => {
-      switch (currentBackground) {
-        case "crt":
-          return "#00ff00"
-        case "vortex":
-          return "#6366f1"
-        case "comic":
-          return "#fbbf24"
-        case "video1":
-        case "video2":
-        case "video3":
-          return "#ffffff"
-        case "wavy":
-          return "#38bdf8"
-        default:
-          return "#6b7280"
-      }
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      particles.forEach((particle) => {
-        particle.x += particle.vx
-        particle.y += particle.vy
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
-
-        ctx.globalAlpha = particle.alpha
-        ctx.fillStyle = particle.color
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fill()
-
-        ctx.shadowBlur = 10
-        ctx.shadowColor = particle.color
-        ctx.fill()
-        ctx.shadowBlur = 0
-      })
-
-      requestAnimationFrame(animate)
-    }
-
-    createParticles()
-    animate()
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-      createParticles()
-    }
-
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [currentBackground])
 
   useEffect(() => {
     const handleMouseEnter = () => setIsActive(true)
@@ -131,7 +33,7 @@ const MissionStatement = () => {
   }, [])
 
   const handleBackgroundChange = () => {
-    const backgrounds: BackgroundType[] = ["comic", "video1", "crt", "video3", "vortex", "video2", "wavy"]
+    const backgrounds: BackgroundType[] = ["video1", "video3", "video2"]
     const currentIndex = backgrounds.indexOf(currentBackground)
     const nextIndex = (currentIndex + 1) % backgrounds.length
     setCurrentBackground(backgrounds[nextIndex])
@@ -147,31 +49,12 @@ const MissionStatement = () => {
 
   const getLogoStyle = () => {
     switch (currentBackground) {
-      case "crt":
-        return {
-          filter: "drop-shadow(0 0 10px #00ff00) contrast(1.2) brightness(1.1)",
-          fontFamily: "monospace",
-        }
-      case "vortex":
-        return {
-          filter: "drop-shadow(0 0 20px #6366f1) drop-shadow(0 0 40px #4f46e5)",
-          animation: "pulse 2s infinite",
-        }
-      case "comic":
-        return {
-          filter: "drop-shadow(4px 4px 0px #000) drop-shadow(8px 8px 0px #fbbf24)",
-        }
       case "video1":
       case "video2":
       case "video3":
         return {
           filter: "drop-shadow(0 0 15px #ffffff) drop-shadow(0 0 30px #ffffff)",
           animation: "pulse 2s infinite",
-        }
-      case "wavy":
-        return {
-          filter: "drop-shadow(0 0 15px #38bdf8) drop-shadow(0 0 30px #818cf8)",
-          animation: "pulse 3s infinite",
         }
       default:
         return {
@@ -183,27 +66,6 @@ const MissionStatement = () => {
 
   const getBannerStyle = () => {
     switch (currentBackground) {
-      case "crt":
-        return {
-          background: "rgba(0, 255, 0, 0.1)",
-          border: "2px solid #00ff00",
-          color: "#00ff00",
-          fontFamily: "monospace",
-          textShadow: "0 0 10px #00ff00",
-        }
-      case "vortex":
-        return {
-          background: "linear-gradient(45deg, #6366f1, #4f46e5)",
-          border: "2px solid #818cf8",
-          boxShadow: "0 0 40px rgba(99, 102, 241, 0.8)",
-        }
-      case "comic":
-        return {
-          background: "#fbbf24",
-          color: "#000",
-          border: "4px solid #000",
-          boxShadow: "8px 8px 0px #000",
-        }
       case "video1":
       case "video2":
       case "video3":
@@ -212,14 +74,6 @@ const MissionStatement = () => {
           color: "#000",
           border: "2px solid #ffffff",
           boxShadow: "0 0 25px rgba(255, 255, 255, 0.7)",
-        }
-      case "wavy":
-        return {
-          background: "rgba(56, 189, 248, 0.15)",
-          color: "#ffffff",
-          border: "2px solid #38bdf8",
-          boxShadow: "0 0 30px rgba(56, 189, 248, 0.5)",
-          backdropFilter: "blur(10px)",
         }
       default:
         return {
@@ -233,187 +87,6 @@ const MissionStatement = () => {
 
   const renderBackground = () => {
     switch (currentBackground) {
-      case "crt":
-        return (
-          <motion.div
-            key="crt"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0 bg-black"
-            style={{
-              background: `
-                repeating-linear-gradient(
-                  0deg,
-                  transparent,
-                  transparent 2px,
-                  rgba(0, 255, 0, 0.03) 2px,
-                  rgba(0, 255, 0, 0.03) 4px
-                ),
-                radial-gradient(ellipse at center, rgba(0, 255, 0, 0.1) 0%, transparent 70%),
-                #000000
-              `,
-            }}
-          >
-            <motion.div
-              className="absolute inset-0 opacity-30"
-              style={{
-                background: `
-                  repeating-linear-gradient(
-                    90deg,
-                    transparent 0px,
-                    rgba(0, 255, 0, 0.1) 1px,
-                    transparent 2px
-                  )
-                `,
-              }}
-              animate={{
-                x: [0, 10, 0],
-              }}
-              transition={{
-                duration: 0.1,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
-            />
-
-            <motion.div
-              className="absolute inset-0 opacity-40"
-              style={{
-                background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`,
-                mixBlendMode: "screen",
-              }}
-              animate={{
-                opacity: [0.2, 0.6, 0.1, 0.4],
-                scale: [1, 1.01, 0.99, 1],
-              }}
-              transition={{
-                duration: 0.08,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
-            />
-
-            <motion.div
-              className="absolute inset-0"
-              style={{
-                background: "rgba(255, 255, 255, 0.1)",
-                mixBlendMode: "screen",
-              }}
-              animate={{
-                opacity: [0, 0, 0, 0.3, 0, 0, 0, 0.1, 0],
-              }}
-              transition={{
-                duration: 0.5,
-                repeat: Number.POSITIVE_INFINITY,
-                times: [0, 0.1, 0.2, 0.21, 0.22, 0.5, 0.7, 0.71, 1],
-              }}
-            />
-
-            <div className="absolute inset-0 opacity-40">
-              {Array.from({ length: 30 }).map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute text-green-400 font-mono text-xs"
-                  style={{ left: `${i * 3.33}%`, top: "-100px" }}
-                  animate={{
-                    y: [0, window.innerHeight + 100],
-                    opacity: [0, 1, 1, 0],
-                  }}
-                  transition={{
-                    duration: 2 + Math.random() * 3,
-                    repeat: Number.POSITIVE_INFINITY,
-                    delay: Math.random() * 2,
-                    ease: "linear",
-                  }}
-                >
-                  {Array.from({ length: 15 })
-                    .map(() => String.fromCharCode(0x30a0 + Math.random() * 96))
-                    .join("")}
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              className="absolute inset-0 bg-green-500 mix-blend-multiply"
-              animate={{
-                opacity: [0, 0, 0, 0.08, 0],
-              }}
-              transition={{
-                duration: 0.15,
-                repeat: Number.POSITIVE_INFINITY,
-                times: [0, 0.94, 0.96, 0.98, 1],
-              }}
-            />
-          </motion.div>
-        )
-      case "vortex":
-        return (
-          <motion.div
-            key="vortex"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0"
-            style={{ backgroundColor: "#1e1b4b" }}
-          >
-            <Vortex
-              backgroundColor="transparent"
-              particleCount={1200}
-              baseHue={240}
-              baseSpeed={0.15}
-              rangeSpeed={3}
-              baseRadius={1.5}
-              rangeRadius={4}
-            />
-          </motion.div>
-        )
-      case "comic":
-        return (
-          <motion.div
-            key="comic"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0 overflow-hidden"
-            style={{
-              background: `
-                radial-gradient(circle at 20% 20%, #ff6b6b 0%, transparent 25%),
-                radial-gradient(circle at 80% 80%, #4ecdc4 0%, transparent 25%),
-                radial-gradient(circle at 60% 40%, #45b7d1 0%, transparent 25%),
-                radial-gradient(circle at 30% 70%, #96ceb4 0%, transparent 25%),
-                radial-gradient(circle at 70% 20%, #feca57 0%, transparent 25%),
-                #ffd93d
-              `,
-            }}
-          >
-            <motion.div
-              className="absolute inset-0"
-              style={{
-                background: `
-                  repeating-linear-gradient(
-                    45deg,
-                    transparent 0px,
-                    rgba(0, 0, 0, 0.15) 1px,
-                    transparent 12px
-                  ),
-                  repeating-linear-gradient(
-                    -45deg,
-                    transparent 0px,
-                    rgba(0, 0, 0, 0.08) 1px,
-                    transparent 18px
-                  ),
-                  radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.1) 2px, transparent 2px),
-                  radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.1) 2px, transparent 2px)
-                `,
-                backgroundSize: "20px 20px, 25px 25px, 15px 15px, 15px 15px",
-              }}
-            />
-          </motion.div>
-        )
       case "video1":
         return (
           <motion.div
@@ -494,70 +167,16 @@ const MissionStatement = () => {
             <div className="absolute inset-0 bg-cyan-900/25" />
           </motion.div>
         )
-      case "wavy":
-        return (
-          <motion.div
-            key="wavy"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0"
-          >
-            <WavyBackground
-              colors={["#38bdf8", "#818cf8", "#c084fc", "#e879f9", "#22d3ee"]}
-              waveWidth={50}
-              backgroundFill="#0f172a"
-              blur={10}
-              speed="fast"
-              waveOpacity={0.6}
-              className="absolute inset-0"
-            />
-          </motion.div>
-        )
       default:
         return (
           <motion.div
-            key="comic"
+            key="default"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
-            className="absolute inset-0 overflow-hidden"
-            style={{
-              background: `
-                radial-gradient(circle at 20% 20%, #ff6b6b 0%, transparent 25%),
-                radial-gradient(circle at 80% 80%, #4ecdc4 0%, transparent 25%),
-                radial-gradient(circle at 60% 40%, #45b7d1 0%, transparent 25%),
-                radial-gradient(circle at 30% 70%, #96ceb4 0%, transparent 25%),
-                radial-gradient(circle at 70% 20%, #feca57 0%, transparent 25%),
-                #ffd93d
-              `,
-            }}
-          >
-            <motion.div
-              className="absolute inset-0"
-              style={{
-                background: `
-                  repeating-linear-gradient(
-                    45deg,
-                    transparent 0px,
-                    rgba(0, 0, 0, 0.15) 1px,
-                    transparent 12px
-                  ),
-                  repeating-linear-gradient(
-                    -45deg,
-                    transparent 0px,
-                    rgba(0, 0, 0, 0.08) 1px,
-                    transparent 18px
-                  ),
-                  radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.1) 2px, transparent 2px),
-                  radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.1) 2px, transparent 2px)
-                `,
-                backgroundSize: "20px 20px, 25px 25px, 15px 15px, 15px 15px",
-              }}
-            />
-          </motion.div>
+            className="absolute inset-0 bg-white"
+          />
         )
     }
   }
@@ -565,12 +184,6 @@ const MissionStatement = () => {
   return (
     <section className="relative min-h-screen overflow-hidden" ref={containerRef}>
       <AnimatePresence mode="wait">{renderBackground()}</AnimatePresence>
-
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none z-5"
-        style={{ mixBlendMode: currentBackground === "comic" ? "multiply" : "screen" }}
-      />
 
       <div className="absolute inset-0 z-5 bg-gradient-to-br from-white/5 via-transparent to-black/5 backdrop-blur-[0.5px]" />
 
@@ -679,12 +292,6 @@ const MissionStatement = () => {
         @keyframes flicker {
           0% { opacity: 1; }
           50% { opacity: 0.8; }
-          100% { opacity: 1; }
-        }
-        @keyframes crt-flicker {
-          0% { opacity: 1; }
-          98% { opacity: 1; }
-          99% { opacity: 0.98; }
           100% { opacity: 1; }
         }
       `}</style>

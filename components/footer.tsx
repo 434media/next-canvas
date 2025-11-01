@@ -72,7 +72,7 @@ const Footer = () => {
               </a>
               {/* Instagram link */}
               <a
-                href="https://www.instagram.com/digitalcanvas.community/"
+                href="https://www.instagram.com/digitalcanvashq/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-neutral-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-neutral-950 rounded"

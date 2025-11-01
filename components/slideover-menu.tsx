@@ -2,9 +2,10 @@
 
 import type React from "react"
 import Image from "next/image"
+import NextLink from "next/link"
 import { motion, AnimatePresence } from "motion/react"
 import { Newsletter } from "./newsletter"
-import { X } from "lucide-react"
+import { ArrowRightIcon, X } from "lucide-react"
 
 interface SlideoverMenuProps {
   isOpen: boolean
@@ -12,7 +13,6 @@ interface SlideoverMenuProps {
 }
 
 const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -65,13 +65,21 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
                     >
-                      <Image
-                        src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
-                        alt="Digital Canvas Logo"
-                        width={150}
-                        height={40}
-                        className="invert"
-                      />
+                      <NextLink
+                        href="/"
+                        onClick={onClose}
+                        className="block bg-black border-1 border-white p-2 transform hover:rotate-1 shadow-lg transition-transform duration-200 hover:scale-105"
+                        style={{
+                          filter: "drop-shadow(2px 2px 0px black)",
+                        }}
+                      >
+                        <Image
+                          src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
+                          alt="Digital Canvas Logo"
+                          width={120}
+                          height={32}
+                        />
+                      </NextLink>
                     </motion.div>
                     <motion.button
                       onClick={onClose}
@@ -102,12 +110,44 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                       <span className="bg-white text-black px-1 sm:px-2 py-1 font-menda-black">434 MEDIA</span>
                     </p>
                   </motion.div>
+
+                  {/* The Feed CTA section */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.4, ease: "easeOut" }}
+                    className="bg-white border-2 border-black p-6 transform -rotate-1 shadow-lg"
+                    style={{
+                      filter: "drop-shadow(4px 4px 0px black)",
+                    }}
+                  >
+                    <h3
+                      className="text-black font-bold mb-3 text-lg uppercase tracking-wide"
+                      style={{ fontFamily: "Arial Black, sans-serif" }}
+                    >
+                      The Feed
+                    </h3>
+                    <p className="text-black/70 text-sm mb-4">
+                      Explore our latest newsletters, articles, videos, and podcasts from the Digital Canvas community.
+                    </p>
+                    <NextLink
+                      href="/thefeed"
+                      onClick={onClose}
+                      className="inline-block bg-black text-white px-6 py-3 font-bold uppercase tracking-wide text-sm border-2 border-black transform hover:rotate-1 transition-all duration-200 hover:scale-105"
+                      style={{
+                        filter: "drop-shadow(3px 3px 0px rgba(0,0,0,0.3))",
+                      }}
+                    >
+                      View The Feed <ArrowRightIcon className="inline-block w-4 h-4 ml-2" />
+                    </NextLink>
+                  </motion.div>
+
                   {/* HQ */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
-                    className="relative bg-white border-2 border-black p-6 transform -rotate-1 shadow-lg overflow-hidden"
+                    className="relative bg-white border-2 border-black p-6 transform rotate-1 shadow-lg overflow-hidden"
                     style={{
                       filter: "drop-shadow(4px 4px 0px black)",
                     }}
@@ -118,34 +158,32 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                         backgroundImage: "url(https://ampd-asset.s3.us-east-2.amazonaws.com/finesilver.jpg)",
                       }}
                     />
-                    <div className="absolute inset-0 bg-black/40" />
+                    <div className="absolute inset-0 bg-black/65" />
 
                     <div className="relative z-10">
                       <h3
-                        className="text-white font-bold mb-4 text-lg uppercase tracking-wide drop-shadow-lg"
+                        className="text-white font-bold mb-3 text-lg uppercase tracking-wide drop-shadow-lg"
                         style={{ fontFamily: "Arial Black, sans-serif" }}
                       >
                         Our creative house
                       </h3>
-
-                      <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
-                        className="text-white/90 text-sm drop-shadow-md"
-                      >
-                        <span className="block font-bold">FINESILVER</span>
-                        816 Camaron St, San Antonio, TX, USA
-                      </motion.p>
-
                       <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8, duration: 0.4, ease: "easeOut" }}
-                        className="text-white/80 text-xs mt-3 drop-shadow-md"
+                        className="text-white/80 text-sm mb-4 drop-shadow-md"
                       >
-                        Come explore our creative space where innovation meets collaboration. Join our team in bringing
+                        Where innovation meets collaboration. Join our team in bringing
                         digital visions to life.
+                      </motion.p>
+                      <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
+                        className="text-white/80 text-xs drop-shadow-md"
+                      >
+                        <span className="block font-bold">FINESILVER</span>
+                        816 Camaron St, San Antonio, TX, USA
                       </motion.p>
                     </div>
                   </motion.div>
@@ -155,7 +193,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7, duration: 0.4, ease: "easeOut" }}
-                    className="bg-white border-2 border-black p-6 transform rotate-1 shadow-lg"
+                    className="bg-white border-2 border-black p-6 transform rotate-0 shadow-lg"
                     style={{
                       filter: "drop-shadow(4px 4px 0px black)",
                     }}
@@ -166,6 +204,9 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                     >
                       Stay Connected
                     </h3>
+                    <p className="text-black/70 text-sm mb-4">
+                      See how we blend creativity with community impact through innovative storytelling and design.
+                    </p>
 
                     <Newsletter />
                   </motion.div>

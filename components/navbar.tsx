@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, useScroll, useTransform } from "motion/react"
+import { Menu } from "lucide-react"
 import SlideoverMenu from "./slideover-menu"
 
 const Navbar = () => {
@@ -51,25 +52,27 @@ const Navbar = () => {
             background: `rgba(255, 255, 255, 0.1)`,
           }}
         >
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-4">
+          <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex justify-between items-center py-3">
               <motion.div
-                className="flex-shrink-0 relative group sr-only"
+                className="flex-shrink-0 relative group"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
               >
                 <Link href="/" passHref>
-                  <motion.div className="relative cursor-pointer">
+                  <motion.div
+                    className="relative cursor-pointer bg-black border border-white p-1.5 transform hover:rotate-1 shadow-lg"
+                    style={{
+                      filter: "drop-shadow(2px 2px 0px black)",
+                    }}
+                  >
                     <div className="relative z-10">
                       <Image
                         src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
                         alt="Digital Canvas Logo"
-                        width={135}
-                        height={36}
+                        width={80}
+                        height={24}
                         className="transition-all duration-300"
-                        style={{
-                          filter: "drop-shadow(2px 2px 0px white) drop-shadow(4px 4px 0px black)",
-                        }}
                       />
                     </div>
                   </motion.div>
@@ -90,13 +93,7 @@ const Navbar = () => {
                 }}
               >
                 <motion.div animate={{ rotate: isMenuOpen ? 5 : 0 }} transition={{ duration: 0.3, ease: "easeOut" }}>
-                  <Image
-                    src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
-                    alt="Digital Canvas Menu"
-                    width={36}
-                    height={36}
-                    className="transition-all duration-300"
-                  />
+                  <Menu className="w-5 h-5 text-white" />
                 </motion.div>
               </motion.button>
             </div>
