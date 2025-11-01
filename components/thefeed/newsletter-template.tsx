@@ -218,7 +218,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             />
           </div>
           <div className="flex flex-col justify-center p-6 md:p-8 space-y-6">
-            <h3 className="text-2xl md:text-3xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight">
+            <h3 className="text-2xl md:text-3xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tighter text-balance">
               {content.upcomingEvent.title}
             </h3>
             <p className="text-base leading-relaxed text-gray-200">{content.upcomingEvent.description}</p>

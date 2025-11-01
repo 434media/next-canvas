@@ -166,10 +166,10 @@ export const feedItems: FeedItem[] = [
       },
       theDropGif: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/drop.gif",
       upcomingEvent: {
-        title: "PyTexas is Coming to San Antonio!",
+        title: "The First Python Conference in San Antonio",
         description:
-          "The PyTexas Foundation, Alamo Python, and DEVSA are hosting the first Python conference in San Antonio! Join us for a day of learning, networking, and fun with fellow Python enthusiasts.",
-        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/flyers-27-devsa+(6).png",
+          "Alamo Python, the PyTexas Foundation, and DEVSA are excited to activate the first-ever Python conference in San Antonio!",
+        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/flyers-11-python.png",
         ctaText: "Explore Events",
         ctaLink: "https://www.434media.com/events",
       },
