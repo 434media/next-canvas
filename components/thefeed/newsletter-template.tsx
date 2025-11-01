@@ -59,7 +59,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           <div className="space-y-4">
             <div
-              className="prose prose-lg max-w-none text-gray-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
+              className="prose prose-lg max-w-none text-gray-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed md:tracking-tighter"
               dangerouslySetInnerHTML={{ __html: content.foundersNote.text }}
             />
           </div>
@@ -135,7 +135,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
                   {spotlight.title}
                 </h3>
                 <div
-                  className="prose prose-lg max-w-none md:tracking-tight text-gray-700 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
+                  className="prose prose-lg max-w-none md:tracking-tighter text-gray-700 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: spotlight.description }}
                 />
                 <Link

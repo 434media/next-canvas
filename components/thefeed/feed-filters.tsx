@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { ChevronDown } from "lucide-react"
 import { feedTypes, feedTopics, feedAuthors } from "../../data/feed-data"
+import { useIsMobile } from "../../hooks/use-mobile"
 
 interface FeedFiltersProps {
   selectedTypes: string[]
@@ -24,9 +25,20 @@ export default function FeedFilters({
   onAuthorToggle,
   onClearFilters,
 }: FeedFiltersProps) {
+  const isMobile = useIsMobile()
   const [isTypeOpen, setIsTypeOpen] = useState(true)
   const [isTopicOpen, setIsTopicOpen] = useState(true)
   const [isAuthorOpen, setIsAuthorOpen] = useState(true)
+
+  // Set different default states based on mobile/desktop
+  useEffect(() => {
+    if (isMobile !== undefined) {
+      const defaultOpen = !isMobile // Open on desktop, closed on mobile
+      setIsTypeOpen(defaultOpen)
+      setIsTopicOpen(defaultOpen)
+      setIsAuthorOpen(defaultOpen)
+    }
+  }, [isMobile])
 
   const hasActiveFilters = selectedTypes.length > 0 || selectedTopics.length > 0 || selectedAuthors.length > 0
 
