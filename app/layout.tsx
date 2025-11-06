@@ -28,6 +28,7 @@ const mendaBlack = localFont({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://digitalcanvas.community' : 'http://localhost:3000'),
   title: "Digital Canvas | The Creative Layer of 434 MEDIA",
   description:
     "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network. From innovative properties to transformative partnerships.",

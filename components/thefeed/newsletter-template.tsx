@@ -100,6 +100,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             alt="Last month in motion"
             fill
             className="object-cover"
+            unoptimized
           />
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
             <span className="sr-only">Last Month in Motion</span>
@@ -187,7 +188,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         className="space-y-8"
       >
         <div className="relative w-full aspect-[3/1] border-4 border-black overflow-hidden bg-gray-100">
-          <Image src={content.theDropGif || "/placeholder.svg"} alt="The Drop" fill className="object-cover" />
+          <Image src={content.theDropGif || "/placeholder.svg"} alt="The Drop" fill className="object-cover" unoptimized />
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
             <span className="sr-only">The Drop</span>
           </div>
