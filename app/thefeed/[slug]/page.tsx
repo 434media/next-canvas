@@ -1,38 +1,15 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { getFeedItemBySlug, getAllFeedSlugs } from "@/lib/airtable-feed"
+import { getFeedItemBySlug } from "@/lib/airtable-feed"
 import FeedDetailClientPage from "./client-page"
+
+// Force dynamic rendering to match the main feed page behavior
+export const dynamic = 'force-dynamic'
 
 interface FeedDetailPageProps {
   params: Promise<{
     slug: string
   }>
-}
-
-export async function generateStaticParams() {
-  try {
-    let slugs = await getAllFeedSlugs()
-    
-    // Fallback to static data if Airtable returns no slugs
-    if (slugs.length === 0) {
-      const { feedItems } = await import('@/data/feed-data')
-      slugs = feedItems.map(item => item.slug)
-    }
-    
-    return slugs.map((slug) => ({
-      slug: slug,
-    }))
-  } catch (error) {
-    console.error('Error generating static params:', error)
-    // Final fallback to static data
-    try {
-      const { feedItems } = await import('@/data/feed-data')
-      return feedItems.map(item => ({ slug: item.slug }))
-    } catch (staticErr) {
-      console.error('Error with static fallback:', staticErr)
-      return []
-    }
-  }
 }
 
 export async function generateMetadata({ params }: FeedDetailPageProps): Promise<Metadata> {
