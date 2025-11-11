@@ -6,7 +6,6 @@ Welcome to Digital Canvas, the creative layer of **434 MEDIA**! This modern Next
 
 Digital Canvas features:
 - **The Feed**: A dynamic newsletter system with Airtable integration
-- **Event Series**: "Prompt to Product" and other community events
 - **Creative Journey**: Visual representation from ideation to reality
 - **Community Hub**: Connecting designers, developers, and digital artists in San Antonio
 
