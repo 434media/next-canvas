@@ -55,7 +55,7 @@ const Navbar = () => {
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex justify-between items-center py-3">
               <motion.div
-                className="flex-shrink-0 relative group"
+                className="shrink-0 relative group"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
               >

@@ -1,71 +1,97 @@
 "use client"
-import Image from "next/image"
 import { motion } from "motion/react"
+import Link from "next/link"
 
 export default function WorkshopsPage() {
   return (
     <motion.section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-br from-neutral-900 via-neutral-800 to-neutral-900"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-br from-white via-neutral-50 to-neutral-100"
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1, ease: "easeOut" }}
     >
-      {/* Tilted background effect */}
       <motion.div
-        className="absolute inset-0 -rotate-3 bg-linear-to-tr from-blue-900/40 via-purple-900/30 to-teal-900/40 pointer-events-none"
+        className="absolute inset-0 -rotate-3 bg-linear-to-tr from-blue-100/40 via-purple-100/30 to-teal-100/40 pointer-events-none"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 0.7, y: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       />
 
-      {/* Centered content */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full">
+      <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 pt-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
+          className="mb-8"
         >
-          <Image
+          <img
             src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
-            alt="Digital Canvas Logo"
-            width={180}
-            height={54}
-            className="mb-8 drop-shadow-2xl"
+            alt="Digital Canvas"
+            className="w-[300px] sm:w-[400px] md:w-[500px] lg:w-[600px] max-w-[90vw] h-auto mx-auto drop-shadow-2xl"
+            style={{
+              filter: "drop-shadow(0 0 15px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 30px rgba(0, 0, 0, 0.1))",
+            }}
           />
         </motion.div>
-        <motion.h1
-          className="text-5xl sm:text-6xl md:text-7xl font-black text-white leading-tight tracking-tight mb-4"
+
+        <motion.div
+          className="relative p-4 sm:p-6 transform shadow-2xl mx-auto transition-all duration-500 max-w-[95vw] sm:max-w-4xl bg-white border-2 border-black"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+          style={{
+            boxShadow: "0 0 25px rgba(0, 0, 0, 0.15)",
+          }}
         >
-          Workshops
-        </motion.h1>
+          <p
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-tight text-center leading-tight text-black"
+            style={{ fontFamily: "Arial Black, sans-serif" }}
+          >
+            Transformative{" "}
+            <span className="bg-black text-white border-2 border-black px-2 py-1 sm:px-3 sm:py-2 inline-block mt-1 sm:mt-0">
+              WORKSHOPS
+            </span>
+          </p>
+        </motion.div>
+
         <motion.div
-          className="block mt-2 text-2xl md:text-3xl lg:text-4xl font-light text-white/80 tracking-wide mb-8"
+          className="mt-6 text-xl md:text-2xl font-light text-neutral-700 tracking-wide"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <span className="font-bold text-blue-400">Coming Soon</span>
+          <span className="font-bold text-blue-600">Coming Soon</span>
+        </motion.div>
+
+        <motion.div
+          className="mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <Link
+            href="/workshops/hoodkidgoodkid"
+            className="text-sm text-neutral-600 hover:text-black transition-colors underline"
+          >
+            Hood Kid | Good Kid
+          </Link>
         </motion.div>
       </div>
 
-      {/* Ambient light effects */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
+        className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-200/30 rounded-full blur-3xl pointer-events-none"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1.1, opacity: 0.7 }}
         transition={{ duration: 1.2, delay: 0.3 }}
       />
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-3xl pointer-events-none"
+        className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-purple-200/30 rounded-full blur-3xl pointer-events-none"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 0.5 }}
         transition={{ duration: 1.2, delay: 0.5 }}
       />
       <motion.div
-        className="absolute top-1/2 left-1/2 w-[200px] h-[200px] bg-teal-500/10 rounded-full blur-3xl pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 left-1/2 w-[200px] h-[200px] bg-teal-200/30 rounded-full blur-3xl pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
         initial={{ scale: 0.7, opacity: 0 }}
         animate={{ scale: 1, opacity: 0.3 }}
         transition={{ duration: 1.2, delay: 0.7 }}
