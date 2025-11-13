@@ -17,7 +17,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
 
   return (
     <section
-      className={`relative min-h-[90vh] overflow-hidden px-4 py-24 md:px-6 md:py-32 ${
+      className={`relative min-h-screen overflow-hidden px-4 py-24 md:px-6 md:py-24 ${
         isDark ? "bg-[#0a0a0a]" : "bg-linear-to-b from-white to-gray-50"
       }`}
       style={{ viewTransitionName: "hero-content" }}
@@ -93,36 +93,36 @@ export function HeroSection({ theme }: HeroSectionProps) {
       )}
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div className="relative z-10 mx-auto min-h-[calc(100vh-8rem)] max-w-7xl">
+        <div className="grid min-h-[calc(100vh-8rem)] items-center gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Left column - Text content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-2xl"
+            className="flex flex-col justify-center"
           >
             {/* Tagline */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className={`mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 ${
+              className={`mb-6 inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 ${
                 isDark ? "bg-[#ff6b35]/20 border-2 border-[#ff6b35]" : "bg-[#2563eb]/10 border-2 border-[#2563eb]"
               }`}
             >
               <Zap className={isDark ? "text-[#ffd23f]" : "text-[#2563eb]"} size={20} />
-              <span className={`font-bold text-sm tracking-wide ${isDark ? "text-[#ffd23f]" : "text-[#2563eb]"}`}>
+              <span className={`text-sm font-bold tracking-wide ${isDark ? "text-[#ffd23f]" : "text-[#2563eb]"}`}>
                 {isDark ? "EARNED, NOT GIVEN" : "Learn • Earn • Return"}
               </span>
             </motion.div>
 
             {/* Main headline - Different text for each mode */}
             <h1
-              className={`mb-6 font-bold leading-[0.95] ${
+              className={`mb-4 font-bold leading-[0.95] md:mb-6 ${
                 isDark
-                  ? "font-(--font-menda-black) text-5xl tracking-tighter md:text-6xl lg:text-7xl"
-                  : "font-(--font-geist-sans) text-4xl md:text-5xl lg:text-6xl"
+                  ? "font-(--font-menda-black) text-4xl tracking-tighter md:text-5xl lg:text-6xl"
+                  : "font-(--font-geist-sans) text-3xl md:text-4xl lg:text-5xl"
               }`}
             >
               {isDark ? (
@@ -212,7 +212,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className={`mb-8 max-w-xl text-base leading-relaxed md:text-lg lg:text-xl ${
+              className={`mb-6 max-w-xl text-sm leading-relaxed md:text-base lg:text-lg ${
                 isDark ? "text-[#d4d4d4]" : "text-gray-700"
               }`}
             >
@@ -240,12 +240,12 @@ export function HeroSection({ theme }: HeroSectionProps) {
               onClick={scrollToContact}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`group layered-shadow flex items-center gap-3 rounded-lg px-6 py-3 font-bold text-base transition-all md:px-8 md:py-4 md:text-lg ${
+              className={`group layered-shadow inline-flex w-fit items-center gap-3 rounded-lg px-6 py-3 text-sm font-bold transition-all md:px-8 md:py-4 md:text-base ${
                 isDark ? "bg-[#ff6b35] text-black hover:bg-[#ffd23f]" : "bg-[#2563eb] text-white hover:bg-[#1e40af]"
               }`}
             >
               {isDark ? "Let's Work" : "Book a Workshop"}
-              <ArrowRight className="transition-transform group-hover:translate-x-2" size={24} />
+              <ArrowRight className="transition-transform group-hover:translate-x-2" size={20} />
             </motion.button>
 
             {/* Social proof badges */}
@@ -253,22 +253,22 @@ export function HeroSection({ theme }: HeroSectionProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1 }}
-              className="mt-8 flex flex-wrap items-center gap-4 md:gap-6"
+              className="mt-6 flex flex-wrap items-center gap-3 md:gap-4"
             >
-              <div className={`text-sm ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
-                <span className={`block font-bold text-xl md:text-2xl ${isDark ? "text-[#00ff88]" : "text-[#2563eb]"}`}>
+              <div className={`text-xs ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
+                <span className={`block font-bold text-lg md:text-xl ${isDark ? "text-[#00ff88]" : "text-[#2563eb]"}`}>
                   500+
                 </span>
                 Leaders Transformed
               </div>
-              <div className={`text-sm ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
-                <span className={`block font-bold text-xl md:text-2xl ${isDark ? "text-[#ffd23f]" : "text-[#2563eb]"}`}>
+              <div className={`text-xs ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
+                <span className={`block font-bold text-lg md:text-xl ${isDark ? "text-[#ffd23f]" : "text-[#2563eb]"}`}>
                   50+
                 </span>
                 Organizations
               </div>
-              <div className={`text-sm ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
-                <span className={`block font-bold text-xl md:text-2xl ${isDark ? "text-[#ff0055]" : "text-[#2563eb]"}`}>
+              <div className={`text-xs ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
+                <span className={`block font-bold text-lg md:text-xl ${isDark ? "text-[#ff0055]" : "text-[#2563eb]"}`}>
                   100%
                 </span>
                 Real Impact
@@ -276,18 +276,17 @@ export function HeroSection({ theme }: HeroSectionProps) {
             </motion.div>
           </motion.div>
 
+          {/* Right column - Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative"
+            className="relative flex items-center justify-center"
           >
             {isDark ? (
               // Hood Kid: 90s hip hop street-art style image
               <div className="relative h-[500px] w-full md:h-[600px]">
-                <motion.div
-                  animate={{ rotate: [0, 2, 0, -2, 0] }}
-                  transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
+                <div
                   className="sticker relative h-full w-full overflow-hidden border-8 border-[#ff6b35] bg-[#1a1a1a] shadow-2xl"
                   style={{ transform: "rotate(2deg)" }}
                 >
@@ -306,42 +305,25 @@ export function HeroSection({ theme }: HeroSectionProps) {
                     <div className="font-(--font-menda-black) text-5xl text-[#00ff88] md:text-6xl">KID</div>
                   </div>
                   {/* Pop art circles overlay */}
-                  <motion.div
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-                    className="absolute right-4 top-4 h-20 w-20 rounded-full bg-[#ffd23f] opacity-80"
-                  />
-                </motion.div>
-
-                {/* Scattered decorative elements around image */}
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                  className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-[#ff6b35] opacity-70"
-                />
-                <motion.div
-                  animate={{ y: [-10, 10, -10] }}
-                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-                  className="absolute -bottom-8 -left-8 h-16 w-16 bg-[#00ff88]"
-                  style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
-                />
+                  <div className="absolute right-4 top-4 h-20 w-20 rounded-full bg-[#ffd23f] opacity-80" />
+                </div>
               </div>
             ) : (
               // Good Kid: Professional leadership image
-              <div className="relative h-[500px] w-full overflow-hidden rounded-2xl shadow-2xl md:h-[600px]">
+              <div className="relative h-[400px] w-full overflow-hidden rounded-2xl shadow-2xl md:h-[450px]">
                 {/* Generated professional image */}
                 <Image
                   src="https://ampd-asset.s3.us-east-2.amazonaws.com/good.webp"
                   alt="Good Kid professional leadership"
-                  fill
+                  fill  
                   className="object-cover"
                   priority
                 />
                 {/* Overlay linear */}
                 <div className="absolute inset-0 bg-linear-to-t from-[#2563eb]/60 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div className="font-(--font-geist-sans) text-6xl text-white md:text-7xl">GOOD</div>
-                  <div className="font-(--font-geist-sans) text-5xl text-[#60a5fa] md:text-6xl">KID</div>
+                  <div className="font-(--font-geist-sans)text-6xl text-white md:text-7xl">GOOD</div>
+                  <div className="font-(--font-geist-sans)text-5xl text-[#60a5fa] md:text-6xl">KID</div>
                 </div>
               </div>
             )}

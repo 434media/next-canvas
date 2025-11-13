@@ -47,7 +47,7 @@ export function MixtapeToggle({ theme, onToggle, isMenuOpen }: MixtapeToggleProp
   return (
     <motion.button
       onClick={onToggle}
-      className={`fixed -right-8 md:right-1 top-20 z-30 group overflow-visible transition-all focus:outline-none focus:ring-0 ${
+      className={`fixed right-0 md:right-4 top-12 md:top-20 z-30 group overflow-visible transition-all focus:outline-none focus:ring-0 ${
         isMenuOpen ? "opacity-0 pointer-events-none" : ""
       }`}
       style={{ scale }}
