@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { MixtapeToggle } from "../../components/workshop/mixtape-toggle"
 import { HeroSection } from "../../components/workshop/hero-section"
 import { LighthouseSection } from "../../components/workshop/lighthouse-section"
@@ -11,6 +11,16 @@ import "./workshop.css"
 
 export default function WorkshopPage() {
   const [theme, setTheme] = useState<"good" | "hood">("good")
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  // Listen for navbar menu open/close events
+  useEffect(() => {
+    const handleMenuEvent = (e: CustomEvent) => {
+      setIsMenuOpen(e.detail.isOpen)
+    }
+    window.addEventListener("navbar-menu-toggle", handleMenuEvent as EventListener)
+    return () => window.removeEventListener("navbar-menu-toggle", handleMenuEvent as EventListener)
+  }, [])
 
   const toggleTheme = () => {
     if (!document.startViewTransition) {
@@ -29,7 +39,7 @@ export default function WorkshopPage() {
     <>
       {/* Fixed Theme Toggle - Top Right */}
       <div className="fixed top-24 right-6 z-[100]">
-        <MixtapeToggle theme={theme} onToggle={toggleTheme} />
+        <MixtapeToggle theme={theme} onToggle={toggleTheme} isMenuOpen={isMenuOpen} />
       </div>
 
       {/* Main Content with theme transitions */}

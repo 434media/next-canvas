@@ -293,7 +293,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
                 >
                   {/* Generated 90s hip hop style image */}
                   <Image
-                    src="/90s-hip-hop-culture-street-art-style-graffiti-urba.jpg"
+                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/hood.webp"
                     alt="Hood Kid 90s hip hop aesthetic"
                     fill
                     className="object-cover"
@@ -331,7 +331,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
               <div className="relative h-[500px] w-full overflow-hidden rounded-2xl shadow-2xl md:h-[600px]">
                 {/* Generated professional image */}
                 <Image
-                  src="/professional-business-leader-speaking-at-conferenc.jpg"
+                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/good.webp"
                   alt="Good Kid professional leadership"
                   fill
                   className="object-cover"

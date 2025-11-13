@@ -82,7 +82,10 @@ const Navbar = () => {
               <div className="flex-1"></div>
 
               <motion.button
-                onClick={() => setIsMenuOpen(true)}
+                onClick={() => {
+                  setIsMenuOpen(true)
+                  window.dispatchEvent(new CustomEvent("navbar-menu-toggle", { detail: { isOpen: true } }))
+                }}
                 className="transition-colors duration-300 relative group bg-black border border-white p-2 transform hover:rotate-1 shadow-lg"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -101,7 +104,13 @@ const Navbar = () => {
         </motion.nav>
       </motion.header>
 
-      <SlideoverMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <SlideoverMenu
+        isOpen={isMenuOpen}
+        onClose={() => {
+          setIsMenuOpen(false)
+          window.dispatchEvent(new CustomEvent("navbar-menu-toggle", { detail: { isOpen: false } }))
+        }}
+      />
     </>
   )
 }

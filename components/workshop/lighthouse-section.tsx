@@ -104,7 +104,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="brush-stroke-bg mb-6 inline-block px-6 py-2 text-white"
+                className="brush-stroke-bg mb-6 inline-block px-6 py-2 bg-[#ff6b35] text-white"
               >
                 <h2
                   className="distressed-text font-[var(--font-menda-black)] text-5xl tracking-tighter md:text-7xl lg:text-8xl"

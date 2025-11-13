@@ -6,9 +6,10 @@ import { motion, useScroll, useTransform } from "motion/react"
 interface MixtapeToggleProps {
   theme: "good" | "hood"
   onToggle: () => void
+  isMenuOpen?: boolean
 }
 
-export function MixtapeToggle({ theme, onToggle }: MixtapeToggleProps) {
+export function MixtapeToggle({ theme, onToggle, isMenuOpen }: MixtapeToggleProps) {
   const isDark = theme === "hood"
   const { scrollY } = useScroll()
   const [isScrolled, setIsScrolled] = useState(false)
@@ -32,11 +33,10 @@ export function MixtapeToggle({ theme, onToggle }: MixtapeToggleProps) {
         isDark
           ? "border-[#ff6b35] bg-[#1a1a1a] focus:ring-[#ff6b35]/50"
           : "border-[#2563eb] bg-white focus:ring-[#2563eb]/50"
-      }`}
+      } ${isMenuOpen ? "opacity-0 pointer-events-none" : ""}`}
       style={{ scale }}
       whileHover={{ scale: isScrolled ? 0.75 : 1.05, rotate: isDark ? -2 : 2 }}
       whileTap={{ scale: isScrolled ? 0.65 : 0.95 }}
-      // </CHANGE>
       aria-label="Toggle between Good Kid and Hood Kid themes"
     >
       {/* Background decorative elements */}
