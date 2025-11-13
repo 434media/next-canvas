@@ -1,7 +1,7 @@
 "use client"
 
-import { motion } from "motion/react"
-import { ArrowRight, Star, Zap } from "lucide-react"
+import { motion } from "framer-motion"
+import { ArrowRight, Star, Zap } from 'lucide-react'
 import Image from "next/image"
 
 interface HeroSectionProps {
@@ -19,7 +19,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
     <section
       className={`relative min-h-[90vh] overflow-hidden px-4 py-24 md:px-6 md:py-32 ${
         isDark ? "bg-[#0a0a0a]" : "bg-linear-to-b from-white to-gray-50"
-          }`} 
+      }`}
       style={{ viewTransitionName: "hero-content" }}
     >
       {/* Background elements - Different for each mode */}
@@ -54,7 +54,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
             initial={{ opacity: 0, rotate: -20 }}
             animate={{ opacity: 0.15, rotate: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-                className="absolute right-20 top-1/3 font-(--font-menda-black) text-[120px] text-[#ff6b35]"
+            className="absolute right-20 top-1/3 font-(--font-menda-black) text-[120px] text-[#ff6b35]"
           >
             V
           </motion.div>
@@ -82,12 +82,12 @@ export function HeroSection({ theme }: HeroSectionProps) {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 50, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-linear-to-br from-[#2563eb]/20 to-[#60a5fa]/20"
+            className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-linear-to-br from-[#2563eb]/20 to-[#60a5fa]/20"
           />
           <motion.div
             animate={{ rotate: -360 }}
             transition={{ duration: 40, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-linear-to-tr from-[#1e40af]/10 to-[#2563eb]/10"
+            className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-linear-to-tr from-[#1e40af]/10 to-[#2563eb]/10"
           />
         </div>
       )}
@@ -340,10 +340,8 @@ export function HeroSection({ theme }: HeroSectionProps) {
                 {/* Overlay linear */}
                 <div className="absolute inset-0 bg-linear-to-t from-[#2563eb]/60 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div className="rounded-lg bg-white/90 p-4 backdrop-blur-sm">
-                    <h3 className="mb-2 font-bold text-2xl text-[#1a1a1a] md:text-3xl">The Lighthouse</h3>
-                    <p className="text-base text-gray-700 md:text-lg">Guiding teams to clarity and success</p>
-                  </div>
+                  <div className="font-(--font-geist-sans) text-6xl text-white md:text-7xl">GOOD</div>
+                  <div className="font-(--font-geist-sans) text-5xl text-[#60a5fa] md:text-6xl">KID</div>
                 </div>
               </div>
             )}

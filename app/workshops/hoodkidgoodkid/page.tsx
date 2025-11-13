@@ -10,7 +10,7 @@ import { PaymentSection } from "../../../components/workshop/payment-section"
 import "./workshop.css"
 
 export default function GoodKidHoodKidWorkshop() {
-  const [theme, setTheme] = useState<"good" | "hood">("good")
+  const [theme, setTheme] = useState<"good" | "hood">("hood")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function GoodKidHoodKidWorkshop() {
   return (
     <>
       {/* Fixed Theme Toggle - Top Right */}
-      <div className="fixed top-24 right-6 z-[100]">
+      <div className="fixed top-24 right-6 z-100">
         <MixtapeToggle theme={theme} onToggle={toggleTheme} isMenuOpen={isMenuOpen} />
       </div>
       {/* Main Content with theme transitions */}
