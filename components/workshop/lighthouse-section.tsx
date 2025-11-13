@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Lightbulb, Target, TrendingUp, Radio } from "lucide-react"
 
 interface LighthouseSectionProps {
@@ -81,7 +81,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="absolute right-20 top-40 font-[var(--font-menda-black)] text-[200px] text-[#ffd23f]"
+            className="absolute right-20 top-40 font-(--font-menda-black) text-[200px] text-[#ffd23f]"
           >
             1
           </motion.div>
@@ -107,7 +107,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                 className="brush-stroke-bg mb-6 inline-block px-6 py-2 bg-[#ff6b35] text-white"
               >
                 <h2
-                  className="distressed-text font-[var(--font-menda-black)] text-5xl tracking-tighter md:text-7xl lg:text-8xl"
+                  className="distressed-text font-(--font-menda-black) text-5xl tracking-tighter md:text-7xl lg:text-8xl"
                   data-text="THE LIGHTHOUSE"
                 >
                   THE LIGHTHOUSE
@@ -121,7 +121,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                 className="mb-8 inline-block border-8 border-[#ffd23f] bg-black px-6 py-4"
                 style={{ transform: "rotate(-1deg)" }}
               >
-                <h3 className="font-[var(--font-menda-black)] text-4xl text-[#ffd23f] md:text-5xl">WORKSHOP</h3>
+                <h3 className="font-(--font-menda-black) text-4xl text-[#ffd23f] md:text-5xl">WORKSHOP</h3>
               </motion.div>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -200,7 +200,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                       background: index % 3 === 0 ? "#ff6b35" : index % 3 === 1 ? "#ffd23f" : "#00ff88",
                     }}
                   />
-                  <div className="absolute -bottom-4 -left-4 font-[var(--font-menda-black)] text-[120px] opacity-5">
+                  <div className="absolute -bottom-4 -left-4 font-(--font-menda-black) text-[120px] opacity-5">
                     {index + 1}
                   </div>
                 </>
@@ -223,7 +223,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
 
                 <h3
                   className={`mb-2 font-bold leading-tight ${
-                    isDark ? "font-[var(--font-menda-black)] text-2xl text-white" : "text-xl text-[#1a1a1a]"
+                    isDark ? "font-(--font-menda-black) text-2xl text-white" : "text-xl text-[#1a1a1a]"
                   }`}
                 >
                   {item.title}

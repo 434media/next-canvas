@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { ArrowRight, Star, Zap } from "lucide-react"
 import Image from "next/image"
 
@@ -18,8 +18,8 @@ export function HeroSection({ theme }: HeroSectionProps) {
   return (
     <section
       className={`relative min-h-[90vh] overflow-hidden px-4 py-24 md:px-6 md:py-32 ${
-        isDark ? "bg-[#0a0a0a]" : "bg-gradient-to-b from-white to-gray-50"
-      }`}
+        isDark ? "bg-[#0a0a0a]" : "bg-linear-to-b from-white to-gray-50"
+          }`} 
       style={{ viewTransitionName: "hero-content" }}
     >
       {/* Background elements - Different for each mode */}
@@ -54,7 +54,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
             initial={{ opacity: 0, rotate: -20 }}
             animate={{ opacity: 0.15, rotate: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="absolute right-20 top-1/3 font-[var(--font-menda-black)] text-[120px] text-[#ff6b35]"
+                className="absolute right-20 top-1/3 font-(--font-menda-black) text-[120px] text-[#ff6b35]"
           >
             V
           </motion.div>
@@ -82,12 +82,12 @@ export function HeroSection({ theme }: HeroSectionProps) {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 50, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-            className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-gradient-to-br from-[#2563eb]/20 to-[#60a5fa]/20"
+                className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-linear-to-br from-[#2563eb]/20 to-[#60a5fa]/20"
           />
           <motion.div
             animate={{ rotate: -360 }}
             transition={{ duration: 40, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-            className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-gradient-to-tr from-[#1e40af]/10 to-[#2563eb]/10"
+                className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-linear-to-tr from-[#1e40af]/10 to-[#2563eb]/10"
           />
         </div>
       )}
@@ -121,8 +121,8 @@ export function HeroSection({ theme }: HeroSectionProps) {
             <h1
               className={`mb-6 font-bold leading-[0.95] ${
                 isDark
-                  ? "font-[var(--font-menda-black)] text-5xl tracking-tighter md:text-6xl lg:text-7xl"
-                  : "font-[var(--font-geist-sans)] text-4xl md:text-5xl lg:text-6xl"
+                  ? "font-(--font-menda-black) text-5xl tracking-tighter md:text-6xl lg:text-7xl"
+                  : "font-(--font-geist-sans) text-4xl md:text-5xl lg:text-6xl"
               }`}
             >
               {isDark ? (
@@ -300,10 +300,10 @@ export function HeroSection({ theme }: HeroSectionProps) {
                     priority
                   />
                   {/* Overlay elements for authenticity */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="font-[var(--font-menda-black)] text-6xl text-[#ffd23f] md:text-7xl">HOOD</div>
-                    <div className="font-[var(--font-menda-black)] text-5xl text-[#00ff88] md:text-6xl">KID</div>
+                    <div className="font-(--font-menda-black) text-6xl text-[#ffd23f] md:text-7xl">HOOD</div>
+                    <div className="font-(--font-menda-black) text-5xl text-[#00ff88] md:text-6xl">KID</div>
                   </div>
                   {/* Pop art circles overlay */}
                   <motion.div
@@ -337,8 +337,8 @@ export function HeroSection({ theme }: HeroSectionProps) {
                   className="object-cover"
                   priority
                 />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2563eb]/60 via-transparent to-transparent" />
+                {/* Overlay linear */}
+                <div className="absolute inset-0 bg-linear-to-t from-[#2563eb]/60 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <div className="rounded-lg bg-white/90 p-4 backdrop-blur-sm">
                     <h3 className="mb-2 font-bold text-2xl text-[#1a1a1a] md:text-3xl">The Lighthouse</h3>

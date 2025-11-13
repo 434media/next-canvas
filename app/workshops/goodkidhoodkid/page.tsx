@@ -1,19 +1,18 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { MixtapeToggle } from "../../components/workshop/mixtape-toggle"
-import { HeroSection } from "../../components/workshop/hero-section"
-import { LighthouseSection } from "../../components/workshop/lighthouse-section"
-import { PillarsSection } from "../../components/workshop/pillars-section"
-import { ContactSection } from "../../components/workshop/contact-section"
-import { PaymentSection } from "../../components/workshop/payment-section"
+import { MixtapeToggle } from "../../../components/workshop/mixtape-toggle"
+import { HeroSection } from "../../../components/workshop/hero-section"
+import { LighthouseSection } from "../../../components/workshop/lighthouse-section"
+import { PillarsSection } from "../../../components/workshop/pillars-section"
+import { ContactSection } from "../../../components/workshop/contact-section"
+import { PaymentSection } from "../../../components/workshop/payment-section"
 import "./workshop.css"
 
-export default function WorkshopPage() {
+export default function GoodKidHoodKidWorkshop() {
   const [theme, setTheme] = useState<"good" | "hood">("good")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // Listen for navbar menu open/close events
   useEffect(() => {
     const handleMenuEvent = (e: CustomEvent) => {
       setIsMenuOpen(e.detail.isOpen)
@@ -27,7 +26,6 @@ export default function WorkshopPage() {
       setTheme((prev) => (prev === "good" ? "hood" : "good"))
       return
     }
-
     document.startViewTransition(() => {
       setTheme((prev) => (prev === "good" ? "hood" : "good"))
     })
@@ -41,7 +39,6 @@ export default function WorkshopPage() {
       <div className="fixed top-24 right-6 z-[100]">
         <MixtapeToggle theme={theme} onToggle={toggleTheme} isMenuOpen={isMenuOpen} />
       </div>
-
       {/* Main Content with theme transitions */}
       <div
         className={`min-h-screen transition-all duration-300 ${
@@ -51,7 +48,6 @@ export default function WorkshopPage() {
       >
         {/* Canvas texture for Hood Kid mode */}
         {isDark && <div className="canvas-texture pointer-events-none fixed inset-0 z-0 opacity-30" />}
-
         <main className="relative z-10">
           <HeroSection theme={theme} />
           <LighthouseSection theme={theme} />
