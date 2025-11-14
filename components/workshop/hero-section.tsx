@@ -322,8 +322,8 @@ export function HeroSection({ theme }: HeroSectionProps) {
                 {/* Overlay linear */}
                 <div className="absolute inset-0 bg-linear-to-t from-[#2563eb]/60 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div className="font-(--font-geist-sans)text-6xl text-white md:text-7xl">GOOD</div>
-                  <div className="font-(--font-geist-sans)text-5xl text-[#60a5fa] md:text-6xl">KID</div>
+                  <div className="font-(--font-geist-sans) text-6xl text-white md:text-7xl">GOOD</div>
+                  <div className="font-(--font-geist-sans) text-5xl text-[#60a5fa] md:text-6xl">KID</div>
                 </div>
               </div>
             )}
