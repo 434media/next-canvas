@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { ArrowRight, Star, Zap } from 'lucide-react'
 import Image from "next/image"
 
@@ -18,7 +18,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
   return (
     <section
       className={`relative min-h-screen overflow-hidden px-4 py-24 md:px-6 md:py-24 ${
-        isDark ? "bg-[#0a0a0a]" : "bg-linear-to-b from-white to-gray-50"
+        isDark ? "bg-[#1a1a1a]" : "bg-linear-to-b from-white to-gray-50"
       }`}
       style={{ viewTransitionName: "hero-content" }}
     >
@@ -26,45 +26,41 @@ export function HeroSection({ theme }: HeroSectionProps) {
       {isDark ? (
         // Hood Kid: Collage-style layered elements
         <div className="absolute inset-0 overflow-hidden">
-          {/* Large orange circles - pop art style */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 0.6, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="absolute -left-20 top-20 h-60 w-60 rounded-full bg-[#ff6b35]"
-          />
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 0.5, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="absolute -left-20 top-20 h-60 w-60 rounded-full bg-[#c8102e]"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 0.4, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="absolute right-32 top-40 h-40 w-40 rounded-full bg-[#ffd23f]"
+            className="absolute right-32 top-40 h-40 w-40 rounded-full bg-[#ffd700]"
           />
 
-          {/* Green block - reference image style */}
           <motion.div
             initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 0.7, x: 0 }}
+            animate={{ opacity: 0.6, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="absolute bottom-32 left-0 h-48 w-64 bg-[#2d5016]"
+            className="absolute bottom-32 left-0 h-48 w-64 bg-[#002654]"
             style={{ transform: "rotate(-5deg)" }}
           />
 
-          {/* Scattered typography elements */}
           <motion.div
             initial={{ opacity: 0, rotate: -20 }}
             animate={{ opacity: 0.15, rotate: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="absolute right-20 top-1/3 font-(--font-menda-black) text-[120px] text-[#ff6b35]"
+            className="absolute right-20 top-1/3 font-(--font-menda-black) text-[120px] text-[#c8102e]"
           >
             V
           </motion.div>
 
-          {/* Stars - like in reference image */}
           {[...Array(5)].map((_, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.8, scale: 1 }}
+              animate={{ opacity: 0.7, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
               className="absolute"
               style={{
@@ -72,21 +68,20 @@ export function HeroSection({ theme }: HeroSectionProps) {
                 top: `${30 + i * 10}%`,
               }}
             >
-              <Star className="text-[#ffd23f]" size={i % 2 === 0 ? 24 : 16} fill={i % 3 === 0 ? "#ffd23f" : "none"} />
+              <Star className="text-[#ffd700]" size={i % 2 === 0 ? 24 : 16} fill={i % 3 === 0 ? "#ffd700" : "none"} />
             </motion.div>
           ))}
         </div>
       ) : (
-        // Good Kid: Clean, professional elements
         <div className="absolute inset-0 overflow-hidden opacity-30">
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 50, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
             className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-linear-to-br from-[#2563eb]/20 to-[#60a5fa]/20"
           />
           <motion.div
             animate={{ rotate: -360 }}
-            transition={{ duration: 40, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             className="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-linear-to-tr from-[#1e40af]/10 to-[#2563eb]/10"
           />
         </div>
@@ -102,17 +97,16 @@ export function HeroSection({ theme }: HeroSectionProps) {
             transition={{ duration: 0.6 }}
             className="flex flex-col justify-center"
           >
-            {/* Tagline */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className={`mb-6 inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 ${
-                isDark ? "bg-[#ff6b35]/20 border-2 border-[#ff6b35]" : "bg-[#2563eb]/10 border-2 border-[#2563eb]"
+                isDark ? "bg-[#c8102e]/20 border-2 border-[#c8102e]" : "bg-[#2563eb]/10 border-2 border-[#2563eb]"
               }`}
             >
-              <Zap className={isDark ? "text-[#ffd23f]" : "text-[#2563eb]"} size={20} />
-              <span className={`text-sm font-bold tracking-wide ${isDark ? "text-[#ffd23f]" : "text-[#2563eb]"}`}>
+              <Zap className={isDark ? "text-[#ffd700]" : "text-[#2563eb]"} size={20} />
+              <span className={`text-sm font-bold tracking-wide ${isDark ? "text-[#ffd700]" : "text-[#2563eb]"}`}>
                 {isDark ? "EARNED, NOT GIVEN" : "Learn • Earn • Return"}
               </span>
             </motion.div>
@@ -131,7 +125,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    className="distressed-text block text-[#ff6b35]"
+                    className="distressed-text block text-[#c8102e]"
                     data-text="STREET"
                   >
                     STREET
@@ -140,7 +134,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
-                    className="block text-[#ffd23f]"
+                    className="block text-[#ffd700]"
                   >
                     SMARTS
                   </motion.span>
@@ -148,7 +142,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.5 }}
-                    className="neon-glow block text-[#00ff88]"
+                    className="block text-white"
                   >
                     MEET
                   </motion.span>
@@ -156,7 +150,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.6 }}
-                    className="block text-[#f5f5f5]"
+                    className="block text-[#002654]"
                   >
                     BOARDROOM
                   </motion.span>
@@ -164,7 +158,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.7 }}
-                    className="block text-[#ff0055]"
+                    className="block text-[#c8102e]"
                   >
                     WINS
                   </motion.span>
@@ -218,9 +212,9 @@ export function HeroSection({ theme }: HeroSectionProps) {
             >
               {isDark ? (
                 <>
-                  The <span className="font-bold text-[#ff6b35]">Lighthouse Workshop</span> translates{" "}
-                  <span className="font-bold text-[#ffd23f]">hood economics</span> into{" "}
-                  <span className="font-bold text-[#00ff88]">corporate strategy</span>. Real talk. Real impact.
+                  The <span className="font-bold text-[#c8102e]">Lighthouse Workshop</span> translates{" "}
+                  <span className="font-bold text-[#ffd700]">hood economics</span> into{" "}
+                  <span className="font-bold text-white">corporate strategy</span>. Real talk. Real impact.
                 </>
               ) : (
                 <>
@@ -241,7 +235,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`group layered-shadow inline-flex w-fit items-center gap-3 rounded-lg px-6 py-3 text-sm font-bold transition-all md:px-8 md:py-4 md:text-base ${
-                isDark ? "bg-[#ff6b35] text-black hover:bg-[#ffd23f]" : "bg-[#2563eb] text-white hover:bg-[#1e40af]"
+                isDark ? "bg-[#c8102e] text-white hover:bg-[#002654]" : "bg-[#2563eb] text-white hover:bg-[#1e40af]"
               }`}
             >
               {isDark ? "Let's Work" : "Book a Workshop"}
@@ -256,19 +250,19 @@ export function HeroSection({ theme }: HeroSectionProps) {
               className="mt-6 flex flex-wrap items-center gap-3 md:gap-4"
             >
               <div className={`text-xs ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
-                <span className={`block font-bold text-lg md:text-xl ${isDark ? "text-[#00ff88]" : "text-[#2563eb]"}`}>
+                <span className={`block font-bold text-lg md:text-xl ${isDark ? "text-white" : "text-[#2563eb]"}`}>
                   500+
                 </span>
                 Leaders Transformed
               </div>
               <div className={`text-xs ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
-                <span className={`block font-bold text-lg md:text-xl ${isDark ? "text-[#ffd23f]" : "text-[#2563eb]"}`}>
+                <span className={`block font-bold text-lg md:text-xl ${isDark ? "text-[#ffd700]" : "text-[#2563eb]"}`}>
                   50+
                 </span>
                 Organizations
               </div>
               <div className={`text-xs ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
-                <span className={`block font-bold text-lg md:text-xl ${isDark ? "text-[#ff0055]" : "text-[#2563eb]"}`}>
+                <span className={`block font-bold text-lg md:text-xl ${isDark ? "text-[#c8102e]" : "text-[#2563eb]"}`}>
                   100%
                 </span>
                 Real Impact
@@ -287,7 +281,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
               // Hood Kid: 90s hip hop street-art style image
               <div className="relative h-[500px] w-full md:h-[600px]">
                 <div
-                  className="sticker relative h-full w-full overflow-hidden border-8 border-[#ff6b35] bg-[#1a1a1a] shadow-2xl"
+                  className="sticker relative h-full w-full overflow-hidden border-8 border-[#c8102e] bg-[#1a1a1a] shadow-2xl"
                   style={{ transform: "rotate(2deg)" }}
                 >
                   {/* Generated 90s hip hop style image */}
@@ -301,15 +295,13 @@ export function HeroSection({ theme }: HeroSectionProps) {
                   {/* Overlay elements for authenticity */}
                   <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="font-(--font-menda-black) text-6xl text-[#ffd23f] md:text-7xl">HOOD</div>
-                    <div className="font-(--font-menda-black) text-5xl text-[#00ff88] md:text-6xl">KID</div>
+                    <div className="font-(--font-menda-black) text-6xl text-[#ffd700] md:text-7xl">HOOD</div>
+                    <div className="font-(--font-menda-black) text-5xl text-[#002654] md:text-6xl">KID</div>
                   </div>
-                  {/* Pop art circles overlay */}
-                  <div className="absolute right-4 top-4 h-20 w-20 rounded-full bg-[#ffd23f] opacity-80" />
+                  <div className="absolute right-4 top-4 h-20 w-20 rounded-full bg-[#ffd700] opacity-80" />
                 </div>
               </div>
             ) : (
-              // Good Kid: Professional leadership image
               <div className="relative h-[400px] w-full overflow-hidden rounded-2xl shadow-2xl md:h-[450px]">
                 {/* Generated professional image */}
                 <Image

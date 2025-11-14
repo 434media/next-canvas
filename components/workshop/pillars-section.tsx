@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "motion/react"
-import { Music, DollarSign, RefreshCw, Radio } from "lucide-react"
+import { Music, DollarSign, RefreshCw, Radio } from 'lucide-react'
 
 interface PillarsSectionProps {
   theme: "good" | "hood"
@@ -20,7 +20,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
           description:
             "Just like a fire mixtape, leadership is about selection, sequence, and knowing your audience. Build narratives that slap.",
           tags: ["Partnership Power", "Story Architecture"],
-          color: "#ff6b35",
+          color: "#c8102e",
         },
         {
           icon: DollarSign,
@@ -30,7 +30,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
           description:
             "From corner economics to corporate finance. Master the art of turning value into revenue without losing your soul.",
           tags: ["Sales Game", "Value Flex"],
-          color: "#ffd23f",
+          color: "#ffd700",
         },
         {
           icon: RefreshCw,
@@ -40,7 +40,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
           description:
             "The streets taught us to pivot or perish. Build identity that evolves without losing authenticity. Lame over fame.",
           tags: ["Personal Brand", "Adaptive Growth"],
-          color: "#00ff88",
+          color: "#002654",
         },
         {
           icon: Radio,
@@ -50,7 +50,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
           description:
             "Translate street-level instinct into repeatable systems. Bridge the gap between intuition and infrastructure.",
           tags: ["Real-World AI", "Process Design"],
-          color: "#00d4ff",
+          color: "#ffffff",
         },
       ]
     : [
@@ -110,7 +110,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
                 height: `${100 + i * 30}px`,
                 left: `${10 + i * 15}%`,
                 top: `${20 + i * 10}%`,
-                background: i % 2 === 0 ? "#ff6b35" : "#ffd23f",
+                background: i % 2 === 0 ? "#c8102e" : "#ffd700",
                 animationDelay: `${i * 0.5}s`,
               }}
             />
@@ -137,16 +137,16 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
                 className="mb-6 inline-block"
               >
                 <h2
-                  className="distressed-text font-[var(--font-menda-black)] text-6xl tracking-tighter text-[#ffd23f] md:text-7xl lg:text-8xl"
+                  className="distressed-text font-(--font-menda-black) text-6xl tracking-tighter text-[#ffd700] md:text-7xl lg:text-8xl"
                   data-text="THE FOUR"
                 >
                   THE FOUR
                 </h2>
-                <div className="mt-2 h-2 w-full bg-[#ff6b35]" style={{ transform: "rotate(-1deg)" }} />
-                <h3 className="font-[var(--font-menda-black)] text-5xl text-[#00ff88] md:text-6xl">PILLARS</h3>
+                <div className="mt-2 h-2 w-full bg-[#c8102e]" style={{ transform: "rotate(-1deg)" }} />
+                <h3 className="font-(--font-menda-black) text-5xl text-white md:text-6xl">PILLARS</h3>
               </motion.div>
               <p className="mx-auto max-w-3xl text-lg text-[#a3a3a3]">
-                Every workshop ties back to these <span className="font-bold text-[#ff6b35]">core principles</span>.
+                Every workshop ties back to these <span className="font-bold text-[#c8102e]">core principles</span>.
                 Learn them. Live them. Lead with them.
               </p>
             </>
@@ -172,7 +172,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`group relative overflow-hidden p-8 transition-all ${
                 isDark
-                  ? "bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a]"
+                  ? "bg-linear-to-br from-[#1a1a1a] to-[#0a0a0a]"
                   : "rounded-2xl bg-white shadow-lg hover:shadow-2xl"
               }`}
               style={
@@ -188,7 +188,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
               {/* Background number for Hood Kid */}
               {isDark && (
                 <div
-                  className="absolute -bottom-8 -right-8 font-[var(--font-menda-black)] text-[180px] opacity-5"
+                  className="absolute -bottom-8 -right-8 font-(--font-menda-black) text-[180px] opacity-5"
                   style={{ color: pillar.color }}
                 >
                   {index + 1}
@@ -210,7 +210,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
                 {/* Title */}
                 <h3
                   className={`mb-2 font-bold leading-tight ${
-                    isDark ? "font-[var(--font-menda-black)] text-3xl" : "text-2xl text-[#1a1a1a]"
+                    isDark ? "font-(--font-menda-black) text-3xl" : "text-2xl text-[#1a1a1a]"
                   }`}
                   style={isDark ? { color: pillar.color } : {}}
                 >

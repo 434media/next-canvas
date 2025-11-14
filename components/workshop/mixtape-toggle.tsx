@@ -47,7 +47,7 @@ export function MixtapeToggle({ theme, onToggle, isMenuOpen }: MixtapeToggleProp
   return (
     <motion.button
       onClick={onToggle}
-      className={`fixed right-0 md:right-4 top-12 md:top-20 z-30 group overflow-visible transition-all focus:outline-none focus:ring-0 ${
+      className={`fixed -right-8 md:right-1 top-20 z-30 group overflow-visible transition-all focus:outline-none focus:ring-0 ${
         isMenuOpen ? "opacity-0 pointer-events-none" : ""
       }`}
       style={{ scale }}
@@ -76,7 +76,7 @@ export function MixtapeToggle({ theme, onToggle, isMenuOpen }: MixtapeToggleProp
           <div
             className={`absolute inset-0 rounded-full z-0 animate-pulse pointer-events-none ${
               isDark
-                ? "bg-[#ff6b35]/40 shadow-[0_0_40px_20px_rgba(255,107,53,0.5)]"
+                ? "bg-[#c8102e]/40 shadow-[0_0_40px_20px_rgba(200,16,46,0.5)]"
                 : "bg-[#2563eb]/30 shadow-[0_0_40px_20px_rgba(37,99,235,0.4)]"
             }`}
             style={{ filter: isDark ? "blur(8px)" : "blur(8px)" }}
@@ -89,12 +89,12 @@ export function MixtapeToggle({ theme, onToggle, isMenuOpen }: MixtapeToggleProp
           height={160}
           className={`w-full h-full object-contain transition-all duration-500 cursor-pointer ${
             isDark
-              ? "brightness-110 contrast-125 saturate-150 hue-rotate-[-15deg]"
+              ? "brightness-110 contrast-125 saturate-150 hue-rotate-[-30deg]"
               : "brightness-100 contrast-110 saturate-100 hue-rotate-15"
           }`}
           style={{
             filter: isDark
-              ? "drop-shadow(0 0 12px rgba(255, 215, 63, 0.6)) drop-shadow(0 0 20px rgba(255, 107, 53, 0.5)) drop-shadow(0 0 30px rgba(255, 107, 53, 0.3))"
+              ? "drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) drop-shadow(0 0 20px rgba(200, 16, 46, 0.5)) drop-shadow(0 0 30px rgba(0, 38, 84, 0.3))"
               : "drop-shadow(0 0 8px rgba(96, 165, 250, 0.5)) drop-shadow(0 0 16px rgba(37, 99, 235, 0.3))",
           }}
         />
@@ -104,7 +104,7 @@ export function MixtapeToggle({ theme, onToggle, isMenuOpen }: MixtapeToggleProp
         <span
           className={`block font-bold text-xs tracking-[0.25em] uppercase ${
             isDark
-              ? "text-[#ff6b35] drop-shadow-[0_0_8px_rgba(255,107,53,0.9)]"
+              ? "text-[#c8102e] drop-shadow-[0_0_8px_rgba(200,16,46,0.9)]"
               : "text-[#2563eb] drop-shadow-[0_0_6px_rgba(37,99,235,0.6)]"
           }`}
         >

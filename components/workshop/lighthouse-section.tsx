@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "motion/react"
-import { Lightbulb, Target, TrendingUp, Radio } from "lucide-react"
+import { Lightbulb, Target, TrendingUp, Radio } from 'lucide-react'
 
 interface LighthouseSectionProps {
   theme: "good" | "hood"
@@ -74,14 +74,14 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
       {isDark && (
         <div className="absolute inset-0 overflow-hidden opacity-20">
           {/* Torn paper edge effect at top */}
-          <div className="torn-edge absolute left-0 right-0 top-0 h-8 bg-[#ff6b35]" />
+          <div className="torn-edge absolute left-0 right-0 top-0 h-8 bg-[#c8102e]" />
 
           {/* Scattered elements */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="absolute right-20 top-40 font-(--font-menda-black) text-[200px] text-[#ffd23f]"
+            className="absolute right-20 top-40 font-(--font-menda-black) text-[200px] text-[#ffd700]"
           >
             1
           </motion.div>
@@ -104,7 +104,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="brush-stroke-bg mb-6 inline-block px-6 py-2 bg-[#ff6b35] text-white"
+                className="brush-stroke-bg mb-6 inline-block px-6 py-2 bg-[#c8102e] text-white"
               >
                 <h2
                   className="distressed-text font-(--font-menda-black) text-5xl tracking-tighter md:text-7xl lg:text-8xl"
@@ -118,21 +118,21 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="mb-8 inline-block border-8 border-[#ffd23f] bg-black px-6 py-4"
+                className="mb-8 inline-block border-8 border-[#ffd700] bg-black px-6 py-4"
                 style={{ transform: "rotate(-1deg)" }}
               >
-                <h3 className="font-(--font-menda-black) text-4xl text-[#ffd23f] md:text-5xl">WORKSHOP</h3>
+                <h3 className="font-(--font-menda-black) text-4xl text-[#ffd700] md:text-5xl">WORKSHOP</h3>
               </motion.div>
               <motion.p
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mb-6 max-w-3xl border-l-8 border-[#00ff88] bg-[#1a1a1a]/80 p-6 text-xl italic text-white"
+                className="mb-6 max-w-3xl border-l-8 border-white bg-[#1a1a1a]/80 p-6 text-xl italic text-white"
               >
-                <span className="neon-glow font-bold text-2xl text-[#00ff88]">"EARNED, NOT GIVEN."</span>
+                <span className="neon-glow font-bold text-2xl text-white">"EARNED, NOT GIVEN."</span>
                 <br />
-                <span className="text-[#ffd23f]">Learn → Earn → Return</span>
+                <span className="text-[#ffd700]">Learn → Earn → Return</span>
               </motion.p>
             </>
           ) : (
@@ -153,10 +153,10 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
           >
             {isDark ? (
               <>
-                Our <span className="font-bold text-[#ff6b35]">flagship keynote</span> ain't your typical corporate
-                training. We break down how <span className="font-bold text-[#ffd23f]">hood economics</span>,
-                <span className="font-bold text-[#00ff88]"> street credibility</span>, and
-                <span className="font-bold text-[#ff0055]"> raw authenticity</span> translate to C-suite success. Real
+                Our <span className="font-bold text-[#c8102e]">flagship keynote</span> ain't your typical corporate
+                training. We break down how <span className="font-bold text-[#ffd700]">hood economics</span>,
+                <span className="font-bold text-white"> street credibility</span>, and
+                <span className="font-bold text-[#002654]"> raw authenticity</span> translate to C-suite success. Real
                 talk for real leaders.
               </>
             ) : (
@@ -185,7 +185,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
               style={
                 isDark
                   ? {
-                      border: `4px solid ${index % 3 === 0 ? "#ff6b35" : index % 3 === 1 ? "#ffd23f" : "#00ff88"}`,
+                      border: `4px solid ${index % 3 === 0 ? "#c8102e" : index % 3 === 1 ? "#ffd700" : "#002654"}`,
                       transform: `rotate(${index % 2 === 0 ? "-0.5deg" : "0.5deg"})`,
                     }
                   : {}
@@ -197,7 +197,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                   <div
                     className="absolute -right-8 -top-8 h-32 w-32 rounded-full opacity-20"
                     style={{
-                      background: index % 3 === 0 ? "#ff6b35" : index % 3 === 1 ? "#ffd23f" : "#00ff88",
+                      background: index % 3 === 0 ? "#c8102e" : index % 3 === 1 ? "#ffd700" : "#002654",
                     }}
                   />
                   <div className="absolute -bottom-4 -left-4 font-(--font-menda-black) text-[120px] opacity-5">
@@ -211,10 +211,10 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                   className={`mb-4 ${
                     isDark
                       ? index % 3 === 0
-                        ? "text-[#ff6b35]"
+                        ? "text-[#c8102e]"
                         : index % 3 === 1
-                          ? "text-[#ffd23f]"
-                          : "text-[#00ff88]"
+                          ? "text-[#ffd700]"
+                          : "text-[#002654]"
                       : "text-[#2563eb]"
                   }`}
                   size={isDark ? 48 : 40}
@@ -233,10 +233,10 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                   className={`mb-3 font-bold text-sm ${
                     isDark
                       ? index % 3 === 0
-                        ? "text-[#ff6b35]"
+                        ? "text-[#c8102e]"
                         : index % 3 === 1
-                          ? "text-[#ffd23f]"
-                          : "text-[#00ff88]"
+                          ? "text-[#ffd700]"
+                          : "text-[#002654]"
                       : "text-[#2563eb]"
                   }`}
                 >
