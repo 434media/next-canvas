@@ -40,7 +40,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
           description:
             "The streets taught us to pivot or perish. Build identity that evolves without losing authenticity. Lame over fame.",
           tags: ["Personal Brand", "Adaptive Growth"],
-          color: "#002654",
+          color: "#ffffff",
         },
         {
           icon: Radio,
@@ -50,7 +50,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
           description:
             "Translate street-level instinct into repeatable systems. Bridge the gap between intuition and infrastructure.",
           tags: ["Real-World AI", "Process Design"],
-          color: "#ffffff",
+          color: "#c8102e",
         },
       ]
     : [
@@ -97,27 +97,94 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
       ]
 
   return (
-    <section className={`relative overflow-hidden px-6 py-24 ${isDark ? "bg-[#0a0a0a]" : "bg-gray-50"}`}>
-      {/* Background elements */}
+    <section className={`relative overflow-hidden px-6 py-24 ${isDark ? "bg-black" : "bg-gray-50"}`}>
       {isDark && (
-        <div className="pop-circles absolute inset-0">
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              className="pop-circle"
-              style={{
-                width: `${100 + i * 30}px`,
-                height: `${100 + i * 30}px`,
-                left: `${10 + i * 15}%`,
-                top: `${20 + i * 10}%`,
-                background: i % 2 === 0 ? "#c8102e" : "#ffd700",
-                animationDelay: `${i * 0.5}s`,
-              }}
-            />
-          ))}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Spray paint circles */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 0.1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="absolute left-[10%] top-[15%] h-48 w-48 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, #c8102e 0%, transparent 70%)',
+            }}
+          />
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 0.08, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="absolute right-[15%] top-[25%] h-56 w-56 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, #ffd700 0%, transparent 70%)',
+            }}
+          />
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 0.1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="absolute bottom-[20%] left-[20%] h-52 w-52 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, #ffffff 0%, transparent 70%)',
+            }}
+          />
+          
+          {/* Vinyl record scattered */}
+          <motion.div
+            initial={{ opacity: 0, rotate: -45 }}
+            whileInView={{ opacity: 0.12, rotate: -30 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="absolute bottom-[10%] right-[10%] h-32 w-32 rounded-full border-6 border-[#ffd700] bg-black"
+          >
+            <div className="absolute inset-4 rounded-full border-3 border-[#c8102e]" />
+            <div className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
+          </motion.div>
+          
+          {/* Graffiti stars */}
+          <motion.div
+            initial={{ opacity: 0, rotate: 0 }}
+            whileInView={{ opacity: 0.15, rotate: 15 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="absolute left-[5%] bottom-[40%] font-(--font-menda-black) text-7xl text-[#c8102e]"
+          >
+            ★
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, rotate: 0 }}
+            whileInView={{ opacity: 0.12, rotate: -20 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="absolute right-[8%] bottom-[50%] font-(--font-menda-black) text-6xl text-[#ffd700]"
+          >
+            ★
+          </motion.div>
+          
+          {/* Boombox outline */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 0.1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="absolute left-[50%] top-[10%] -translate-x-1/2"
+          >
+            <div className="h-20 w-32 rounded-lg border-4 border-white bg-transparent p-2">
+              <div className="flex h-full gap-2">
+                <div className="flex-1 rounded-full border-3 border-[#c8102e]" />
+                <div className="flex-1 rounded-full border-3 border-[#c8102e]" />
+              </div>
+            </div>
+          </motion.div>
         </div>
       )}
-
+      
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Section header */}
         <motion.div
@@ -145,7 +212,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
                 <div className="mt-2 h-2 w-full bg-[#c8102e]" style={{ transform: "rotate(-1deg)" }} />
                 <h3 className="font-(--font-menda-black) text-5xl text-white md:text-6xl">PILLARS</h3>
               </motion.div>
-              <p className="mx-auto max-w-3xl text-lg text-[#a3a3a3]">
+              <p className="mx-auto max-w-3xl text-lg text-gray-300">
                 Every workshop ties back to these <span className="font-bold text-[#c8102e]">core principles</span>.
                 Learn them. Live them. Lead with them.
               </p>
@@ -172,7 +239,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`group relative overflow-hidden p-8 transition-all ${
                 isDark
-                  ? "bg-linear-to-br from-[#1a1a1a] to-[#0a0a0a]"
+                  ? "bg-black"
                   : "rounded-2xl bg-white shadow-lg hover:shadow-2xl"
               }`}
               style={
@@ -223,7 +290,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
                 </p>
 
                 {/* Description */}
-                <p className={`mb-6 leading-relaxed ${isDark ? "text-[#a3a3a3]" : "text-gray-600"}`}>
+                <p className={`mb-6 leading-relaxed ${isDark ? "text-gray-300" : "text-gray-600"}`}>
                   {pillar.description}
                 </p>
 
@@ -234,7 +301,7 @@ export function PillarsSection({ theme }: PillarsSectionProps) {
                       key={tag}
                       className={`rounded-full px-4 py-2 text-xs font-bold transition-colors ${
                         isDark
-                          ? "bg-[#1a1a1a] border-2 hover:bg-[#252525]"
+                          ? "bg-black border-2 hover:bg-[#1a1a1a]"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       }`}
                       style={isDark ? { borderColor: pillar.color, color: pillar.color } : {}}

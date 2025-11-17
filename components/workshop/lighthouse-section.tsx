@@ -73,18 +73,30 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
       {/* Background decorative elements */}
       {isDark && (
         <div className="absolute inset-0 overflow-hidden opacity-20">
-          {/* Torn paper edge effect at top */}
-          <div className="torn-edge absolute left-0 right-0 top-0 h-8 bg-[#c8102e]" />
-
-          {/* Scattered elements */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="absolute right-20 top-40 font-(--font-menda-black) text-[200px] text-[#ffd700]"
-          >
-            1
-          </motion.div>
+          {/* Bold rectangular blocks */}
+          <div className="absolute top-20 left-10 w-32 h-2 bg-[#dc143c] rotate-12" />
+          <div className="absolute top-40 right-20 w-40 h-3 bg-white rotate-[-8deg]" />
+          <div className="absolute bottom-32 left-1/4 w-24 h-2 bg-[#dc143c] rotate-15" />
+          
+          {/* Adidas-style stripes */}
+          <div className="absolute top-1/3 right-10 space-y-2 rotate-45">
+            <div className="w-20 h-1 bg-white" />
+            <div className="w-20 h-1 bg-white" />
+            <div className="w-20 h-1 bg-white" />
+          </div>
+          
+          {/* Bold X marks */}
+          <div className="absolute bottom-20 right-1/3 text-6xl font-black text-[#dc143c] rotate-12">X</div>
+          <div className="absolute top-1/4 left-1/3 text-8xl font-black text-white opacity-10 rotate-[-15deg]">X</div>
+          
+          {/* Vinyl records */}
+          <div className="absolute top-1/2 left-20 w-16 h-16 rounded-full border-4 border-white">
+            <div className="absolute inset-4 rounded-full bg-[#dc143c]" />
+          </div>
+          
+          {/* Stars */}
+          <div className="absolute bottom-40 right-40 text-4xl text-white">★</div>
+          <div className="absolute top-20 right-1/4 text-3xl text-[#dc143c]">★</div>
         </div>
       )}
 
@@ -104,7 +116,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="brush-stroke-bg mb-6 inline-block px-6 py-2 bg-[#c8102e] text-white"
+                className="brush-stroke-bg mb-6 inline-block px-6 py-2 bg-[#dc143c] text-white"
               >
                 <h2
                   className="distressed-text font-(--font-menda-black) text-5xl tracking-tighter md:text-7xl lg:text-8xl"
@@ -118,10 +130,10 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="mb-8 inline-block border-8 border-[#ffd700] bg-black px-6 py-4"
+                className="mb-8 inline-block border-8 border-white bg-black px-6 py-4"
                 style={{ transform: "rotate(-1deg)" }}
               >
-                <h3 className="font-(--font-menda-black) text-4xl text-[#ffd700] md:text-5xl">WORKSHOP</h3>
+                <h3 className="font-(--font-menda-black) text-4xl text-white md:text-5xl">WORKSHOP</h3>
               </motion.div>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -132,7 +144,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
               >
                 <span className="neon-glow font-bold text-2xl text-white">"EARNED, NOT GIVEN."</span>
                 <br />
-                <span className="text-[#ffd700]">Learn → Earn → Return</span>
+                <span className="text-[#dc143c]">Learn → Earn → Return</span>
               </motion.p>
             </>
           ) : (
@@ -153,10 +165,10 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
           >
             {isDark ? (
               <>
-                Our <span className="font-bold text-[#c8102e]">flagship keynote</span> ain't your typical corporate
-                training. We break down how <span className="font-bold text-[#ffd700]">hood economics</span>,
+                Our <span className="font-bold text-[#dc143c]">flagship keynote</span> ain't your typical corporate
+                training. We break down how <span className="font-bold text-white">hood economics</span>,
                 <span className="font-bold text-white"> street credibility</span>, and
-                <span className="font-bold text-[#002654]"> raw authenticity</span> translate to C-suite success. Real
+                <span className="font-bold text-[#dc143c]"> raw authenticity</span> translate to C-suite success. Real
                 talk for real leaders.
               </>
             ) : (
@@ -185,7 +197,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
               style={
                 isDark
                   ? {
-                      border: `4px solid ${index % 3 === 0 ? "#c8102e" : index % 3 === 1 ? "#ffd700" : "#002654"}`,
+                      border: `4px solid ${index % 2 === 0 ? "#dc143c" : "#ffffff"}`,
                       transform: `rotate(${index % 2 === 0 ? "-0.5deg" : "0.5deg"})`,
                     }
                   : {}
@@ -197,7 +209,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
                   <div
                     className="absolute -right-8 -top-8 h-32 w-32 rounded-full opacity-20"
                     style={{
-                      background: index % 3 === 0 ? "#c8102e" : index % 3 === 1 ? "#ffd700" : "#002654",
+                      background: index % 2 === 0 ? "#dc143c" : "#ffffff",
                     }}
                   />
                   <div className="absolute -bottom-4 -left-4 font-(--font-menda-black) text-[120px] opacity-5">
@@ -209,13 +221,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
               <div className="relative">
                 <item.icon
                   className={`mb-4 ${
-                    isDark
-                      ? index % 3 === 0
-                        ? "text-[#c8102e]"
-                        : index % 3 === 1
-                          ? "text-[#ffd700]"
-                          : "text-[#002654]"
-                      : "text-[#2563eb]"
+                    isDark ? (index % 2 === 0 ? "text-[#dc143c]" : "text-white") : "text-[#2563eb]"
                   }`}
                   size={isDark ? 48 : 40}
                   strokeWidth={isDark ? 2.5 : 2}
@@ -231,13 +237,7 @@ export function LighthouseSection({ theme }: LighthouseSectionProps) {
 
                 <p
                   className={`mb-3 font-bold text-sm ${
-                    isDark
-                      ? index % 3 === 0
-                        ? "text-[#c8102e]"
-                        : index % 3 === 1
-                          ? "text-[#ffd700]"
-                          : "text-[#002654]"
-                      : "text-[#2563eb]"
+                    isDark ? (index % 2 === 0 ? "text-[#dc143c]" : "text-white") : "text-[#2563eb]"
                   }`}
                 >
                   {item.subtitle}

@@ -63,17 +63,30 @@ export function ContactSection({ theme }: ContactSectionProps) {
       {/* Background elements */}
       {isDark && (
         <div className="absolute inset-0 overflow-hidden opacity-10">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 30, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-            className="absolute -left-20 top-20 h-64 w-64 rounded-full bg-[#c8102e]"
-          />
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-            className="absolute -right-20 bottom-20 h-48 w-48 bg-[#002654]"
-            style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
-          />
+          {/* Bold rectangular blocks */}
+          <div className="absolute top-20 left-10 w-40 h-3 bg-[#dc143c] rotate-12" />
+          <div className="absolute bottom-40 right-20 w-32 h-2 bg-white rotate-[-10deg]" />
+          
+          {/* Bold X marks */}
+          <div className="absolute bottom-32 left-1/3 text-7xl font-black text-white rotate-[-20deg]">X</div>
+          <div className="absolute top-1/3 right-1/4 text-5xl font-black text-[#dc143c] rotate-15">X</div>
+          
+          {/* Vinyl records */}
+          <div className="absolute top-1/4 right-1/4 w-20 h-20 rounded-full border-4 border-white">
+            <div className="absolute inset-4 rounded-full bg-[#dc143c]" />
+            <div className="absolute inset-8 rounded-full bg-black" />
+          </div>
+          
+          {/* Stars */}
+          <div className="absolute top-1/4 left-20 text-4xl text-[#dc143c]">★</div>
+          <div className="absolute bottom-1/3 right-1/3 text-3xl text-white">★</div>
+          
+          {/* Adidas stripes */}
+          <div className="absolute bottom-40 left-10 space-y-2 rotate-[-20deg]">
+            <div className="w-24 h-1 bg-white" />
+            <div className="w-24 h-1 bg-white" />
+            <div className="w-24 h-1 bg-white" />
+          </div>
         </div>
       )}
 
@@ -96,32 +109,32 @@ export function ContactSection({ theme }: ContactSectionProps) {
                   className="mb-8"
                 >
                   <div
-                    className="mb-4 inline-block border-8 border-[#c8102e] bg-black px-6 py-3"
+                    className="mb-4 inline-block border-8 border-[#dc143c] bg-black px-6 py-3"
                     style={{ transform: "rotate(-2deg)" }}
                   >
                     <Zap className="inline-block text-[#ffd700]" size={32} />
                   </div>
                   <h2
-                    className="distressed-text mb-2 font-(--font-menda-black) text-6xl tracking-tighter text-[#c8102e] md:text-7xl"
+                    className="distressed-text mb-2 font-(--font-menda-black) text-6xl tracking-tighter text-[#dc143c] md:text-7xl"
                     data-text="LET'S"
                   >
                     LET'S
                   </h2>
-                  <h3 className="font-(--font-menda-black) text-5xl text-[#ffd700] md:text-6xl">WORK</h3>
+                  <h3 className="font-(--font-menda-black) text-5xl text-[#ffffff] md:text-6xl">WORK</h3>
                   <div className="mt-4 h-2 w-48 bg-white" style={{ transform: "rotate(-1deg)" }} />
                 </motion.div>
 
                 <p className="mb-8 text-lg leading-relaxed text-[#a3a3a3]">
-                  Ready to bring <span className="font-bold text-[#c8102e]">real talk</span> to your team? Fill out the
-                  form and let's build something <span className="font-bold text-[#ffd700]">that scales</span>.
+                  Ready to bring <span className="font-bold text-[#dc143c]">real talk</span> to your team? Fill out the
+                  form and let's build something <span className="font-bold text-[#ffffff]">that scales</span>.
                 </p>
 
                 {/* Contact info boxes */}
                 <div className="space-y-4">
                   {[
-                    { icon: Mail, label: "Email", value: "info@434media.com", color: "#c8102e" },
-                    { icon: Phone, label: "Phone", value: "(210) 555-0199", color: "#ffd700" },
-                    { icon: MapPin, label: "Location", value: "San Antonio, TX", color: "#ffffff" },
+                    { icon: Mail, label: "Email", value: "info@434media.com", color: "#dc143c" },
+                    { icon: Phone, label: "Phone", value: "(210) 555-0199", color: "#ffffff" },
+                    { icon: MapPin, label: "Location", value: "San Antonio, TX", color: "#dc143c" },
                   ].map((item, index) => (
                     <motion.div
                       key={item.label}
@@ -181,7 +194,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
             transition={{ duration: 0.6 }}
             className={`rounded-xl p-8 ${
               isDark
-                ? "border-4 border-[#c8102e] bg-linear-to-br from-[#1a1a1a] to-[#0a0a0a]"
+                ? "border-4 border-[#dc143c] bg-linear-to-br from-[#1a1a1a] to-[#0a0a0a]"
                 : "bg-gray-50 shadow-xl"
             }`}
             style={isDark ? { transform: "rotate(1deg)" } : {}}
@@ -191,7 +204,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                 <div>
                   <label
                     htmlFor="name"
-                    className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffd700]" : "text-[#1a1a1a]"}`}
+                    className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffffff]" : "text-[#1a1a1a]"}`}
                   >
                     NAME *
                   </label>
@@ -202,7 +215,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                     placeholder={isDark ? "Your name" : "Full name"}
                     className={
                       isDark
-                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#c8102e]"
+                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#dc143c]"
                         : "border-gray-300"
                     }
                   />
@@ -211,7 +224,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                 <div>
                   <label
                     htmlFor="title"
-                    className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffd700]" : "text-[#1a1a1a]"}`}
+                    className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffffff]" : "text-[#1a1a1a]"}`}
                   >
                     TITLE *
                   </label>
@@ -222,7 +235,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                     placeholder={isDark ? "Your role" : "Job title"}
                     className={
                       isDark
-                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#c8102e]"
+                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#dc143c]"
                         : "border-gray-300"
                     }
                   />
@@ -232,7 +245,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
               <div>
                 <label
                   htmlFor="organization"
-                  className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffd700]" : "text-[#1a1a1a]"}`}
+                  className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffffff]" : "text-[#1a1a1a]"}`}
                 >
                   ORGANIZATION *
                 </label>
@@ -243,7 +256,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                   placeholder={isDark ? "Company name" : "Organization name"}
                   className={
                     isDark
-                      ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#c8102e]"
+                      ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#dc143c]"
                       : "border-gray-300"
                   }
                 />
@@ -253,7 +266,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                 <div>
                   <label
                     htmlFor="email"
-                    className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffd700]" : "text-[#1a1a1a]"}`}
+                    className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffffff]" : "text-[#1a1a1a]"}`}
                   >
                     EMAIL *
                   </label>
@@ -265,7 +278,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                     placeholder={isDark ? "your@email.com" : "Email address"}
                     className={
                       isDark
-                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#c8102e]"
+                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#dc143c]"
                         : "border-gray-300"
                     }
                   />
@@ -274,7 +287,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                 <div>
                   <label
                     htmlFor="phone"
-                    className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffd700]" : "text-[#1a1a1a]"}`}
+                    className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffffff]" : "text-[#1a1a1a]"}`}
                   >
                     PHONE
                   </label>
@@ -285,7 +298,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                     placeholder={isDark ? "(210) 555-0100" : "Phone number"}
                     className={
                       isDark
-                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#c8102e]"
+                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#dc143c]"
                         : "border-gray-300"
                     }
                   />
@@ -295,7 +308,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
               <div>
                 <label
                   htmlFor="engagementType"
-                  className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffd700]" : "text-[#1a1a1a]"}`}
+                  className={`mb-2 block font-bold text-sm ${isDark ? "text-white" : "text-[#1a1a1a]"}`}
                 >
                   ENGAGEMENT TYPE *
                 </label>
@@ -303,7 +316,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                   <SelectTrigger
                     className={
                       isDark
-                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] focus:border-[#c8102e]"
+                        ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] focus:border-[#dc143c]"
                         : "border-gray-300"
                     }
                   >
@@ -322,7 +335,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
               <div>
                 <label
                   htmlFor="challenge"
-                  className={`mb-2 block font-bold text-sm ${isDark ? "text-[#ffd700]" : "text-[#1a1a1a]"}`}
+                  className={`mb-2 block font-bold text-sm ${isDark ? "text-white" : "text-[#1a1a1a]"}`}
                 >
                   {isDark ? "WHAT'S THE CHALLENGE? *" : "BUSINESS CHALLENGE *"}
                 </label>
@@ -338,7 +351,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                   }
                   className={
                     isDark
-                      ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#c8102e]"
+                      ? "border-2 border-[#333] bg-[#0a0a0a] text-[#f5f5f5] placeholder:text-[#666] focus:border-[#dc143c]"
                       : "border-gray-300"
                   }
                 />
@@ -349,7 +362,7 @@ export function ContactSection({ theme }: ContactSectionProps) {
                 disabled={isSubmitting}
                 className={`w-full gap-2 py-6 font-bold text-lg ${
                   isDark
-                    ? "layered-shadow bg-[#c8102e] text-white hover:bg-[#ffd700] hover:text-black"
+                    ? "layered-shadow bg-[#dc143c] text-white hover:bg-white hover:text-black"
                     : "bg-[#2563eb] text-white hover:bg-[#1e40af]"
                 }`}
               >

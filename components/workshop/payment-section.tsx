@@ -46,12 +46,33 @@ export function PaymentSection({ theme }: PaymentSectionProps) {
       {/* Background elements for Hood Kid */}
       {isDark && (
         <div className="absolute inset-0 overflow-hidden opacity-10">
-          <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
-            className="absolute right-20 top-20 h-96 w-96 rounded-full bg-[#ffd700]"
-          />
-          <div className="absolute bottom-0 left-0 font-(--font-menda-black) text-[300px] text-[#c8102e]">$</div>
+          {/* Bold rectangular blocks */}
+          <div className="absolute top-32 left-20 w-36 h-3 bg-[#dc143c] rotate-[-15deg]" />
+          <div className="absolute bottom-40 right-10 w-40 h-2 bg-white rotate-12" />
+          
+          {/* Vinyl records */}
+          <div className="absolute top-1/4 right-1/4 w-20 h-20 rounded-full border-4 border-white">
+            <div className="absolute inset-4 rounded-full bg-[#dc143c]" />
+            <div className="absolute inset-8 rounded-full bg-black" />
+          </div>
+          
+          {/* Bold X marks */}
+          <div className="absolute bottom-20 left-1/4 text-8xl font-black text-white rotate-12">X</div>
+          <div className="absolute top-1/3 right-20 text-6xl font-black text-[#dc143c] rotate-[-18deg]">X</div>
+          
+          {/* Stars */}
+          <div className="absolute top-20 left-1/3 text-5xl text-[#dc143c]">★</div>
+          <div className="absolute bottom-1/4 right-40 text-4xl text-white">★</div>
+          
+          {/* Adidas stripes */}
+          <div className="absolute bottom-40 left-10 space-y-2 rotate-[-20deg]">
+            <div className="w-24 h-1 bg-white" />
+            <div className="w-24 h-1 bg-white" />
+            <div className="w-24 h-1 bg-white" />
+          </div>
+          
+          {/* Dollar sign */}
+          <div className="absolute bottom-0 left-0 font-(--font-menda-black) text-[200px] text-[#dc143c]">$</div>
         </div>
       )}
 
@@ -78,15 +99,17 @@ export function PaymentSection({ theme }: PaymentSectionProps) {
                 transition={{ duration: 0.5 }}
               >
                 <div className="mb-4 flex items-center gap-4">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-[#c8102e] bg-[#0a0a0a]">
-                    <CreditCard className="text-[#c8102e]" size={32} />
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-[#dc143c] bg-[#0a0a0a]">
+                    <CreditCard className="text-[#dc143c]" size={32} />
                   </div>
-                  <Zap className="text-[#ffd700]" size={40} />
+                  <div className="flex h-12 w-12 items-center justify-center bg-white">
+                    <Zap className="text-black" size={32} />
+                  </div>
                 </div>
-                <h2 className="mb-2 font-(--font-menda-black) text-5xl tracking-tighter text-[#ffd700] md:text-6xl">
+                <h2 className="mb-2 font-(--font-menda-black) text-5xl tracking-tighter text-white md:text-6xl">
                   LOCK IT IN
                 </h2>
-                <div className="inline-block border-b-8 border-white pb-2">
+                <div className="inline-block border-b-8 border-[#dc143c] pb-2">
                   <p className="font-(--font-menda-black) text-2xl text-[#f5f5f5]">Secure Your Workshop Date</p>
                 </div>
               </motion.div>
@@ -107,9 +130,9 @@ export function PaymentSection({ theme }: PaymentSectionProps) {
           <p className={`mb-8 text-lg leading-relaxed ${isDark ? "text-[#a3a3a3]" : "text-gray-700"}`}>
             {isDark ? (
               <>
-                Ready to roll? <span className="font-bold text-[#c8102e]">Lock in your date</span> with a secure
+                Ready to roll? <span className="font-bold text-[#dc143c]">Lock in your date</span> with a secure
                 retainer payment. We handle the rest —{" "}
-                <span className="font-bold text-[#ffd700]">proposal, agreement, the whole nine</span>.
+                <span className="font-bold text-white">proposal, agreement, the whole nine</span>.
               </>
             ) : (
               <>
@@ -142,12 +165,12 @@ export function PaymentSection({ theme }: PaymentSectionProps) {
           {/* CTA Section */}
           <div
             className={`rounded-xl p-6 ${
-              isDark ? "border-2 border-[#c8102e] bg-[#0a0a0a]" : "bg-linear-to-r from-[#2563eb]/5 to-[#1e40af]/5"
+              isDark ? "border-2 border-[#dc143c] bg-[#0a0a0a]" : "bg-linear-to-r from-[#2563eb]/5 to-[#1e40af]/5"
             }`}
           >
             <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
               <div className="text-center sm:text-left">
-                <p className={`mb-1 font-bold text-sm ${isDark ? "text-[#ffd700]" : "text-gray-600"}`}>
+                <p className={`mb-1 font-bold text-sm ${isDark ? "text-white" : "text-gray-600"}`}>
                   {isDark ? "SECURE PAYMENT VIA" : "Powered by"}
                 </p>
                 <div className="flex items-center gap-2">
@@ -162,7 +185,7 @@ export function PaymentSection({ theme }: PaymentSectionProps) {
                 onClick={handlePayment}
                 className={`gap-3 px-8 py-6 font-bold text-lg ${
                   isDark
-                    ? "layered-shadow bg-[#c8102e] text-white hover:bg-[#ffd700] hover:text-black"
+                    ? "layered-shadow bg-[#dc143c] text-white hover:bg-white hover:text-black"
                     : "bg-[#2563eb] text-white hover:bg-[#1e40af]"
                 }`}
               >
