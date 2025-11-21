@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react"
 import { X, Check, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import Image from "next/image"
 
 interface RsvpModalProps {
   isOpen: boolean
@@ -141,12 +142,15 @@ export function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-neutral-900 border border-white/10 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl relative"
+              className="bg-neutral-900/95 border border-red-500/30 rounded-2xl w-full max-w-md overflow-hidden shadow-[0_0_50px_rgba(220,38,38,0.15)] relative"
             >
+              {/* Christmas Gradient Overlay */}
+              <div className="absolute inset-0 bg-linear-to-b from-red-500/5 via-transparent to-green-500/5 pointer-events-none" />
+
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors z-10"
+                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors z-50"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -168,14 +172,22 @@ export function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
                   </div>
                 ) : (
                   <>
-                    <div className="text-center mb-6">
-                      <h3 className="text-2xl font-bold text-white mb-2">RSVP</h3>
-                      <p className="text-white/60 text-sm">
-                        Secure your spot for the holiday celebration.
+                    <div className="text-center mb-6 flex flex-col items-center relative z-10">
+                      <div className="relative w-64 h-24 scale-160 md:scale-180 md:hover:scale-185 mb-2 hover:scale-165 transition-transform duration-500">
+                        <div className="absolute inset-0 bg-red-500/20 blur-3xl rounded-full opacity-20" />
+                        <Image 
+                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/flyers-63-xmas.png" 
+                          alt="Digital Canvas Christmas" 
+                          fill 
+                          className="object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+                        />
+                      </div>
+                      <p className="text-white/60 text-sm text-balance md:text-base">
+                        <strong>RSVP</strong> to secure your spot for the holiday celebration.
                       </p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
                       <div className="space-y-2">
                         <label htmlFor="name" className="text-sm font-medium text-white/80">
                           Full Name
@@ -212,15 +224,15 @@ export function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
                             type="checkbox"
                             checked={joinFeed}
                             onChange={(e) => setJoinFeed(e.target.checked)}
-                            className="w-4 h-4 rounded border-white/30 bg-white/5 text-blue-600 focus:ring-blue-500 focus:ring-offset-neutral-900"
+                            className="w-4 h-4 rounded border-white/30 bg-white/5 text-red-500 focus:ring-red-500 focus:ring-offset-neutral-900 accent-red-500"
                           />
                         </div>
                         <div className="text-sm">
                           <label htmlFor="joinFeed" className="font-medium text-white/90">
-                            Join The Feed
+                            Join <strong>THE FEED</strong>
                           </label>
                           <p className="text-white/50 text-xs mt-0.5">
-                            Get articles, videos, and podcasts from the Digital Canvas community.
+                            Connect to THE FEED and discover why <strong>Digital Canvas</strong> is the <strong>Creative Bridge to Everything!</strong>
                           </p>
                         </div>
                       </div>
