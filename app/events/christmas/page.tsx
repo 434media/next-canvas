@@ -31,7 +31,7 @@ function LogoHeader() {
     <header className="w-full flex flex-col items-center justify-center pt-4 pb-2 px-4 animate-in fade-in slide-in-from-top-8 duration-1000 z-20">
       {/* Logo Container - Acts as Play/Pause Button */}
       <div
-        className="mt-8 md:mt-0 relative w-full max-w-4xl aspect-3/1 md:aspect-3/1 scale-200 md:scale-100 cursor-pointer hover:scale-105 transition-transform duration-300 group"
+        className="mt-16 md:mt-0 relative w-full max-w-4xl aspect-3/1 md:aspect-3/1 scale-190 md:scale-100 cursor-pointer hover:scale-105 transition-transform duration-300 group"
         onClick={() => {
           togglePlay()
           toggleColor() // Keep the color toggle effect on click too
