@@ -5,13 +5,12 @@ import { Button } from "@/components/ui/button"
 import ChristmasScene from "@/components/christmas/christmas-scene"
 import { SceneErrorBoundary } from "@/components/christmas/scene-error-boundary"
 import { AudioProvider, useAudio } from "@/components/christmas/audio-provider"
-import { ColorProvider, useColor } from "@/components/christmas/color-context"
 import { Calendar, MapPin, ArrowRight, Play, Pause, Music, SkipForward, Ticket } from "lucide-react"
 import { useState, useEffect } from "react"
 import { RsvpModal } from "@/components/christmas/rsvp-modal"
+import { CommunitySpotlight } from "@/components/christmas/community-spotlight"
 
 function LogoHeader() {
-  const { toggleColor } = useColor()
   const { isPlaying, togglePlay, playlist, currentTrackIndex, nextTrack } = useAudio()
   const [visualizerBars, setVisualizerBars] = useState<number[]>([])
 
@@ -34,7 +33,6 @@ function LogoHeader() {
         className="mt-16 md:mt-0 relative w-full max-w-4xl aspect-3/1 md:aspect-3/1 scale-190 md:scale-100 cursor-pointer hover:scale-105 transition-transform duration-300 group"
         onClick={() => {
           togglePlay()
-          toggleColor() // Keep the color toggle effect on click too
         }}
       >
         {/* Subtle glow effect behind logo */}
@@ -108,16 +106,16 @@ function ChristmasContent() {
   const [isRsvpOpen, setIsRsvpOpen] = useState(false)
 
   return (
-    <main className="relative h-screen w-full overflow-hidden bg-black text-white selection:bg-white/20 flex flex-col">
+    <main className="relative min-h-screen w-full bg-black text-white selection:bg-white/20 flex flex-col overflow-x-hidden">
       {/* 3D Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="fixed inset-0 z-0">
         <SceneErrorBoundary>
           <ChristmasScene />
         </SceneErrorBoundary>
       </div>
 
       {/* Content Overlay - Flex Column to fill screen without scroll */}
-      <div className="relative z-10 flex flex-col h-full pt-12 pb-6 px-4 pointer-events-none justify-start md:justify-center">
+      <div className="relative z-10 flex flex-col min-h-screen pt-12 pb-6 px-4 pointer-events-none justify-start md:justify-center">
         {/* Added pointer-events-auto to interactive children */}
         <div className="pointer-events-auto w-full flex justify-center shrink-0">
           <LogoHeader />
@@ -171,6 +169,9 @@ function ChristmasContent() {
         </div>
       </div>
 
+      {/* Community Spotlight Section */}
+      <CommunitySpotlight />
+
       <RsvpModal isOpen={isRsvpOpen} onClose={() => setIsRsvpOpen(false)} />
     </main>
   )
@@ -179,9 +180,7 @@ function ChristmasContent() {
 export default function Page() {
   return (
     <AudioProvider>
-      <ColorProvider>
-        <ChristmasContent />
-      </ColorProvider>
+      <ChristmasContent />
     </AudioProvider>
   )
 }
