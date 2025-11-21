@@ -31,7 +31,7 @@ function LogoHeader() {
     <header className="w-full flex flex-col items-center justify-center pt-4 pb-2 px-4 animate-in fade-in slide-in-from-top-8 duration-1000 z-20">
       {/* Logo Container - Acts as Play/Pause Button */}
       <div
-        className="mt-6 md:mt-0 relative w-full max-w-4xl aspect-3/1 md:aspect-3/1 scale-150 md:scale-100 cursor-pointer hover:scale-105 transition-transform duration-300 group"
+        className="mt-8 md:mt-0 relative w-full max-w-4xl aspect-3/1 md:aspect-3/1 scale-200 md:scale-100 cursor-pointer hover:scale-105 transition-transform duration-300 group"
         onClick={() => {
           togglePlay()
           toggleColor() // Keep the color toggle effect on click too
@@ -125,7 +125,7 @@ function ChristmasContent() {
               </div>
             )}
 
-            <h2 className="text-xl md:text-2xl font-bold mb-2 bg-linear-to-r from-white via-white/80 to-white/50 bg-clip-text text-transparent">
+            <h2 className="text-2xl md:text-2xl font-bold mb-2 bg-linear-to-r from-white via-white/80 to-white/50 bg-clip-text text-transparent">
               Happy Holidays from <span className="font-menda-black block">434 Media</span>
             </h2>
             <p className="text-white/60 mb-4 text-base md:text-sm leading-relaxed">
