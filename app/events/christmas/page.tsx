@@ -6,13 +6,13 @@ import ChristmasScene from "@/components/christmas/christmas-scene"
 import { SceneErrorBoundary } from "@/components/christmas/scene-error-boundary"
 import { AudioProvider, useAudio } from "@/components/christmas/audio-provider"
 import { ColorProvider, useColor } from "@/components/christmas/color-context"
-import { Calendar, MapPin, ArrowRight, Play, Pause, Music } from "lucide-react"
+import { Calendar, MapPin, ArrowRight, Play, Pause, Music, SkipForward } from "lucide-react"
 import { useState, useEffect } from "react"
 import { RsvpModal } from "@/components/christmas/rsvp-modal"
 
 function LogoHeader() {
   const { toggleColor } = useColor()
-  const { isPlaying, togglePlay, playlist, currentTrackIndex } = useAudio()
+  const { isPlaying, togglePlay, playlist, currentTrackIndex, nextTrack } = useAudio()
   const [visualizerBars, setVisualizerBars] = useState<number[]>([])
 
   // Simulate visualizer
@@ -75,8 +75,20 @@ function LogoHeader() {
               ))}
             </div>
             {/* Song Title */}
-            <div className="text-[10px] md:text-xs text-yellow-400 font-medium tracking-wider uppercase text-center drop-shadow-md">
-              Now Playing: {playlist?.[currentTrackIndex]?.title || "Christmas Mix"}
+            <div className="flex items-center gap-2 mt-1">
+              <div className="text-[10px] md:text-xs text-yellow-400 font-medium tracking-wider uppercase text-center drop-shadow-md">
+                Now Playing: {playlist?.[currentTrackIndex]?.title || "Christmas Mix"}
+              </div>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation()
+                  nextTrack()
+                }}
+                className="p-1 hover:bg-white/10 rounded-full transition-colors group/skip"
+                title="Next Song"
+              >
+                <SkipForward className="w-3 h-3 text-white/50 group-hover/skip:text-white transition-colors" />
+              </button>
             </div>
           </div>
         ) : (

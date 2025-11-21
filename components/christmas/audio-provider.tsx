@@ -23,6 +23,10 @@ export function useAudio() {
 
 const PLAYLIST = [
   {
+    title: "Jingle Bells (Chill)",
+    url: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Jingle_Bells_%28Calm%29_%28ISRC_USUAN1100188%29.mp3",
+  },
+  {
     title: "We Wish You a Merry Christmas",
     url: "https://upload.wikimedia.org/wikipedia/commons/a/a6/We_Wish_you_a_Merry_Christmas_%28ISRC_USUAN1100369%29.mp3",
   },
@@ -31,8 +35,8 @@ const PLAYLIST = [
     url: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Deck_the_Halls_A_%28ISRC_USUAN1100263%29.mp3",
   },
   {
-    title: "Jingle Bells",
-    url: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Jingle_Bells_%28ISRC_USUAN1100187%29.mp3",
+    title: "Christmas Rap (Hip Hop)",
+    url: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Christmas_Rap_%28ISRC_USUAN1500080%29.mp3",
   },
 ]
 
@@ -123,11 +127,14 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         crossOrigin="anonymous"
         onEnded={nextTrack}
         onError={(e) => {
-          const error = e.currentTarget.error
+          const target = e.currentTarget
+          const error = target.error
           console.error("Audio error details:", {
             code: error?.code,
             message: error?.message,
-            src: audioRef.current?.src,
+            src: target.src,
+            networkState: target.networkState,
+            readyState: target.readyState,
           })
           setHasError(true)
           // If CORS fails, we could try removing crossOrigin, but that breaks the visualizer.
