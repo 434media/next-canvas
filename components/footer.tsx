@@ -37,7 +37,7 @@ const Footer = () => {
     <footer className="bg-transparent relative overflow-hidden z-10">
       {/* Enhanced Footer Bottom - kept as requested */}
       <motion.div
-        className="bg-neutral-900 py-8 px-4 sm:px-6 lg:px-8 relative z-20"
+        className="bg-neutral-950 py-4 md:py-2.5 px-6 md:px-8 relative z-20"
         variants={itemVariants}
         initial="hidden"
         animate={controls}

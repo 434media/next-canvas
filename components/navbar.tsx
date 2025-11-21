@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { motion, useScroll, useTransform } from "motion/react"
 import { Menu } from "lucide-react"
 import SlideoverMenu from "./slideover-menu"
@@ -11,6 +12,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { scrollY } = useScroll()
+  const pathname = usePathname()
+  const isChristmasPage = pathname === "/events/christmas"
 
   const navbarOpacity = useTransform(scrollY, [0, 50], [0.85, 0.98])
   const backgroundOpacity = useTransform(scrollY, [0, 50], [0, 0.95])
@@ -29,27 +32,29 @@ const Navbar = () => {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-40 ${isScrolled ? "backdrop-blur-xl" : "backdrop-blur-md"}`}
       >
-        <div className="absolute inset-0 bg-white/20">
-          <div
-            className="absolute inset-0 opacity-5"
-            style={{
-              backgroundImage: `radial-gradient(circle, black 1px, transparent 1px)`,
-              backgroundSize: "20px 20px",
-            }}
-          />
-        </div>
+        {!isChristmasPage && (
+          <div className="absolute inset-0 bg-white/20">
+            <div
+              className="absolute inset-0 opacity-5"
+              style={{
+                backgroundImage: `radial-gradient(circle, black 1px, transparent 1px)`,
+                backgroundSize: "20px 20px",
+              }}
+            />
+          </div>
+        )}
 
         <motion.div
-          className="absolute inset-0 bg-white/30"
+          className={`absolute inset-0 ${isChristmasPage ? "bg-black/80" : "bg-white/30"}`}
           style={{
             opacity: backgroundOpacity,
           }}
         />
 
         <motion.nav
-          className="relative border-b-4 border-black"
+          className={`relative ${isChristmasPage ? "border-b border-white/10" : "border-b-4 border-black"}`}
           style={{
-            background: `rgba(255, 255, 255, 0.1)`,
+            background: isChristmasPage ? `rgba(0, 0, 0, 0.2)` : `rgba(255, 255, 255, 0.1)`,
           }}
         >
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
