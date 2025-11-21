@@ -6,7 +6,7 @@ import ChristmasScene from "@/components/christmas/christmas-scene"
 import { SceneErrorBoundary } from "@/components/christmas/scene-error-boundary"
 import { AudioProvider, useAudio } from "@/components/christmas/audio-provider"
 import { ColorProvider, useColor } from "@/components/christmas/color-context"
-import { Calendar, MapPin, ArrowRight, Play, Pause, Music, SkipForward } from "lucide-react"
+import { Calendar, MapPin, ArrowRight, Play, Pause, Music, SkipForward, Ticket } from "lucide-react"
 import { useState, useEffect } from "react"
 import { RsvpModal } from "@/components/christmas/rsvp-modal"
 
@@ -41,7 +41,7 @@ function LogoHeader() {
         <div className={`absolute inset-0 bg-white/10 blur-3xl rounded-full transition-opacity duration-500 ${isPlaying ? 'opacity-60 animate-pulse' : 'opacity-30 group-hover:opacity-50'}`} />
         
         <Image
-          src="https://ampd-asset.s3.us-east-2.amazonaws.com/flyers-63-xmas.png"
+          src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr.png"
           alt="Digital Canvas Christmas"
           fill
           className="object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] relative z-10"
@@ -138,13 +138,17 @@ function ChristmasContent() {
             )}
 
             <h2 className="text-2xl md:text-2xl font-bold mb-2 bg-linear-to-r from-white via-white/80 to-white/50 bg-clip-text text-transparent">
-              Happy Holidays from <span className="font-menda-black block">434 Media</span>
+              Happy Holidays from <span className="font-menda-black block">434 MEDIA</span>
             </h2>
             <p className="text-white/60 mb-4 text-base md:text-sm leading-relaxed">
-              Join us for an evening of <strong>Christmas</strong> cheer, music, and community celebration. Enjoy the city views, delicious food, and music as we celebrate the holiday season together.
+              This is a party for molecules & musicians, scientist & screwups, techies & teachers, founders & failures, gamers & grunts. If you belong to something, you belong.
             </p>
 
             <div className="flex flex-col gap-2 mb-5">
+              <div className="flex items-center justify-center gap-2 text-xs md:text-xs text-balance tracking-tighter text-white/80">
+                <Ticket className="w-3 h-3 md:w-4 md:h-4 text-white/60" />
+                <span>Admission: The Worst White Elephant Gift ever Received</span>
+              </div>
               <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-white/80">
                 <Calendar className="w-3 h-3 md:w-4 md:h-4 text-white/60" />
                 <span>Dec 12th, 2025 • 7:00 PM</span>

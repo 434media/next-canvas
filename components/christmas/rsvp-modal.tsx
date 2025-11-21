@@ -176,7 +176,7 @@ export function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
                       <div className="relative w-64 h-24 scale-160 md:scale-180 md:hover:scale-185 mb-2 hover:scale-165 transition-transform duration-500">
                         <div className="absolute inset-0 bg-red-500/20 blur-3xl rounded-full opacity-20" />
                         <Image 
-                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/flyers-63-xmas.png" 
+                          src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr.png" 
                           alt="Digital Canvas Christmas" 
                           fill 
                           className="object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"

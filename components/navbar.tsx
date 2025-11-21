@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const { scrollY } = useScroll()
   const pathname = usePathname()
-  const isChristmasPage = pathname === "/events/christmas"
+  const isChristmasPage = pathname === "/events/mxratmain"
 
   const navbarOpacity = useTransform(scrollY, [0, 50], [0.85, 0.98])
   const backgroundOpacity = useTransform(scrollY, [0, 50], [0, 0.95])
