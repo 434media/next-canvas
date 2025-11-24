@@ -23,7 +23,7 @@ export default function MxrAtMainPage() {
             >
               {/* Event Title */}
               <h1 className="font-menda-black text-5xl sm:text-6xl md:text-7xl lg:text-[8rem] tracking-tighter leading-[0.85] mb-2 lg:mb-6 py-4 -mt-10 md:mt-0">
-                <span className="block -mb-4 md:-mb-6">MXR</span>
+                <span className="block -mb-4 md:-mb-6 text-[#c41e3a]">MXR</span>
                 <span className="block text-transparent bg-clip-text bg-linear-to-r from-[#c41e3a] to-[#dc143c] pt-4 pb-2 pr-4">
                   @MAIN
                 </span>
@@ -52,8 +52,8 @@ export default function MxrAtMainPage() {
                 className="mb-4 lg:mb-10"
               >
                 <Link
-                  href="#rsvp"
-                  className="group inline-flex items-center gap-2 text-lg sm:text-2xl lg:text-4xl font-(--font-menda-black) tracking-tight text-black hover:text-[#c41e3a] transition-colors duration-300"
+                  href="/events/mxratmain/rsvp"
+                  className="group inline-flex items-center gap-2 text-lg sm:text-2xl lg:text-4xl font-(--font-menda-black) tracking-tight text-[#c41e3a] hover:text-[#c41e3a]/90 transition-colors duration-300"
                 >
                   <span className="relative">
                     RSVP
@@ -99,7 +99,7 @@ export default function MxrAtMainPage() {
                 src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-tower.png"
                 alt="MXR@MAIN - 434 MEDIA Building"
                 fill
-                className="object-contain object-bottom-right lg:object-right scale-[1.32] -mt-10 md:mt-0 ml-2 md:ml-0 lg:scale-105 origin-bottom-right lg:origin-center translate-x-4 lg:translate-x-0"
+                className="object-contain object-bottom-right lg:object-right scale-[1.32] -mt-16 md:mt-0 ml-2 md:ml-0 lg:scale-105 origin-bottom-right lg:origin-center translate-x-4 lg:translate-x-0"
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
