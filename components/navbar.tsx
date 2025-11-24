@@ -45,16 +45,17 @@ const Navbar = () => {
         )}
 
         <motion.div
-          className={`absolute inset-0 ${isChristmasPage ? "bg-black/80" : "bg-white/30"}`}
+          className={`absolute inset-0 ${isChristmasPage ? "bg-black" : "bg-white/30"}`}
           style={{
             opacity: backgroundOpacity,
           }}
         />
 
         <motion.nav
-          className={`relative ${isChristmasPage ? "border-b border-white/10" : "border-b-4 border-black"}`}
+          className={`relative ${isChristmasPage ? "border-b-2" : "border-b-4 border-black"}`}
           style={{
-            background: isChristmasPage ? `rgba(0, 0, 0, 0.2)` : `rgba(255, 255, 255, 0.1)`,
+            background: isChristmasPage ? `#000000` : `rgba(255, 255, 255, 0.1)`,
+            borderImage: isChristmasPage ? "linear-gradient(to right, #c41e3a, #228b22) 1" : "none",
           }}
         >
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
