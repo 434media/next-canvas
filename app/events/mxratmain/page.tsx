@@ -77,7 +77,7 @@ export default function MxrAtMainPage() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="flex flex-col gap-1 lg:gap-2"
               >
-                <p className="text-[10px] lg:text-base text-black/60 uppercase tracking-widest font-bold">
+                <p className="text-[10px] lg:text-base text-black/60 uppercase tracking-tighter md:tracking-widest font-bold">
                   A free community experience <span className="block md:inline">brought to you by</span>
                 </p>
                 <p className="font-menda-black">
