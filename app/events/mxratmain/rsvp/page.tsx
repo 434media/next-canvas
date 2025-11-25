@@ -184,7 +184,7 @@ export default function MxrAtMainRsvpPage() {
                   />
                 </div>
                 <label htmlFor="joinFeed" className="text-sm text-black/70 leading-tight cursor-pointer select-none">
-                  Join The Feed to stay updated on future events and community news.
+                  Connect to THE FEED and experience why <strong>Digital Canvas</strong> is the <strong>Creative Bridge to Everything!</strong>
                 </label>
               </div>
 
