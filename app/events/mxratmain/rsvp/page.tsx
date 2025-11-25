@@ -44,7 +44,7 @@ export default function MxrAtMainRsvpPage() {
   }
 
   return (
-    <main className="min-h-screen w-full bg-white text-black pt-20 md:pt-16">
+    <main className="min-h-screen w-full bg-white text-black pt-16">
       {/* Hero Section */}
       <section className="relative h-[calc(100vh-5rem)] md:h-[calc(100vh-4rem)] w-full overflow-hidden bg-white">
         {/* Mobile View */}
@@ -53,7 +53,7 @@ export default function MxrAtMainRsvpPage() {
             src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-mobile.jpg"
             alt="MXR@MAIN RSVP Mobile"
             fill
-            className="object-cover object-right"
+            className="object-contain object-center"
             priority
           />
           
