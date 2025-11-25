@@ -6,7 +6,7 @@ import { motion } from "motion/react"
 
 export default function MxrAtMainPage() {
   return (
-    <main className="relative h-screen w-full bg-white text-black overflow-hidden pt-24 md:pt-16">
+    <main className="relative md:h-screen w-full bg-white text-black overflow-hidden py-24 md:py-0 md:pt-16">
       {/* Hero Section - Full viewport height minus navbar */}
       <section className="relative h-auto min-h-[50vh] lg:h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-center overflow-hidden">
         
