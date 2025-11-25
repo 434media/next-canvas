@@ -90,7 +90,7 @@ export default function MxrAtMainPage() {
           </div>
 
           {/* Right Side - Hero Image */}
-          <div className="-mt-16 md:mt-0 w-[420px] md:w-1/2 h-full relative flex items-end justify-end min-h-0 -mr-16 md:mr-0">
+          <div className="w-full md:w-1/2 h-96 md:h-full relative flex items-end justify-end min-h-0">
              <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -101,7 +101,7 @@ export default function MxrAtMainPage() {
                 src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-tower.png"
                 alt="MXR@MAIN - 434 MEDIA Building"
                 fill
-                className="object-cover object-right scale-85 origin-bottom lg:object-contain lg:object-right lg:scale-105 lg:origin-center lg:translate-x-0 lg:translate-y-0"
+                className="object-cover object-right scale-100 origin-bottom lg:object-contain lg:object-right lg:scale-105 lg:origin-center lg:translate-x-0 lg:translate-y-0"
                 priority
                 sizes="(max-width: 768px) 100vw, 100vw"
               />
