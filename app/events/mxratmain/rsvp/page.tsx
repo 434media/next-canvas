@@ -44,56 +44,70 @@ export default function MxrAtMainRsvpPage() {
   }
 
   return (
-    <main className="min-h-screen w-full bg-white text-black pt-16">
+    <main className="md:min-h-screen w-full bg-white text-black pt-16">
       {/* Hero Section */}
-      <section className="relative h-[calc(100vh-5rem)] md:h-[calc(100vh-4rem)] w-full overflow-hidden bg-white">
+      <section className="relative h-[calc(100vh-5rem)] md:h-[calc(100vh-4rem)] w-full overflow-hidden bg-linear-to-b from-[#c41e3a] to-[#4a0b16] md:bg-white md:from-white md:to-white">
         {/* Mobile View */}
-        <div className="block md:hidden relative w-full h-full">
-          <Image
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-mobile.jpg"
-            alt="MXR@MAIN RSVP Mobile"
-            fill
-            className="object-contain object-center"
-            priority
-          />
-          
-          {/* Mobile Easter Egg Trigger */}
-          <div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 z-20 cursor-pointer flex items-center justify-center"
-            onClick={() => setIsEasterEggOpen(true)}
-          >
-            <div className="w-6 h-6 rounded-full bg-[#c41e3a]/90 shadow-[0_0_50px_25px_rgba(255,255,255,0.4)] animate-pulse blur-xl" />
+        <div className="md:hidden relative w-full h-full flex items-center justify-center">
+          <div className="relative w-full h-[480px]">
+            <Image
+              src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-mobile.jpg"
+              alt="MXR@MAIN RSVP Mobile"
+              fill
+              className="object-contain object-center"
+              priority
+            />
+            
+            {/* Mobile Easter Egg Trigger */}
+            <div 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 z-20 cursor-pointer flex items-center justify-center"
+              onClick={() => setIsEasterEggOpen(true)}
+            >
+              <div className="w-6 h-6 rounded-full bg-[#c41e3a]/90 shadow-[0_0_50px_25px_rgba(255,255,255,0.4)] animate-pulse blur-xl" />
+            </div>
+
+            {/* Mobile Scroll Indicator */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 1 }}
+              className="absolute -bottom-4 right-2 z-20 text-white animate-bounce bg-black/20 backdrop-blur-sm p-2 rounded-full"
+            >
+              <ArrowDown className="w-5 h-5" />
+            </motion.div>
           </div>
         </div>
 
         {/* Desktop View */}
-        <div className="hidden md:block relative w-full h-full">
-          <Image
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-desktop.jpg"
-            alt="MXR@MAIN RSVP Desktop"
-            fill
-            className="object-contain object-center"
-            priority
-          />
-          
-          {/* Easter Egg Trigger */}
-          <div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 z-20 cursor-pointer group flex items-center justify-center"
-            onClick={() => setIsEasterEggOpen(true)}
-          >
-            <div className="w-32 h-32 rounded-full bg-white/0 group-hover:bg-white/20 group-hover:shadow-[0_0_80px_40px_rgba(255,255,255,0.5)] transition-all duration-700 ease-in-out blur-2xl" />
+        <div className="hidden md:flex relative w-full h-full items-center justify-center p-12">
+          <div className="relative w-full h-full">
+            <Image
+              src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-desktop.jpg"
+              alt="MXR@MAIN RSVP Desktop"
+              fill
+              className="object-contain drop-shadow-2xl"
+              priority
+            />
+            
+            {/* Easter Egg Trigger */}
+            <div 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 z-20 cursor-pointer group flex items-center justify-center"
+              onClick={() => setIsEasterEggOpen(true)}
+            >
+              <div className="w-32 h-32 rounded-full bg-white/0 group-hover:bg-white/20 group-hover:shadow-[0_0_80px_40px_rgba(255,255,255,0.5)] transition-all duration-700 ease-in-out blur-2xl" />
+            </div>
+
+            {/* Desktop Scroll Indicator */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 1 }}
+              className="absolute -bottom-6 right-40 z-20 text-white animate-bounce bg-black/20 backdrop-blur-sm p-3 rounded-full"
+            >
+              <ArrowDown className="w-6 h-6" />
+            </motion.div>
           </div>
         </div>
-        
-        {/* Scroll Indicator */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-0 right-2 md:right-36 z-20 text-white animate-bounce bg-black/20 backdrop-blur-sm p-3 rounded-full"
-        >
-          <ArrowDown className="w-6 h-6" />
-        </motion.div>
       </section>
 
       {/* Form Section */}
