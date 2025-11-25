@@ -6,9 +6,9 @@ import { motion } from "motion/react"
 
 export default function MxrAtMainPage() {
   return (
-    <main className="relative md:h-screen w-full bg-white text-black overflow-hidden -mb-6 md:mb-0 pt-24  md:pt-16">
+    <main className="fixed inset-0 z-30 md:relative md:inset-auto md:z-auto md:h-screen w-full bg-white text-black overflow-hidden pt-24 md:pt-16">
       {/* Hero Section - Full viewport height minus navbar */}
-      <section className="relative h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-center overflow-hidden">
+      <section className="relative h-full md:h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-center overflow-hidden">
         
         {/* Container to match navbar width */}
         <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 h-full flex flex-row items-stretch lg:items-center justify-between relative z-10 pt-8 lg:pt-0">
