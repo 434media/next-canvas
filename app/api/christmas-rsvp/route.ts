@@ -5,9 +5,10 @@ import crypto from "crypto"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 
-const airtableBaseId = process.env.AIRTABLE_BASE_ID
+// Use specific MXR base ID, fallback to general one if not set (though specific is preferred)
+const airtableBaseId = process.env.MXR_AIRTABLE_BASE_ID || process.env.AIRTABLE_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
-const christmasTable = process.env.CHRISTMAS_RSVP_TABLE || "Christmas RSVP" // Default fallback
+const christmasTable = process.env.CHRISTMAS_RSVP_TABLE || "rsvp" // Default fallback
 const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY
 
 if (!airtableBaseId || !airtableApiKey) {

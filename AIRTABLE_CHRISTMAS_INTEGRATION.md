@@ -6,14 +6,14 @@ This guide explains how to set up the Airtable integration for the Christmas Eve
 
 - An Airtable account
 - Access to the Airtable Base used for this project
-- The `AIRTABLE_API_KEY` and `AIRTABLE_BASE_ID` environment variables must be set in your `.env` file (or Vercel project settings).
+- The `AIRTABLE_API_KEY` and `MXR_AIRTABLE_BASE_ID` environment variables must be set in your `.env` file (or Vercel project settings).
 
 ## Setup Steps
 
 ### 1. Create the Table
 
-1.  Log in to Airtable and open your Base.
-2.  Create a new table named **"Christmas RSVP"** (or whatever name you prefer).
+1.  Log in to Airtable and open your Base (named **"mxratmain"**).
+2.  Create a new table named **"rsvp"**.
 3.  Configure the following columns (fields):
 
 | Field Name      | Field Type       | Notes                                      |
@@ -29,7 +29,8 @@ This guide explains how to set up the Airtable integration for the Christmas Eve
 Add the following environment variable to your `.env.local` file and your deployment platform (e.g., Vercel):
 
 ```env
-CHRISTMAS_RSVP_TABLE="Christmas RSVP"
+MXR_AIRTABLE_BASE_ID="your_mxr_base_id_here"
+CHRISTMAS_RSVP_TABLE="rsvp"
 ```
 
 *Note: If you named your table differently, update the value above to match exactly.*
@@ -48,6 +49,6 @@ Ensure your `AIRTABLE_API_KEY` has permissions to **create records** in this Bas
 
 ## Troubleshooting
 
--   **"Airtable configuration is missing"**: Check that `AIRTABLE_API_KEY` and `AIRTABLE_BASE_ID` are set.
+-   **"Airtable configuration is missing"**: Check that `AIRTABLE_API_KEY` and `MXR_AIRTABLE_BASE_ID` are set.
 -   **"Turnstile verification failed"**: Ensure `TURNSTILE_SECRET_KEY` is set in your environment variables and `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set in your public environment variables.
 -   **"An error occurred..."**: Check the server logs for detailed error messages from Airtable. Common issues include mismatched field names (case-sensitive).

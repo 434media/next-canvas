@@ -53,7 +53,7 @@ export default function MxrAtMainRsvpPage() {
             src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-mobile.jpg"
             alt="MXR@MAIN RSVP Mobile"
             fill
-            className="object-cover object-center"
+            className="object-cover object-right"
             priority
           />
           
