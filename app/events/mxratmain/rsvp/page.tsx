@@ -42,7 +42,7 @@ export default function MxrAtMainRsvpPage() {
   }
 
   return (
-    <main className="min-h-screen w-full bg-white text-black pt-16">
+    <main className="min-h-screen w-full bg-white text-black pt-20 md:pt-16">
       {/* Hero Section */}
       <section className="relative md:h-[calc(100vh-4rem)] w-full overflow-hidden bg-white">
         {/* Mobile View */}
@@ -72,7 +72,7 @@ export default function MxrAtMainRsvpPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-white/90 text-sm font-bold tracking-widest uppercase animate-bounce bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 text-white/90 text-sm font-bold tracking-widest uppercase animate-bounce bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full"
         >
           Scroll to RSVP
         </motion.div>
@@ -82,7 +82,7 @@ export default function MxrAtMainRsvpPage() {
       <section id="rsvp-form" className="relative py-12 md:py-20 px-4 md:px-12 lg:px-24 max-w-4xl mx-auto">
         <div className="flex flex-col items-center text-center mb-8 md:mb-12">
           <h1 className="font-menda-black flex flex-col items-center w-fit mx-auto mb-4 md:mb-6">
-            <span className="block text-[#c41e3a] text-[4.4rem] sm:text-[5rem] md:text-[6rem] lg:text-[11.9rem] leading-[0.9] tracking-tighter">
+            <span className="block text-[#c41e3a] text-[4.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[11.9rem] leading-[0.9] tracking-tighter">
               MXR
             </span>
             <span className="block text-[#c41e3a] text-5xl md:text-7xl lg:text-[8rem] leading-[0.85] tracking-tighter -mt-2 lg:-mt-4">

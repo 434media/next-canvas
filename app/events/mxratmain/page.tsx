@@ -23,7 +23,7 @@ export default function MxrAtMainPage() {
             >
               {/* Event Title */}
               <h1 className="font-menda-black flex flex-col items-start w-fit mb-2 lg:mb-6 text-left">
-                <span className="block text-[#c41e3a] text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[11.9rem] leading-[0.9] tracking-tighter">
+                <span className="block text-[#c41e3a] text-[3.4rem] sm:text-[5rem] md:text-[6rem] lg:text-[11.9rem] leading-[0.9] tracking-tighter">
                   MXR
                 </span>
                 <span className="block text-[#c41e3a] text-4xl sm:text-6xl md:text-7xl lg:text-[8rem] leading-[0.85] tracking-tighter -mt-1 lg:-mt-4">
@@ -38,10 +38,10 @@ export default function MxrAtMainPage() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="flex flex-col gap-2 lg:gap-3 mb-3 lg:mb-8"
               >
-                <p className="text-[10px] sm:text-base lg:text-xl text-black/80 leading-tight max-w-full lg:max-w-xl font-bold">
+                <p className="mt-2 md:mt-0 text-[12px] sm:text-base lg:text-xl text-black/80 leading-tight max-w-full lg:max-w-xl font-bold">
                   A holiday party for molecules & musicians, scientist & screwups, techies & teachers, founders & funders, gamers & grunts.
                 </p>
-                <p className="text-[10px] sm:text-base lg:text-xl text-black/80 leading-tight max-w-full lg:max-w-xl font-bold">
+                <p className="text-[12px] sm:text-base lg:text-xl text-black/80 leading-tight max-w-full lg:max-w-xl font-bold">
                   If you belong to something, <span className="block md:inline">you belong.</span>
                 </p>
               </motion.div>
@@ -55,7 +55,7 @@ export default function MxrAtMainPage() {
               >
                 <Link
                   href="/events/mxratmain/rsvp"
-                  className="group inline-flex items-center gap-2 text-lg sm:text-2xl lg:text-4xl font-(--font-menda-black) tracking-tight text-[#c41e3a] hover:text-[#c41e3a]/90 transition-colors duration-300"
+                  className="group inline-flex items-center gap-2 text-xl sm:text-2xl lg:text-4xl font-menda-black text-[#c41e3a] hover:text-[#c41e3a]/90 transition-colors duration-300"
                 >
                   <span className="relative">
                     RSVP
@@ -79,10 +79,10 @@ export default function MxrAtMainPage() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="flex flex-col gap-1 lg:gap-2"
               >
-                <p className="text-[8px] lg:text-base text-black/60 uppercase tracking-tighter md:tracking-widest font-bold">
-                  A free community experience <span className="block md:inline">brought to you by</span>
+                <p className="text-balance text-[10px] lg:text-base text-black/60 uppercase tracking-widest font-bold">
+                  A free community experience brought to you by
                 </p>
-                <p className="font-menda-black text-xs lg:text-base">
+                <p className="font-menda-black text-base lg:text-base">
                   434 MEDIA
                 </p>
               </motion.div>
@@ -90,7 +90,7 @@ export default function MxrAtMainPage() {
           </div>
 
           {/* Right Side - Hero Image */}
-          <div className="w-1/2 lg:w-1/2 h-full relative flex items-end justify-end min-h-0">
+          <div className="w-full lg:w-1/2 h-full relative flex items-end justify-end min-h-0">
              <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -101,7 +101,7 @@ export default function MxrAtMainPage() {
                 src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-tower.png"
                 alt="MXR@MAIN - 434 MEDIA Building"
                 fill
-                className="object-cover lg:object-contain object-center lg:object-right lg:scale-105 lg:origin-center lg:translate-x-0 lg:translate-y-0"
+                className="object-cover lg:object-contain lg:object-right lg:scale-105 lg:origin-center lg:translate-x-0 lg:translate-y-0"
                 priority
                 sizes="(max-width: 768px) 50vw, 50vw"
               />
