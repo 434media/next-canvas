@@ -44,53 +44,27 @@ export default function MxrAtMainRsvpPage() {
   return (
     <main className="min-h-screen w-full bg-white text-black pt-16">
       {/* Hero Section */}
-      <section className="relative h-[calc(100vh-4rem)] w-full overflow-hidden bg-white">
+      <section className="relative h-[85vh] md:h-[calc(100vh-4rem)] w-full overflow-hidden bg-white">
         {/* Mobile View */}
         <div className="block md:hidden relative w-full h-full">
-          {/* Ambient Background */}
-          <div className="absolute inset-0">
-            <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-rsvp-mobile.png"
-              alt="Background"
-              fill
-              className="object-cover blur-2xl scale-110 opacity-50"
-              priority
-            />
-          </div>
-          {/* Main Content Image */}
-          <div className="absolute inset-0 z-10 pb-16">
-            <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-rsvp-mobile.png"
-              alt="MXR@MAIN RSVP Mobile"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+          <Image
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-rsvp-mobile.png"
+            alt="MXR@MAIN RSVP Mobile"
+            fill
+            className="object-contain object-center"
+            priority
+          />
         </div>
 
         {/* Desktop View */}
         <div className="hidden md:block relative w-full h-full">
-          {/* Ambient Background */}
-          <div className="absolute inset-0">
-            <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-rsvp.png"
-              alt="Background"
-              fill
-              className="object-cover blur-3xl opacity-30 scale-110"
-              priority
-            />
-          </div>
-          {/* Main Content Image */}
-          <div className="absolute inset-0 z-10 p-8 pb-20">
-            <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-rsvp.png"
-              alt="MXR@MAIN RSVP Desktop"
-              fill
-              className="object-contain drop-shadow-2xl"
-              priority
-            />
-          </div>
+          <Image
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-rsvp.png"
+            alt="MXR@MAIN RSVP Desktop"
+            fill
+            className="object-contain object-center"
+            priority
+          />
         </div>
         
         {/* Scroll Indicator */}
