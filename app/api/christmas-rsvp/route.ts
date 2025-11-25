@@ -67,10 +67,9 @@ export async function POST(request: Request) {
           Email: email,
           "Join The Feed": joinFeed,
           Status: "RSVP'd",
-          "RSVP Date": new Date().toISOString(),
         },
       },
-    ])
+    ], { typecast: true })
 
     return NextResponse.json({ message: "RSVP successful" }, { status: 200 })
   } catch (error: any) {

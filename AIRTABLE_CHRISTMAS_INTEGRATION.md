@@ -22,7 +22,7 @@ This guide explains how to set up the Airtable integration for the Christmas Eve
 | **Email**       | Email            | The guest's email address                  |
 | **Join The Feed**| Checkbox         | Whether they want to join the newsletter   |
 | **Status**      | Single select    | Options: "RSVP'd", "Waitlist", "Cancelled" |
-| **RSVP Date**   | Date             | Include time field                         |
+| **Created**     | Created time     | Automatically tracks when the record was added |
 
 ### 2. Configure Environment Variables
 
