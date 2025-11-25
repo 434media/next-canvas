@@ -22,9 +22,11 @@ export default function MxrAtMainPage() {
               className="flex flex-col items-start w-full"
             >
               {/* Event Title */}
-              <h1 className="font-menda-black text-5xl sm:text-6xl md:text-7xl lg:text-[8rem] tracking-tighter leading-[0.85] mb-2 lg:mb-6 py-4 -mt-10 md:mt-0">
-                <span className="block -mb-4 md:-mb-6 text-[#c41e3a]">MXR</span>
-                <span className="block text-transparent bg-clip-text bg-linear-to-r from-[#c41e3a] to-[#dc143c] pt-4 pb-2 pr-4">
+              <h1 className="font-menda-black flex flex-col items-center w-fit pr-0 -mt-10 md:mt-0 mb-2 lg:mb-6 text-left">
+                <span className="block text-[#c41e3a] text-[4.4rem] sm:text-[5rem] md:text-[6rem] lg:text-[11.9rem] leading-[0.9] tracking-tighter">
+                  MXR
+                </span>
+                <span className="block text-[#c41e3a] text-5xl sm:text-6xl md:text-7xl lg:text-[8rem] leading-[0.85] tracking-tighter -mt-2 lg:-mt-4">
                   @MAIN
                 </span>
               </h1>
