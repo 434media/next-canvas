@@ -101,7 +101,7 @@ export default function MxrAtMainPage() {
                 src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-tower.png"
                 alt="MXR@MAIN - 434 MEDIA Building"
                 fill
-                className="object-contain object-bottom-right lg:object-right scale-[1.8] lg:scale-105 origin-bottom-right lg:origin-center translate-x-8 lg:translate-x-0 translate-y-10 lg:translate-y-0"
+                className="object-cover lg:object-contain object-center lg:object-right lg:scale-105 lg:origin-center lg:translate-x-0 lg:translate-y-0"
                 priority
                 sizes="(max-width: 768px) 50vw, 50vw"
               />
