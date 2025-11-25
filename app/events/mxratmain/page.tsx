@@ -14,7 +14,7 @@ export default function MxrAtMainPage() {
         <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 h-full flex flex-row items-start lg:items-center justify-between relative z-10 pt-8 lg:pt-0">
           
           {/* Left Side - Content */}
-          <div className="w-[35%] lg:w-1/2 flex flex-col justify-start lg:justify-center items-start h-full z-20 pt-4 lg:pt-0">
+          <div className="w-[70%] lg:w-1/2 flex flex-col justify-start lg:justify-center items-start h-full z-20 pt-4 lg:pt-0">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -23,10 +23,10 @@ export default function MxrAtMainPage() {
             >
               {/* Event Title */}
               <h1 className="font-menda-black flex flex-col items-start w-fit mb-2 lg:mb-6 text-left">
-                <span className="block text-[#c41e3a] text-[2.2rem] sm:text-[5rem] md:text-[6rem] lg:text-[11.9rem] leading-[0.9] tracking-tighter">
+                <span className="block text-[#c41e3a] text-[3.4rem] md:text-[6rem] lg:text-[11.9rem] leading-[0.9] tracking-tighter">
                   MXR
                 </span>
-                <span className="block text-[#c41e3a] text-2xl sm:text-6xl md:text-7xl lg:text-[8rem] leading-[0.85] tracking-tighter -mt-1 lg:-mt-4">
+                <span className="block text-[#c41e3a] text-4xl md:text-7xl lg:text-[8rem] leading-[0.85] tracking-tighter -mt-1 lg:-mt-4">
                   @MAIN
                 </span>
               </h1>
@@ -38,10 +38,10 @@ export default function MxrAtMainPage() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="flex flex-col gap-2 lg:gap-3 mb-3 lg:mb-8"
               >
-                <p className="mt-2 md:mt-0 text-[12px] sm:text-base lg:text-xl text-black/80 leading-tight max-w-full lg:max-w-xl font-bold">
+                <p className="mt-2 md:mt-0 text-base lg:text-xl text-black/80 leading-tight lg:max-w-xl font-bold">
                   A holiday party for molecules & musicians, scientist & screwups, techies & teachers, founders & funders, gamers & grunts.
                 </p>
-                <p className="text-[12px] sm:text-base lg:text-xl text-black/80 leading-tight max-w-full lg:max-w-xl font-bold">
+                <p className="mt-2 md:mt-0 text-sm lg:text-xl text-black/80 leading-tight lg:max-w-xl font-bold">
                   If you belong to something, <span className="block md:inline">you belong.</span>
                 </p>
               </motion.div>
@@ -90,7 +90,7 @@ export default function MxrAtMainPage() {
           </div>
 
           {/* Right Side - Hero Image */}
-          <div className="w-[65%] lg:w-1/2 h-full relative flex items-end justify-end min-h-0">
+          <div className="w-full lg:w-1/2 h-full relative flex items-end justify-end min-h-0 -mr-8 md:mr-0">
              <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -101,7 +101,7 @@ export default function MxrAtMainPage() {
                 src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-tower.png"
                 alt="MXR@MAIN - 434 MEDIA Building"
                 fill
-                className="object-cover object-bottom scale-110 origin-bottom lg:object-contain lg:object-right lg:scale-105 lg:origin-center lg:translate-x-0 lg:translate-y-0"
+                className="object-cover object-right scale-95 origin-bottom lg:object-contain lg:object-right lg:scale-105 lg:origin-center lg:translate-x-0 lg:translate-y-0"
                 priority
                 sizes="(max-width: 768px) 65vw, 50vw"
               />
