@@ -11,10 +11,10 @@ export default function MxrAtMainPage() {
       <section className="relative h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-center overflow-hidden">
         
         {/* Container to match navbar width */}
-        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 h-full flex flex-row items-center justify-between relative z-10 pt-20 lg:pt-0 -mt-32 md:mt-0">
+        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 h-full flex flex-row items-start lg:items-center justify-between relative z-10 pt-8 lg:pt-0">
           
           {/* Left Side - Content */}
-          <div className="w-1/2 lg:w-1/2 flex flex-col justify-center items-start h-full z-20">
+          <div className="w-1/2 lg:w-1/2 flex flex-col justify-start lg:justify-center items-start h-full z-20 pt-4 lg:pt-0">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
