@@ -46,9 +46,9 @@ export default function MxrAtMainRsvpPage() {
   return (
     <main className="min-h-screen w-full bg-white text-black pt-20 md:pt-16">
       {/* Hero Section */}
-      <section className="relative md:h-[calc(100vh-4rem)] w-full overflow-hidden bg-white">
+      <section className="relative h-[calc(100vh-5rem)] md:h-[calc(100vh-4rem)] w-full overflow-hidden bg-white">
         {/* Mobile View */}
-        <div className="block md:hidden relative w-full aspect-4/5">
+        <div className="block md:hidden relative w-full h-full">
           <Image
             src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-mobile.jpg"
             alt="MXR@MAIN RSVP Mobile"
@@ -62,7 +62,7 @@ export default function MxrAtMainRsvpPage() {
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 z-20 cursor-pointer flex items-center justify-center"
             onClick={() => setIsEasterEggOpen(true)}
           >
-            <div className="w-24 h-24 rounded-full bg-white/20 shadow-[0_0_50px_25px_rgba(255,255,255,0.4)] animate-pulse blur-xl" />
+            <div className="w-6 h-6 rounded-full bg-[#c41e3a]/90 shadow-[0_0_50px_25px_rgba(255,255,255,0.4)] animate-pulse blur-xl" />
           </div>
         </div>
 
@@ -118,9 +118,9 @@ export default function MxrAtMainRsvpPage() {
             </div>
             
             <p className="text-sm sm:text-lg md:text-xl text-black/80 font-medium leading-snug md:leading-relaxed">
-              Bring an unwrapped children's toy (ages 2+).
-              <span className="block text-[#c41e3a] font-bold">
-                Donations to benefit the Good Hood Affordable Christmas.
+              Bring an unwrapped children's toy (ages 2+)
+              <span className="block text-[#c41e3a] font-bold tracking-tight md:tracking-normal">
+                Donations to benefit the Good Hood Affordable Christmas
               </span>
             </p>
           </div>
