@@ -3,7 +3,8 @@
 import { useState } from "react"
 import Image from "next/image"
 import { motion } from "motion/react"
-import { Check, Loader2 } from "lucide-react"
+import { Check, Loader2, ArrowDown } from "lucide-react"
+import YouTubeModal from "@/components/youtube-modal"
 
 export default function MxrAtMainRsvpPage() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function MxrAtMainRsvpPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState("")
+  const [isEasterEggOpen, setIsEasterEggOpen] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -48,23 +50,39 @@ export default function MxrAtMainRsvpPage() {
         {/* Mobile View */}
         <div className="block md:hidden relative w-full aspect-4/5">
           <Image
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-rsvp-mobile.png"
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-mobile.jpg"
             alt="MXR@MAIN RSVP Mobile"
             fill
             className="object-cover object-center"
             priority
           />
+          
+          {/* Mobile Easter Egg Trigger */}
+          <div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 z-20 cursor-pointer flex items-center justify-center"
+            onClick={() => setIsEasterEggOpen(true)}
+          >
+            <div className="w-24 h-24 rounded-full bg-white/20 shadow-[0_0_50px_25px_rgba(255,255,255,0.4)] animate-pulse blur-xl" />
+          </div>
         </div>
 
         {/* Desktop View */}
         <div className="hidden md:block relative w-full h-full">
           <Image
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-rsvp.png"
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-desktop.jpg"
             alt="MXR@MAIN RSVP Desktop"
             fill
             className="object-contain object-center"
             priority
           />
+          
+          {/* Easter Egg Trigger */}
+          <div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 z-20 cursor-pointer group flex items-center justify-center"
+            onClick={() => setIsEasterEggOpen(true)}
+          >
+            <div className="w-32 h-32 rounded-full bg-white/0 group-hover:bg-white/20 group-hover:shadow-[0_0_80px_40px_rgba(255,255,255,0.5)] transition-all duration-700 ease-in-out blur-2xl" />
+          </div>
         </div>
         
         {/* Scroll Indicator */}
@@ -72,9 +90,9 @@ export default function MxrAtMainRsvpPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 text-white/90 text-sm font-bold tracking-widest uppercase animate-bounce bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full"
+          className="absolute bottom-0 right-2 md:right-36 z-20 text-white animate-bounce bg-black/20 backdrop-blur-sm p-3 rounded-full"
         >
-          Scroll to RSVP
+          <ArrowDown className="w-6 h-6" />
         </motion.div>
       </section>
 
@@ -194,6 +212,14 @@ export default function MxrAtMainRsvpPage() {
           )}
         </div>
       </section>
+
+      <YouTubeModal 
+        isOpen={isEasterEggOpen} 
+        onClose={() => setIsEasterEggOpen(false)} 
+        videoId="ey0PZpeAIqU" 
+        title="Caballito (visualizer)"
+        artist="Vanita Leo"
+      />
     </main>
   )
 }
