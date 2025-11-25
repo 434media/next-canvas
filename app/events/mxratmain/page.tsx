@@ -8,10 +8,10 @@ export default function MxrAtMainPage() {
   return (
     <main className="relative h-screen w-full bg-white text-black overflow-hidden pt-24 md:pt-16">
       {/* Hero Section - Full viewport height minus navbar */}
-      <section className="relative md:h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-center overflow-hidden">
+      <section className="relative h-auto min-h-[50vh] lg:h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-center overflow-hidden">
         
         {/* Container to match navbar width */}
-        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 h-full flex flex-row items-start lg:items-center justify-between relative z-10 pt-8 lg:pt-0">
+        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 h-auto lg:h-full flex flex-row items-stretch lg:items-center justify-between relative z-10 pt-8 lg:pt-0">
           
           {/* Left Side - Content */}
           <div className="w-full lg:w-1/2 flex flex-col justify-start lg:justify-center items-start h-full z-20 pt-4 lg:pt-0">
