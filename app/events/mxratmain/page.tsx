@@ -4,110 +4,184 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "motion/react"
 
+const ornaments = [
+  {
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-main.png",
+    alt: "Main Building Ornament",
+    position: "top-16 left-0 md:top-20 md:left-8",
+    size: "w-20 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40",
+    rotate: "-rotate-12",
+    delay: 0.1,
+  },
+  {
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-434.png",
+    alt: "434 Media Ornament",
+    position: "top-16 left-16 md:top-20 md:left-auto md:right-8",
+    size: "w-20 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40",
+    rotate: "rotate-6",
+    delay: 0.2,
+  },
+  {
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-dc.png",
+    alt: "TXMX Ornament",
+    position: "top-16 left-50 md:top-1/3 md:left-4 lg:left-12",
+    size: "w-20 h-24 md:w-24 md:h-36 lg:w-32 lg:h-48",
+    rotate: "-rotate-3",
+    delay: 0.3,
+  },
+  {
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-txmx.png",
+    alt: "Vanita Ornament",
+    position: "top-16 right-50 md:top-1/3 md:right-4 lg:right-12",
+    size: "w-20 h-24 md:w-24 md:h-32 lg:w-32 lg:h-40",
+    rotate: "rotate-3",
+    delay: 0.4,
+  },
+  {
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-vanita.png",
+    alt: "Digital Canvas Ornament",
+    position: "top-19 right-12 md:top-auto md:bottom-36 md:left-8 lg:left-16 lg:hidden",
+    size: "w-28 h-16 md:w-28 md:h-28 lg:w-36 lg:h-32",
+    rotate: "-rotate-6",
+    delay: 0.5,
+  },
+  {
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-devsatv.png",
+    alt: "Culture Deck Ornament",
+    position: "top-18 -right-6 md:top-auto md:bottom-40 md:right-8 lg:right-16",
+    size: "w-28 h-16 md:w-24 md:h-20 lg:w-32 lg:h-28",
+    rotate: "rotate-6",
+    delay: 0.6,
+  },
+  {
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-cd.png",
+    alt: "DevSA Ornament",
+    position: "bottom-30 -left-2 md:bottom-24 md:left-10",
+    size: "w-32 h-28 md:w-24 md:h-24 lg:w-60 lg:h-40",
+    rotate: "-rotate-6",
+    delay: 0.7,
+  },
+  {
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-pysa.png",
+    alt: "Pysa Ornament",
+    position: "bottom-60 -right-8 md:bottom-48 md:right-70",
+    size: "w-32 h-32 md:w-36 md:h-16 lg:w-44 lg:h-40",
+    rotate: "rotate-3",
+    delay: 0.8,
+  },
+]
+
 export default function MxrAtMainPage() {
   return (
-    <main className="fixed inset-0 z-30 md:relative md:inset-auto md:z-auto md:h-screen w-full bg-white text-black overflow-hidden pt-24 md:pt-16">
-      {/* Hero Section - Full viewport height minus navbar */}
-      <section className="relative h-full md:h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-center overflow-hidden">
-        
-        {/* Container to match navbar width */}
-        <div className="w-full max-w-7xl mx-auto px-4 lg:px-8 h-full flex flex-row items-stretch lg:items-center justify-between relative z-10 pt-8 lg:pt-0">
-          
-          {/* Left Side - Content */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-start lg:justify-center items-start h-full z-20 pt-4 lg:pt-0">
+    <main className="fixed inset-0 z-30 md:relative md:inset-auto md:z-auto md:h-screen w-full bg-white text-black overflow-hidden">
+      <section className="relative h-full w-full flex items-center justify-center overflow-hidden">
+        {ornaments.map((ornament, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: ornament.delay,
+              ease: "easeOut",
+            }}
+            className={`absolute ${ornament.position} ${ornament.size} ${ornament.rotate} z-10`}
+          >
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="flex flex-col items-start w-full"
-            >
-              {/* Event Title */}
-              <h1 className="font-menda-black flex flex-col items-start w-fit mb-2 lg:mb-6 text-left">
-                <span className="block text-[#c41e3a] text-[3.4rem] md:text-[6rem] lg:text-[11.9rem] leading-[0.9] tracking-tighter">
-                  MXR
-                </span>
-                <span className="block text-[#c41e3a] text-4xl md:text-7xl lg:text-[8rem] leading-[0.85] tracking-tighter -mt-1 lg:-mt-4">
-                  @MAIN
-                </span>
-              </h1>
-
-              {/* Event Description */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex flex-col gap-2 lg:gap-3 mb-3 lg:mb-8"
-              >
-                <p className="mt-2 md:mt-0 text-base lg:text-xl text-black/80 leading-tight lg:max-w-xl font-bold">
-                  A holiday party for molecules & musicians, scientist & screwups, techies & teachers, founders & funders, gamers & grunts.
-                </p>
-                <p className="mt-2 md:mt-0 text-sm lg:text-xl text-black/80 leading-tight lg:max-w-xl font-bold">
-                  If you belong to something, <span className="block md:inline">you belong.</span>
-                </p>
-              </motion.div>
-
-              {/* RSVP Link */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.35 }}
-                className="mb-3 lg:mb-10"
-              >
-                <Link
-                  href="/events/mxratmain/rsvp"
-                  className="group inline-flex items-center gap-2 text-xl sm:text-2xl lg:text-4xl font-menda-black text-[#c41e3a] hover:text-[#c41e3a]/90 transition-colors duration-300"
-                >
-                  <span className="relative">
-                    RSVP
-                    <span className="absolute -bottom-1 left-0 w-full h-1 bg-linear-to-r from-[#c41e3a] to-[#228b22] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                  </span>
-                  <svg
-                    className="w-4 h-4 lg:w-8 lg:h-8 transform group-hover:translate-x-2 transition-transform duration-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </motion.div>
-
-              {/* Brought to you by */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="flex flex-col gap-1 lg:gap-2"
-              >
-                <p className="text-balance text-[10px] lg:text-base text-black/60 uppercase tracking-widest font-bold">
-                  A free community experience brought to you by
-                </p>
-                <p className="font-menda-black text-base lg:text-base">
-                  434 MEDIA
-                </p>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* Right Side - Hero Image */}
-          <div className="w-full md:w-1/2 h-96 md:h-full relative flex items-end justify-end min-h-0">
-             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              animate={{
+                y: [0, -8, 0],
+                rotate: [0, 2, -2, 0],
+              }}
+              transition={{
+                duration: 4 + index * 0.5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
               className="relative w-full h-full"
             >
               <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxratmain-tower.png"
-                alt="MXR@MAIN - 434 MEDIA Building"
+                src={ornament.src || "/placeholder.svg"}
+                alt={ornament.alt}
                 fill
-                className="object-cover object-right scale-100 origin-bottom lg:object-contain lg:object-right lg:scale-105 lg:origin-center lg:translate-x-0 lg:translate-y-0"
-                priority
-                sizes="(max-width: 768px) 100vw, 100vw"
+                className="object-contain drop-shadow-lg"
+                sizes="(max-width: 768px) 80px, (max-width: 1024px) 120px, 160px"
               />
             </motion.div>
-          </div>
+          </motion.div>
+        ))}
+
+        <div className="relative z-20 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto pt-20 md:pt-10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col items-center"
+          >
+            <h1 className="font-menda-black flex flex-col items-center mb-4 md:mb-6 lg:mb-8">
+              <span className="block text-[#c41e3a] text-[5.2rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[14.9rem] leading-[0.85] tracking-tighter drop-shadow-sm">
+                MXR
+              </span>
+              <span className="block text-[#228b22] text-[3.5rem] sm:text-[4.5rem] md:text-[7rem] lg:text-[9rem] xl:text-[10rem] leading-[0.8] tracking-tighter -mt-2 md:-mt-4 lg:-mt-6 drop-shadow-sm">
+                @MAIN
+              </span>
+            </h1>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-col items-center gap-3 md:gap-4 mb-4 md:mb-6"
+            >
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-black/80 leading-snug max-w-lg md:max-w-2xl font-semibold text-balance">
+                A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders &
+                funders, gamers & grunts.
+              </p>
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-black/70 leading-snug font-bold">
+                If you belong to something, you belong.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mb-4 md:mb-6"
+            >
+              <Link
+                href="/events/mxratmain/rsvp"
+                className="group inline-flex items-center gap-2 md:gap-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-menda-black text-[#c41e3a] hover:text-[#228b22] transition-colors duration-300"
+              >
+                <span className="relative">
+                  RSVP
+                  <span className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-1 md:h-1.5 bg-linear-to-r from-[#c41e3a] to-[#228b22] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                </span>
+                <svg
+                  className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 transform group-hover:translate-x-2 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="flex flex-col items-center gap-1"
+            >
+              <p className="text-[10px] sm:text-xs md:text-sm text-black/50 uppercase tracking-[0.2em] font-semibold">
+                A free community experience by
+              </p>
+              <p className="font-menda-black text-sm sm:text-base md:text-lg text-black/80">434 MEDIA</p>
+            </motion.div>
+          </motion.div>
         </div>
+
+        <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-[#c41e3a] via-[#228b22] to-[#c41e3a]" />
+        <div className="absolute bottom-0 left-0 w-full h-2 bg-linear-to-r from-[#228b22] via-[#c41e3a] to-[#228b22]" />
       </section>
     </main>
   )
