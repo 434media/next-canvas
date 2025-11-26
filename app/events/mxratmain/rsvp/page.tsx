@@ -76,10 +76,10 @@ export default function MxrAtMainRsvpPage() {
             className="w-full text-center"
           >
             <h1 className="font-menda-black flex flex-col items-center w-fit mx-auto mb-4 md:mb-6">
-              <span className="block text-[#c41e3a] text-[5rem] sm:text-[6rem] md:text-[8.9rem] leading-[0.9] tracking-tighter">
+              <span className="block text-[#c41e3a] text-[5.5rem] md:text-[8.9rem] leading-[0.9] tracking-tighter">
                 MXR
               </span>
-              <span className="block text-[#c41e3a] text-5xl sm:text-6xl md:text-8xl leading-[0.9] tracking-tighter -mt-2 md:-mt-4">
+              <span className="block text-[#c41e3a] text-6xl md:text-8xl leading-[0.9] tracking-tighter -mt-2 md:-mt-4">
                 @MAIN
               </span>
             </h1>
@@ -197,7 +197,7 @@ export default function MxrAtMainRsvpPage() {
         </div>
       </section>
 
-      <section className="relative w-full">
+      <section className="relative w-full -mt-8 md:mt-0">
         {/* Mobile Footer Image */}
         <div className="md:hidden relative w-full py-8 bg-white">
           <div className="relative w-full h-[45vh] flex items-center justify-center">
@@ -205,7 +205,7 @@ export default function MxrAtMainRsvpPage() {
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-mobile.jpg"
               alt="MXR@MAIN RSVP"
               fill
-              className="object-contain object-center"
+              className="object-contain object-center scale-110"
             />
 
             {/* Easter Egg Trigger */}
