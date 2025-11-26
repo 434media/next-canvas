@@ -38,10 +38,10 @@ const ornaments = [
     delay: 0.4,
   },
   {
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-vanita.png",
+    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-lola.png",
     alt: "Digital Canvas Ornament",
-    position: "top-19 right-12 md:top-auto md:bottom-36 md:left-8 lg:left-16 lg:hidden",
-    size: "w-28 h-16 md:w-28 md:h-28 lg:w-36 lg:h-32",
+    position: "top-16 right-10 md:top-auto md:bottom-46 md:left-12",
+    size: "w-32 h-24 md:w-28 md:h-28 lg:w-36 lg:h-32",
     rotate: "-rotate-6",
     delay: 0.5,
   },
