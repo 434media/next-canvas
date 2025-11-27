@@ -197,7 +197,7 @@ export default function MxrAtMainRsvpPage() {
         </div>
       </section>
 
-      <section className="relative w-full -mt-10 md:mt-0 py-10 md:py-0">
+      <section className="relative w-full -mt-32 md:mt-0 py-2 md:py-0">
         {/* Mobile Footer Image */}
         <div className="md:hidden relative w-full bg-white overflow-hidden">
           <div className="relative w-full h-[75vh] flex items-center justify-center">
