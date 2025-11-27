@@ -56,7 +56,7 @@ const ornaments = [
   {
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-cd.png",
     alt: "DevSA Ornament",
-    position: "bottom-30 -left-2 md:bottom-24 md:left-10",
+    position: "bottom-32 -left-2 md:bottom-24 md:left-10",
     size: "w-32 h-28 md:w-24 md:h-24 lg:w-60 lg:h-40",
     rotate: "-rotate-6",
     delay: 0.7,
@@ -64,7 +64,7 @@ const ornaments = [
   {
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-pysa.png",
     alt: "Pysa Ornament",
-    position: "bottom-60 -right-8 md:bottom-20 md:right-91",
+    position: "bottom-60 -right-9 md:bottom-20 md:right-91",
     size: "w-32 h-32 md:w-36 md:h-16 lg:w-44 lg:h-40",
     rotate: "rotate-3",
     delay: 0.8,
