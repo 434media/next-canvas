@@ -109,7 +109,7 @@ function ChristmasContent() {
           <LogoHeader />
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center animate-in fade-in slide-in-from-top-4 duration-1000 delay-200 pointer-events-auto">
+        <div className="-mt-16 md:mt-0 flex-1 flex flex-col items-center justify-center animate-in fade-in slide-in-from-top-4 duration-1000 delay-200 pointer-events-auto">
           <div
             className={`backdrop-blur-md border rounded-2xl p-3 md:p-5 max-w-sm w-full text-center transition-all duration-700 ${
               isPlaying
