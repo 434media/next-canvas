@@ -64,7 +64,7 @@ const ornaments = [
   {
     src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-pysa.png",
     alt: "Pysa Ornament",
-    position: "bottom-60 -right-8 md:bottom-48 md:right-70",
+    position: "bottom-60 -right-8 md:bottom-20 md:right-91",
     size: "w-32 h-32 md:w-36 md:h-16 lg:w-44 lg:h-40",
     rotate: "rotate-3",
     delay: 0.8,
@@ -118,7 +118,7 @@ export function DefaultHero() {
             className="flex flex-col items-center"
           >
             <h1 className="font-black flex flex-col items-center mb-4 md:mb-6 lg:mb-8">
-              <span className="block text-[#c41e3a] text-[5.2rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[14.9rem] leading-[0.85] tracking-tighter drop-shadow-sm">
+              <span className="block text-[#c41e3a] text-[5.4rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15.6rem] leading-[0.9] tracking-tighter drop-shadow-sm">
                 MXR
               </span>
               <span className="block text-[#228b22] text-[3.5rem] sm:text-[4.5rem] md:text-[7rem] lg:text-[9rem] xl:text-[10rem] leading-[0.8] tracking-tighter -mt-2 md:-mt-4 lg:-mt-6 drop-shadow-sm">

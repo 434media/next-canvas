@@ -27,7 +27,7 @@ function LogoHeader() {
   return (
     <header className="w-full flex flex-col items-center justify-center pt-2 pb-1 px-4 animate-in fade-in slide-in-from-top-8 duration-1000 z-20">
       <div
-        className="mt-12 md:mt-0 relative w-full max-w-2xl md:max-w-4xl aspect-3/1 scale-150 md:scale-100 cursor-pointer hover:scale-105 transition-transform duration-300 group"
+        className="mt-14 md:mt-0 relative w-full max-w-[500px] md:max-w-4xl aspect-3/1 scale-[1.8] md:scale-100 cursor-pointer hover:scale-105 transition-transform duration-300 group"
         onClick={() => togglePlay()}
       >
         <div
@@ -122,13 +122,15 @@ function ChristmasContent() {
                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-yellow-500/10 to-transparent opacity-50 animate-pulse" />
               </div>
             )}
+
             <h2 className="text-lg md:text-xl font-bold mb-2 bg-linear-to-r from-white via-white/80 to-white/50 bg-clip-text text-transparent">
               A Free Community Experience by <span className="font-menda-black block">434 MEDIA</span>
             </h2>
-            <p className="text-white/60 mb-3 text-xs md:text-sm leading-relaxed md:tracking-tighter tracking-normal">
+            <p className="text-white/60 mb-3 text-xs md:text-sm leading-relaxed md:tracking-tighter">
               A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders,
               gamers & grunts. If you belong to something, you belong.
             </p>
+
             <div className="flex flex-col gap-1.5 mb-4">
               <div className="flex items-center justify-center gap-2 text-[10px] md:text-xs text-balance tracking-tighter text-white/80">
                 <Ticket className="w-3 h-3 text-white/60 shrink-0" />
@@ -149,7 +151,7 @@ function ChristmasContent() {
               size="default"
               className="w-full bg-white text-black hover:bg-white/90 hover:scale-[1.02] transition-all duration-300 font-medium text-sm h-9 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.2)]"
             >
-              <Link href="/events/mxratmain/rsvp">
+              <Link href="/mxratmain/rsvp">
                 RSVP Now
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
