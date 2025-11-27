@@ -151,7 +151,7 @@ function ChristmasContent() {
               size="default"
               className="w-full bg-white text-black hover:bg-white/90 hover:scale-[1.02] transition-all duration-300 font-medium text-sm h-9 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.2)]"
             >
-              <Link href="/mxratmain/rsvp">
+              <Link href="/events/mxratmain/rsvp">
                 RSVP Now
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
