@@ -47,14 +47,14 @@ function LogoHeader() {
         </div>
       </div>
 
-      <div className="w-full max-w-md mt-1 md:-mt-6 flex flex-col items-center justify-center h-10">
+      <div className="w-full max-w-md mt-6 md:-mt-6 flex flex-col items-center justify-center h-14 md:h-10">
         {isPlaying ? (
           <div className="flex flex-col items-center w-full animate-in fade-in slide-in-from-top-2 duration-500">
-            <div className="flex items-end justify-center gap-1 h-5 w-full mb-1">
+            <div className="flex items-end justify-center gap-1.5 md:gap-1 h-8 md:h-5 w-full mb-1">
               {visualizerBars.map((height, i) => (
                 <div
                   key={i}
-                  className={`w-1 rounded-t-sm transition-all duration-100 ${
+                  className={`w-2 md:w-1 rounded-t-sm transition-all duration-100 ${
                     i % 3 === 0
                       ? "bg-red-500 shadow-[0_0_5px_rgba(239,68,68,0.5)]"
                       : i % 3 === 1

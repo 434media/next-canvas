@@ -75,8 +75,8 @@ export default function MxrAtMainRsvpPage() {
             transition={{ duration: 0.6 }}
             className="w-full text-center"
           >
-            <h1 className="font-menda-black flex flex-col items-center w-fit mx-auto mb-4 md:mb-6">
-              <span className="block text-[#c41e3a] text-[5.5rem] md:text-[8.9rem] leading-[0.9] tracking-tighter">
+            <h1 className="flex flex-col items-center w-fit mx-auto mb-4 md:mb-6 font-black">
+              <span className="block text-[#c41e3a] text-[5.5rem] md:text-[9.3rem] leading-[0.9] tracking-tighter">
                 MXR
               </span>
               <span className="block text-[#c41e3a] text-6xl md:text-8xl leading-[0.9] tracking-tighter -mt-2 md:-mt-4">
@@ -197,15 +197,15 @@ export default function MxrAtMainRsvpPage() {
         </div>
       </section>
 
-      <section className="relative w-full -mt-8 md:mt-0">
+      <section className="relative w-full -mt-10 md:mt-0 py-10 md:py-0">
         {/* Mobile Footer Image */}
-        <div className="md:hidden relative w-full py-8 bg-white">
-          <div className="relative w-full h-[45vh] flex items-center justify-center">
+        <div className="md:hidden relative w-full bg-white overflow-hidden">
+          <div className="relative w-full h-[75vh] flex items-center justify-center">
             <Image
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-mobile.jpg"
               alt="MXR@MAIN RSVP"
               fill
-              className="object-contain object-center scale-110"
+              className="object-contain object-center"
             />
 
             {/* Easter Egg Trigger */}
@@ -220,7 +220,7 @@ export default function MxrAtMainRsvpPage() {
 
         {/* Desktop Footer Image - fills more space */}
         <div className="hidden md:block relative w-full py-12 lg:py-16 bg-white">
-          <div className="relative w-full h-[70vh] lg:h-[75vh] flex items-center justify-center">
+          <div className="relative w-full h-[70vh] lg:h-[85vh] flex items-center justify-center">
             <Image
               src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-desktop.jpg"
               alt="MXR@MAIN RSVP"
