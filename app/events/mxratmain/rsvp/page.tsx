@@ -76,7 +76,7 @@ export default function MxrAtMainRsvpPage() {
             className="w-full text-center"
           >
             <h1 className="flex flex-col items-center w-fit mx-auto mb-4 md:mb-6 font-black">
-              <span className="block text-[#c41e3a] text-[5.5rem] md:text-[9.3rem] leading-[0.9] tracking-tighter">
+              <span className="block text-[#c41e3a] text-[5.8rem] md:text-[9.3rem] leading-[0.9] tracking-tighter">
                 MXR
               </span>
               <span className="block text-[#c41e3a] text-6xl md:text-8xl leading-[0.9] tracking-tighter -mt-2 md:-mt-4">

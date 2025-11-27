@@ -1,24 +1,49 @@
-"use client"
+import type { Metadata } from "next"
+import MxratmainClient from "@/components/mxratmain/mxratmain-client"
 
-import { useState, useCallback } from "react"
-import { DefaultHero } from "@/components/mxratmain/default-hero"
-import Mxr3dHero from "@/components/mxratmain/mxr3d-hero"
-import { OrnamentToggle } from "@/components/mxratmain/ornament-toggle"
+export const metadata: Metadata = {
+  title: "MXR @MAIN | Holiday Party by 434 Media",
+  description:
+    "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong. Dec 12, 2025 at 300 Main Rooftop.",
+  keywords: [
+    "MXR at Main",
+    "434 Media",
+    "Digital Canvas",
+    "holiday party",
+    "300 Main Rooftop",
+    "community event",
+  ],
+  authors: [{ name: "434 Media" }],
+  creator: "Digital Canvas",
+  openGraph: {
+    title: "MXR @MAIN | Holiday Party",
+    description:
+      "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Digital Canvas",
+    images: [
+      {
+        url: "/events/mxratmain/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "MXR @MAIN Holiday Party - December 12, 2025",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MXR @MAIN | Holiday Party by 434 Media",
+    description:
+      "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts.",
+    images: ["/events/mxratmain/opengraph-image"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
 
 export default function MxratmainPage() {
-  const [show3D, setShow3D] = useState(false)
-
-  const handleToggle3D = useCallback(() => {
-    setShow3D((prev) => !prev)
-  }, [])
-
-  return (
-    <div className="relative min-h-screen">
-      {/* Hero content - conditionally show 3D or default */}
-      {show3D ? <Mxr3dHero /> : <DefaultHero />}
-
-      {/* Ornament toggle button - bottom right */}
-      <OrnamentToggle isActive={show3D} onClick={handleToggle3D} />
-    </div>
-  )
+  return <MxratmainClient />
 }
