@@ -118,10 +118,10 @@ export function DefaultHero() {
             className="flex flex-col items-center"
           >
             <h1 className="font-black flex flex-col items-center mb-4 md:mb-6 lg:mb-8">
-              <span className="block text-[#c41e3a] text-[5.4rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15.6rem] leading-[0.9] tracking-tighter drop-shadow-sm">
+              <span className="block text-[#c41e3a] text-[7rem] md:text-[9rem] lg:text-[12rem] xl:text-[15.6rem] leading-[0.9] tracking-tighter drop-shadow-sm">
                 MXR
               </span>
-              <span className="block text-[#228b22] text-[3.5rem] sm:text-[4.5rem] md:text-[7rem] lg:text-[9rem] xl:text-[10rem] leading-[0.8] tracking-tighter -mt-2 md:-mt-4 lg:-mt-6 drop-shadow-sm">
+              <span className="block text-[#228b22] text-[4.5rem] md:text-[7rem] lg:text-[9rem] xl:text-[10rem] leading-[0.8] tracking-tighter -mt-2 md:-mt-4 lg:-mt-6 drop-shadow-sm">
                 @MAIN
               </span>
             </h1>
@@ -132,11 +132,11 @@ export function DefaultHero() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-col items-center gap-3 md:gap-4 mb-4 md:mb-6"
             >
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-black/80 leading-snug max-w-lg md:max-w-2xl font-semibold text-balance">
+              <p className="text-base md:text-lg lg:text-xl text-black/80 leading-snug max-w-lg md:max-w-2xl font-semibold text-balance">
                 A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders &
                 funders, gamers & grunts.
               </p>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-black/70 leading-snug font-bold">
+              <p className="text-base md:text-lg lg:text-xl text-black/70 leading-snug font-bold">
                 If you belong to something, you belong.
               </p>
             </motion.div>
@@ -149,7 +149,7 @@ export function DefaultHero() {
             >
               <Link
                 href="/events/mxratmain/rsvp"
-                className="group inline-flex items-center gap-2 md:gap-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-[#c41e3a] hover:text-[#228b22] transition-colors duration-300"
+                className="group inline-flex items-center gap-2 md:gap-3 text-3xl md:text-4xl lg:text-5xl font-black text-[#c41e3a] hover:text-[#228b22] transition-colors duration-300"
               >
                 <span className="relative">
                   RSVP
@@ -172,10 +172,10 @@ export function DefaultHero() {
               transition={{ duration: 0.6, delay: 0.7 }}
               className="flex flex-col items-center gap-1"
             >
-              <p className="text-[10px] sm:text-xs md:text-sm text-black/50 uppercase tracking-[0.2em] font-semibold">
+              <p className="text-xs md:text-sm text-black/50 uppercase tracking-[0.2em] font-semibold">
                 A free community experience by
               </p>
-              <p className="font-black text-sm sm:text-base md:text-lg text-black/80">434 MEDIA</p>
+              <p className="font-black text-base md:text-lg text-black/80">434 MEDIA</p>
             </motion.div>
           </motion.div>
         </div>
