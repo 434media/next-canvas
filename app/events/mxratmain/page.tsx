@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Digital Canvas",
     images: [
       {
-        url: "/events/mxratmain/opengraph-image",
+        url: "https://digitalcanvas.community/events/mxratmain/opengraph-image",
         width: 1200,
         height: 630,
         alt: "MXR @MAIN Holiday Party - December 12, 2025",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "MXR @MAIN | Holiday Party by 434 Media",
     description:
       "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts.",
-    images: ["/events/mxratmain/opengraph-image"],
+    images: ["https://digitalcanvas.community/events/mxratmain/opengraph-image"],
   },
   robots: {
     index: true,
