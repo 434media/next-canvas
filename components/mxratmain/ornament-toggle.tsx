@@ -14,17 +14,17 @@ export function OrnamentToggle({ isActive, onClick }: OrnamentToggleProps) {
       className="fixed bottom-6 right-6 z-50 group"
       aria-label={isActive ? "Show default view" : "Show 3D Christmas scene"}
     >
-      <div className="relative flex items-center justify-center">
-        {/* Circular glow behind ornament */}
+      <div className="relative flex items-center justify-center w-20 h-20">
         <div
-          className={`absolute w-20 h-20 rounded-full transition-all duration-500 ${
+          className={`absolute inset-0 rounded-full transition-all duration-500 ${
             isActive ? "bg-red-500/60 blur-xl animate-pulse" : "bg-green-500/40 blur-xl group-hover:bg-green-500/60"
           }`}
-          style={{ transform: "translate(-50%, -50%)", top: "50%", left: "50%" }}
         />
 
         {/* Ornament image */}
-        <div className={`relative w-16 h-20 transition-all duration-500 ${isActive ? "scale-110" : "hover:scale-105"}`}>
+        <div
+          className={`relative w-16 h-20 transition-all duration-500 z-10 ${isActive ? "scale-110" : "hover:scale-105"}`}
+        >
           <Image
             src="https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-vv.png"
             alt="Christmas ornament"
