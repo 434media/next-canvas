@@ -2,11 +2,13 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { motion } from "motion/react"
 import { Check, Loader2 } from "lucide-react"
 import YouTubeModal from "@/components/youtube-modal"
+
+const isDevelopment = process.env.NODE_ENV === "development"
 
 export default function MxrAtMainRsvpPage() {
   const [formData, setFormData] = useState({
@@ -18,6 +20,49 @@ export default function MxrAtMainRsvpPage() {
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState("")
   const [isEasterEggOpen, setIsEasterEggOpen] = useState(false)
+  const turnstileRef = useRef<HTMLDivElement>(null)
+  const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
+
+  // Load Turnstile script
+  useEffect(() => {
+    if (isDevelopment || turnstileWidget) return
+
+    const loadTurnstile = () => {
+      if (document.getElementById("turnstile-script")) return
+
+      const script = document.createElement("script")
+      script.id = "turnstile-script"
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+      script.async = true
+      script.defer = true
+      document.body.appendChild(script)
+
+      script.onload = () => {
+        if (typeof window !== "undefined" && (window as any).turnstile && turnstileRef.current) {
+          const widgetId = (window as any).turnstile.render(turnstileRef.current, {
+            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+            callback: () => {
+              // Token received, no action needed here
+            },
+          })
+          setTurnstileWidget(widgetId)
+        }
+      }
+    }
+
+    loadTurnstile()
+
+    return () => {
+      // Clean up widget when component unmounts
+      if (turnstileWidget && typeof window !== "undefined" && (window as any).turnstile) {
+        try {
+          ;(window as any).turnstile.reset(turnstileWidget)
+        } catch (error) {
+          console.error("Error resetting Turnstile widget:", error)
+        }
+      }
+    }
+  }, [turnstileWidget])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -25,10 +70,24 @@ export default function MxrAtMainRsvpPage() {
     setError("")
 
     try {
+      let turnstileResponse = undefined
+
+      if (!isDevelopment) {
+        if (typeof window === "undefined" || !(window as any).turnstile || !turnstileWidget) {
+          throw new Error("Security verification not loaded. Please refresh and try again.")
+        }
+
+        turnstileResponse = (window as any).turnstile.getResponse(turnstileWidget)
+        if (!turnstileResponse) {
+          throw new Error("Please complete the security verification")
+        }
+      }
+
       const response = await fetch("/api/christmas-rsvp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...(turnstileResponse && { "cf-turnstile-response": turnstileResponse }),
         },
         body: JSON.stringify(formData),
       })
@@ -38,8 +97,13 @@ export default function MxrAtMainRsvpPage() {
       }
 
       setIsSuccess(true)
+
+      // Reset Turnstile if needed
+      if (!isDevelopment && turnstileWidget && typeof window !== "undefined" && (window as any).turnstile) {
+        ;(window as any).turnstile.reset(turnstileWidget)
+      }
     } catch (err) {
-      setError("Something went wrong. Please try again.")
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -175,6 +239,16 @@ export default function MxrAtMainRsvpPage() {
                   </div>
 
                   {error && <div className="text-[#c41e3a] text-sm font-medium text-center">{error}</div>}
+
+                  {!isDevelopment && (
+                    <div
+                      ref={turnstileRef}
+                      data-theme="light"
+                      data-size="flexible"
+                      className="w-full flex justify-center"
+                      aria-label="Security verification"
+                    />
+                  )}
 
                   <button
                     type="submit"

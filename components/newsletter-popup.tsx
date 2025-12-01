@@ -174,8 +174,8 @@ export default function NewsletterPopup({ showModal, onClose }: NewsletterPopupP
 
           <div className="flex flex-col lg:flex-row min-h-[600px] md:min-h-[700px]">
             {/* Left Side - Visual Content */}
-            <div className="lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-neutral-500 to-neutral-600">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 z-10" />
+            <div className="lg:w-1/2 relative overflow-hidden bg-linear-to-br from-neutral-500 to-neutral-600">
+              <div className="absolute inset-0 bg-linear-to-r from-transparent to-black/10 z-10" />
               <Image
                 src="https://ampd-asset.s3.us-east-2.amazonaws.com/dc-popup.jpg"
                 alt="Creative team walking in the historic district of downtown Brownsville, TX"
