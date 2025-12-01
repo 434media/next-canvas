@@ -19,13 +19,13 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full aspect-[4/5] border-4 border-black overflow-hidden bg-gray-100 md:hidden"
+        className="relative w-full aspect-4/5 order-4 border-black overflow-hidden bg-gray-100 md:hidden"
       >
         <Image
           src={content.heroImage.mobile || "/placeholder.svg"}
           alt="Newsletter hero"
           fill
-          className="object-cover"
+          className="object-contain"
           priority
         />
       </motion.div>
@@ -35,13 +35,13 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full aspect-[16/9] md:max-w-6xl md:mx-auto border-4 border-black overflow-hidden bg-gray-100 hidden md:block"
+        className="relative w-full aspect-video md:max-w-7xl md:mx-auto overflow-hidden hidden md:block"
       >
         <Image
           src={content.heroImage.desktop || "/placeholder.svg"}
           alt="Newsletter hero"
           fill
-          className="object-cover"
+          className="object-contain"
           priority
         />
       </motion.div>
@@ -53,7 +53,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="border-4 border-black p-6 md:p-8 lg:p-12 bg-white relative"
       >
-        <h2 className="text-2xl md:text-3xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight mb-8 border-b-4 border-black pb-4">
+        <h2 className="text-2xl md:text-3xl font-bold font-menda-black uppercase tracking-tight mb-8 border-b-4 border-black pb-4">
           Founder's Note
         </h2>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12">
@@ -63,7 +63,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
               dangerouslySetInnerHTML={{ __html: content.foundersNote.text }}
             />
           </div>
-          <div className="relative aspect-[4/5] border-4 border-black overflow-visible bg-gray-100">
+          <div className="relative aspect-4/5 border-4 border-black overflow-visible bg-gray-100">
             <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
               animate={{ opacity: 1, scale: 1, rotate: -8 }}
@@ -94,7 +94,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         transition={{ duration: 0.6, delay: 0.3 }}
         className="space-y-8"
       >
-        <div className="relative w-full aspect-[3/1] border-4 border-black overflow-hidden bg-gray-100">
+        <div className="relative w-full aspect-3/1 border-4 border-black overflow-hidden bg-gray-100">
           <Image
             src={content.lastMonthGif || "/placeholder.svg"}
             alt="Last month in motion"
@@ -120,7 +120,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
               }`}
             >
               <div
-                className={`relative aspect-[4/5] border-4 border-black overflow-hidden bg-gray-100 ${
+                className={`relative aspect-4/5 border-4 border-black overflow-hidden bg-gray-100 ${
                   index % 2 === 1 ? "md:col-start-2" : ""
                 }`}
               >
@@ -132,7 +132,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
                 />
               </div>
               <div className="flex flex-col justify-center space-y-4">
-                <h3 className="text-xl md:text-2xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight">
+                <h3 className="text-xl md:text-2xl font-bold font-menda-black uppercase tracking-tight">
                   {spotlight.title}
                 </h3>
                 <div
@@ -161,7 +161,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         transition={{ duration: 0.6, delay: 0.7 }}
         className="border-4 border-black bg-white overflow-hidden"
       >
-        <div className="relative w-full aspect-[2/1] bg-gray-100">
+        <div className="relative w-full aspect-2/1 bg-gray-100">
           <Image
             src={content.featuredPost.image || "/placeholder.svg"}
             alt={content.featuredPost.title}
@@ -170,7 +170,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
           />
         </div>
         <div className="p-6 md:p-8 lg:p-12 space-y-6">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight border-b-4 border-black pb-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-menda-black uppercase tracking-tight border-b-4 border-black pb-4">
             {content.featuredPost.title}
           </h2>
           <div
@@ -187,7 +187,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         transition={{ duration: 0.6, delay: 0.8 }}
         className="space-y-8"
       >
-        <div className="relative w-full aspect-[3/1] border-4 border-black overflow-hidden bg-gray-100">
+        <div className="relative w-full aspect-3/1 border-4 border-black overflow-hidden bg-gray-100">
           <Image src={content.theDropGif || "/placeholder.svg"} alt="The Drop" fill className="object-cover" unoptimized />
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
             <span className="sr-only">The Drop</span>
@@ -210,7 +210,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             />
           </motion.div>
 
-          <div className="relative aspect-[4/5] bg-gray-800">
+          <div className="relative aspect-4/5 bg-gray-800">
             <Image
               src={content.upcomingEvent.image || "/placeholder.svg"}
               alt={content.upcomingEvent.title}
@@ -219,10 +219,13 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             />
           </div>
           <div className="flex flex-col justify-center p-6 md:p-8 space-y-6">
-            <h3 className="text-2xl md:text-3xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tighter text-balance">
+            <h3 className="text-2xl md:text-3xl font-bold font-menda-black uppercase tracking-tighter text-balance">
               {content.upcomingEvent.title}
             </h3>
-            <p className="text-base leading-relaxed text-gray-200">{content.upcomingEvent.description}</p>
+            <div
+              className="text-base leading-relaxed text-gray-200 prose prose-invert max-w-none [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-white"
+              dangerouslySetInnerHTML={{ __html: content.upcomingEvent.description }}
+            />
             <Link
               href={content.upcomingEvent.ctaLink}
               target="_blank"

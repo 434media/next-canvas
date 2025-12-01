@@ -43,7 +43,7 @@ export default function FeedDetailClientPage({ item }: ClientPageProps) {
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-menda-black)] uppercase tracking-tight mb-6 text-balance">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-menda-black uppercase tracking-tight mb-6 text-balance">
             {item.title}
           </h1>
 
@@ -217,12 +217,12 @@ function NewsletterFooterCTA() {
                 </svg>
               </div>
             </div>
-            <h2 className="text-2xl font-bold mb-2 font-[family-name:var(--font-menda-black)] uppercase">Subscribed</h2>
+            <h2 className="text-2xl font-bold mb-2 font-menda-black uppercase">Subscribed</h2>
             <p className="text-sm uppercase tracking-wider font-mono">Check your inbox</p>
           </div>
         ) : (
           <div className="max-w-md mx-auto">
-            <h2 className="text-2xl font-bold mb-4 font-[family-name:var(--font-menda-black)] uppercase text-center">
+            <h2 className="text-2xl font-bold mb-4 font-menda-black uppercase text-center">
               Stay Updated
             </h2>
             <p className="mb-6 text-center text-sm tracking-tight md:tracking-normal">

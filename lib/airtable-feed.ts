@@ -145,7 +145,7 @@ function transformAirtableRecord(record: AirtableRecord): FeedItem {
     theDropGif: getImageUrl(fields.the_drop_gif),
     upcomingEvent: {
       title: fields.upcoming_event_title || '',
-      description: fields.upcoming_event_description || '',
+      description: convertMarkdownToHtml(fields.upcoming_event_description || ''),
       image: getImageUrl(fields.upcoming_event_image),
       ctaText: fields.upcoming_event_cta_text || 'Learn More',
       ctaLink: fields.upcoming_event_cta_link || '#'
