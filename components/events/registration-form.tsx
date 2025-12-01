@@ -128,7 +128,7 @@ const RegistrationForm = () => {
                   <div className="relative mb-2 h-6 flex justify-end">
                     {plan.badge && (
                       <motion.div
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg mr-2"
+                        className="bg-linear-to-r from-purple-500 to-pink-500 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg mr-2"
                         initial={{ scale: 0, rotate: -10 }}
                         animate={{ scale: 1, rotate: 0 }}
                         transition={{ delay: index * 0.1 + 0.3, type: "spring", stiffness: 200 }}
@@ -153,7 +153,7 @@ const RegistrationForm = () => {
 
                     {plan.popular && (
                       <motion.div
-                        className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg"
+                        className="bg-linear-to-r from-blue-500 to-cyan-500 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg"
                         initial={{ scale: 0, rotate: 10 }}
                         animate={{ scale: 1, rotate: 0 }}
                         transition={{ delay: index * 0.1 + 0.3, type: "spring", stiffness: 200 }}
@@ -181,7 +181,7 @@ const RegistrationForm = () => {
                   <motion.div
                     className={`relative p-5 rounded-xl border-2 cursor-pointer transition-all duration-500 overflow-hidden ${
                       selectedPlan === plan.id
-                        ? `border-transparent bg-gradient-to-r ${plan.gradient} shadow-2xl`
+                        ? `border-transparent bg-linear-to-r ${plan.gradient} shadow-2xl`
                         : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
                     }`}
                     onClick={() => handlePlanSelect(plan.id)}
@@ -198,7 +198,7 @@ const RegistrationForm = () => {
                     {selectedPlan === plan.id && (
                       <>
                         <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5"
+                          className="absolute inset-0 bg-linear-to-r from-white/10 to-white/5"
                           animate={{
                             backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                           }}

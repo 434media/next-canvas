@@ -107,7 +107,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
             <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10">
               <div className="flex items-center space-x-4">
                 <motion.div
-                  className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center"
+                  className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center"
                   animate={{
                     boxShadow: [
                       "0 0 0 rgba(59, 130, 246, 0)",
@@ -165,7 +165,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
             </div>
 
             {/* Footer */}
-            <div className="p-4 sm:p-6 bg-gradient-to-r from-neutral-900/50 to-neutral-800/50">
+            <div className="p-4 sm:p-6 bg-linear-to-r from-neutral-900/50 to-neutral-800/50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <Image

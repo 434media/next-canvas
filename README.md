@@ -1,7 +1,5 @@
 # Digital Canvas
 
-Welcome to Digital Canvas, the creative layer of **434 MEDIA**! This modern Next.js application serves as a hub connecting our IP & client work, showcasing the stories, brands, and campaigns shaping the 434 network. From innovative properties to transformative partnerships, Digital Canvas represents the intersection of creativity and community impact.
-
 ## 🎯 Overview
 
 Digital Canvas features:

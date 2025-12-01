@@ -38,7 +38,7 @@ const HeroSection = () => {
     <>
       <motion.section
         ref={containerRef}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-br from-neutral-900 via-neutral-800 to-neutral-900"
         style={{ opacity, scale }}
       >
         {/* Top padding to prevent navbar overlap */}
@@ -70,7 +70,7 @@ const HeroSection = () => {
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/60 via-purple-500/60 to-teal-500/60 blur-2xl animate-pulse" />
+            <div className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/60 via-purple-500/60 to-teal-500/60 blur-2xl animate-pulse" />
           </motion.div>
 
           {/* Expanding Ring Waves - Much More Dramatic */}
@@ -109,7 +109,7 @@ const HeroSection = () => {
 
           {/* Pulsing Background Circle - More Intense */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-teal-500/30"
+            className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/30 via-purple-500/30 to-teal-500/30"
             initial={{ scale: 0.9, opacity: 0 }}
             whileHover={{
               scale: [0.9, 1.4, 1.2],
@@ -187,7 +187,7 @@ const HeroSection = () => {
             whileHover={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-white/40 shadow-2xl">
+            <div className="bg-linear-to-r from-blue-500 to-purple-600 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-white/40 shadow-2xl">
               <div className="flex items-center space-x-2">
                 <motion.i
                   className="ri-play-circle-line text-white text-lg"
@@ -208,7 +208,7 @@ const HeroSection = () => {
           {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full pointer-events-none"
+              className="absolute w-2 h-2 bg-linear-to-r from-blue-400 to-purple-400 rounded-full pointer-events-none"
               style={{
                 left: `${50 + Math.cos((i * Math.PI * 2) / 8) * 80}%`,
                 top: `${50 + Math.sin((i * Math.PI * 2) / 8) * 80}%`,
@@ -285,7 +285,7 @@ const HeroSection = () => {
             {[...Array(3)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute h-px bg-gradient-to-r from-transparent via-blue-400/40 to-transparent"
+                className="absolute h-px bg-linear-to-r from-transparent via-blue-400/40 to-transparent"
                 style={{
                   top: `${30 + i * 20}%`,
                   left: "10%",

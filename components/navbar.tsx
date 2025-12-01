@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { motion, useScroll, useTransform } from "motion/react"
 import { Menu } from "lucide-react"
 import SlideoverMenu from "./slideover-menu"
@@ -11,6 +12,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { scrollY } = useScroll()
+  const pathname = usePathname()
+  const isChristmasPage = pathname === "/events/mxratmain"
 
   const navbarOpacity = useTransform(scrollY, [0, 50], [0.85, 0.98])
   const backgroundOpacity = useTransform(scrollY, [0, 50], [0, 0.95])
@@ -29,33 +32,36 @@ const Navbar = () => {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-40 ${isScrolled ? "backdrop-blur-xl" : "backdrop-blur-md"}`}
       >
-        <div className="absolute inset-0 bg-white/20">
-          <div
-            className="absolute inset-0 opacity-5"
-            style={{
-              backgroundImage: `radial-gradient(circle, black 1px, transparent 1px)`,
-              backgroundSize: "20px 20px",
-            }}
-          />
-        </div>
+        {!isChristmasPage && (
+          <div className="absolute inset-0 bg-white/20">
+            <div
+              className="absolute inset-0 opacity-5"
+              style={{
+                backgroundImage: `radial-gradient(circle, black 1px, transparent 1px)`,
+                backgroundSize: "20px 20px",
+              }}
+            />
+          </div>
+        )}
 
         <motion.div
-          className="absolute inset-0 bg-white/30"
+          className={`absolute inset-0 ${isChristmasPage ? "bg-black" : "bg-white/30"}`}
           style={{
             opacity: backgroundOpacity,
           }}
         />
 
         <motion.nav
-          className="relative border-b-4 border-black"
+          className={`relative ${isChristmasPage ? "border-b-2" : "border-b-4 border-black"}`}
           style={{
-            background: `rgba(255, 255, 255, 0.1)`,
+            background: isChristmasPage ? `#000000` : `rgba(255, 255, 255, 0.1)`,
+            borderImage: isChristmasPage ? "linear-gradient(to right, #c41e3a, #228b22) 1" : "none",
           }}
         >
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex justify-between items-center py-3">
               <motion.div
-                className="flex-shrink-0 relative group"
+                className="shrink-0 relative group"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
               >
@@ -82,7 +88,10 @@ const Navbar = () => {
               <div className="flex-1"></div>
 
               <motion.button
-                onClick={() => setIsMenuOpen(true)}
+                onClick={() => {
+                  setIsMenuOpen(true)
+                  window.dispatchEvent(new CustomEvent("navbar-menu-toggle", { detail: { isOpen: true } }))
+                }}
                 className="transition-colors duration-300 relative group bg-black border border-white p-2 transform hover:rotate-1 shadow-lg"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -101,7 +110,13 @@ const Navbar = () => {
         </motion.nav>
       </motion.header>
 
-      <SlideoverMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <SlideoverMenu
+        isOpen={isMenuOpen}
+        onClose={() => {
+          setIsMenuOpen(false)
+          window.dispatchEvent(new CustomEvent("navbar-menu-toggle", { detail: { isOpen: false } }))
+        }}
+      />
     </>
   )
 }

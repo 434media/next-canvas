@@ -1,0 +1,238 @@
+/* Hood Kid Good Kid Workshop Styles */
+
+/* View Transitions - Fast and Dramatic */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(hero-content),
+::view-transition-new(hero-content) {
+  animation-duration: 0.4s;
+}
+
+::view-transition-old(section-content),
+::view-transition-new(section-content) {
+  animation-duration: 0.35s;
+}
+
+/* Distressed Typography Effect */
+.distressed-text {
+  position: relative;
+  display: inline-block;
+}
+
+.distressed-text::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  transform: translate(2px, 2px);
+  mix-blend-mode: multiply;
+}
+
+/* Canvas Texture Background */
+.canvas-texture {
+  background-image: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.03) 0px,
+      rgba(0, 0, 0, 0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 2px);
+  background-size: 2px 2px;
+}
+
+/* Brush Stroke Background */
+.brush-stroke-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.brush-stroke-bg::before {
+  content: "";
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  right: -5%;
+  bottom: -5%;
+  background: currentColor;
+  transform: rotate(-1deg);
+  z-index: -1;
+}
+
+/* Collage Image Effect */
+.collage-image {
+  position: relative;
+  overflow: hidden;
+  transform: rotate(var(--rotation, 0deg));
+  transition: transform 0.3s ease;
+}
+
+.collage-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  pointer-events: none;
+}
+
+.collage-image:hover {
+  transform: rotate(var(--rotation, 0deg)) scale(1.05);
+}
+
+/* Neon Glow Effect for Hood Kid Mode */
+.neon-glow {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  animation: neon-flicker 3s infinite;
+}
+
+@keyframes neon-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  75% {
+    opacity: 1;
+  }
+}
+
+/* Graffiti-style underline */
+.graffiti-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.graffiti-underline::after {
+  content: "";
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  bottom: -5px;
+  height: 8px;
+  background: currentColor;
+  transform: scaleX(0) rotate(-1deg);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.graffiti-underline:hover::after {
+  transform: scaleX(1) rotate(-1deg);
+}
+
+/* Layered Shadow for Depth */
+.layered-shadow {
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2), 8px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Sticker Effect */
+.sticker {
+  position: relative;
+  border: 3px solid currentColor;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: rotate(var(--sticker-rotation, 0deg));
+}
+
+/* Mixtape Animation */
+.mixtape-flip {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mixtape-flip.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Pop Art Circles */
+.pop-circles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pop-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* Torn Paper Edge Effect */
+.torn-edge {
+  position: relative;
+}
+
+.torn-edge::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: repeating-linear-gradient(90deg, transparent, transparent 5px, currentColor 5px, currentColor 10px);
+  clip-path: polygon(
+    0 0,
+    5% 100%,
+    10% 0,
+    15% 100%,
+    20% 0,
+    25% 100%,
+    30% 0,
+    35% 100%,
+    40% 0,
+    45% 100%,
+    50% 0,
+    55% 100%,
+    60% 0,
+    65% 100%,
+    70% 0,
+    75% 100%,
+    80% 0,
+    85% 100%,
+    90% 0,
+    95% 100%,
+    100% 0
+  );
+}
+
+/* Scatter Animation */
+@keyframes scatter {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--scatter-x, 0), var(--scatter-y, 0)) rotate(var(--scatter-rotation, 0deg));
+    opacity: 1;
+  }
+}
+
+.scatter-in {
+  animation: scatter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
