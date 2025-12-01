@@ -195,7 +195,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         </div>
 
         {/* Upcoming Event CTA */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 border-4 border-black bg-black text-white overflow-visible relative">
+        <div className="border-4 border-black bg-black text-white overflow-visible relative">
           <motion.div
             initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
             animate={{ opacity: 1, scale: 1, rotate: 12 }}
@@ -210,31 +210,68 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             />
           </motion.div>
 
-          <div className="relative aspect-4/5 bg-gray-800">
-            <Image
-              src={content.upcomingEvent.image || "/placeholder.svg"}
-              alt={content.upcomingEvent.title}
-              fill
-              className="object-cover"
-            />
+          {/* Mobile Layout - Vertical stack like spotlight */}
+          <div className="md:hidden">
+            {/* Mobile Image - 4:5 aspect ratio */}
+            <div className="relative aspect-4/5 bg-gray-800">
+              <Image
+                src={content.upcomingEvent.image.mobile || "/placeholder.svg"}
+                alt={content.upcomingEvent.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            <div className="flex flex-col justify-center p-6 space-y-4">
+              <h3 className="text-xl md:text-2xl font-bold font-menda-black uppercase tracking-tight">
+                {content.upcomingEvent.title}
+              </h3>
+              <div
+                className="text-base leading-relaxed text-gray-200 prose prose-invert max-w-none [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-white"
+                dangerouslySetInnerHTML={{ __html: content.upcomingEvent.description }}
+              />
+              <Link
+                href={content.upcomingEvent.ctaLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-200 transition-colors w-fit border-2 border-white group"
+              >
+                {content.upcomingEvent.ctaText}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
-          <div className="flex flex-col justify-center p-6 md:p-8 space-y-6">
-            <h3 className="text-2xl md:text-3xl font-bold font-menda-black uppercase tracking-tighter text-balance">
-              {content.upcomingEvent.title}
-            </h3>
-            <div
-              className="text-base leading-relaxed text-gray-200 prose prose-invert max-w-none [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-white"
-              dangerouslySetInnerHTML={{ __html: content.upcomingEvent.description }}
-            />
-            <Link
-              href={content.upcomingEvent.ctaLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-200 transition-colors w-fit border-2 border-white group"
-            >
-              {content.upcomingEvent.ctaText}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+
+          {/* Desktop Layout - Image on top, content below */}
+          <div className="hidden md:block">
+            {/* Desktop Image - video aspect ratio */}
+            <div className="relative aspect-video bg-gray-800">
+              <Image
+                src={content.upcomingEvent.image.desktop || "/placeholder.svg"}
+                alt={content.upcomingEvent.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            <div className="p-6 md:p-8 lg:p-12 space-y-6">
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold font-menda-black uppercase tracking-tight border-b-4 border-white pb-4">
+                {content.upcomingEvent.title}
+              </h3>
+              <div
+                className="text-base leading-relaxed text-gray-200 prose prose-invert max-w-none [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-white"
+                dangerouslySetInnerHTML={{ __html: content.upcomingEvent.description }}
+              />
+              <Link
+                href={content.upcomingEvent.ctaLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-200 transition-colors w-fit border-2 border-white group"
+              >
+                {content.upcomingEvent.ctaText}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
         </div>
       </motion.section>

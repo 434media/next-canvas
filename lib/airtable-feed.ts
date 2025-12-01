@@ -61,7 +61,12 @@ interface AirtableRecord {
     // Upcoming event
     upcoming_event_title?: string
     upcoming_event_description?: string
-    upcoming_event_image?: AirtableAttachment[]
+    upcoming_event_image_desktop?: AirtableAttachment[]
+    upcoming_event_image_mobile?: AirtableAttachment[]
+    'upcoming-event-image-desktop'?: AirtableAttachment[]
+    'upcoming-event-image-mobile'?: AirtableAttachment[]
+    'Upcoming Event Image Desktop'?: AirtableAttachment[]
+    'Upcoming Event Image Mobile'?: AirtableAttachment[]
     upcoming_event_cta_text?: string
     upcoming_event_cta_link?: string
 
@@ -125,6 +130,22 @@ function transformSpotlights(fields: AirtableRecord['fields']): NewsletterSpotli
 function transformAirtableRecord(record: AirtableRecord): FeedItem {
   const fields = record.fields
   
+  // Debug logging - log all field names for upcoming event
+  if (fields.type === 'newsletter') {
+    console.log('All fields:', Object.keys(fields).filter(key => key.toLowerCase().includes('upcoming')))
+  }
+  
+  // Try multiple possible field name variations
+  const desktopImage = fields.upcoming_event_image_desktop || 
+                       fields['upcoming-event-image-desktop'] || 
+                       fields['Upcoming Event Image Desktop']
+  const mobileImage = fields.upcoming_event_image_mobile || 
+                      fields['upcoming-event-image-mobile'] || 
+                      fields['Upcoming Event Image Mobile']
+  
+  console.log('Desktop Image After Check:', desktopImage)
+  console.log('Mobile Image After Check:', mobileImage)
+  
   // Create newsletter content if this is a newsletter type
   const newsletterContent: NewsletterContent | undefined = fields.type === 'newsletter' ? {
     heroImage: {
@@ -146,7 +167,10 @@ function transformAirtableRecord(record: AirtableRecord): FeedItem {
     upcomingEvent: {
       title: fields.upcoming_event_title || '',
       description: convertMarkdownToHtml(fields.upcoming_event_description || ''),
-      image: getImageUrl(fields.upcoming_event_image),
+      image: {
+        desktop: getImageUrl(desktopImage),
+        mobile: getImageUrl(mobileImage),
+      },
       ctaText: fields.upcoming_event_cta_text || 'Learn More',
       ctaLink: fields.upcoming_event_cta_link || '#'
     }

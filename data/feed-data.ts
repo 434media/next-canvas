@@ -26,7 +26,10 @@ export interface NewsletterContent {
   upcomingEvent: {
     title: string
     description: string
-    image: string
+    image: {
+      desktop: string
+      mobile: string
+    }
     ctaText: string
     ctaLink: string
   }
@@ -104,7 +107,10 @@ export const feedItems: FeedItem[] = [
         title: "AIM 2025 Health R&D Summit",
         description:
           "Never miss a meetup. Explore our new community events page. Events are added weekly so check back often!",
-        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/aim-group.jpg",
+        image: {
+          desktop: "https://ampd-asset.s3.us-east-2.amazonaws.com/aim-group.jpg",
+          mobile: "https://ampd-asset.s3.us-east-2.amazonaws.com/aim-group.jpg",
+        },
         ctaText: "Explore Events",
         ctaLink: "https://www.434media.com/events",
       },
@@ -169,7 +175,10 @@ export const feedItems: FeedItem[] = [
         title: "The First Python Conference in San Antonio",
         description:
           "Alamo Python, the PyTexas Foundation, and DEVSA are excited to activate the first-ever Python conference in San Antonio!",
-        image: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/flyers-11-python.png",
+        image: {
+          desktop: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/flyers-11-python.png",
+          mobile: "https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/flyers-11-python.png",
+        },
         ctaText: "Explore Events",
         ctaLink: "https://www.434media.com/events",
       },
