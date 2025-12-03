@@ -55,11 +55,6 @@ next-canvas/
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- Git
-
 ### Local Development
 
 1. **Clone the repository:**
