@@ -35,26 +35,6 @@ next-canvas/
 └── fonts/                       # Local fonts
 ```
 
-## 🔗 Integrations
-
-### Airtable Integration
-- **Base**: `thefeeds` with multiple brand tables
-- **Tables**: `thefeed`, `8count`, `434blog`, `culturedeck`
-- **Features**: Newsletter content, rich text (Markdown), image attachments
-- **Fallback**: Static data when Airtable is unavailable
-
-### Newsletter System
-- **Mailchimp**: Email subscription management
-- **Cloudflare Turnstile**: Bot protection
-- **Rich Text**: Markdown to HTML conversion for formatted content
-
-### Performance & SEO
-- **Next.js Image Optimization**: With Airtable CDN support
-- **Metadata Generation**: Dynamic social media previews
-- **Static Generation**: ISR for optimal performance
-
-## 🚀 Getting Started
-
 ### Local Development
 
 1. **Clone the repository:**
