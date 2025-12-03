@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "MXR @MAIN",
     images: [
       {
-        url: 'https://www.digitalcanvas.community/events/mxratmain/opengraph-image.png',
+        url: '/events/mxratmain/opengraph-image.png',
         width: 1200,
         height: 630,
         alt: 'MXR @MAIN - Holiday Party by 434 Media',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "MXR @MAIN | Holiday Party by 434 Media",
     description:
       "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts.",
-    images: ['https://www.digitalcanvas.community/events/mxratmain/opengraph-image.png'],
+    images: ['/events/mxratmain/opengraph-image.png'],
     creator: "@digitalcanvas",
   },
   robots: {
@@ -111,7 +111,7 @@ export default function MxratmainLayout({
         url: "https://434media.com/",
       },
     ],
-    image: `${siteUrl}/events/mxratmain/opengraph-image.png`,
+    image: "/events/mxratmain/opengraph-image.png",
   }
 
   return (
