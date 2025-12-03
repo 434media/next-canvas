@@ -48,54 +48,11 @@ export default async function Image() {
       >
         {/* Digital Canvas Logo */}
         <img
-          width="120"
-          height="120"
+          width="300"
+          height="300"
           src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
-          style={{
-            marginBottom: 30,
-            filter: "invert(1)",
-          }}
+          style={{ filter: "invert(1)" }}
         />
-
-        {/* Logo text */}
-        <div
-          style={{
-            fontSize: 120,
-            fontWeight: 900,
-            letterSpacing: "-0.05em",
-            color: "#ffffff",
-            textAlign: "center",
-            lineHeight: 1,
-          }}
-        >
-          DIGITAL
-        </div>
-        <div
-          style={{
-            fontSize: 120,
-            fontWeight: 900,
-            letterSpacing: "-0.05em",
-            color: "#ffffff",
-            textAlign: "center",
-            lineHeight: 1,
-            marginTop: -10,
-          }}
-        >
-          CANVAS
-        </div>
-
-        {/* Tagline */}
-        <div
-          style={{
-            fontSize: 28,
-            color: "#888888",
-            marginTop: 30,
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-          }}
-        >
-          The Creative Layer
-        </div>
       </div>
 
       {/* Bottom accent line */}

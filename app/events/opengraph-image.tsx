@@ -57,50 +57,11 @@ export default async function Image() {
       >
         {/* Digital Canvas Logo */}
         <img
-          width="80"
-          height="80"
+          width="300"
+          height="300"
           src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
-          style={{ marginBottom: 30, filter: "invert(1)" }}
+          style={{ filter: "invert(1)" }}
         />
-
-        {/* Badge */}
-        <div
-          style={{
-            fontSize: 16,
-            color: "#888888",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            marginBottom: 20,
-          }}
-        >
-          Digital Canvas
-        </div>
-
-        {/* Main title */}
-        <div
-          style={{
-            fontSize: 140,
-            fontWeight: 900,
-            letterSpacing: "-0.05em",
-            color: "#ffffff",
-            textAlign: "center",
-            lineHeight: 1,
-          }}
-        >
-          EVENTS
-        </div>
-
-        {/* Subtitle */}
-        <div
-          style={{
-            fontSize: 26,
-            color: "#888888",
-            marginTop: 30,
-            textAlign: "center",
-          }}
-        >
-          Community experiences and gatherings
-        </div>
       </div>
 
       {/* Decorative lines */}

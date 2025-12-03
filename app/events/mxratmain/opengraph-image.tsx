@@ -83,70 +83,10 @@ export default async function Image() {
       >
         {/* Digital Canvas Logo */}
         <img
-          width="70"
-          height="70"
+          width="300"
+          height="300"
           src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
-          style={{ marginBottom: 20 }}
         />
-
-        {/* Event type badge */}
-        <div
-          style={{
-            fontSize: 18,
-            color: "#228b22",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            marginBottom: 20,
-            fontWeight: 600,
-          }}
-        >
-          Christmas Party 2024
-        </div>
-
-        {/* MXR text */}
-        <div
-          style={{
-            fontSize: 160,
-            fontWeight: 900,
-            letterSpacing: "-0.05em",
-            color: "#c41e3a",
-            textAlign: "center",
-            lineHeight: 0.85,
-          }}
-        >
-          MXR
-        </div>
-
-        {/* @MAIN text */}
-        <div
-          style={{
-            fontSize: 100,
-            fontWeight: 900,
-            letterSpacing: "-0.03em",
-            color: "#228b22",
-            textAlign: "center",
-            lineHeight: 1,
-            marginTop: -10,
-          }}
-        >
-          @MAIN
-        </div>
-
-        {/* Date and location */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 20,
-            marginTop: 30,
-            fontSize: 22,
-            color: "#666666",
-          }}
-        >
-          <span>December 19, 2024</span>
-          <span style={{ color: "#c41e3a" }}>•</span>
-          <span>San Antonio, TX</span>
-        </div>
       </div>
 
       {/* Bottom ribbon accent */}
