@@ -99,9 +99,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="image" property="og:image" content={`${siteUrl}/opengraph-image.png`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -112,7 +109,7 @@ export default function RootLayout({
               alternateName: "434 MEDIA Digital Canvas",
               description:
                 "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network. From innovative properties to transformative partnerships.",
-              url: "https://digitalcanvas.community",
+              url: siteUrl,
               logo: "https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg",
               foundingDate: "2020",
               parentOrganization: {

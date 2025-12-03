@@ -1,3 +1,4 @@
+import type React from "react"
 import type { Metadata } from "next"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.community"
@@ -70,7 +71,7 @@ export default function MxratmainLayout({
     "@type": "Event",
     name: "MXR @MAIN | Holiday Party by 434 MEDIA",
     description:
-      "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong. Dec 8, 2025 at Geekdom, San Antonio, TX.",
+      "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong. Dec 12, 2025 at 300 Main Rooftop, San Antonio, TX.",
     startDate: "2025-12-12T13:00:00-06:00",
     endDate: "2025-12-12T18:00:00-06:00",
     eventStatus: "https://schema.org/EventScheduled",
@@ -116,15 +117,7 @@ export default function MxratmainLayout({
 
   return (
     <>
-      <head>
-        <meta name="image" property="og:image" content={`${siteUrl}/events/mxratmain/opengraph-image.png`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-      </head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {children}
     </>
   )
