@@ -116,6 +116,11 @@ export default function MxratmainLayout({
 
   return (
     <>
+      <head>
+        <meta name="image" property="og:image" content={`${siteUrl}/events/mxratmain/opengraph-image.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </head>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -99,6 +99,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="image" property="og:image" content={`${siteUrl}/opengraph-image.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
