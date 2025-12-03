@@ -16,12 +16,23 @@ export const metadata: Metadata = {
   authors: [{ name: "434 Media" }],
   creator: "Digital Canvas",
   publisher: "434 Media",
+  openGraph: {
+    images: [
+      {
+        url: '/events/mxratmain/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'MXR @MAIN - Holiday Party by 434 Media',
+      },
+    ],
+  },
   twitter: {
     card: "summary_large_image",
     title: "MXR @MAIN | Holiday Party by 434 Media",
     description:
       "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts.",
     creator: '@digitalcanvas',
+    images: ['/events/mxratmain/opengraph-image.png'],
   },
   robots: {
     index: true,
