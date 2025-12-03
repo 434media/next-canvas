@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import MxratmainClient from "@/components/mxratmain/mxratmain-client"
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://digitalcanvas.community'),
   title: "MXR @MAIN | Holiday Party by 434 Media",
   description:
     "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong. Dec 12, 2025 at 300 Main Rooftop.",
@@ -17,30 +16,34 @@ export const metadata: Metadata = {
   authors: [{ name: "434 Media" }],
   creator: "Digital Canvas",
   publisher: "434 Media",
+  other: {
+    'image': 'https://www.digitalcanvas.community/events/mxratmain/opengraph-image.png',
+  },
   openGraph: {
     title: "MXR @MAIN | Holiday Party",
     description:
       "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong.",
-    type: "website",
-    locale: "en_US",
+    url: "https://www.digitalcanvas.community/events/mxratmain",
     siteName: "Digital Canvas",
-    url: "https://digitalcanvas.community/events/mxratmain",
     images: [
       {
-        url: "https://digitalcanvas.community/events/mxratmain/opengraph-image.png",
+        url: 'https://www.digitalcanvas.community/events/mxratmain/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: "MXR @MAIN | Holiday Party by 434 Media",
-        type: "image/png",
+        alt: 'MXR @MAIN | Holiday Party by 434 Media',
+        type: 'image/png',
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "MXR @MAIN | Holiday Party by 434 Media",
     description:
       "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts.",
-    images: ["https://digitalcanvas.community/events/mxratmain/opengraph-image.png"],
+    images: ['https://www.digitalcanvas.community/events/mxratmain/opengraph-image.png'],
+    creator: '@digitalcanvas',
   },
   robots: {
     index: true,
@@ -54,7 +57,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://digitalcanvas.community/events/mxratmain",
+    canonical: "https://www.digitalcanvas.community/events/mxratmain",
   },
 }
 
