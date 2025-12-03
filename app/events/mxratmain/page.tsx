@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import MxratmainClient from "@/components/mxratmain/mxratmain-client"
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://digitalcanvas.community"
+
 export const metadata: Metadata = {
   title: "MXR @MAIN | Holiday Party by 434 Media",
   description:
@@ -13,26 +15,38 @@ export const metadata: Metadata = {
     "300 Main Rooftop",
     "community event",
   ],
-  authors: [{ name: "434 Media" }],
-  creator: "Digital Canvas",
-  publisher: "434 Media",
+    authors: [{ name: "434 Media" }],
+    creator: "Digital Canvas",
+    publisher: "434 Media",
+    metadataBase: new URL(siteUrl),
+    alternates: {
+    canonical: "/events/mxratmain",
+  },
   openGraph: {
+    title: "MXR @MAIN | Holiday Party by 434 Media",
+    description:
+      "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts.",
+    url: `${siteUrl}/events/mxratmain`,
+    siteName: "MXR @MAIN",
     images: [
       {
-        url: '/events/mxratmain/opengraph-image.png',
+        url: `${siteUrl}/events/mxratmain/opengraph-image.png`,
         width: 1200,
         height: 630,
         alt: 'MXR @MAIN - Holiday Party by 434 Media',
+        type: 'image/png',
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "MXR @MAIN | Holiday Party by 434 Media",
     description:
       "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts.",
+    images: [`${siteUrl}/events/mxratmain/opengraph-image.png`],
     creator: '@digitalcanvas',
-    images: ['/events/mxratmain/opengraph-image.png'],
   },
   robots: {
     index: true,
@@ -44,9 +58,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  alternates: {
-    canonical: "https://www.digitalcanvas.community/events/mxratmain",
   },
 }
 

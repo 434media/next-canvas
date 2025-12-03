@@ -27,38 +27,68 @@ const mendaBlack = localFont({
   display: "swap",
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://digitalcanvas.community"
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://www.digitalcanvas.community' : 'http://localhost:3000'),
   title: "Digital Canvas | The Creative Layer of 434 MEDIA",
   description:
     "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network. From innovative properties to transformative partnerships.",
   keywords:
     "434 MEDIA, creative layer, digital canvas, IP properties, client partnerships, creative network, San Antonio",
   authors: [{ name: "434 MEDIA Team" }],
+  creator: "434 MEDIA Team",
+  publisher: "434 MEDIA",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Digital Canvas | The Creative Layer of 434 MEDIA",
     description:
       "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network.",
-    url: "https://www.digitalcanvas.community",
+    url: siteUrl,
     siteName: "Digital Canvas",
-    locale: "en_US",
-    type: "website",
     images: [
       {
-        url: '/opengraph-image.png',
+        url: `${siteUrl}/opengraph-image.png`,
         width: 1200,
         height: 630,
         alt: 'Digital Canvas - The Creative Layer of 434 MEDIA',
+        type: 'image/png',
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Digital Canvas | The Creative Layer of 434 MEDIA",
     description:
       "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network.",
-    images: ['/opengraph-image.png'],
+    images: [`${siteUrl}/opengraph-image.png`],
+    creator: '@434media',
+    site: '@434media',
   },
+    robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+    verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+  },
+  category: "technology",
 }
 
 export default function RootLayout({
