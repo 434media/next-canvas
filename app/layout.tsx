@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: "Digital Canvas",
     images: [
       {
-        url: '/opengraph-image.png',
+        url: 'https://www.digitalcanvas.community/opengraph-image.png',
         width: 1200,
         height: 630,
         alt: 'Digital Canvas - The Creative Layer of 434 MEDIA',
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: "Digital Canvas | The Creative Layer of 434 MEDIA",
     description:
       "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network.",
-    images: ['/opengraph-image.png'],
+    images: ['https://www.digitalcanvas.community/opengraph-image.png'],
     creator: '@434media',
     site: '@434media',
   },
