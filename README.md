@@ -1,22 +1,5 @@
 # Digital Canvas
 
-## 🎯 Overview
-
-Digital Canvas features:
-- **The Feed**: A dynamic newsletter system with Airtable integration
-- **Creative Journey**: Visual representation from ideation to reality
-
-## 🛠 Tech Stack
-
-- **Framework**: [Next.js 15](https://nextjs.org/) with App Router
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Animation**: [Motion](https://www.motion.dev/) (Framer Motion)
-- **Content Management**: [Airtable](https://airtable.com/) integration
-- **Rich Text**: [Marked](https://marked.js.org/) for Markdown conversion
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Analytics**: [Vercel Analytics](https://vercel.com/analytics)
-
 ## 📁 Project Structure
 
 ```
