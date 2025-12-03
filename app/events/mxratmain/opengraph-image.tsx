@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og"
+import { readFile } from "fs/promises"
+import { join } from "path"
 
 export const runtime = "edge"
 
@@ -9,7 +11,14 @@ export const size = {
 }
 export const contentType = "image/png"
 
+async function loadLocalFont() {
+  const fontPath = join(process.cwd(), "fonts", "Menda-Black.otf")
+  const fontData = await readFile(fontPath)
+  return fontData
+}
+
 export default async function Image() {
+  const mendaBlackFont = await loadLocalFont()
   return new ImageResponse(
     <div
       style={{
@@ -83,6 +92,14 @@ export default async function Image() {
           padding: "40px",
         }}
       >
+        {/* Digital Canvas Logo */}
+        <img
+          width="70"
+          height="70"
+          src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
+          style={{ marginBottom: 20 }}
+        />
+
         {/* Event type badge */}
         <div
           style={{
@@ -94,7 +111,7 @@ export default async function Image() {
             fontWeight: 600,
           }}
         >
-          Christmas Party 2024
+          <span style={{ fontFamily: "Menda Black" }}>434 MEDIA</span> Christmas Party 2024
         </div>
 
         {/* MXR text */}
@@ -157,6 +174,14 @@ export default async function Image() {
     </div>,
     {
       ...size,
+      fonts: [
+        {
+          name: "Menda Black",
+          data: mendaBlackFont,
+          style: "normal",
+          weight: 900,
+        },
+      ],
     },
   )
 }
