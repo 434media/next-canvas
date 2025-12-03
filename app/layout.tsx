@@ -27,7 +27,7 @@ const mendaBlack = localFont({
   display: "swap",
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://digitalcanvas.community"
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.community"
 
 export const metadata: Metadata = {
   title: "Digital Canvas | The Creative Layer of 434 MEDIA",
