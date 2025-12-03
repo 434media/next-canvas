@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import MxratmainClient from "@/components/mxratmain/mxratmain-client"
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://digitalcanvas.community'),
   title: "MXR @MAIN | Holiday Party by 434 Media",
   description:
     "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong. Dec 12, 2025 at 300 Main Rooftop.",
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: "MXR @MAIN | Holiday Party by 434 Media",
+        type: "image/png",
       },
     ],
   },
