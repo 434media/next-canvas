@@ -62,5 +62,61 @@ export const metadata: Metadata = {
 }
 
 export default function MxratmainPage() {
-  return <MxratmainClient />
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: "MXR @MAIN | Holiday Party by 434 MEDIA",
+    description: "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong. Dec 8, 2025 at Geekdom, San Antonio, TX.",
+    startDate: "2025-12-12T13:00:00-06:00",
+    endDate: "2025-12-12T18:00:00-06:00",
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: "300 Main Rooftop",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "300 N Main Ave",
+        addressLocality: "San Antonio",
+        addressRegion: "TX",
+        postalCode: "78205",
+        addressCountry: "US",
+      },
+    },
+    organizer: [
+      {
+        "@type": "Organization",
+        name: "Digital Canvas / 434 Media",
+        url: "https://434media.com/",
+      },
+      {
+        "@type": "Organization",
+        name: "Vemos Vamos",
+        url: "https://vemosvamos.com/",
+      },
+      {        
+        "@type": "Organization",
+        name: "DEVSA",
+        url: "https://devsa.community/",
+      },
+    ],
+    sponsor: [
+      {
+        "@type": "Organization",
+        name: "434 Media",
+        url: "https://434media.com/",
+      },
+    ],
+    image: `${process.env.NEXT_PUBLIC_SITE_URL || "https://digitalcanvas.community"}/events/mxratmain/opengraph-image.png`,
+  }
+
+  return (
+  <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+    <MxratmainClient />
+  </>
+  )
 }

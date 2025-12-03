@@ -98,6 +98,56 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Digital Canvas",
+              alternateName: "434 MEDIA Digital Canvas",
+              description:
+                "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network. From innovative properties to transformative partnerships.",
+              url: "https://digitalcanvas.community",
+              logo: "https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg",
+              foundingDate: "2020",
+              parentOrganization: {
+                "@type": "Organization",
+                name: "434 MEDIA",
+              },
+              areaServed: {
+                "@type": "City",
+                name: "San Antonio",
+                addressRegion: "TX",
+                addressCountry: "US",
+              },
+              knowsAbout: [
+                "Creative Development",
+                "Brand Strategy",
+                "Digital Marketing",
+                "Content Creation",
+                "IP Development",
+                "Event Production",
+                "Community Building",
+                "Media Production",
+                "Creative Technology",
+                "Partnership Development",
+              ],
+              sameAs: [
+                "https://twitter.com/434media",
+                "https://linkedin.com/company/434media",
+                "https://instagram.com/digitalcanvashq",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "Community Support",
+                availableLanguage: "English",
+              },
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${mendaBlack.variable} min-h-screen overflow-x-hidden scroll-auto bg-white antialiased selection:bg-sky-100 selection:text-sky-600`}
       >
