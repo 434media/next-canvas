@@ -5,7 +5,6 @@
 Digital Canvas features:
 - **The Feed**: A dynamic newsletter system with Airtable integration
 - **Creative Journey**: Visual representation from ideation to reality
-- **Community Hub**: Connecting designers, developers, and digital artists in San Antonio
 
 ## 🛠 Tech Stack
 
