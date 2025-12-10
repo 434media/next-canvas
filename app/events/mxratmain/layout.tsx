@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "434 Media",
     "Digital Canvas",
     "holiday party",
-    "300 Main Rooftop",
+    "300 Main",
     "community event",
   ],
   authors: [{ name: "434 Media" }],

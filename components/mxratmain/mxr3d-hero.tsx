@@ -142,7 +142,7 @@ function ChristmasContent() {
               </div>
               <div className="flex items-center justify-center gap-2 text-[10px] md:text-xs text-white/80">
                 <MapPin className="w-3 h-3 text-white/60 shrink-0" />
-                <span>300 Main Rooftop</span>
+                <span>300 Main</span>
               </div>
             </div>
 

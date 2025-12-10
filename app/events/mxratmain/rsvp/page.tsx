@@ -153,8 +153,8 @@ export default function MxrAtMainRsvpPage() {
                 <span className="whitespace-nowrap">Dec 12, 2025</span>
                 <span className="text-[#c41e3a]">•</span>
                 <span className="whitespace-nowrap">6-10 PM</span>
-                <span className="hidden md:inline text-[#c41e3a]">•</span>
-                <span className="whitespace-nowrap w-full md:w-auto">300 Main</span>
+                <span className="text-[#c41e3a]">•</span>
+                <span className="whitespace-nowrap md:w-auto">300 Main</span>
               </div>
 
               <p className="text-sm sm:text-base md:text-lg text-black/80 font-medium leading-snug max-w-md">
