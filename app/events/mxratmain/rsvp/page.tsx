@@ -154,7 +154,7 @@ export default function MxrAtMainRsvpPage() {
                 <span className="text-[#c41e3a]">•</span>
                 <span className="whitespace-nowrap">6-10 PM</span>
                 <span className="hidden md:inline text-[#c41e3a]">•</span>
-                <span className="whitespace-nowrap w-full md:w-auto">300 Main Rooftop</span>
+                <span className="whitespace-nowrap w-full md:w-auto">300 Main</span>
               </div>
 
               <p className="text-sm sm:text-base md:text-lg text-black/80 font-medium leading-snug max-w-md">
@@ -271,7 +271,7 @@ export default function MxrAtMainRsvpPage() {
         </div>
       </section>
 
-      <section className="relative w-full -mt-32 md:mt-0 py-2 md:py-0">
+      <section className="relative w-full -mt-24 md:mt-0 py-2 md:py-0">
         {/* Mobile Footer Image */}
         <div className="md:hidden relative w-full bg-white overflow-hidden">
           <div className="relative w-full h-[75vh] flex items-center justify-center">
