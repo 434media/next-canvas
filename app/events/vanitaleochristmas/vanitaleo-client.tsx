@@ -4,7 +4,6 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import { motion } from "motion/react"
-import Image from "next/image"
 import { Laptop, Gift, Heart, CheckCircle2, Calendar, MapPin, Clock, AlertCircle } from "lucide-react"
 
 const isDevelopment = process.env.NODE_ENV === "development"
@@ -153,21 +152,22 @@ export default function VanitaLeoClient() {
           {/* Scanline effect - always visible */}
           <div className="absolute inset-0 z-20 opacity-30 pointer-events-none" 
             style={{ 
-              backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)',
+              backgroundImage: 'repeating-linear-linear(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)',
               backgroundSize: '100% 4px'
             }} 
           />
           
-          <Image
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/vanitachristmas.png"
-            alt="Vanita Leo Christmas - San Antonio Tejano Artist"
-            fill
-            className="object-cover object-top lg:object-contain saturate-[1.2] contrast-[1.1] transition-transform duration-500 group-hover:scale-105"
-            priority
+          <video
+            src="https://ampd-asset.s3.us-east-2.amazonaws.com/VanitaLeo-loop.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover saturate-[1.2] contrast-[1.1] transition-transform duration-500 group-hover:scale-105"
           />
           
           {/* Neon border glow - always visible */}
-          <div className="absolute inset-0 z-10 pointer-events-none border-4 border-[#dc2626]/50" style={{ boxShadow: 'inset 0 0 30px rgba(220,38,38,0.3), inset 0 0 60px rgba(0,255,255,0.2)' }} />
+          <div className="absolute inset-0 z-10 pointer-events-none border-4 border-black" style={{ boxShadow: 'inset 0 0 30px rgba(220,38,38,0.3), inset 0 0 60px rgba(0,255,255,0.2)' }} />
         </div>
 
         {/* Right Side - Scrollable Content - 80s Synth-Pop "Take On Me" Style */}
@@ -184,20 +184,40 @@ export default function VanitaLeoClient() {
           </div>
 
           {/* Title Header */}
-          <div className="sticky top-16 sm:top-18 z-20 bg-white/95 backdrop-blur-sm px-6 sm:px-8 lg:px-12 py-4 md:py-0">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="relative"
-            >
-              <h1 className="relative font-dancing-script text-5xl sm:text-6xl lg:text-7xl leading-none tracking-tight text-black" style={{ textShadow: '2px 2px 0 #000' }}>
-                Vanita Leo
-              </h1>
-              <p className="relative text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-widest mt-2 text-[#dc2626]" style={{ textShadow: '1px 1px 0 #000' }}>
-                Christmas
-              </p>
-            </motion.div>
+          <div className="sticky top-16 sm:top-18 z-20 bg-white/95 backdrop-blur-sm px-6 sm:px-8 lg:px-12 py-6 sm:py-8 border-b-4 border-black">
+            <div className="w-full max-w-lg">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative"
+              >
+                {/* Decorative snowflakes */}
+                <div className="absolute -top-2 -left-2 text-[#dc2626] text-2xl animate-pulse">❄</div>
+                <div className="absolute -top-1 right-0 text-[#39ff14] text-xl animate-pulse" style={{ animationDelay: '0.5s' }}>✦</div>
+                
+                <h1 className="relative font-dancing-script text-6xl sm:text-7xl lg:text-8xl leading-none tracking-tight bg-linear-to-r from-[#dc2626] via-[#b91c1c] to-[#dc2626] bg-clip-text text-transparent drop-shadow-lg" 
+                  style={{ 
+                    textShadow: '3px 3px 0 rgba(0,0,0,0.1)',
+                    WebkitTextStroke: '1px rgba(0,0,0,0.1)'
+                  }}>
+                  Vanita Leo
+                </h1>
+                <div className="flex items-center gap-3 mt-3">
+                  <div className="h-1 flex-1 bg-linear-to-r from-[#dc2626] via-[#39ff14] to-[#dc2626] rounded-full" />
+                  <p className="relative text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-[0.3em] text-[#dc2626] flex items-center gap-2" 
+                    style={{ textShadow: '2px 2px 0 #000, -1px -1px 0 #39ff14' }}>
+                    <span className="text-[#39ff14]">🎄</span>
+                    Christmas
+                    <span className="text-[#39ff14]">🎄</span>
+                  </p>
+                  <div className="h-1 flex-1 bg-linear-to-r from-[#dc2626] via-[#39ff14] to-[#dc2626] rounded-full" />
+                </div>
+                <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.5em] text-black/60 mt-2 text-center">
+                  Laptop Giveaway Event
+                </p>
+              </motion.div>
+            </div>
           </div>
 
           {/* Scrollable Content */}
