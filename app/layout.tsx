@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono, Dancing_Script } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
 import Navbar from "../components/navbar"
@@ -24,6 +24,12 @@ const geistMono = Geist_Mono({
 const mendaBlack = localFont({
   src: "../fonts/Menda-Black.otf",
   variable: "--font-menda-black",
+  display: "swap",
+})
+
+const dancingScript = Dancing_Script({
+  variable: "--font-dancing-script",
+  subsets: ["latin"],
   display: "swap",
 })
 
@@ -148,7 +154,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${mendaBlack.variable} min-h-screen overflow-x-hidden scroll-auto bg-white antialiased selection:bg-sky-100 selection:text-sky-600`}
+        className={`${geistSans.variable} ${geistMono.variable} ${mendaBlack.variable} ${dancingScript.variable} min-h-screen overflow-x-hidden scroll-auto bg-white antialiased selection:bg-sky-100 selection:text-sky-600`}
       >
         {/* Google Analytics */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-NY5R12BN23" strategy="afterInteractive" />

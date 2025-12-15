@@ -1,82 +1,121 @@
 import { NextResponse } from "next/server"
 import Airtable from "airtable"
-import axios from "axios"
-import crypto from "crypto"
 
-const isDevelopment = process.env.NODE_ENV === "development"
-
-// Use specific MXR base ID, fallback to general one if not set (though specific is preferred)
-const airtableBaseId = process.env.MXR_AIRTABLE_BASE_ID || process.env.AIRTABLE_BASE_ID
+const airtableBaseId = process.env.AIRTABLE_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
-const christmasTable = process.env.CHRISTMAS_RSVP_TABLE || "rsvp" // Default fallback
-const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY
+const chromebookTable = process.env.CHROMEBOOK_TABLE || "Chromebook Registrations"
+const TOTAL_CHROMEBOOKS = 50
 
 if (!airtableBaseId || !airtableApiKey) {
   console.error("Airtable configuration is missing")
 }
 
-const base = new Airtable({ apiKey: airtableApiKey }).base(airtableBaseId!)
+const base = airtableBaseId && airtableApiKey ? new Airtable({ apiKey: airtableApiKey }).base(airtableBaseId) : null
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   try {
-    const { name, email, joinFeed } = await request.json()
-    const turnstileToken = request.headers.get("cf-turnstile-response")
-    const remoteIp = request.headers.get("CF-Connecting-IP")
-
-    if (!airtableBaseId || !airtableApiKey) {
+    if (!base) {
       return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
     }
 
-    if (!isDevelopment) {
-      if (!turnstileSecretKey) {
-        console.error("Turnstile secret key is not defined")
-        return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
-      }
+    const { searchParams } = new URL(request.url)
+    const action = searchParams.get("action")
 
-      // Verify Turnstile token
-      if (turnstileToken) {
-        const idempotencyKey = crypto.randomUUID()
-        const turnstileVerification = await axios.post(
-          "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-          new URLSearchParams({
-            secret: turnstileSecretKey,
-            response: turnstileToken,
-            remoteip: remoteIp || "",
-            idempotency_key: idempotencyKey,
-          }),
-          {
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          },
-        )
+    if (action === "check") {
+      // Count current registrations
+      const records = await base(chromebookTable)
+        .select({
+          fields: ["Email"],
+        })
+        .all()
 
-        if (!turnstileVerification.data.success) {
-          const errorCodes = turnstileVerification.data["error-codes"] || []
-          console.error("Turnstile verification failed:", errorCodes)
-          return NextResponse.json({ error: "Turnstile verification failed", errorCodes }, { status: 400 })
-        }
-      } else {
-        return NextResponse.json({ error: "Turnstile token is missing" }, { status: 400 })
-      }
+      const registered = records.length
+      const available = Math.max(0, TOTAL_CHROMEBOOKS - registered)
+
+      return NextResponse.json({ 
+        available, 
+        registered,
+        total: TOTAL_CHROMEBOOKS 
+      })
+    }
+
+    return NextResponse.json({ error: "Invalid action" }, { status: 400 })
+  } catch (error: any) {
+    console.error("Error checking inventory:", error)
+    return NextResponse.json(
+      { error: "An error occurred while checking availability", details: error.message },
+      { status: 500 }
+    )
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    if (!base) {
+      return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
+    }
+
+    const { firstName, lastName, email, phone, zipCode, reason } = await request.json()
+
+    // Validate required fields
+    if (!firstName || !lastName || !email || !phone || !zipCode || !reason) {
+      return NextResponse.json({ error: "All fields are required" }, { status: 400 })
+    }
+
+    // Check current inventory
+    const records = await base(chromebookTable)
+      .select({
+        fields: ["Email"],
+      })
+      .all()
+
+    const registered = records.length
+
+    if (registered >= TOTAL_CHROMEBOOKS) {
+      return NextResponse.json({ 
+        error: "Sorry, all Chromebooks have been claimed",
+        available: 0 
+      }, { status: 400 })
+    }
+
+    // Check for duplicate email
+    const existingRecord = records.find(
+      (record) => record.fields.Email?.toString().toLowerCase() === email.toLowerCase()
+    )
+
+    if (existingRecord) {
+      return NextResponse.json({ 
+        error: "This email has already been registered" 
+      }, { status: 400 })
     }
 
     // Create record in Airtable
-    await base(christmasTable).create([
+    await base(chromebookTable).create([
       {
         fields: {
-          Name: name,
+          "First Name": firstName,
+          "Last Name": lastName,
           Email: email,
-          "Join The Feed": joinFeed,
-          Status: "RSVP'd",
+          Phone: phone,
+          "ZIP Code": zipCode,
+          Reason: reason,
+          Status: "Registered",
+          "Registration Date": new Date().toISOString(),
         },
       },
-    ], { typecast: true })
+    ])
 
-    return NextResponse.json({ message: "RSVP successful" }, { status: 200 })
+    const available = Math.max(0, TOTAL_CHROMEBOOKS - registered - 1)
+
+    return NextResponse.json({ 
+      message: "Registration successful",
+      available 
+    }, { status: 200 })
   } catch (error: any) {
-    console.error("Error processing RSVP:", error)
+    console.error("Error processing registration:", error)
     return NextResponse.json(
-      { error: "An error occurred while processing your RSVP", details: error.message },
-      { status: 500 },
+      { error: "An error occurred while processing your registration", details: error.message },
+      { status: 500 }
     )
   }
 }
