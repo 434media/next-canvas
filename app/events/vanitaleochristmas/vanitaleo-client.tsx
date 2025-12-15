@@ -91,8 +91,8 @@ export default function VanitaLeoClient() {
         {/* Left Side - Hero Image (Fixed on desktop, relative on mobile) */}
         <div className="group relative h-[40vh] sm:h-[50vh] lg:h-auto lg:w-1/2 lg:fixed lg:top-16 lg:bottom-0 lg:left-0 overflow-hidden cursor-pointer">
           {/* Neon glow overlay - always visible */}
-          <div className="absolute inset-0 z-10 pointer-events-none bg-linear-to-tr from-[#ff00ff]/20 via-transparent to-[#00ffff]/20" />
-          <div className="absolute inset-0 z-10 pointer-events-none bg-linear-to-bl from-[#39ff14]/15 via-transparent to-[#ff00ff]/15" />
+          <div className="absolute inset-0 z-10 pointer-events-none bg-linear-to-tr from-[#dc2626]/20 via-transparent to-[#00ffff]/20" />
+          <div className="absolute inset-0 z-10 pointer-events-none bg-linear-to-bl from-[#39ff14]/15 via-transparent to-[#dc2626]/15" />
           
           {/* Scanline effect - always visible */}
           <div className="absolute inset-0 z-20 opacity-30 pointer-events-none" 
@@ -111,7 +111,7 @@ export default function VanitaLeoClient() {
           />
           
           {/* Neon border glow - always visible */}
-          <div className="absolute inset-0 z-10 pointer-events-none border-4 border-[#ff00ff]/50" style={{ boxShadow: 'inset 0 0 30px rgba(255,0,255,0.3), inset 0 0 60px rgba(0,255,255,0.2)' }} />
+          <div className="absolute inset-0 z-10 pointer-events-none border-4 border-[#dc2626]/50" style={{ boxShadow: 'inset 0 0 30px rgba(220,38,38,0.3), inset 0 0 60px rgba(0,255,255,0.2)' }} />
         </div>
 
         {/* Right Side - Scrollable Content - 80s Synth-Pop "Take On Me" Style */}
@@ -136,9 +136,9 @@ export default function VanitaLeoClient() {
               className="relative"
             >
               {/* Neon glow effect behind text */}
-              <div className="absolute -inset-2 blur-xl bg-linear-to-r from-[#ff00ff]/20 via-[#00ffff]/20 to-[#39ff14]/20 rounded-lg" />
-              <h1 className="relative font-dancing-script text-5xl sm:text-6xl lg:text-7xl leading-none tracking-tight" style={{ textShadow: '3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 0 20px #ff00ff, 0 0 40px #ff00ff' }}>
-                <span className="text-[#ff00ff]">Vanita Leo</span>
+              <div className="absolute -inset-2 blur-xl bg-linear-to-r from-[#dc2626]/20 via-[#00ffff]/20 to-[#39ff14]/20 rounded-lg" />
+              <h1 className="relative font-dancing-script text-5xl sm:text-6xl lg:text-7xl leading-none tracking-tight" style={{ textShadow: '3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 0 20px #dc2626, 0 0 40px #dc2626' }}>
+                <span className="text-[#dc2626]">Vanita Leo</span>
               </h1>
               <p className="relative text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-widest mt-2" style={{ textShadow: '2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 0 15px #00ffff' }}>
                 <span className="text-[#00ffff]">Christmas</span>
@@ -156,8 +156,8 @@ export default function VanitaLeoClient() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="flex flex-wrap gap-2 sm:gap-3 mb-6 sm:mb-8"
               >
-                <div className="flex items-center gap-1.5 sm:gap-2 text-black bg-white px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-black text-xs sm:text-sm shadow-[3px_3px_0_#ff00ff]">
-                  <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#ff00ff]" />
+                <div className="flex items-center gap-1.5 sm:gap-2 text-black bg-white px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-black text-xs sm:text-sm shadow-[3px_3px_0_#dc2626]">
+                  <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dc2626]" />
                   <span className="font-black uppercase">Dec 19th</span>
                 </div>
                 <div className="flex items-center gap-1.5 sm:gap-2 text-black bg-white px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-black text-xs sm:text-sm shadow-[3px_3px_0_#00ffff]">
@@ -176,16 +176,16 @@ export default function VanitaLeoClient() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="mb-6 sm:mb-8 p-3 sm:p-4 bg-white border-2 border-black relative"
-                style={{ boxShadow: '4px 4px 0 #000, 0 0 20px rgba(255,0,255,0.3)' }}
+                style={{ boxShadow: '4px 4px 0 #000, 0 0 20px rgba(220,38,38,0.3)' }}
               >
                 {/* Decorative corner accents */}
-                <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#ff00ff]" />
+                <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#dc2626]" />
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#00ffff]" />
                 <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-[#00ffff]" />
                 <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-[#39ff14]" />
                 
                 <div className="flex items-start gap-2.5 sm:gap-3">
-                  <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#ff00ff] shrink-0 mt-0.5" style={{ filter: 'drop-shadow(0 0 4px #ff00ff)' }} />
+                  <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#dc2626] shrink-0 mt-0.5" style={{ filter: 'drop-shadow(0 0 4px #dc2626)' }} />
                   <div>
                     <h2 className="font-black text-black text-sm sm:text-base mb-1 uppercase tracking-wide">Fueling Innovation in Our Community</h2>
                     <p className="text-xs sm:text-sm text-black leading-relaxed">
@@ -203,7 +203,7 @@ export default function VanitaLeoClient() {
                   className="text-center p-6 sm:p-8 bg-white border-4 border-black relative"
                   style={{ boxShadow: '6px 6px 0 #000' }}
                 >
-                  <AlertCircle className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-[#ff00ff]" style={{ filter: 'drop-shadow(0 0 8px #ff00ff)' }} />
+                  <AlertCircle className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-[#dc2626]" style={{ filter: 'drop-shadow(0 0 8px #dc2626)' }} />
                   <h3 className="text-xl sm:text-2xl font-black text-black mb-2 uppercase tracking-wide">All Chromebooks Reserved</h3>
                   <p className="text-sm sm:text-base text-black">
                     All {TOTAL_CHROMEBOOKS} Chromebooks have been claimed. Thank you for your interest!
@@ -218,10 +218,10 @@ export default function VanitaLeoClient() {
                   {/* Signup Form - 80s Synth-Pop Style */}
                   <div className="bg-white border-4 border-black p-4 sm:p-6 relative" style={{ boxShadow: '6px 6px 0 #000' }}>
                     {/* Neon corner decorations */}
-                    <div className="absolute -top-2 -left-2 w-4 h-4 bg-[#ff00ff]" />
+                    <div className="absolute -top-2 -left-2 w-4 h-4 bg-[#dc2626]" />
                     <div className="absolute -top-2 -right-2 w-4 h-4 bg-[#00ffff]" />
                     <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-[#39ff14]" />
-                    <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-[#ff00ff]" />
+                    <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-[#dc2626]" />
                     
                     <div className="flex items-center justify-between mb-3 sm:mb-4">
                       <h3 className="font-black text-black text-base sm:text-lg uppercase tracking-wider" style={{ textShadow: '2px 2px 0 #00ffff' }}>Register Now</h3>
@@ -229,8 +229,8 @@ export default function VanitaLeoClient() {
                     </div>
 
                     {error && (
-                      <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 bg-white border-2 border-[#ff00ff] flex items-start gap-2">
-                        <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#ff00ff] shrink-0 mt-0.5" />
+                      <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 bg-white border-2 border-[#dc2626] flex items-start gap-2">
+                        <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dc2626] shrink-0 mt-0.5" />
                         <p className="text-xs sm:text-sm text-black font-bold">{error}</p>
                       </div>
                     )}
@@ -341,7 +341,7 @@ export default function VanitaLeoClient() {
                       <button
                         type="submit"
                         disabled={isSubmitting || isSoldOut}
-                        className="w-full h-10 sm:h-11 bg-black hover:bg-[#ff00ff] text-[#39ff14] hover:text-black font-black text-sm sm:text-base uppercase tracking-wider transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border-2 border-black"
+                        className="w-full h-10 sm:h-11 bg-black hover:bg-[#dc2626] text-[#39ff14] hover:text-white font-black text-sm sm:text-base uppercase tracking-wider transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border-2 border-black"
                         style={{ boxShadow: '4px 4px 0 #39ff14' }}
                       >
                         {isSubmitting ? (
@@ -375,10 +375,10 @@ export default function VanitaLeoClient() {
                   style={{ boxShadow: '6px 6px 0 #000' }}
                 >
                   {/* Neon corners */}
-                  <div className="absolute -top-2 -left-2 w-5 h-5 bg-[#ff00ff]" />
+                  <div className="absolute -top-2 -left-2 w-5 h-5 bg-[#dc2626]" />
                   <div className="absolute -top-2 -right-2 w-5 h-5 bg-[#00ffff]" />
                   <div className="absolute -bottom-2 -left-2 w-5 h-5 bg-[#39ff14]" />
-                  <div className="absolute -bottom-2 -right-2 w-5 h-5 bg-[#ff00ff]" />
+                  <div className="absolute -bottom-2 -right-2 w-5 h-5 bg-[#dc2626]" />
                   
                   <motion.div
                     initial={{ scale: 0 }}
@@ -389,11 +389,11 @@ export default function VanitaLeoClient() {
                   >
                     <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-[#39ff14]" />
                   </motion.div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-black mb-2 uppercase tracking-wide" style={{ textShadow: '3px 3px 0 #ff00ff' }}>
+                  <h3 className="text-2xl sm:text-3xl font-black text-black mb-2 uppercase tracking-wide" style={{ textShadow: '3px 3px 0 #dc2626' }}>
                     You're Registered!
                   </h3>
                   <p className="text-sm sm:text-base text-black mb-4 leading-relaxed">
-                    Thank you, <span className="font-black text-[#ff00ff]">{formData.firstName}</span>! We'll email you with details about picking up your Chromebook on December 19th.
+                    Thank you, <span className="font-black text-[#dc2626]">{formData.firstName}</span>! We'll email you with details about picking up your Chromebook on December 19th.
                   </p>
                   <div className="p-3 sm:p-4 bg-black border-2 border-[#00ffff]" style={{ boxShadow: '0 0 15px rgba(0,255,255,0.3)' }}>
                     <p className="text-xs sm:text-sm text-[#00ffff] font-bold uppercase tracking-wide">
