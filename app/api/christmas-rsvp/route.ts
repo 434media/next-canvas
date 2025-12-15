@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server"
 import Airtable from "airtable"
 
-const airtableBaseId = process.env.AIRTABLE_BASE_ID
+const airtableBaseId = process.env.MXR_AIRTABLE_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
-const chromebookTable = process.env.CHROMEBOOK_TABLE || "Chromebook Registrations"
+const COMPUTER_GIVEAWAY_TABLE = "Computer Giveaway"
 const TOTAL_CHROMEBOOKS = 50
 
 if (!airtableBaseId || !airtableApiKey) {
-  console.error("Airtable configuration is missing")
+  console.error("Airtable configuration is missing: MXR_AIRTABLE_BASE_ID and AIRTABLE_API_KEY are required")
 }
 
 const base = airtableBaseId && airtableApiKey ? new Airtable({ apiKey: airtableApiKey }).base(airtableBaseId) : null
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
 
     if (action === "check") {
       // Count current registrations
-      const records = await base(chromebookTable)
+      const records = await base(COMPUTER_GIVEAWAY_TABLE)
         .select({
           fields: ["Email"],
         })
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
     }
 
     // Check current inventory
-    const records = await base(chromebookTable)
+    const records = await base(COMPUTER_GIVEAWAY_TABLE)
       .select({
         fields: ["Email"],
       })
@@ -90,7 +90,7 @@ export async function POST(request: Request) {
     }
 
     // Create record in Airtable
-    await base(chromebookTable).create([
+    await base(COMPUTER_GIVEAWAY_TABLE).create([
       {
         fields: {
           "First Name": firstName,
@@ -99,8 +99,15 @@ export async function POST(request: Request) {
           Phone: phone,
           "ZIP Code": zipCode,
           Reason: reason,
-          Status: "Registered",
-          "Registration Date": new Date().toISOString(),
+          "Submitted At": new Date().toLocaleString("en-US", {
+            timeZone: "America/Chicago",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
         },
       },
     ])
