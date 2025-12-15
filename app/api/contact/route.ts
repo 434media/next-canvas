@@ -3,10 +3,6 @@ import { type NextRequest, NextResponse } from "next/server"
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-
-    // Airtable integration
-    // You'll need to add these environment variables:
-    // AIRTABLE_API_KEY and AIRTABLE_BASE_ID
     const airtableApiKey = process.env.AIRTABLE_API_KEY
     const airtableBaseId = process.env.AIRTABLE_BASE_ID
 

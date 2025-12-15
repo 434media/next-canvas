@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server"
 import Airtable from "airtable"
+import crypto from "crypto"
+
+const isDevelopment = process.env.NODE_ENV === "development"
 
 const airtableBaseId = process.env.MXR_AIRTABLE_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
+const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY
 const COMPUTER_GIVEAWAY_TABLE = "Computer Giveaway"
 const TOTAL_CHROMEBOOKS = 50
 
@@ -56,10 +60,47 @@ export async function POST(request: Request) {
     }
 
     const { firstName, lastName, email, phone, zipCode, reason } = await request.json()
+    const turnstileToken = request.headers.get("cf-turnstile-response")
+    const remoteIp = request.headers.get("CF-Connecting-IP")
 
     // Validate required fields
     if (!firstName || !lastName || !email || !phone || !zipCode || !reason) {
       return NextResponse.json({ error: "All fields are required" }, { status: 400 })
+    }
+
+    // Verify Turnstile token (skip in development)
+    if (!isDevelopment) {
+      if (!turnstileSecretKey) {
+        console.error("Turnstile secret key is not defined")
+        return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
+      }
+
+      if (!turnstileToken) {
+        return NextResponse.json({ error: "Security verification is required" }, { status: 400 })
+      }
+
+      const idempotencyKey = crypto.randomUUID()
+      const turnstileVerification = await fetch(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            secret: turnstileSecretKey,
+            response: turnstileToken,
+            remoteip: remoteIp || "",
+            idempotency_key: idempotencyKey,
+          }),
+        }
+      )
+
+      const verificationResult = await turnstileVerification.json()
+
+      if (!verificationResult.success) {
+        const errorCodes = verificationResult["error-codes"] || []
+        console.error("Turnstile verification failed:", errorCodes)
+        return NextResponse.json({ error: "Security verification failed", errorCodes }, { status: 400 })
+      }
     }
 
     // Check current inventory

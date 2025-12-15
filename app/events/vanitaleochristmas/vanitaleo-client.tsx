@@ -2,20 +2,12 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "motion/react"
+import { useState, useEffect, useRef } from "react"
+import { motion } from "motion/react"
 import Image from "next/image"
 import { Laptop, Gift, Heart, CheckCircle2, Calendar, MapPin, Clock, AlertCircle } from "lucide-react"
 
-const partnerLogos = [
-  { name: "Velocity TX", abbr: "VTX" },
-  { name: "Que es SDOH", abbr: "SDOH" },
-  { name: "Human-IT", abbr: "HIT" },
-  { name: "Levantatech", abbr: "LVT" },
-  { name: "434 Media", abbr: "434" },
-  { name: "DevSA", abbr: "DSA" },
-]
-
+const isDevelopment = process.env.NODE_ENV === "development"
 const TOTAL_CHROMEBOOKS = 50
 
 export default function VanitaLeoClient() {
@@ -32,11 +24,61 @@ export default function VanitaLeoClient() {
   const [error, setError] = useState("")
   const [availableCount, setAvailableCount] = useState<number | null>(null)
   const [isSoldOut, setIsSoldOut] = useState(false)
+  const turnstileRef = useRef<HTMLDivElement>(null)
+  const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
 
   // Check inventory on mount
   useEffect(() => {
     checkInventory()
   }, [])
+
+  // Load Turnstile script
+  useEffect(() => {
+    if (isDevelopment || turnstileWidget || isSoldOut || isSubmitted) return
+
+    const loadTurnstile = () => {
+      if (document.getElementById("turnstile-script")) {
+        // Script already loaded, just render widget
+        if (typeof window !== "undefined" && (window as any).turnstile && turnstileRef.current) {
+          const widgetId = (window as any).turnstile.render(turnstileRef.current, {
+            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+            callback: () => {},
+          })
+          setTurnstileWidget(widgetId)
+        }
+        return
+      }
+
+      const script = document.createElement("script")
+      script.id = "turnstile-script"
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+      script.async = true
+      script.defer = true
+      document.body.appendChild(script)
+
+      script.onload = () => {
+        if (typeof window !== "undefined" && (window as any).turnstile && turnstileRef.current) {
+          const widgetId = (window as any).turnstile.render(turnstileRef.current, {
+            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+            callback: () => {},
+          })
+          setTurnstileWidget(widgetId)
+        }
+      }
+    }
+
+    loadTurnstile()
+
+    return () => {
+      if (turnstileWidget && typeof window !== "undefined" && (window as any).turnstile) {
+        try {
+          ;(window as any).turnstile.reset(turnstileWidget)
+        } catch (error) {
+          console.error("Error resetting Turnstile widget:", error)
+        }
+      }
+    }
+  }, [turnstileWidget, isSoldOut, isSubmitted])
 
   const checkInventory = async () => {
     try {
@@ -55,10 +97,24 @@ export default function VanitaLeoClient() {
     setError("")
 
     try {
+      // Get Turnstile token (skip in development)
+      let turnstileResponse: string | undefined = undefined
+      if (!isDevelopment) {
+        if (typeof window === "undefined" || !(window as any).turnstile || !turnstileWidget) {
+          throw new Error("Security verification not loaded. Please refresh and try again.")
+        }
+
+        turnstileResponse = (window as any).turnstile.getResponse(turnstileWidget)
+        if (!turnstileResponse) {
+          throw new Error("Please complete the security verification")
+        }
+      }
+
       const response = await fetch("/api/christmas-rsvp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...(turnstileResponse && { "cf-turnstile-response": turnstileResponse }),
         },
         body: JSON.stringify(formData),
       })
@@ -127,7 +183,7 @@ export default function VanitaLeoClient() {
             </svg>
           </div>
 
-          {/* Title Header - Neon styled */}
+          {/* Title Header */}
           <div className="sticky top-16 sm:top-18 z-20 bg-white/95 backdrop-blur-sm px-6 sm:px-8 lg:px-12 py-4 md:py-0">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -135,13 +191,11 @@ export default function VanitaLeoClient() {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              {/* Neon glow effect behind text */}
-              <div className="absolute -inset-2 blur-xl bg-linear-to-r from-[#dc2626]/20 via-[#00ffff]/20 to-[#39ff14]/20 rounded-lg" />
-              <h1 className="relative font-dancing-script text-5xl sm:text-6xl lg:text-7xl leading-none tracking-tight" style={{ textShadow: '3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 0 20px #dc2626, 0 0 40px #dc2626' }}>
-                <span className="text-[#dc2626]">Vanita Leo</span>
+              <h1 className="relative font-dancing-script text-5xl sm:text-6xl lg:text-7xl leading-none tracking-tight text-black" style={{ textShadow: '2px 2px 0 #000' }}>
+                Vanita Leo
               </h1>
-              <p className="relative text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-widest mt-2" style={{ textShadow: '2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 0 15px #00ffff' }}>
-                <span className="text-[#00ffff]">Christmas</span>
+              <p className="relative text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-widest mt-2 text-[#dc2626]" style={{ textShadow: '1px 1px 0 #000' }}>
+                Christmas
               </p>
             </motion.div>
           </div>
@@ -149,7 +203,7 @@ export default function VanitaLeoClient() {
           {/* Scrollable Content */}
           <div className="relative px-6 sm:px-8 lg:px-12 py-6 sm:py-8 lg:py-10">
             <div className="w-full max-w-lg">
-              {/* Event Details - Sketch card style */}
+              {/* Event Details */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -160,32 +214,32 @@ export default function VanitaLeoClient() {
                   <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dc2626]" />
                   <span className="font-black uppercase">Dec 19th</span>
                 </div>
-                <div className="flex items-center gap-1.5 sm:gap-2 text-black bg-white px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-black text-xs sm:text-sm shadow-[3px_3px_0_#00ffff]">
-                  <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00ffff]" />
+                <div className="flex items-center gap-1.5 sm:gap-2 text-black bg-white px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-black text-xs sm:text-sm shadow-[3px_3px_0_#39ff14]">
+                  <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#39ff14]" />
                   <span className="font-black uppercase">9AM - 12PM</span>
                 </div>
-                <div className="flex items-center gap-1.5 sm:gap-2 text-black bg-white px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-black text-xs sm:text-sm shadow-[3px_3px_0_#39ff14]">
-                  <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#39ff14]" />
+                <div className="flex items-center gap-1.5 sm:gap-2 text-black bg-white px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-black text-xs sm:text-sm shadow-[3px_3px_0_#dc2626]">
+                  <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dc2626]" />
                   <span className="font-black uppercase">Velocity TX</span>
                 </div>
               </motion.div>
 
-              {/* Mission Statement - Neon border card */}
+              {/* Mission Statement */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="mb-6 sm:mb-8 p-3 sm:p-4 bg-white border-2 border-black relative"
-                style={{ boxShadow: '4px 4px 0 #000, 0 0 20px rgba(220,38,38,0.3)' }}
+                style={{ boxShadow: '4px 4px 0 #000' }}
               >
                 {/* Decorative corner accents */}
                 <div className="absolute -top-1 -left-1 w-3 h-3 bg-[#dc2626]" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#00ffff]" />
-                <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-[#00ffff]" />
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-[#39ff14]" />
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#39ff14]" />
+                <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-[#39ff14]" />
+                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-[#dc2626]" />
                 
                 <div className="flex items-start gap-2.5 sm:gap-3">
-                  <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#dc2626] shrink-0 mt-0.5" style={{ filter: 'drop-shadow(0 0 4px #dc2626)' }} />
+                  <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#dc2626] shrink-0 mt-0.5" />
                   <div>
                     <h2 className="font-black text-black text-sm sm:text-base mb-1 uppercase tracking-wide">Fueling Innovation in Our Community</h2>
                     <p className="text-xs sm:text-sm text-black leading-relaxed">
@@ -201,12 +255,12 @@ export default function VanitaLeoClient() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.45 }}
-                  className="mb-6 sm:mb-8 p-3 sm:p-4 bg-black border-2 border-[#39ff14] text-center"
-                  style={{ boxShadow: '4px 4px 0 #39ff14, 0 0 20px rgba(57,255,20,0.3)' }}
+                  className="mb-6 sm:mb-8 p-3 sm:p-4 bg-[#dc2626] border-2 border-black text-center"
+                  style={{ boxShadow: '4px 4px 0 #000' }}
                 >
                   <div className="flex items-center justify-center gap-2">
-                    <Laptop className="w-5 h-5 sm:w-6 sm:h-6 text-[#39ff14]" style={{ filter: 'drop-shadow(0 0 4px #39ff14)' }} />
-                    <span className="text-[#39ff14] font-black text-lg sm:text-xl uppercase tracking-wide">
+                    <Laptop className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                    <span className="text-white font-black text-lg sm:text-xl uppercase tracking-wide">
                       {availableCount} of {TOTAL_CHROMEBOOKS} Chromebooks Remaining
                     </span>
                   </div>
@@ -214,14 +268,14 @@ export default function VanitaLeoClient() {
               )}
 
               {isSoldOut ? (
-                /* Sold Out State - 80s Style */
+                /* Sold Out State */
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="text-center p-6 sm:p-8 bg-white border-4 border-black relative"
                   style={{ boxShadow: '6px 6px 0 #000' }}
                 >
-                  <AlertCircle className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-[#dc2626]" style={{ filter: 'drop-shadow(0 0 8px #dc2626)' }} />
+                  <AlertCircle className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-[#dc2626]" />
                   <h3 className="text-xl sm:text-2xl font-black text-black mb-2 uppercase tracking-wide">All Chromebooks Reserved</h3>
                   <p className="text-sm sm:text-base text-black">
                     All {TOTAL_CHROMEBOOKS} Chromebooks have been claimed. Thank you for your interest!
@@ -233,17 +287,17 @@ export default function VanitaLeoClient() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                  {/* Signup Form - 80s Synth-Pop Style */}
+                  {/* Signup Form */}
                   <div className="bg-white border-4 border-black p-4 sm:p-6 relative" style={{ boxShadow: '6px 6px 0 #000' }}>
-                    {/* Neon corner decorations */}
+                    {/* Corner decorations */}
                     <div className="absolute -top-2 -left-2 w-4 h-4 bg-[#dc2626]" />
-                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-[#00ffff]" />
+                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-[#39ff14]" />
                     <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-[#39ff14]" />
                     <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-[#dc2626]" />
                     
                     <div className="flex items-center justify-between mb-3 sm:mb-4">
-                      <h3 className="font-black text-black text-base sm:text-lg uppercase tracking-wider" style={{ textShadow: '2px 2px 0 #00ffff' }}>Register Now</h3>
-                      <Laptop className="w-4 h-4 sm:w-5 sm:h-5 text-[#39ff14]" style={{ filter: 'drop-shadow(0 0 4px #39ff14)' }} />
+                      <h3 className="font-black text-black text-base sm:text-lg uppercase tracking-wider">Register Now</h3>
+                      <Laptop className="w-4 h-4 sm:w-5 sm:h-5 text-[#39ff14]" />
                     </div>
 
                     {error && (
@@ -265,7 +319,7 @@ export default function VanitaLeoClient() {
                             value={formData.firstName}
                             onChange={handleChange}
                             required
-                            className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#00ffff] bg-white placeholder:text-gray-400"
+                            className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
                             style={{ boxShadow: '2px 2px 0 #000' }}
                             placeholder="Maria"
                           />
@@ -280,7 +334,7 @@ export default function VanitaLeoClient() {
                             value={formData.lastName}
                             onChange={handleChange}
                             required
-                            className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#00ffff] bg-white placeholder:text-gray-400"
+                            className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
                             style={{ boxShadow: '2px 2px 0 #000' }}
                             placeholder="Garcia"
                           />
@@ -298,7 +352,7 @@ export default function VanitaLeoClient() {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#ff00ff] bg-white placeholder:text-gray-400"
+                          className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
                           style={{ boxShadow: '2px 2px 0 #000' }}
                           placeholder="maria@email.com"
                         />
@@ -350,17 +404,24 @@ export default function VanitaLeoClient() {
                           onChange={handleChange}
                           required
                           rows={2}
-                          className="w-full px-2.5 sm:px-3 py-2 border-2 border-black text-sm resize-none focus:outline-none focus:ring-0 focus:border-[#00ffff] bg-white placeholder:text-gray-400"
+                          className="w-full px-2.5 sm:px-3 py-2 border-2 border-black text-sm resize-none focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
                           style={{ boxShadow: '2px 2px 0 #000' }}
                           placeholder="Tell us your story..."
                         />
                       </div>
 
+                      {/* Turnstile Bot Protection */}
+                      {!isDevelopment && (
+                        <div className="flex justify-center">
+                          <div ref={turnstileRef} />
+                        </div>
+                      )}
+
                       <button
                         type="submit"
                         disabled={isSubmitting || isSoldOut}
-                        className="w-full h-10 sm:h-11 bg-black hover:bg-[#dc2626] text-[#39ff14] hover:text-white font-black text-sm sm:text-base uppercase tracking-wider transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border-2 border-black"
-                        style={{ boxShadow: '4px 4px 0 #39ff14' }}
+                        className="w-full h-10 sm:h-11 bg-[#dc2626] hover:bg-[#b91c1c] text-white font-black text-sm sm:text-base uppercase tracking-wider transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border-2 border-black"
+                        style={{ boxShadow: '4px 4px 0 #000' }}
                       >
                         {isSubmitting ? (
                           <span className="flex items-center gap-2">
@@ -384,7 +445,7 @@ export default function VanitaLeoClient() {
                   </div>
                 </motion.div>
               ) : (
-                /* Success State - 80s Neon Style */
+                /* Success State */
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -392,9 +453,9 @@ export default function VanitaLeoClient() {
                   className="text-center p-6 sm:p-8 bg-white border-4 border-black relative"
                   style={{ boxShadow: '6px 6px 0 #000' }}
                 >
-                  {/* Neon corners */}
+                  {/* Corner decorations */}
                   <div className="absolute -top-2 -left-2 w-5 h-5 bg-[#dc2626]" />
-                  <div className="absolute -top-2 -right-2 w-5 h-5 bg-[#00ffff]" />
+                  <div className="absolute -top-2 -right-2 w-5 h-5 bg-[#39ff14]" />
                   <div className="absolute -bottom-2 -left-2 w-5 h-5 bg-[#39ff14]" />
                   <div className="absolute -bottom-2 -right-2 w-5 h-5 bg-[#dc2626]" />
                   
@@ -402,19 +463,19 @@ export default function VanitaLeoClient() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-                    className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 bg-black border-4 border-[#39ff14] flex items-center justify-center"
-                    style={{ boxShadow: '0 0 20px #39ff14' }}
+                    className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 bg-[#39ff14] border-4 border-black flex items-center justify-center"
+                    style={{ boxShadow: '4px 4px 0 #000' }}
                   >
-                    <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-[#39ff14]" />
+                    <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                   </motion.div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-black mb-2 uppercase tracking-wide" style={{ textShadow: '3px 3px 0 #dc2626' }}>
+                  <h3 className="text-2xl sm:text-3xl font-black text-black mb-2 uppercase tracking-wide">
                     You're Registered!
                   </h3>
                   <p className="text-sm sm:text-base text-black mb-4 leading-relaxed">
                     Thank you, <span className="font-black text-[#dc2626]">{formData.firstName}</span>! We'll email you with details about picking up your Chromebook on December 19th.
                   </p>
-                  <div className="p-3 sm:p-4 bg-black border-2 border-[#00ffff]" style={{ boxShadow: '0 0 15px rgba(0,255,255,0.3)' }}>
-                    <p className="text-xs sm:text-sm text-[#00ffff] font-bold uppercase tracking-wide">
+                  <div className="p-3 sm:p-4 bg-[#39ff14] border-2 border-black" style={{ boxShadow: '3px 3px 0 #000' }}>
+                    <p className="text-xs sm:text-sm text-white font-bold uppercase tracking-wide">
                       📅 Dec 19th, 9AM-12PM<br/>
                       📍 Velocity TX CRC
                     </p>
