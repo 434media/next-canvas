@@ -195,6 +195,24 @@ export default function VanitaLeoClient() {
                 </div>
               </motion.div>
 
+              {/* Inventory Counter */}
+              {availableCount !== null && !isSoldOut && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.45 }}
+                  className="mb-6 sm:mb-8 p-3 sm:p-4 bg-black border-2 border-[#39ff14] text-center"
+                  style={{ boxShadow: '4px 4px 0 #39ff14, 0 0 20px rgba(57,255,20,0.3)' }}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <Laptop className="w-5 h-5 sm:w-6 sm:h-6 text-[#39ff14]" style={{ filter: 'drop-shadow(0 0 4px #39ff14)' }} />
+                    <span className="text-[#39ff14] font-black text-lg sm:text-xl uppercase tracking-wide">
+                      {availableCount} of {TOTAL_CHROMEBOOKS} Chromebooks Remaining
+                    </span>
+                  </div>
+                </motion.div>
+              )}
+
               {isSoldOut ? (
                 /* Sold Out State - 80s Style */
                 <motion.div
