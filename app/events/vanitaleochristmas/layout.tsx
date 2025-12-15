@@ -6,7 +6,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.c
 export const metadata: Metadata = {
   title: "Vanita Leo Christmas Laptop Giveaway | Closing the Digital Divide",
   description:
-    "Join us December 19th at Velocity TX for a special Christmas laptop giveaway. 50 free Chromebooks for women in underserved communities. Featuring Vanita Leo.",
+    "Equipping aspiring women in technology from historically under-resourced San Antonio neighborhoods with critical tools for success.",
   keywords: [
     "Vanita Leo",
     "Chromebook giveaway",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Vanita Leo Christmas Laptop Giveaway",
-    description: "50 free Chromebooks for women in underserved communities. December 19th, 9AM-12PM at Velocity TX.",
+    description: "Equipping aspiring women in technology from historically under-resourced San Antonio neighborhoods with critical tools for success.",
     url: `${siteUrl}/events/vanitaleochristmas`,
     siteName: "Vanita Leo Christmas",
     images: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         url: "https://ampd-asset.s3.us-east-2.amazonaws.com/vanitachristmas.png",
         width: 1200,
         height: 630,
-        alt: "Vanita Leo Christmas Chromebook Giveaway",
+        alt: "Vanita Leo Christmas laptop Giveaway",
       },
     ],
     locale: "en_US",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Vanita Leo Christmas Laptop Giveaway",
-    description: "50 free Chromebooks for women in underserved communities. December 19th, 9AM-12PM at Velocity TX.",
+    description: "Equipping aspiring women in technology from historically under-resourced San Antonio neighborhoods with critical tools for success.",
     images: ["https://ampd-asset.s3.us-east-2.amazonaws.com/vanitachristmas.png"],
     creator: "@digitalcanvas",
   },
@@ -69,7 +69,7 @@ export default function VanitaLeoLayout({
     "@type": "Event",
     name: "Vanita Leo Christmas Laptop Giveaway",
     description:
-      "A special Christmas laptop giveaway providing 50 free Chromebooks to women in underserved San Antonio communities. Equipping aspiring women in technology with critical tools for success.",
+      "A special Christmas laptop giveaway providing 50 free laptops to women in underserved San Antonio communities. Equipping aspiring women in technology with critical tools for success.",
     startDate: "2025-12-19T09:00:00-06:00",
     endDate: "2025-12-19T12:00:00-06:00",
     eventStatus: "https://schema.org/EventScheduled",

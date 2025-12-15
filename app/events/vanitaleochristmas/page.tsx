@@ -4,16 +4,16 @@ import VanitaLeoClient from "./vanitaleo-client"
 export const metadata: Metadata = {
   title: "Vanita Leo Christmas Laptop Giveaway | Closing the Digital Divide",
   description:
-    "Join us December 19th at Velocity TX for a special Christmas laptop giveaway. 50 free Chromebooks for women in underserved communities. Featuring Vanita Leo.",
+    "Equipping aspiring women in technology from historically under-resourced San Antonio neighborhoods with critical tools for success.",
   openGraph: {
     title: "Vanita Leo Christmas Laptop Giveaway",
-    description: "50 free Chromebooks for women in underserved communities. December 19th, 9AM-12PM at Velocity TX.",
+    description: "Equipping aspiring women in technology from historically under-resourced San Antonio neighborhoods with critical tools for success.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Vanita Leo Christmas Laptop Giveaway",
-    description: "50 free Chromebooks for women in underserved communities. December 19th, 9AM-12PM at Velocity TX.",
+    description: "Equipping aspiring women in technology from historically under-resourced San Antonio neighborhoods with critical tools for success.",
   },
 }
 

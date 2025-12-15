@@ -281,7 +281,7 @@ export default function VanitaLeoClient() {
                   <div className="flex items-center justify-center gap-2">
                     <Laptop className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     <span className="text-white font-black text-lg sm:text-xl uppercase tracking-wide">
-                      {availableCount} of {TOTAL_CHROMEBOOKS} Chromebooks Remaining
+                      {availableCount} of {TOTAL_CHROMEBOOKS} Laptops Remaining
                     </span>
                   </div>
                 </motion.div>
@@ -296,9 +296,9 @@ export default function VanitaLeoClient() {
                   style={{ boxShadow: '6px 6px 0 #000' }}
                 >
                   <AlertCircle className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-[#dc2626]" />
-                  <h3 className="text-xl sm:text-2xl font-black text-black mb-2 uppercase tracking-wide">All Chromebooks Reserved</h3>
+                  <h3 className="text-xl sm:text-2xl font-black text-black mb-2 uppercase tracking-wide">All Laptops Reserved</h3>
                   <p className="text-sm sm:text-base text-black">
-                    All {TOTAL_CHROMEBOOKS} Chromebooks have been claimed. Thank you for your interest!
+                    All {TOTAL_CHROMEBOOKS} Laptops have been claimed. Thank you for your interest!
                   </p>
                 </motion.div>
               ) : !isSubmitted ? (
@@ -492,7 +492,7 @@ export default function VanitaLeoClient() {
                     You're Registered!
                   </h3>
                   <p className="text-sm sm:text-base text-black mb-4 leading-relaxed">
-                    Thank you, <span className="font-black text-[#dc2626]">{formData.firstName}</span>! We'll email you with details about picking up your Chromebook on December 19th.
+                    Thank you, <span className="font-black text-[#dc2626]">{formData.firstName}</span>! We'll email you with details about picking up your Laptop on December 19th.
                   </p>
                   <div className="p-3 sm:p-4 bg-[#39ff14] border-2 border-black" style={{ boxShadow: '3px 3px 0 #000' }}>
                     <p className="text-xs sm:text-sm text-white font-bold uppercase tracking-wide">
