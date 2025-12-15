@@ -30,10 +30,10 @@ export const metadata: Metadata = {
     siteName: "Vanita Leo Christmas",
     images: [
       {
-        url: "https://ampd-asset.s3.us-east-2.amazonaws.com/vanitachristmas.png",
+        url: '/events/vanitaleochristmas/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: "Vanita Leo Christmas laptop Giveaway",
+        alt: 'Vanita Leo Christmas Laptop Giveaway',
       },
     ],
     locale: "en_US",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Vanita Leo Christmas Laptop Giveaway",
     description: "Equipping aspiring women in technology from historically under-resourced San Antonio neighborhoods with critical tools for success.",
-    images: ["https://ampd-asset.s3.us-east-2.amazonaws.com/vanitachristmas.png"],
+    images: ['/events/vanitaleochristmas/opengraph-image.png'],
     creator: "@digitalcanvas",
   },
   robots: {
