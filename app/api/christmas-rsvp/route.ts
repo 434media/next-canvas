@@ -130,7 +130,7 @@ export async function POST(request: Request) {
             "First Name": firstName,
             "Last Name": lastName,
             Email: email,
-            Phone: phone,
+            "Phone Number": phone,
             "Submitted At": new Date().toLocaleString("en-US", {
               timeZone: "America/Chicago",
               year: "numeric",

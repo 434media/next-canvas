@@ -106,15 +106,39 @@ export default function VanitaLeoClient() {
   useEffect(() => {
     if (isDevelopment || waitlistTurnstileWidget || !isSoldOut || isWaitlistSubmitted) return
 
+    const renderWidget = () => {
+      if (typeof window !== "undefined" && (window as any).turnstile && waitlistTurnstileRef.current) {
+        const widgetId = (window as any).turnstile.render(waitlistTurnstileRef.current, {
+          sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+          callback: () => {},
+        })
+        setWaitlistTurnstileWidget(widgetId)
+        return true
+      }
+      return false
+    }
+
     const loadWaitlistTurnstile = () => {
-      if (document.getElementById("turnstile-script")) {
-        // Script already loaded, just render widget
-        if (typeof window !== "undefined" && (window as any).turnstile && waitlistTurnstileRef.current) {
-          const widgetId = (window as any).turnstile.render(waitlistTurnstileRef.current, {
-            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-            callback: () => {},
+      const existingScript = document.getElementById("turnstile-script")
+      
+      if (existingScript) {
+        // Script exists - check if turnstile is ready
+        if ((window as any).turnstile) {
+          renderWidget()
+        } else {
+          // Script exists but not loaded yet - wait for it
+          existingScript.addEventListener("load", () => {
+            renderWidget()
           })
-          setWaitlistTurnstileWidget(widgetId)
+          // Also poll in case the event already fired
+          const checkInterval = setInterval(() => {
+            if ((window as any).turnstile) {
+              clearInterval(checkInterval)
+              renderWidget()
+            }
+          }, 100)
+          // Clean up after 10 seconds
+          setTimeout(() => clearInterval(checkInterval), 10000)
         }
         return
       }
@@ -127,13 +151,7 @@ export default function VanitaLeoClient() {
       document.body.appendChild(script)
 
       script.onload = () => {
-        if (typeof window !== "undefined" && (window as any).turnstile && waitlistTurnstileRef.current) {
-          const widgetId = (window as any).turnstile.render(waitlistTurnstileRef.current, {
-            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-            callback: () => {},
-          })
-          setWaitlistTurnstileWidget(widgetId)
-        }
+        renderWidget()
       }
     }
 
