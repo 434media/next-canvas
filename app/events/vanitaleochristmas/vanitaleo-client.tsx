@@ -233,7 +233,7 @@ export default function VanitaLeoClient() {
                   <p className="text-[10px] sm:text-xs lg:text-xs font-bold uppercase tracking-[0.3em] text-black/40 text-center mb-1.5 lg:mb-1">
                     Partners & Sponsors
                   </p>
-                  <div className="flex items-center justify-center gap-2 sm:gap-4 lg:gap-3 mx-auto" style={{ maxWidth: 'fit-content' }}>
+                  <div className="flex items-center justify-center gap-0 lg:gap-3 mx-auto" style={{ maxWidth: 'fit-content' }}>
                     {[
                       { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-434.png", alt: "434 MEDIA", url: "https://www.434media.com/", large: true },
                       { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-vv.png", alt: "Vemos Vamos", url: "https://vemosvamos.com/", large: true },
@@ -266,7 +266,7 @@ export default function VanitaLeoClient() {
                         <img
                           src={ornament.src}
                           alt={ornament.alt}
-                          className={`${ornament.large ? 'w-14 h-14 md:w-20 md:h-20' : 'w-8 h-8 sm:w-10 sm:h-10 lg:w-10 lg:h-10'} object-contain`}
+                          className={`${ornament.large ? 'w-14 h-14 md:w-20 md:h-20' : 'w-10 h-10 lg:w-10 lg:h-10'} object-cover md:object-contain`}
                           style={{
                             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
                           }}
