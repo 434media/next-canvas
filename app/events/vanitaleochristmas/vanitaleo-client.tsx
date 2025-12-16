@@ -235,13 +235,13 @@ export default function VanitaLeoClient() {
                   </p>
                   <div className="flex items-center justify-center gap-2 sm:gap-4 lg:gap-3 mx-auto" style={{ maxWidth: 'fit-content' }}>
                     {[
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-434.png", alt: "434", url: "https://www.434media.com/", large: false },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-vv.png", alt: "Vemos Vamos", url: "https://vemosvamos.com/", large: false },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-levantatech.png", alt: "Levanta Tech", url: "https://levantatech.org/", large: true },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-devsa.png", alt: "DevSA", url: "https://devsa.community/", large: true },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-human-i-t.png", alt: "Human I-T", url: "https://www.humanit.org/", large: true },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-434.png", alt: "434 MEDIA", url: "https://www.434media.com/", large: true },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-vv.png", alt: "Vemos Vamos", url: "https://vemosvamos.com/", large: true },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-levantatech.png", alt: "Levántatech", url: "https://levantatech.org/", large: true },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-devsa.png", alt: "DEVSA", url: "https://devsa.community/", large: true },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-human.png", alt: "Human I-T", url: "https://www.humanit.org/", large: true },
                       { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-sdoh.png", alt: "SDOH", url: "https://www.434media.com/en/sdoh", large: true },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-velocity.png", alt: "Velocity TX", url: "https://velocitytx.org/", large: false },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-velocity.png", alt: "Velocity TX", url: "https://velocitytx.org/", large: true },
                     ].map((ornament, index) => (
                       <motion.a
                         key={ornament.alt}
@@ -266,7 +266,7 @@ export default function VanitaLeoClient() {
                         <img
                           src={ornament.src}
                           alt={ornament.alt}
-                          className={`${ornament.large ? 'w-12 h-12 sm:w-14 sm:h-14 lg:w-12 lg:h-12' : 'w-8 h-8 sm:w-10 sm:h-10 lg:w-10 lg:h-10'} object-contain`}
+                          className={`${ornament.large ? 'w-14 h-14 md:w-20 md:h-20' : 'w-8 h-8 sm:w-10 sm:h-10 lg:w-10 lg:h-10'} object-contain`}
                           style={{
                             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
                           }}
