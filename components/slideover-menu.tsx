@@ -68,7 +68,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                       <NextLink
                         href="/"
                         onClick={onClose}
-                        className="block bg-black border-1 border-white p-2 transform hover:rotate-1 shadow-lg transition-transform duration-200 hover:scale-105"
+                        className="block bg-black border border-white p-2 transform hover:rotate-1 shadow-lg transition-transform duration-200 hover:scale-105"
                         style={{
                           filter: "drop-shadow(2px 2px 0px black)",
                         }}
@@ -105,7 +105,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
                   >
-                    <p className="text-sm sm:text-base font-bold uppercase tracking-wide text-center break-words">
+                    <p className="text-sm sm:text-base font-bold uppercase tracking-wide text-center wrap-break-word">
                       The Creative Layer of{" "}
                       <span className="bg-white text-black px-1 sm:px-2 py-1 font-menda-black">434 MEDIA</span>
                     </p>

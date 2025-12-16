@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { motion } from "motion/react"
 
 const snowflakes = [
@@ -246,41 +245,26 @@ export function MxrAtMainHero() {
             className="max-w-xl lg:max-w-2xl mb-4 lg:mb-6"
           >
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-neutral-700 leading-relaxed font-medium mb-2 lg:mb-3">
-              A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders,
-              gamers & grunts.
+              Thank you to everyone who joined us for MXR @MAIN on December 12, 2025.
+              It was an incredible evening of connection, celebration, and community.
             </p>
             <p className="text-sm sm:text-base md:text-lg text-[#228b22] font-bold">
-              If you belong to something, you belong.
+              You belonged, and you made it unforgettable.
             </p>
           </motion.div>
 
-          {/* RSVP Button */}
+          {/* Thank You Message */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             className="mb-6 lg:mb-8"
           >
-            <Link
-              href="/events/mxratmain/rsvp"
-              className="group relative inline-flex items-center gap-2 px-8 py-3 lg:px-10 lg:py-4 bg-[#c41e3a] hover:bg-[#a01830] text-white text-base sm:text-lg lg:text-xl font-bold uppercase tracking-wider rounded-sm transition-all duration-300 hover:scale-105 shadow-lg shadow-[#c41e3a]/30"
-            >
-              <span>RSVP Now</span>
-              <svg
-                className="w-5 h-5 lg:w-6 lg:h-6 transform group-hover:translate-x-2 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-
-              {/* Decorative corner accents */}
-              <span className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#d4af37]" />
-              <span className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#d4af37]" />
-              <span className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#d4af37]" />
-              <span className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#d4af37]" />
-            </Link>
+            <div className="inline-flex items-center gap-3 px-8 py-3 lg:px-10 lg:py-4 bg-[#228b22] text-white text-base sm:text-lg lg:text-xl font-bold uppercase tracking-wider rounded-sm shadow-lg shadow-[#228b22]/30">
+              <span>🎄</span>
+              <span>Thank You!</span>
+              <span>🎄</span>
+            </div>
           </motion.div>
 
           {/* Brought to you by */}

@@ -17,6 +17,16 @@ export default function VanitaLeoClient() {
     phone: "",
     zipCode: "",
     reason: "",
+    // New fields
+    levantaTechNewsletter: false,
+    affordableInternetInterest: false,
+    primaryLanguage: "",
+    ethnicity: "",
+    race: "",
+    gender: "",
+    streetAddress: "",
+    city: "",
+    state: "TX",
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -133,10 +143,12 @@ export default function VanitaLeoClient() {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const target = e.target
+    const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [target.name]: value,
     }))
   }
 
@@ -395,22 +407,6 @@ export default function VanitaLeoClient() {
                             placeholder="(210) 555-0123"
                           />
                         </div>
-                        <div>
-                          <label htmlFor="zipCode" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
-                            ZIP Code *
-                          </label>
-                          <input
-                            id="zipCode"
-                            name="zipCode"
-                            value={formData.zipCode}
-                            onChange={handleChange}
-                            required
-                            pattern="[0-9]{5}"
-                            className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
-                            style={{ boxShadow: '2px 2px 0 #000' }}
-                            placeholder="78201"
-                          />
-                        </div>
                       </div>
 
                       <div>
@@ -428,6 +424,197 @@ export default function VanitaLeoClient() {
                           style={{ boxShadow: '2px 2px 0 #000' }}
                           placeholder="Tell us your story..."
                         />
+                      </div>
+
+                      {/* Physical Address Section */}
+                      <div className="pt-3 border-t-2 border-dashed border-black/30">
+                        <p className="text-xs font-black text-black mb-2 uppercase tracking-wide">Physical Address *</p>
+                        <div className="space-y-2.5">
+                          <div>
+                            <label htmlFor="streetAddress" className="block text-xs font-bold text-black/70 mb-1">
+                              Street Address
+                            </label>
+                            <input
+                              id="streetAddress"
+                              name="streetAddress"
+                              value={formData.streetAddress}
+                              onChange={handleChange}
+                              required
+                              className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                              style={{ boxShadow: '2px 2px 0 #000' }}
+                              placeholder="123 Main Street"
+                            />
+                          </div>
+                          <div className="grid grid-cols-3 gap-2.5">
+                            <div className="col-span-1">
+                              <label htmlFor="city" className="block text-xs font-bold text-black/70 mb-1">
+                                City
+                              </label>
+                              <input
+                                id="city"
+                                name="city"
+                                value={formData.city}
+                                onChange={handleChange}
+                                required
+                                className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                                style={{ boxShadow: '2px 2px 0 #000' }}
+                                placeholder="San Antonio"
+                              />
+                            </div>
+                            <div>
+                              <label htmlFor="state" className="block text-xs font-bold text-black/70 mb-1">
+                                State
+                              </label>
+                              <input
+                                id="state"
+                                name="state"
+                                value={formData.state}
+                                onChange={handleChange}
+                                required
+                                className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                                style={{ boxShadow: '2px 2px 0 #000' }}
+                                placeholder="TX"
+                              />
+                            </div>
+                            <div>
+                              <label htmlFor="zipCode2" className="block text-xs font-bold text-black/70 mb-1">
+                                ZIP
+                              </label>
+                              <input
+                                id="zipCode2"
+                                name="zipCode"
+                                value={formData.zipCode}
+                                onChange={handleChange}
+                                required
+                                pattern="[0-9]{5}"
+                                className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                                style={{ boxShadow: '2px 2px 0 #000' }}
+                                placeholder="78201"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Primary Language */}
+                      <div>
+                        <label htmlFor="primaryLanguage" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
+                          Primary Language Spoken at Home *
+                        </label>
+                        <select
+                          id="primaryLanguage"
+                          name="primaryLanguage"
+                          value={formData.primaryLanguage}
+                          onChange={handleChange}
+                          required
+                          className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white"
+                          style={{ boxShadow: '2px 2px 0 #000' }}
+                        >
+                          <option value="">Select language...</option>
+                          <option value="Spanish">Spanish</option>
+                          <option value="English">English</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+
+                      {/* Demographic Information */}
+                      <div className="pt-3 border-t-2 border-dashed border-black/30">
+                        <p className="text-xs font-black text-black mb-2 uppercase tracking-wide">Demographic Information *</p>
+                        <div className="space-y-2.5">
+                          <div>
+                            <label htmlFor="ethnicity" className="block text-xs font-bold text-black/70 mb-1">
+                              Ethnicity
+                            </label>
+                            <select
+                              id="ethnicity"
+                              name="ethnicity"
+                              value={formData.ethnicity}
+                              onChange={handleChange}
+                              required
+                              className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white"
+                              style={{ boxShadow: '2px 2px 0 #000' }}
+                            >
+                              <option value="">Select ethnicity...</option>
+                              <option value="Hispanic or Latino">Hispanic or Latino</option>
+                              <option value="Not Hispanic or Latino">Not Hispanic or Latino</option>
+                              <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label htmlFor="race" className="block text-xs font-bold text-black/70 mb-1">
+                              Race
+                            </label>
+                            <select
+                              id="race"
+                              name="race"
+                              value={formData.race}
+                              onChange={handleChange}
+                              required
+                              className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white"
+                              style={{ boxShadow: '2px 2px 0 #000' }}
+                            >
+                              <option value="">Select race...</option>
+                              <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+                              <option value="Asian">Asian</option>
+                              <option value="Black or African American">Black or African American</option>
+                              <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                              <option value="White">White</option>
+                              <option value="Two or More Races">Two or More Races</option>
+                              <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label htmlFor="gender" className="block text-xs font-bold text-black/70 mb-1">
+                              Gender
+                            </label>
+                            <select
+                              id="gender"
+                              name="gender"
+                              value={formData.gender}
+                              onChange={handleChange}
+                              required
+                              className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white"
+                              style={{ boxShadow: '2px 2px 0 #000' }}
+                            >
+                              <option value="">Select gender...</option>
+                              <option value="Female">Female</option>
+                              <option value="Male">Male</option>
+                              <option value="Non-binary">Non-binary</option>
+                              <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Optional Consents */}
+                      <div className="pt-3 border-t-2 border-dashed border-black/30 space-y-3">
+                        <p className="text-xs font-black text-black uppercase tracking-wide">Optional Preferences</p>
+                        
+                        <label className="flex items-start gap-3 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            name="levantaTechNewsletter"
+                            checked={formData.levantaTechNewsletter}
+                            onChange={handleChange}
+                            className="mt-0.5 w-4 h-4 border-2 border-black accent-[#39ff14] cursor-pointer"
+                          />
+                          <span className="text-xs sm:text-sm text-black group-hover:text-[#dc2626] transition-colors">
+                            I would like to receive the <strong>Levántatech newsletter</strong> with tech resources and opportunities.
+                          </span>
+                        </label>
+
+                        <label className="flex items-start gap-3 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            name="affordableInternetInterest"
+                            checked={formData.affordableInternetInterest}
+                            onChange={handleChange}
+                            className="mt-0.5 w-4 h-4 border-2 border-black accent-[#39ff14] cursor-pointer"
+                          />
+                          <span className="text-xs sm:text-sm text-black group-hover:text-[#dc2626] transition-colors">
+                            I would like to hear about <strong>affordable internet options</strong> in my area.
+                          </span>
+                        </label>
                       </div>
 
                       {/* Turnstile Bot Protection */}
@@ -486,7 +673,7 @@ export default function VanitaLeoClient() {
                     className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 bg-[#39ff14] border-4 border-black flex items-center justify-center"
                     style={{ boxShadow: '4px 4px 0 #000' }}
                   >
-                    <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                    <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-black" />
                   </motion.div>
                   <h3 className="text-2xl sm:text-3xl font-black text-black mb-2 uppercase tracking-wide">
                     You're Registered!
@@ -495,9 +682,9 @@ export default function VanitaLeoClient() {
                     Thank you, <span className="font-black text-[#dc2626]">{formData.firstName}</span>! We'll email you with details about picking up your Laptop on December 19th.
                   </p>
                   <div className="p-3 sm:p-4 bg-[#39ff14] border-2 border-black" style={{ boxShadow: '3px 3px 0 #000' }}>
-                    <p className="text-xs sm:text-sm text-white font-bold uppercase tracking-wide">
+                    <p className="text-xs sm:text-sm text-black font-bold uppercase tracking-wide">
                       📅 Dec 19th, 9AM-12PM<br/>
-                      📍 Velocity TX CRC
+                      📍 Velocity TX
                     </p>
                   </div>
                 </motion.div>

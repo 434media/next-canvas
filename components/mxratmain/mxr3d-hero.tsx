@@ -1,12 +1,10 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import ChristmasScene from "./christmas-scene"
 import { SceneErrorBoundary } from "./scene-error-boundary"
 import { AudioProvider, useAudio } from "./audio-provider"
-import { Calendar, MapPin, ArrowRight, Play, Pause, Music, SkipForward, Ticket } from "lucide-react"
+import { Calendar, MapPin, Play, Pause, Music, SkipForward } from "lucide-react"
 import { useState, useEffect } from "react"
 
 function LogoHeader() {
@@ -133,12 +131,8 @@ function ChristmasContent() {
 
             <div className="flex flex-col gap-1.5 mb-4">
               <div className="flex items-center justify-center gap-2 text-[10px] md:text-xs text-balance tracking-tighter text-white/80">
-                <Ticket className="w-3 h-3 text-white/60 shrink-0" />
-                <span>Admission: Bring an unwrapped children&apos;s toy (ages 2+)</span>
-              </div>
-              <div className="flex items-center justify-center gap-2 text-[10px] md:text-xs text-white/80">
                 <Calendar className="w-3 h-3 text-white/60 shrink-0" />
-                <span>Dec 12th, 2025 • 7:00 PM</span>
+                <span>Dec 12th, 2025 • Event Complete</span>
               </div>
               <div className="flex items-center justify-center gap-2 text-[10px] md:text-xs text-white/80">
                 <MapPin className="w-3 h-3 text-white/60 shrink-0" />
@@ -146,16 +140,9 @@ function ChristmasContent() {
               </div>
             </div>
 
-            <Button
-              asChild
-              size="default"
-              className="w-full bg-white text-black hover:bg-white/90 hover:scale-[1.02] transition-all duration-300 font-medium text-sm h-9 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-            >
-              <Link href="/events/mxratmain/rsvp">
-                RSVP Now
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
+            <div className="w-full bg-white/10 backdrop-blur-sm text-white text-center font-medium text-sm py-3 px-4 rounded-xl">
+              <span className="text-lg">🎄</span> Thank you for celebrating with us! <span className="text-lg">🎄</span>
+            </div>
           </div>
         </div>
 

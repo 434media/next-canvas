@@ -4,9 +4,9 @@ import type { Metadata } from "next"
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.community"
 
 export const metadata: Metadata = {
-  title: "MXR @MAIN | Holiday Party by 434 Media",
+  title: "MXR @MAIN | Thank You - Holiday Party by 434 Media",
   description:
-    "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong. Dec 12, 2025 at 300 Main Rooftop.",
+    "Thank you to everyone who joined us for MXR @MAIN on December 12, 2025. It was an incredible evening of connection, celebration, and community at 300 Main Rooftop.",
   keywords: [
     "MXR at Main",
     "434 Media",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     canonical: "/events/mxratmain",
   },
   openGraph: {
-    title: "MXR @MAIN | Holiday Party by 434 Media",
+    title: "MXR @MAIN | Thank You - Holiday Party by 434 Media",
     description:
-      "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts.",
+      "Thank you to everyone who joined us for MXR @MAIN on December 12, 2025. It was an incredible evening of connection, celebration, and community.",
     url: `${siteUrl}/events/mxratmain`,
     siteName: "MXR @MAIN",
     images: [
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MXR @MAIN | Holiday Party by 434 Media",
+    title: "MXR @MAIN | Thank You - Holiday Party by 434 Media",
     description:
-      "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts.",
+      "Thank you to everyone who joined us for MXR @MAIN on December 12, 2025. It was an incredible evening of connection, celebration, and community.",
     images: ['/events/mxratmain/opengraph-image.png'],
     creator: "@digitalcanvas",
   },
@@ -73,7 +73,7 @@ export default function MxratmainLayout({
       "A holiday party for molecules & musicians, scientists & screwups, techies & teachers, founders & funders, gamers & grunts. If you belong to something, you belong. Dec 12, 2025 at 300 Main Rooftop, San Antonio, TX.",
     startDate: "2025-12-12T13:00:00-06:00",
     endDate: "2025-12-12T18:00:00-06:00",
-    eventStatus: "https://schema.org/EventScheduled",
+    eventStatus: "https://schema.org/EventCancelled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: {
       "@type": "Place",
