@@ -35,6 +35,19 @@ export default function VanitaLeoClient() {
   const [isSoldOut, setIsSoldOut] = useState(false)
   const turnstileRef = useRef<HTMLDivElement>(null)
   const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
+  
+  // Waitlist state
+  const [waitlistData, setWaitlistData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  })
+  const [isWaitlistSubmitting, setIsWaitlistSubmitting] = useState(false)
+  const [isWaitlistSubmitted, setIsWaitlistSubmitted] = useState(false)
+  const [waitlistError, setWaitlistError] = useState("")
+  const waitlistTurnstileRef = useRef<HTMLDivElement>(null)
+  const [waitlistTurnstileWidget, setWaitlistTurnstileWidget] = useState<string | null>(null)
 
   // Check inventory on mount
   useEffect(() => {
@@ -88,6 +101,54 @@ export default function VanitaLeoClient() {
       }
     }
   }, [turnstileWidget, isSoldOut, isSubmitted])
+
+  // Load Turnstile for waitlist when sold out
+  useEffect(() => {
+    if (isDevelopment || waitlistTurnstileWidget || !isSoldOut || isWaitlistSubmitted) return
+
+    const loadWaitlistTurnstile = () => {
+      if (document.getElementById("turnstile-script")) {
+        // Script already loaded, just render widget
+        if (typeof window !== "undefined" && (window as any).turnstile && waitlistTurnstileRef.current) {
+          const widgetId = (window as any).turnstile.render(waitlistTurnstileRef.current, {
+            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+            callback: () => {},
+          })
+          setWaitlistTurnstileWidget(widgetId)
+        }
+        return
+      }
+
+      const script = document.createElement("script")
+      script.id = "turnstile-script"
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+      script.async = true
+      script.defer = true
+      document.body.appendChild(script)
+
+      script.onload = () => {
+        if (typeof window !== "undefined" && (window as any).turnstile && waitlistTurnstileRef.current) {
+          const widgetId = (window as any).turnstile.render(waitlistTurnstileRef.current, {
+            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+            callback: () => {},
+          })
+          setWaitlistTurnstileWidget(widgetId)
+        }
+      }
+    }
+
+    loadWaitlistTurnstile()
+
+    return () => {
+      if (waitlistTurnstileWidget && typeof window !== "undefined" && (window as any).turnstile) {
+        try {
+          ;(window as any).turnstile.reset(waitlistTurnstileWidget)
+        } catch (error) {
+          console.error("Error resetting waitlist Turnstile widget:", error)
+        }
+      }
+    }
+  }, [waitlistTurnstileWidget, isSoldOut, isWaitlistSubmitted])
 
   const checkInventory = async () => {
     try {
@@ -150,6 +211,56 @@ export default function VanitaLeoClient() {
       ...prev,
       [target.name]: value,
     }))
+  }
+
+  const handleWaitlistChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setWaitlistData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsWaitlistSubmitting(true)
+    setWaitlistError("")
+
+    try {
+      // Get Turnstile token (skip in development)
+      let turnstileResponse: string | undefined = undefined
+      if (!isDevelopment) {
+        if (typeof window === "undefined" || !(window as any).turnstile || !waitlistTurnstileWidget) {
+          throw new Error("Security verification not loaded. Please refresh and try again.")
+        }
+
+        turnstileResponse = (window as any).turnstile.getResponse(waitlistTurnstileWidget)
+        if (!turnstileResponse) {
+          throw new Error("Please complete the security verification")
+        }
+      }
+
+      const response = await fetch("/api/christmas-rsvp?action=waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(turnstileResponse && { "cf-turnstile-response": turnstileResponse }),
+        },
+        body: JSON.stringify(waitlistData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to join waitlist")
+      }
+
+      setIsWaitlistSubmitted(true)
+    } catch (err: any) {
+      setWaitlistError(err.message || "An error occurred. Please try again.")
+    } finally {
+      setIsWaitlistSubmitting(false)
+    }
   }
 
   return (
@@ -347,18 +458,160 @@ export default function VanitaLeoClient() {
               )}
 
               {isSoldOut ? (
-                /* Sold Out State */
+                /* Sold Out State with Waitlist */
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center p-6 sm:p-8 bg-white border-4 border-black relative"
+                  className="bg-white border-4 border-black relative p-4 sm:p-6"
                   style={{ boxShadow: '6px 6px 0 #000' }}
                 >
-                  <AlertCircle className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-[#dc2626]" />
-                  <h3 className="text-xl sm:text-2xl font-black text-black mb-2 uppercase tracking-wide">All Laptops Reserved</h3>
-                  <p className="text-sm sm:text-base text-black">
-                    All {TOTAL_CHROMEBOOKS} Laptops have been claimed. Thank you for your interest!
-                  </p>
+                  {/* Corner decorations */}
+                  <div className="absolute -top-2 -left-2 w-4 h-4 bg-[#dc2626]" />
+                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-[#39ff14]" />
+                  <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-[#39ff14]" />
+                  <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-[#dc2626]" />
+                  
+                  <div className="text-center mb-4 sm:mb-6">
+                    <AlertCircle className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-[#dc2626]" />
+                    <h3 className="text-lg sm:text-xl font-black text-black mb-1 uppercase tracking-wide">All Laptops Reserved</h3>
+                    <p className="text-xs sm:text-sm text-black/70">
+                      All {TOTAL_CHROMEBOOKS} laptops have been claimed.
+                    </p>
+                  </div>
+
+                  {isWaitlistSubmitted ? (
+                    /* Waitlist Success State */
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-center p-4 sm:p-6 bg-[#39ff14]/10 border-2 border-[#39ff14]"
+                    >
+                      <CheckCircle2 className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-[#39ff14]" />
+                      <h4 className="text-base sm:text-lg font-black text-black mb-1 uppercase">You're on the Waitlist!</h4>
+                      <p className="text-xs sm:text-sm text-black">
+                        Thanks, <span className="font-black text-[#dc2626]">{waitlistData.firstName}</span>! We'll contact you if a laptop becomes available.
+                      </p>
+                    </motion.div>
+                  ) : (
+                    /* Waitlist Form */
+                    <div className="border-t-2 border-dashed border-black/30 pt-4 sm:pt-6">
+                      <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
+                        <Gift className="w-4 h-4 sm:w-5 sm:h-5 text-[#39ff14]" />
+                        <h4 className="font-black text-black text-sm sm:text-base uppercase tracking-wide">Join the Waitlist</h4>
+                      </div>
+                      <p className="text-xs sm:text-sm text-black/70 text-center mb-4">
+                        Sign up to be notified if a laptop becomes available.
+                      </p>
+
+                      {waitlistError && (
+                        <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 bg-white border-2 border-[#dc2626] flex items-start gap-2">
+                          <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dc2626] shrink-0 mt-0.5" />
+                          <p className="text-xs sm:text-sm text-black font-bold">{waitlistError}</p>
+                        </div>
+                      )}
+
+                      <form onSubmit={handleWaitlistSubmit} className="space-y-2.5 sm:space-y-3">
+                        <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                          <div>
+                            <label htmlFor="waitlistFirstName" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
+                              First Name *
+                            </label>
+                            <input
+                              id="waitlistFirstName"
+                              name="firstName"
+                              value={waitlistData.firstName}
+                              onChange={handleWaitlistChange}
+                              required
+                              className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                              style={{ boxShadow: '2px 2px 0 #000' }}
+                              placeholder="Maria"
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="waitlistLastName" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
+                              Last Name *
+                            </label>
+                            <input
+                              id="waitlistLastName"
+                              name="lastName"
+                              value={waitlistData.lastName}
+                              onChange={handleWaitlistChange}
+                              required
+                              className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                              style={{ boxShadow: '2px 2px 0 #000' }}
+                              placeholder="Garcia"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label htmlFor="waitlistEmail" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
+                            Email Address *
+                          </label>
+                          <input
+                            id="waitlistEmail"
+                            name="email"
+                            type="email"
+                            value={waitlistData.email}
+                            onChange={handleWaitlistChange}
+                            required
+                            className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                            style={{ boxShadow: '2px 2px 0 #000' }}
+                            placeholder="maria@email.com"
+                          />
+                        </div>
+
+                        <div>
+                          <label htmlFor="waitlistPhone" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
+                            Phone Number *
+                          </label>
+                          <input
+                            id="waitlistPhone"
+                            name="phone"
+                            type="tel"
+                            value={waitlistData.phone}
+                            onChange={handleWaitlistChange}
+                            required
+                            className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                            style={{ boxShadow: '2px 2px 0 #000' }}
+                            placeholder="(210) 555-0123"
+                          />
+                        </div>
+
+                        {/* Turnstile Bot Protection */}
+                        {!isDevelopment && (
+                          <div className="flex justify-center">
+                            <div ref={waitlistTurnstileRef} />
+                          </div>
+                        )}
+
+                        <button
+                          type="submit"
+                          disabled={isWaitlistSubmitting}
+                          className="w-full h-10 sm:h-11 bg-[#39ff14] hover:bg-[#32e012] text-black font-black text-sm sm:text-base uppercase tracking-wider transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border-2 border-black"
+                          style={{ boxShadow: '4px 4px 0 #000' }}
+                        >
+                          {isWaitlistSubmitting ? (
+                            <span className="flex items-center gap-2">
+                              <motion.span
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                className="inline-block"
+                              >
+                                <Gift className="w-4 h-4 sm:w-5 sm:h-5" />
+                              </motion.span>
+                              Joining...
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-2">
+                              <Gift className="w-4 h-4 sm:w-5 sm:h-5" />
+                              Join Waitlist
+                            </span>
+                          )}
+                        </button>
+                      </form>
+                    </div>
+                  )}
                 </motion.div>
               ) : !isSubmitted ? (
                 <motion.div

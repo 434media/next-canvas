@@ -8,6 +8,7 @@ const airtableBaseId = process.env.MXR_AIRTABLE_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
 const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY
 const COMPUTER_GIVEAWAY_TABLE = "Computer Giveaway"
+const WAITLIST_TABLE = "Christmas Waitlist"
 const TOTAL_CHROMEBOOKS = 50
 
 if (!airtableBaseId || !airtableApiKey) {
@@ -57,6 +58,95 @@ export async function POST(request: Request) {
   try {
     if (!base) {
       return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
+    }
+
+    const { searchParams } = new URL(request.url)
+    const action = searchParams.get("action")
+
+    // Handle waitlist signups
+    if (action === "waitlist") {
+      const { firstName, lastName, email, phone } = await request.json()
+      const turnstileToken = request.headers.get("cf-turnstile-response")
+      const remoteIp = request.headers.get("CF-Connecting-IP")
+
+      // Validate required fields
+      if (!firstName || !lastName || !email || !phone) {
+        return NextResponse.json({ error: "All fields are required" }, { status: 400 })
+      }
+
+      // Verify Turnstile token (skip in development)
+      if (!isDevelopment) {
+        if (!turnstileSecretKey) {
+          console.error("Turnstile secret key is not defined")
+          return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
+        }
+
+        if (!turnstileToken) {
+          return NextResponse.json({ error: "Security verification is required" }, { status: 400 })
+        }
+
+        const idempotencyKey = crypto.randomUUID()
+        const turnstileVerification = await fetch(
+          "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+              secret: turnstileSecretKey,
+              response: turnstileToken,
+              remoteip: remoteIp || "",
+              idempotency_key: idempotencyKey,
+            }),
+          }
+        )
+
+        const verificationResult = await turnstileVerification.json()
+
+        if (!verificationResult.success) {
+          const errorCodes = verificationResult["error-codes"] || []
+          console.error("Turnstile verification failed:", errorCodes)
+          return NextResponse.json({ error: "Security verification failed", errorCodes }, { status: 400 })
+        }
+      }
+
+      // Check for duplicate email in waitlist
+      const existingWaitlist = await base(WAITLIST_TABLE)
+        .select({
+          filterByFormula: `LOWER({Email}) = '${email.toLowerCase()}'`,
+          fields: ["Email"],
+        })
+        .all()
+
+      if (existingWaitlist.length > 0) {
+        return NextResponse.json({ 
+          error: "This email is already on the waitlist" 
+        }, { status: 400 })
+      }
+
+      // Create waitlist record in Airtable
+      await base(WAITLIST_TABLE).create([
+        {
+          fields: {
+            "First Name": firstName,
+            "Last Name": lastName,
+            Email: email,
+            Phone: phone,
+            "Submitted At": new Date().toLocaleString("en-US", {
+              timeZone: "America/Chicago",
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            }),
+          },
+        },
+      ])
+
+      return NextResponse.json({ 
+        message: "Successfully joined the waitlist" 
+      }, { status: 200 })
     }
 
     const { 
