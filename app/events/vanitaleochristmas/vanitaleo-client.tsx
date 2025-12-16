@@ -156,7 +156,7 @@ export default function VanitaLeoClient() {
     <main className="bg-white">
       <div className="flex flex-col lg:flex-row min-h-screen pt-16 sm:pt-20">
         {/* Left Side - Hero Image (Fixed on desktop, relative on mobile) */}
-        <div className="group relative h-[40vh] sm:h-[50vh] lg:h-auto lg:w-1/2 lg:fixed lg:top-16 lg:bottom-0 lg:left-0 overflow-hidden cursor-pointer">
+        <div className="group relative h-[40vh] sm:h-[50vh] lg:h-auto lg:w-1/2 lg:fixed lg:top-16 lg:bottom-0 lg:left-0 overflow-hidden">
           {/* Neon glow overlay - always visible */}
           <div className="absolute inset-0 z-10 pointer-events-none bg-linear-to-tr from-[#dc2626]/20 via-transparent to-[#00ffff]/20" />
           <div className="absolute inset-0 z-10 pointer-events-none bg-linear-to-bl from-[#39ff14]/15 via-transparent to-[#dc2626]/15" />
@@ -175,7 +175,7 @@ export default function VanitaLeoClient() {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover saturate-[1.2] contrast-[1.1] transition-transform duration-500 group-hover:scale-105"
+            className="absolute inset-0 w-full h-full object-cover saturate-[1.2] contrast-[1.1] transition-transform duration-500"
           />
           
           {/* Neon border glow - always visible */}
@@ -248,7 +248,7 @@ export default function VanitaLeoClient() {
                 </div>
                 <div className="flex items-center gap-1.5 sm:gap-2 text-black bg-white px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-black text-xs sm:text-sm shadow-[3px_3px_0_#39ff14]">
                   <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#39ff14]" />
-                  <span className="font-black uppercase">9AM - 12PM</span>
+                  <span className="font-black uppercase">10AM - 12PM</span>
                 </div>
                 <div className="flex items-center gap-1.5 sm:gap-2 text-black bg-white px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-black text-xs sm:text-sm shadow-[3px_3px_0_#dc2626]">
                   <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dc2626]" />
@@ -683,7 +683,7 @@ export default function VanitaLeoClient() {
                   </p>
                   <div className="p-3 sm:p-4 bg-[#39ff14] border-2 border-black" style={{ boxShadow: '3px 3px 0 #000' }}>
                     <p className="text-xs sm:text-sm text-black font-bold uppercase tracking-wide">
-                      📅 Dec 19th, 9AM-12PM<br/>
+                      📅 Dec 19th, 10AM-12PM<br/>
                       📍 Velocity TX
                     </p>
                   </div>
