@@ -196,45 +196,92 @@ export default function VanitaLeoClient() {
           </div>
 
           {/* Title Header */}
-          <div className="sticky top-16 sm:top-18 z-20 bg-white/95 backdrop-blur-sm px-6 sm:px-8 lg:px-12 py-6 sm:py-8 border-b-4 border-black">
-            <div className="w-full max-w-lg">
+          <div className="sticky top-16 sm:top-18 z-20 bg-white/95 backdrop-blur-sm px-6 sm:px-8 lg:px-8 pt-6 sm:pt-8 lg:pt-4 pb-6 sm:pb-8 lg:pb-4 border-b-4 border-black">
+            <div className="w-full max-w-lg lg:max-w-xl">
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative"
               >
                 {/* Decorative snowflakes */}
-                <div className="absolute -top-2 -left-2 text-[#dc2626] text-2xl animate-pulse">❄</div>
-                <div className="absolute -top-1 right-0 text-[#39ff14] text-xl animate-pulse" style={{ animationDelay: '0.5s' }}>✦</div>
+                <div className="absolute top-20 left-4 text-[#dc2626] text-2xl lg:text-3xl animate-pulse">❄</div>
+                <div className="absolute top-20 right-6 text-[#39ff14] text-xl lg:text-2xl animate-pulse" style={{ animationDelay: '0.5s' }}>✦</div>
                 
-                <h1 className="relative font-dancing-script text-6xl sm:text-7xl lg:text-8xl leading-none tracking-tight bg-linear-to-r from-[#dc2626] via-[#b91c1c] to-[#dc2626] bg-clip-text text-transparent drop-shadow-lg" 
+                <h1 className="relative font-dancing-script text-6xl sm:text-7xl lg:text-7xl leading-none tracking-tight bg-linear-to-r from-[#dc2626] via-[#b91c1c] to-[#dc2626] bg-clip-text text-transparent drop-shadow-lg" 
                   style={{ 
                     textShadow: '3px 3px 0 rgba(0,0,0,0.1)',
                     WebkitTextStroke: '1px rgba(0,0,0,0.1)'
                   }}>
                   Vanita Leo
                 </h1>
-                <div className="flex items-center gap-3 mt-3">
-                  <div className="h-1 flex-1 bg-linear-to-r from-[#dc2626] via-[#39ff14] to-[#dc2626] rounded-full" />
-                  <p className="relative text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-[0.3em] text-[#dc2626] flex items-center gap-2" 
+                <div className="flex items-center gap-3 lg:gap-3 mt-3 lg:mt-2">
+                  <div className="h-1 lg:h-1 flex-1 bg-linear-to-r from-[#dc2626] via-[#39ff14] to-[#dc2626] rounded-full" />
+                  <p className="relative text-3xl sm:text-4xl lg:text-4xl font-black uppercase tracking-[0.2em] lg:tracking-[0.2em] text-[#dc2626] flex items-center gap-2 lg:gap-2" 
                     style={{ textShadow: '2px 2px 0 #000, -1px -1px 0 #39ff14' }}>
                     <span className="text-[#39ff14]">🎄</span>
                     Christmas
                     <span className="text-[#39ff14]">🎄</span>
                   </p>
-                  <div className="h-1 flex-1 bg-linear-to-r from-[#dc2626] via-[#39ff14] to-[#dc2626] rounded-full" />
+                  <div className="h-1 lg:h-1 flex-1 bg-linear-to-r from-[#dc2626] via-[#39ff14] to-[#dc2626] rounded-full" />
                 </div>
-                <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.5em] text-black/60 mt-2 text-center">
+                <p className="text-xs sm:text-sm lg:text-sm font-black uppercase tracking-[0.4em] lg:tracking-[0.4em] text-black/70 mt-2 lg:mt-1 text-center">
                   Laptop Giveaway Event
                 </p>
+                
+                {/* Partner Ornaments - below laptop giveaway text, same width as Christmas */}
+                <div className="mt-3 lg:mt-2 md:-mb-2 lg:-mb-1">
+                  <p className="text-[10px] sm:text-xs lg:text-xs font-bold uppercase tracking-[0.3em] text-black/40 text-center mb-1.5 lg:mb-1">
+                    Partners & Sponsors
+                  </p>
+                  <div className="flex items-center justify-center gap-2 sm:gap-4 lg:gap-3 mx-auto" style={{ maxWidth: 'fit-content' }}>
+                    {[
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-434.png", alt: "434", url: "https://www.434media.com/", large: false },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-vv.png", alt: "Vemos Vamos", url: "https://vemosvamos.com/", large: false },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-levantatech.png", alt: "Levanta Tech", url: "https://levantatech.org/", large: true },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-devsa.png", alt: "DevSA", url: "https://devsa.community/", large: true },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-human-i-t.png", alt: "Human I-T", url: "https://www.humanit.org/", large: true },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-sdoh.png", alt: "SDOH", url: "https://www.434media.com/en/sdoh", large: true },
+                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-velocity.png", alt: "Velocity TX", url: "https://velocitytx.org/", large: false },
+                    ].map((ornament, index) => (
+                      <motion.a
+                        key={ornament.alt}
+                        href={ornament.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={`Visit ${ornament.alt}`}
+                        className="block"
+                        initial={{ opacity: 0, y: -10, rotate: -5 }}
+                        animate={{ 
+                          opacity: 1, 
+                          y: 0, 
+                          rotate: index % 2 === 0 ? 3 : -3 
+                        }}
+                        transition={{ 
+                          duration: 0.4, 
+                          delay: 0.1 * index,
+                          ease: "easeOut"
+                        }}
+                        whileHover={{ scale: 1.15 }}
+                      >
+                        <img
+                          src={ornament.src}
+                          alt={ornament.alt}
+                          className={`${ornament.large ? 'w-12 h-12 sm:w-14 sm:h-14 lg:w-12 lg:h-12' : 'w-8 h-8 sm:w-10 sm:h-10 lg:w-10 lg:h-10'} object-contain`}
+                          style={{
+                            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
+                          }}
+                        />
+                      </motion.a>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
             </div>
           </div>
 
           {/* Scrollable Content */}
-          <div className="relative px-6 sm:px-8 lg:px-12 py-6 sm:py-8 lg:py-10">
-            <div className="w-full max-w-lg">
+          <div className="relative px-6 sm:px-8 lg:px-12 py-6 sm:py-8 lg:py-8">
+            <div className="w-full max-w-lg lg:max-w-xl">
               {/* Event Details */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
