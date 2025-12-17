@@ -65,13 +65,29 @@ export async function POST(request: Request) {
 
     // Handle waitlist signups
     if (action === "waitlist") {
-      const { firstName, lastName, email, phone } = await request.json()
+      const { 
+        firstName, 
+        lastName, 
+        email, 
+        phone,
+        zipCode,
+        reason,
+        levantaTechNewsletter,
+        affordableInternetInterest,
+        primaryLanguage,
+        ethnicity,
+        race,
+        gender,
+        streetAddress,
+        city,
+        state,
+      } = await request.json()
       const turnstileToken = request.headers.get("cf-turnstile-response")
       const remoteIp = request.headers.get("CF-Connecting-IP")
 
       // Validate required fields
-      if (!firstName || !lastName || !email || !phone) {
-        return NextResponse.json({ error: "All fields are required" }, { status: 400 })
+      if (!firstName || !lastName || !email || !phone || !zipCode || !reason || !primaryLanguage || !ethnicity || !race || !gender || !streetAddress || !city || !state) {
+        return NextResponse.json({ error: "All required fields must be filled out" }, { status: 400 })
       }
 
       // Verify Turnstile token (skip in development)
@@ -131,6 +147,17 @@ export async function POST(request: Request) {
             "Last Name": lastName,
             Email: email,
             "Phone Number": phone,
+            "ZIP Code": zipCode,
+            Reason: reason,
+            "Levantatech Newsletter": levantaTechNewsletter || false,
+            "Affordable Internet Interest": affordableInternetInterest || false,
+            "Primary Language": primaryLanguage,
+            Ethnicity: ethnicity,
+            Race: race,
+            Gender: gender,
+            "Street Address": streetAddress,
+            City: city,
+            State: state,
             "Submitted At": new Date().toLocaleString("en-US", {
               timeZone: "America/Chicago",
               year: "numeric",

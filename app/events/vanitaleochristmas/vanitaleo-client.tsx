@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import { motion } from "motion/react"
-import { Laptop, Gift, Heart, CheckCircle2, Calendar, MapPin, Clock, AlertCircle } from "lucide-react"
+import { Laptop, Gift, Heart, CheckCircle2, Calendar, MapPin, Clock } from "lucide-react"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 const TOTAL_CHROMEBOOKS = 50
@@ -42,6 +42,17 @@ export default function VanitaLeoClient() {
     lastName: "",
     email: "",
     phone: "",
+    zipCode: "",
+    reason: "",
+    levantaTechNewsletter: false,
+    affordableInternetInterest: false,
+    primaryLanguage: "",
+    ethnicity: "",
+    race: "",
+    gender: "",
+    streetAddress: "",
+    city: "",
+    state: "TX",
   })
   const [isWaitlistSubmitting, setIsWaitlistSubmitting] = useState(false)
   const [isWaitlistSubmitted, setIsWaitlistSubmitted] = useState(false)
@@ -231,11 +242,12 @@ export default function VanitaLeoClient() {
     }))
   }
 
-  const handleWaitlistChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+  const handleWaitlistChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const target = e.target
+    const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value
     setWaitlistData((prev) => ({
       ...prev,
-      [name]: value,
+      [target.name]: value,
     }))
   }
 
@@ -490,10 +502,10 @@ export default function VanitaLeoClient() {
                   <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-[#dc2626]" />
                   
                   <div className="text-center mb-4 sm:mb-6">
-                    <AlertCircle className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-[#dc2626]" />
-                    <h3 className="text-lg sm:text-xl font-black text-black mb-1 uppercase tracking-wide">All Laptops Reserved</h3>
+                    <Gift className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-[#39ff14]" />
+                    <h3 className="text-lg sm:text-xl font-black text-black mb-1 uppercase tracking-wide">Join the Waitlist</h3>
                     <p className="text-xs sm:text-sm text-black/70">
-                      All {TOTAL_CHROMEBOOKS} laptops have been claimed.
+                      All {TOTAL_CHROMEBOOKS} laptops have been reserved—but don't miss out! 🎄 Still join us on <span className="font-bold text-[#dc2626]">Friday, Dec 19th</span>. Additional laptops may become available at the event!
                     </p>
                   </div>
 
@@ -506,25 +518,22 @@ export default function VanitaLeoClient() {
                     >
                       <CheckCircle2 className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-[#39ff14]" />
                       <h4 className="text-base sm:text-lg font-black text-black mb-1 uppercase">You're on the Waitlist!</h4>
-                      <p className="text-xs sm:text-sm text-black">
+                      <p className="text-xs sm:text-sm text-black mb-3">
                         Thanks, <span className="font-black text-[#dc2626]">{waitlistData.firstName}</span>! We'll contact you if a laptop becomes available.
                       </p>
+                      <div className="p-3 bg-white border-2 border-black" style={{ boxShadow: '3px 3px 0 #000' }}>
+                        <p className="text-xs sm:text-sm text-black font-bold">
+                          🎄 Still join us on <span className="text-[#dc2626]">Friday, Dec 19th</span>!<br/>
+                          <span className="text-black/70 font-medium">Additional laptops may become available at the event.</span>
+                        </p>
+                      </div>
                     </motion.div>
                   ) : (
                     /* Waitlist Form */
                     <div className="border-t-2 border-dashed border-black/30 pt-4 sm:pt-6">
-                      <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
-                        <Gift className="w-4 h-4 sm:w-5 sm:h-5 text-[#39ff14]" />
-                        <h4 className="font-black text-black text-sm sm:text-base uppercase tracking-wide">Join the Waitlist</h4>
-                      </div>
-                      <p className="text-xs sm:text-sm text-black/70 text-center mb-4">
-                        Sign up to be notified if a laptop becomes available.
-                      </p>
-
                       {waitlistError && (
-                        <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 bg-white border-2 border-[#dc2626] flex items-start gap-2">
-                          <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dc2626] shrink-0 mt-0.5" />
-                          <p className="text-xs sm:text-sm text-black font-bold">{waitlistError}</p>
+                        <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 bg-white border-2 border-[#dc2626]">
+                          <p className="text-xs sm:text-sm text-[#dc2626] font-bold">{waitlistError}</p>
                         </div>
                       )}
 
@@ -579,21 +588,231 @@ export default function VanitaLeoClient() {
                           />
                         </div>
 
+                        <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                          <div>
+                            <label htmlFor="waitlistPhone" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
+                              Phone Number *
+                            </label>
+                            <input
+                              id="waitlistPhone"
+                              name="phone"
+                              type="tel"
+                              value={waitlistData.phone}
+                              onChange={handleWaitlistChange}
+                              required
+                              className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                              style={{ boxShadow: '2px 2px 0 #000' }}
+                              placeholder="(210) 555-0123"
+                            />
+                          </div>
+                        </div>
+
                         <div>
-                          <label htmlFor="waitlistPhone" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
-                            Phone Number *
+                          <label htmlFor="waitlistReason" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
+                            How will a laptop help you? *
                           </label>
-                          <input
-                            id="waitlistPhone"
-                            name="phone"
-                            type="tel"
-                            value={waitlistData.phone}
+                          <textarea
+                            id="waitlistReason"
+                            name="reason"
+                            value={waitlistData.reason}
                             onChange={handleWaitlistChange}
                             required
-                            className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                            rows={2}
+                            className="w-full px-2.5 sm:px-3 py-2 border-2 border-black text-sm resize-none focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
                             style={{ boxShadow: '2px 2px 0 #000' }}
-                            placeholder="(210) 555-0123"
+                            placeholder="Tell us your story..."
                           />
+                        </div>
+
+                        {/* Physical Address Section */}
+                        <div className="pt-3 border-t-2 border-dashed border-black/30">
+                          <p className="text-xs font-black text-black mb-2 uppercase tracking-wide">Physical Address *</p>
+                          <div className="space-y-2.5">
+                            <div>
+                              <label htmlFor="waitlistStreetAddress" className="block text-xs font-bold text-black/70 mb-1">
+                                Street Address
+                              </label>
+                              <input
+                                id="waitlistStreetAddress"
+                                name="streetAddress"
+                                value={waitlistData.streetAddress}
+                                onChange={handleWaitlistChange}
+                                required
+                                className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                                style={{ boxShadow: '2px 2px 0 #000' }}
+                                placeholder="123 Main Street"
+                              />
+                            </div>
+                            <div className="grid grid-cols-3 gap-2.5">
+                              <div className="col-span-1">
+                                <label htmlFor="waitlistCity" className="block text-xs font-bold text-black/70 mb-1">
+                                  City
+                                </label>
+                                <input
+                                  id="waitlistCity"
+                                  name="city"
+                                  value={waitlistData.city}
+                                  onChange={handleWaitlistChange}
+                                  required
+                                  className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                                  style={{ boxShadow: '2px 2px 0 #000' }}
+                                  placeholder="San Antonio"
+                                />
+                              </div>
+                              <div>
+                                <label htmlFor="waitlistState" className="block text-xs font-bold text-black/70 mb-1">
+                                  State
+                                </label>
+                                <input
+                                  id="waitlistState"
+                                  name="state"
+                                  value={waitlistData.state}
+                                  onChange={handleWaitlistChange}
+                                  required
+                                  className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                                  style={{ boxShadow: '2px 2px 0 #000' }}
+                                  placeholder="TX"
+                                />
+                              </div>
+                              <div>
+                                <label htmlFor="waitlistZipCode" className="block text-xs font-bold text-black/70 mb-1">
+                                  ZIP
+                                </label>
+                                <input
+                                  id="waitlistZipCode"
+                                  name="zipCode"
+                                  value={waitlistData.zipCode}
+                                  onChange={handleWaitlistChange}
+                                  required
+                                  pattern="[0-9]{5}"
+                                  className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white placeholder:text-gray-400"
+                                  style={{ boxShadow: '2px 2px 0 #000' }}
+                                  placeholder="78201"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Primary Language */}
+                        <div>
+                          <label htmlFor="waitlistPrimaryLanguage" className="block text-xs font-black text-black mb-1 uppercase tracking-wide">
+                            Primary Language Spoken at Home *
+                          </label>
+                          <select
+                            id="waitlistPrimaryLanguage"
+                            name="primaryLanguage"
+                            value={waitlistData.primaryLanguage}
+                            onChange={handleWaitlistChange}
+                            required
+                            className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white"
+                            style={{ boxShadow: '2px 2px 0 #000' }}
+                          >
+                            <option value="">Select language...</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="English">English</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+
+                        {/* Demographic Information */}
+                        <div className="pt-3 border-t-2 border-dashed border-black/30">
+                          <p className="text-xs font-black text-black mb-2 uppercase tracking-wide">Demographic Information *</p>
+                          <div className="space-y-2.5">
+                            <div>
+                              <label htmlFor="waitlistEthnicity" className="block text-xs font-bold text-black/70 mb-1">
+                                Ethnicity
+                              </label>
+                              <select
+                                id="waitlistEthnicity"
+                                name="ethnicity"
+                                value={waitlistData.ethnicity}
+                                onChange={handleWaitlistChange}
+                                required
+                                className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white"
+                                style={{ boxShadow: '2px 2px 0 #000' }}
+                              >
+                                <option value="">Select ethnicity...</option>
+                                <option value="Hispanic or Latino">Hispanic or Latino</option>
+                                <option value="Not Hispanic or Latino">Not Hispanic or Latino</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label htmlFor="waitlistRace" className="block text-xs font-bold text-black/70 mb-1">
+                                Race
+                              </label>
+                              <select
+                                id="waitlistRace"
+                                name="race"
+                                value={waitlistData.race}
+                                onChange={handleWaitlistChange}
+                                required
+                                className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white"
+                                style={{ boxShadow: '2px 2px 0 #000' }}
+                              >
+                                <option value="">Select race...</option>
+                                <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+                                <option value="Asian">Asian</option>
+                                <option value="Black or African American">Black or African American</option>
+                                <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                                <option value="White">White</option>
+                                <option value="Two or More Races">Two or More Races</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label htmlFor="waitlistGender" className="block text-xs font-bold text-black/70 mb-1">
+                                Gender
+                              </label>
+                              <select
+                                id="waitlistGender"
+                                name="gender"
+                                value={waitlistData.gender}
+                                onChange={handleWaitlistChange}
+                                required
+                                className="h-9 sm:h-10 w-full px-2.5 sm:px-3 border-2 border-black text-sm focus:outline-none focus:ring-0 focus:border-[#39ff14] bg-white"
+                                style={{ boxShadow: '2px 2px 0 #000' }}
+                              >
+                                <option value="">Select gender...</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Non-binary">Non-binary</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Optional Consents */}
+                        <div className="pt-3 border-t-2 border-dashed border-black/30 space-y-3">
+                          <p className="text-xs font-black text-black uppercase tracking-wide">Optional Preferences</p>
+                          
+                          <label className="flex items-start gap-3 cursor-pointer group">
+                            <input
+                              type="checkbox"
+                              name="levantaTechNewsletter"
+                              checked={waitlistData.levantaTechNewsletter}
+                              onChange={handleWaitlistChange}
+                              className="mt-0.5 w-4 h-4 border-2 border-black accent-[#39ff14] cursor-pointer"
+                            />
+                            <span className="text-xs sm:text-sm text-black group-hover:text-[#dc2626] transition-colors">
+                              I would like to receive the <strong>Levántatech newsletter</strong> with tech resources and opportunities.
+                            </span>
+                          </label>
+
+                          <label className="flex items-start gap-3 cursor-pointer group">
+                            <input
+                              type="checkbox"
+                              name="affordableInternetInterest"
+                              checked={waitlistData.affordableInternetInterest}
+                              onChange={handleWaitlistChange}
+                              className="mt-0.5 w-4 h-4 border-2 border-black accent-[#39ff14] cursor-pointer"
+                            />
+                            <span className="text-xs sm:text-sm text-black group-hover:text-[#dc2626] transition-colors">
+                              I would like to hear about <strong>affordable internet options</strong> in my area.
+                            </span>
+                          </label>
                         </div>
 
                         {/* Turnstile Bot Protection */}
@@ -651,9 +870,8 @@ export default function VanitaLeoClient() {
                     </div>
 
                     {error && (
-                      <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 bg-white border-2 border-[#dc2626] flex items-start gap-2">
-                        <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#dc2626] shrink-0 mt-0.5" />
-                        <p className="text-xs sm:text-sm text-black font-bold">{error}</p>
+                      <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 bg-white border-2 border-[#dc2626]">
+                        <p className="text-xs sm:text-sm text-[#dc2626] font-bold">{error}</p>
                       </div>
                     )}
 
