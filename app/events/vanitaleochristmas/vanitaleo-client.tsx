@@ -461,9 +461,9 @@ export default function VanitaLeoClient() {
                 <div className="flex items-start gap-2.5 sm:gap-3">
                   <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#dc2626] shrink-0 mt-0.5" />
                   <div>
-                    <h2 className="font-black text-black text-sm sm:text-base mb-1 uppercase tracking-wide">A Critical Step in Closing the Digital Divide</h2>
+                    <h2 className="font-black text-black text-sm sm:text-base mb-1 uppercase tracking-wide">A Critical Step Toward Closing the Digital Divide</h2>
                     <p className="text-xs sm:text-sm text-black leading-relaxed">
-                      Aligned with our work on the Social Determinants of Health (SDOH), this giveaway's goal is to provide essential technology to aspiring women in technology from historically under-resourced San Antonio neighborhoods. Join us in making a meaningful impact on opportunity and access this holiday season.
+                      Aligned with our work on the <a href="https://www.434media.com/en/sdoh" className="underline font-bold">Social Determinants of Health (SDOH)</a>, this initiative provides essential technology to aspiring women in tech from historically under-resourced San Antonio communities—expanding access, opportunity, and economic mobility this holiday season.
                     </p>
                   </div>
                 </div>
