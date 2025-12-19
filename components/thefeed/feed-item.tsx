@@ -89,7 +89,10 @@ export default function FeedItem({ item, index }: FeedItemProps) {
               {/* Summary */}
               <div>
                 <span className="text-xs uppercase tracking-wider font-mono font-bold block mb-2">Summary:</span>
-                <p className="text-sm leading-relaxed text-gray-700">{item.summary}</p>
+                <div 
+                  className="text-sm leading-relaxed text-gray-700 prose prose-sm max-w-none"
+                  dangerouslySetInnerHTML={{ __html: item.summary }}
+                />
               </div>
 
               {/* Authors */}
