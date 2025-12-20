@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server"
 import Airtable from "airtable"
-import crypto from "crypto"
+import { checkBotId } from "botid/server"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 
 const airtableBaseId = process.env.MXR_AIRTABLE_BASE_ID
 const airtableApiKey = process.env.AIRTABLE_API_KEY
-const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY
 const COMPUTER_GIVEAWAY_TABLE = "Computer Giveaway"
 const WAITLIST_TABLE = "Christmas Waitlist"
 const TOTAL_CHROMEBOOKS = 50
@@ -60,6 +59,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
     }
 
+    // Verify request is not from a bot using BotID
+    if (!isDevelopment) {
+      const verification = await checkBotId()
+      if (verification.isBot) {
+        return NextResponse.json({ error: "Bot detected. Access denied." }, { status: 403 })
+      }
+    }
+
     const { searchParams } = new URL(request.url)
     const action = searchParams.get("action")
 
@@ -82,47 +89,10 @@ export async function POST(request: Request) {
         city,
         state,
       } = await request.json()
-      const turnstileToken = request.headers.get("cf-turnstile-response")
-      const remoteIp = request.headers.get("CF-Connecting-IP")
 
       // Validate required fields
       if (!firstName || !lastName || !email || !phone || !zipCode || !reason || !primaryLanguage || !ethnicity || !race || !gender || !streetAddress || !city || !state) {
         return NextResponse.json({ error: "All required fields must be filled out" }, { status: 400 })
-      }
-
-      // Verify Turnstile token (skip in development)
-      if (!isDevelopment) {
-        if (!turnstileSecretKey) {
-          console.error("Turnstile secret key is not defined")
-          return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
-        }
-
-        if (!turnstileToken) {
-          return NextResponse.json({ error: "Security verification is required" }, { status: 400 })
-        }
-
-        const idempotencyKey = crypto.randomUUID()
-        const turnstileVerification = await fetch(
-          "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({
-              secret: turnstileSecretKey,
-              response: turnstileToken,
-              remoteip: remoteIp || "",
-              idempotency_key: idempotencyKey,
-            }),
-          }
-        )
-
-        const verificationResult = await turnstileVerification.json()
-
-        if (!verificationResult.success) {
-          const errorCodes = verificationResult["error-codes"] || []
-          console.error("Turnstile verification failed:", errorCodes)
-          return NextResponse.json({ error: "Security verification failed", errorCodes }, { status: 400 })
-        }
       }
 
       // Check for duplicate email in waitlist
@@ -194,48 +164,11 @@ export async function POST(request: Request) {
       city,
       state,
     } = await request.json()
-    const turnstileToken = request.headers.get("cf-turnstile-response")
-    const remoteIp = request.headers.get("CF-Connecting-IP")
 
     // Validate required fields
     if (!firstName || !lastName || !email || !phone || !zipCode || !reason || 
         !primaryLanguage || !ethnicity || !race || !gender || !streetAddress || !city || !state) {
       return NextResponse.json({ error: "All required fields must be completed" }, { status: 400 })
-    }
-
-    // Verify Turnstile token (skip in development)
-    if (!isDevelopment) {
-      if (!turnstileSecretKey) {
-        console.error("Turnstile secret key is not defined")
-        return NextResponse.json({ error: "Server configuration error" }, { status: 500 })
-      }
-
-      if (!turnstileToken) {
-        return NextResponse.json({ error: "Security verification is required" }, { status: 400 })
-      }
-
-      const idempotencyKey = crypto.randomUUID()
-      const turnstileVerification = await fetch(
-        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({
-            secret: turnstileSecretKey,
-            response: turnstileToken,
-            remoteip: remoteIp || "",
-            idempotency_key: idempotencyKey,
-          }),
-        }
-      )
-
-      const verificationResult = await turnstileVerification.json()
-
-      if (!verificationResult.success) {
-        const errorCodes = verificationResult["error-codes"] || []
-        console.error("Turnstile verification failed:", errorCodes)
-        return NextResponse.json({ error: "Security verification failed", errorCodes }, { status: 400 })
-      }
     }
 
     // Check current inventory

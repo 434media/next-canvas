@@ -1,62 +1,20 @@
 "use client"
 
 import type React from "react"
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
-
-// Extend the Window interface to include the turnstile property
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (element: HTMLElement, options: { sitekey: string; callback: (token: string) => void }) => string
-      getResponse: (widgetId: string) => string | null
-      reset: (widgetId: string) => void
-    }
-  }
-}
-
-const isDevelopment = process.env.NODE_ENV === "development"
 
 export function Newsletter() {
   // Newsletter static strings
   const EMAIL_PLACEHOLDER = "Enter your email"
   const SUBSCRIBING = "Subscribing..."
   const SUBSCRIBE = "Subscribe"
-  const SUCCESS_MESSAGE = "Thanks for subscribing! Check your email for confirmation."
   const ERROR_PREFIX = "Error:"
 
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const turnstileRef = useRef<HTMLDivElement>(null)
-  const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (!isDevelopment && !window.turnstile) {
-      const script = document.createElement("script")
-      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
-      script.async = true
-      script.defer = true
-      document.body.appendChild(script)
-
-      script.onload = () => {
-        if (window.turnstile && turnstileRef.current && !turnstileWidget) {
-          const widgetId = window.turnstile.render(turnstileRef.current, {
-            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-            callback: (token: string) => {
-              console.log("Turnstile token:", token)
-            },
-          })
-          setTurnstileWidget(widgetId)
-        }
-      }
-
-      return () => {
-        document.body.removeChild(script)
-      }
-    }
-  }, [turnstileWidget])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -64,24 +22,10 @@ export function Newsletter() {
     setError(null)
 
     try {
-      let turnstileResponse = undefined
-
-      if (!isDevelopment) {
-        if (!window.turnstile || !turnstileWidget) {
-          throw new Error("Turnstile is not initialized")
-        }
-
-        turnstileResponse = window.turnstile.getResponse(turnstileWidget)
-        if (!turnstileResponse) {
-          throw new Error("Failed to get Turnstile response")
-        }
-      }
-
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(turnstileResponse && { "cf-turnstile-response": turnstileResponse }),
         },
         body: JSON.stringify({ email }),
       })
@@ -92,11 +36,6 @@ export function Newsletter() {
         setEmail("")
         setIsSuccess(true)
         setTimeout(() => setIsSuccess(false), 5000)
-        if (!isDevelopment && turnstileWidget) {
-          if (window.turnstile) {
-            window.turnstile.reset(turnstileWidget)
-          }
-        }
       } else {
         throw new Error(responseData.error || "Newsletter subscription failed")
       }
@@ -145,7 +84,6 @@ export function Newsletter() {
             >
               {isSubmitting ? SUBSCRIBING : SUBSCRIBE}
             </motion.button>
-            {!isDevelopment && <div ref={turnstileRef} data-size="flexible" className="w-full mt-0.5" />}
             {error && <p className="text-black/80 text-sm">{error}</p>}
           </motion.form>
         ) : (

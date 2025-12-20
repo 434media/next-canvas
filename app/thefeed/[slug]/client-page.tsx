@@ -1,13 +1,11 @@
 "use client"
 
 import type React from "react"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { NewsletterTemplate } from "@/components/thefeed/newsletter-template"
 import type { FeedItem } from "@/data/feed-data"
-
-const isDevelopment = process.env.NODE_ENV === "development"
 
 interface ClientPageProps {
   item: FeedItem
@@ -112,51 +110,7 @@ function NewsletterFooterCTA() {
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState("")
-
-  const turnstileRef = useRef<HTMLDivElement>(null)
-  const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
-
-  useEffect(() => {
-    if (isDevelopment || turnstileWidget) return
-
-    const loadTurnstile = () => {
-      if (document.getElementById("turnstile-script")) return
-
-      const script = document.createElement("script")
-      script.id = "turnstile-script"
-      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
-      script.async = true
-      script.defer = true
-      document.body.appendChild(script)
-
-      script.onload = () => {
-        if (typeof window !== "undefined" && (window as any).turnstile && turnstileRef.current) {
-          const widgetId = (window as any).turnstile.render(turnstileRef.current, {
-            sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-            theme: "dark",
-            callback: () => {
-              // Token received, no action needed here
-            },
-          })
-          setTurnstileWidget(widgetId)
-        }
-      }
-    }
-
-    loadTurnstile()
-
-    return () => {
-      // Clean up widget when component unmounts
-      if (turnstileWidget && typeof window !== "undefined" && (window as any).turnstile) {
-        try {
-          ;(window as any).turnstile.reset(turnstileWidget)
-        } catch (error) {
-          console.error("Error resetting Turnstile widget:", error)
-        }
-      }
-    }
-  }, [turnstileWidget])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -164,24 +118,10 @@ function NewsletterFooterCTA() {
     setError("")
 
     try {
-      let turnstileResponse = undefined
-
-      if (!isDevelopment) {
-        if (typeof window === "undefined" || !(window as any).turnstile || !turnstileWidget) {
-          throw new Error("Security verification not loaded. Please refresh and try again.")
-        }
-
-        turnstileResponse = (window as any).turnstile.getResponse(turnstileWidget)
-        if (!turnstileResponse) {
-          throw new Error("Please complete the security verification")
-        }
-      }
-
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(turnstileResponse && { "cf-turnstile-response": turnstileResponse }),
         },
         body: JSON.stringify({ email }),
       })
@@ -190,10 +130,6 @@ function NewsletterFooterCTA() {
         setIsSuccess(true)
         setEmail("")
         formRef.current?.reset()
-
-        if (!isDevelopment && turnstileWidget && typeof window !== "undefined" && (window as any).turnstile) {
-          ;(window as any).turnstile.reset(turnstileWidget)
-        }
       } else {
         const data = await response.json()
         setError(data.error || "Failed to subscribe. Please try again.")
@@ -239,16 +175,6 @@ function NewsletterFooterCTA() {
                 className="w-full px-4 py-3 bg-white text-black border-2 border-white focus:outline-none focus:border-gray-300 disabled:opacity-50 font-mono text-sm"
               />
               {error && <p className="text-sm text-red-400 font-mono">{error}</p>}
-
-              {!isDevelopment && (
-                <div
-                  ref={turnstileRef}
-                  data-theme="dark"
-                  data-size="flexible"
-                  className="w-full flex justify-center"
-                  aria-label="Security verification"
-                />
-              )}
 
               <button
                 type="submit"

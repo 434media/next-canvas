@@ -61,9 +61,8 @@ next-canvas/
    MAILCHIMP_API_KEY=your_mailchimp_api_key
    MAILCHIMP_AUDIENCE_ID=your_audience_id
    
-   # Security
-   TURNSTILE_SECRET_KEY=your_turnstile_secret
-   NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
+   # Bot Protection (handled by Vercel BotID - no env vars needed)
+   # BotID is automatically configured when deployed to Vercel
    ```
 
 4. **Start the development server:**
