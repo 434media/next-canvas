@@ -55,21 +55,26 @@ function TruncatedText({
       }
     }
     
-    return result + '...'
+    return result
   }
 
   return (
-    <div>
-      <div
-        className={className}
-        dangerouslySetInnerHTML={{ __html: getTruncatedHtml() }}
-      />
-      {shouldTruncate && (
+    <div className={className}>
+      <span dangerouslySetInnerHTML={{ __html: getTruncatedHtml() }} />
+      {shouldTruncate && !isExpanded && (
         <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="mt-2 text-sm uppercase tracking-wider font-mono font-bold hover:underline focus:outline-none"
+          onClick={() => setIsExpanded(true)}
+          className="text-gray-500 hover:text-black transition-colors focus:outline-none"
         >
-          {isExpanded ? "Show Less" : "Show More"}
+          ... <span className="underline">more</span>
+        </button>
+      )}
+      {shouldTruncate && isExpanded && (
+        <button
+          onClick={() => setIsExpanded(false)}
+          className="ml-1 text-gray-500 hover:text-black transition-colors focus:outline-none"
+        >
+          <span className="underline">less</span>
         </button>
       )}
     </div>
@@ -124,9 +129,9 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         </h2>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           <div className="space-y-4">
-            <TruncatedText
-              html={content.foundersNote.text}
+            <div
               className="prose prose-lg max-w-none text-gray-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed md:tracking-tighter"
+              dangerouslySetInnerHTML={{ __html: content.foundersNote.text }}
             />
           </div>
           <div className="relative aspect-4/5 border-4 border-black overflow-visible bg-gray-100">
