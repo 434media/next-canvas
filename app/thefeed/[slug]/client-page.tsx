@@ -11,13 +11,22 @@ interface ClientPageProps {
   item: FeedItem
 }
 
+const CHARACTER_LIMIT = 200
+
 export default function FeedDetailClientPage({ item }: ClientPageProps) {
+  const [isExpanded, setIsExpanded] = useState(false)
+  
   const typeColors = {
     video: "bg-black text-white",
     article: "bg-white text-black border-2 border-black",
     podcast: "bg-gray-800 text-white",
     newsletter: "bg-gray-200 text-black border-2 border-black",
   }
+
+  const shouldTruncate = item.summary.length > CHARACTER_LIMIT
+  const displayedSummary = shouldTruncate && !isExpanded 
+    ? `${item.summary.slice(0, CHARACTER_LIMIT)}...` 
+    : item.summary
 
   return (
     <div className="min-h-screen bg-white pt-24 pb-16">
@@ -45,9 +54,19 @@ export default function FeedDetailClientPage({ item }: ClientPageProps) {
             {item.title}
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 text-pretty">
-            {item.summary}
-          </p>
+          <div className="mb-6">
+            <p className="text-lg md:text-xl text-gray-700 leading-relaxed text-pretty">
+              {displayedSummary}
+            </p>
+            {shouldTruncate && (
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="mt-2 text-sm uppercase tracking-wider font-mono font-bold hover:underline focus:outline-none"
+              >
+                {isExpanded ? "Show Less" : "Show More"}
+              </button>
+            )}
+          </div>
 
           {/* Meta Info */}
           <div className="flex flex-wrap gap-6 text-sm">
