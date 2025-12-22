@@ -7,7 +7,7 @@ import { motion } from "motion/react"
 import type { NewsletterContent } from "@/data/feed-data"
 import { ArrowRight } from "lucide-react"
 
-const CHARACTER_LIMIT = 200
+const CHARACTER_LIMIT = 255
 
 interface NewsletterTemplateProps {
   content: NewsletterContent
@@ -55,26 +55,35 @@ function TruncatedText({
       }
     }
     
-    return result
+    // Append the "...more" as part of the HTML string
+    return result + `<span class="text-neutral-500">... </span>`
+  }
+
+  if (!shouldTruncate) {
+    return (
+      <div 
+        className={className}
+        dangerouslySetInnerHTML={{ __html: html }} 
+      />
+    )
   }
 
   return (
     <div className={className}>
-      <span dangerouslySetInnerHTML={{ __html: getTruncatedHtml() }} />
-      {shouldTruncate && !isExpanded && (
+      <div dangerouslySetInnerHTML={{ __html: getTruncatedHtml() }} />
+      {!isExpanded ? (
         <button
           onClick={() => setIsExpanded(true)}
-          className="text-gray-500 hover:text-black transition-colors focus:outline-none"
+          className="text-neutral-500 hover:text-black transition-colors focus:outline-none underline"
         >
-          ... <span className="underline">more</span>
+          more
         </button>
-      )}
-      {shouldTruncate && isExpanded && (
+      ) : (
         <button
           onClick={() => setIsExpanded(false)}
-          className="ml-1 text-gray-500 hover:text-black transition-colors focus:outline-none"
+          className="mt-2 text-neutral-500 hover:text-black transition-colors focus:outline-none underline"
         >
-          <span className="underline">less</span>
+          less
         </button>
       )}
     </div>
@@ -90,7 +99,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full aspect-4/5 order-4 border-black overflow-hidden bg-gray-100 md:hidden"
+        className="relative w-full aspect-4/5 order-4 border-black overflow-hidden bg-neutral-100 md:hidden"
       >
         <Image
           src={content.heroImage.mobile || "/placeholder.svg"}
@@ -130,11 +139,11 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           <div className="space-y-4">
             <div
-              className="prose prose-lg max-w-none text-gray-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed md:tracking-tighter"
+              className="prose prose-lg max-w-none text-neutral-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed md:tracking-tighter"
               dangerouslySetInnerHTML={{ __html: content.foundersNote.text }}
             />
           </div>
-          <div className="relative aspect-4/5 border-4 border-black overflow-visible bg-gray-100">
+          <div className="relative aspect-4/5 border-4 border-black overflow-visible bg-neutral-100">
             <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
               animate={{ opacity: 1, scale: 1, rotate: -8 }}
@@ -165,7 +174,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         transition={{ duration: 0.6, delay: 0.3 }}
         className="space-y-8"
       >
-        <div className="relative w-full aspect-3/1 border-4 border-black overflow-hidden bg-gray-100">
+        <div className="relative w-full aspect-3/1 border-4 border-black overflow-hidden bg-neutral-100">
           <Image
             src={content.lastMonthGif || "/placeholder.svg"}
             alt="Last month in motion"
@@ -186,12 +195,12 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
               initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-              className={`grid md:grid-cols-2 gap-6 md:gap-8 border-4 border-black p-6 md:p-8 bg-white hover:bg-gray-50 transition-colors ${
+              className={`grid md:grid-cols-2 gap-6 md:gap-8 border-4 border-black p-6 md:p-8 bg-white hover:bg-neutral-50 transition-colors ${
                 index % 2 === 1 ? "md:grid-flow-dense" : ""
               }`}
             >
               <div
-                className={`relative aspect-4/5 border-4 border-black overflow-hidden bg-gray-100 ${
+                className={`relative aspect-4/5 border-4 border-black overflow-hidden bg-neutral-100 ${
                   index % 2 === 1 ? "md:col-start-2" : ""
                 }`}
               >
@@ -208,13 +217,13 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
                 </h3>
                 <TruncatedText
                   html={spotlight.description}
-                  className="prose prose-lg max-w-none md:tracking-tighter text-gray-700 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
+                  className="prose prose-lg max-w-none md:tracking-tighter text-neutral-700 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
                 />
                 <Link
                   href={spotlight.ctaLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-800 transition-colors w-fit border-2 border-black group"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm uppercase tracking-wider font-mono font-bold hover:bg-neutral-800 transition-colors w-fit border-2 border-black group"
                 >
                   {spotlight.ctaText}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -232,7 +241,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         transition={{ duration: 0.6, delay: 0.7 }}
         className="border-4 border-black bg-white overflow-hidden"
       >
-        <div className="relative w-full aspect-2/1 bg-gray-100">
+        <div className="relative w-full aspect-2/1 bg-neutral-100">
           <Image
             src={content.featuredPost.image || "/placeholder.svg"}
             alt={content.featuredPost.title}
@@ -245,7 +254,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             {content.featuredPost.title}
           </h2>
           <div
-            className="prose prose-lg max-w-none text-gray-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
+            className="prose prose-lg max-w-none text-neutral-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
             dangerouslySetInnerHTML={{ __html: content.featuredPost.content }}
           />
         </div>
@@ -258,7 +267,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         transition={{ duration: 0.6, delay: 0.8 }}
         className="space-y-8"
       >
-        <div className="relative w-full aspect-3/1 border-4 border-black overflow-hidden bg-gray-100">
+        <div className="relative w-full aspect-3/1 border-4 border-black overflow-hidden bg-neutral-100">
           <Image src={content.theDropGif || "/placeholder.svg"} alt="The Drop" fill className="object-cover" unoptimized />
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
             <span className="sr-only">The Drop</span>
@@ -284,7 +293,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
           {/* Mobile Layout - Vertical stack like spotlight */}
           <div className="md:hidden">
             {/* Mobile Image - 4:5 aspect ratio */}
-            <div className="relative aspect-4/5 bg-gray-800">
+            <div className="relative aspect-4/5 bg-neutral-800">
               <Image
                 src={content.upcomingEvent.image.mobile || "/placeholder.svg"}
                 alt={content.upcomingEvent.title}
@@ -298,14 +307,14 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
                 {content.upcomingEvent.title}
               </h3>
               <div
-                className="text-base leading-relaxed text-gray-200 prose prose-invert max-w-none [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-white"
+                className="text-base leading-relaxed text-neutral-200 prose prose-invert max-w-none [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-white"
                 dangerouslySetInnerHTML={{ __html: content.upcomingEvent.description }}
               />
               <Link
                 href={content.upcomingEvent.ctaLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-200 transition-colors w-fit border-2 border-white group"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm uppercase tracking-wider font-mono font-bold hover:bg-neutral-200 transition-colors w-fit border-2 border-white group"
               >
                 {content.upcomingEvent.ctaText}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -316,7 +325,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
           {/* Desktop Layout - Image on top, content below */}
           <div className="hidden md:block">
             {/* Desktop Image - video aspect ratio */}
-            <div className="relative aspect-video bg-gray-800">
+            <div className="relative aspect-video bg-neutral-800">
               <Image
                 src={content.upcomingEvent.image.desktop || "/placeholder.svg"}
                 alt={content.upcomingEvent.title}
@@ -330,14 +339,14 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
                 {content.upcomingEvent.title}
               </h3>
               <div
-                className="text-base leading-relaxed text-gray-200 prose prose-invert max-w-none [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-white"
+                className="text-base leading-relaxed text-neutral-200 prose prose-invert max-w-none [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-white"
                 dangerouslySetInnerHTML={{ __html: content.upcomingEvent.description }}
               />
               <Link
                 href={content.upcomingEvent.ctaLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-200 transition-colors w-fit border-2 border-white group"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm uppercase tracking-wider font-mono font-bold hover:bg-neutral-200 transition-colors w-fit border-2 border-white group"
               >
                 {content.upcomingEvent.ctaText}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
