@@ -1,13 +1,79 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "motion/react"
 import type { NewsletterContent } from "@/data/feed-data"
 import { ArrowRight } from "lucide-react"
 
+const CHARACTER_LIMIT = 200
+
 interface NewsletterTemplateProps {
   content: NewsletterContent
+}
+
+function TruncatedText({ 
+  html, 
+  className 
+}: { 
+  html: string
+  className?: string 
+}) {
+  const [isExpanded, setIsExpanded] = useState(false)
+  
+  // Strip HTML tags to count actual text characters
+  const plainText = html.replace(/<[^>]*>/g, '')
+  const shouldTruncate = plainText.length > CHARACTER_LIMIT
+  
+  // If we need to truncate, find a safe cut point in the HTML
+  const getTruncatedHtml = () => {
+    if (!shouldTruncate || isExpanded) return html
+    
+    let charCount = 0
+    let result = ''
+    let inTag = false
+    
+    for (let i = 0; i < html.length; i++) {
+      const char = html[i]
+      
+      if (char === '<') {
+        inTag = true
+        result += char
+      } else if (char === '>') {
+        inTag = false
+        result += char
+      } else if (inTag) {
+        result += char
+      } else {
+        if (charCount < CHARACTER_LIMIT) {
+          result += char
+          charCount++
+        } else {
+          break
+        }
+      }
+    }
+    
+    return result + '...'
+  }
+
+  return (
+    <div>
+      <div
+        className={className}
+        dangerouslySetInnerHTML={{ __html: getTruncatedHtml() }}
+      />
+      {shouldTruncate && (
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="mt-2 text-sm uppercase tracking-wider font-mono font-bold hover:underline focus:outline-none"
+        >
+          {isExpanded ? "Show Less" : "Show More"}
+        </button>
+      )}
+    </div>
+  )
 }
 
 export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
@@ -58,9 +124,9 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
         </h2>
         <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           <div className="space-y-4">
-            <div
+            <TruncatedText
+              html={content.foundersNote.text}
               className="prose prose-lg max-w-none text-gray-800 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed md:tracking-tighter"
-              dangerouslySetInnerHTML={{ __html: content.foundersNote.text }}
             />
           </div>
           <div className="relative aspect-4/5 border-4 border-black overflow-visible bg-gray-100">
@@ -135,9 +201,9 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
                 <h3 className="text-xl md:text-2xl font-bold font-menda-black uppercase tracking-tight">
                   {spotlight.title}
                 </h3>
-                <div
+                <TruncatedText
+                  html={spotlight.description}
                   className="prose prose-lg max-w-none md:tracking-tighter text-gray-700 [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:font-bold [&_strong]:text-black [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:space-y-2 [&_li]:leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: spotlight.description }}
                 />
                 <Link
                   href={spotlight.ctaLink}
