@@ -45,7 +45,9 @@ export default function FeedDetailClientPage({ item }: ClientPageProps) {
             {item.title}
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 text-pretty">{item.summary}</p>
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 text-pretty">
+            {item.summary}
+          </p>
 
           {/* Meta Info */}
           <div className="flex flex-wrap gap-6 text-sm">

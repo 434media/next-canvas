@@ -181,7 +181,7 @@ function transformAirtableRecord(record: AirtableRecord): FeedItem {
     date: fields.published_date || '',
     title: fields.title || '',
     type: fields.type || 'article',
-    summary: convertMarkdownToHtml(fields.summary || ''),
+    summary: fields.summary || '',
     authors: fields.authors || [],
     topics: fields.topics || [],
     link: `/thefeed/${fields.slug}`,
