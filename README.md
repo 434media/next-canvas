@@ -28,7 +28,7 @@ next-canvas/
 │   ├── feed-data.ts            # Feed item types & fallback data
 │   └── prompt-to-product.ts    # Event data
 ├── lib/                         # Utility functions
-│   ├── airtable-feed.ts        # Airtable integration
+│   ├── api-feed.ts             # 434 Media Feed API integration
 │   ├── utils.ts                # General utilities
 │   └── gsap-config.ts          # Animation configuration
 ├── hooks/                       # Custom React hooks
@@ -51,11 +51,13 @@ next-canvas/
 3. **Set up environment variables:**
    Create a `.env.local` file in the root directory:
    ```env
-   # Airtable Configuration
+   # 434 Media Feed API
+   FEED_API_URL=https://434media.com/api/public/feed
+   FEED_API_KEY=your_feed_api_key
+   
+   # Airtable Configuration (for MXR events only)
    AIRTABLE_API_KEY=your_airtable_api_key
-   AIRTABLE_BASE_ID=your_existing_base_id
-   THEFEEDS_BASE_ID=your_thefeeds_base_id
-   THEFEEDS_TABLE_NAME=thefeed
+   MXR_AIRTABLE_BASE_ID=your_mxr_base_id
    
    # Newsletter Integration
    MAILCHIMP_API_KEY=your_mailchimp_api_key
