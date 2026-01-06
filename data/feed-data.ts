@@ -46,6 +46,10 @@ export interface FeedItem {
   link: string
   slug: string
   ogImage: string
+  // New fields from 434 Media API
+  published_date?: string
+  og_title?: string
+  og_description?: string
   newsletterContent?: NewsletterContent
 }
 

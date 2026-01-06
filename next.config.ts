@@ -29,6 +29,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.airtableusercontent.com",
       },
+      // Vercel Blob Storage (used by 434 Media Firestore)
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
     ],
     // Add these settings for better production compatibility
     dangerouslyAllowSVG: true,

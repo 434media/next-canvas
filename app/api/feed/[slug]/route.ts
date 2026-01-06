@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getFeedItemBySlug } from '@/lib/airtable-feed'
+import { getFeedItemBySlug } from '@/lib/api-feed'
+
+export const dynamic = 'force-dynamic'
 
 export async function GET(
   request: NextRequest,
@@ -22,6 +24,10 @@ export async function GET(
     return NextResponse.json({ 
       success: true, 
       data: feedItem 
+    }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+      },
     })
   } catch (error) {
     console.error('Error in feed item API:', error)

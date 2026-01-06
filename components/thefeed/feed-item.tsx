@@ -5,9 +5,10 @@ import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import type { FeedItem as FeedItemType } from "@/data/feed-data"
+import type { TransformedFeedItem } from "@/lib/api-feed"
 
 interface FeedItemProps {
-  item: FeedItemType
+  item: FeedItemType | TransformedFeedItem
   index: number
 }
 
@@ -26,48 +27,47 @@ export default function FeedItem({ item, index }: FeedItemProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="border-b-2 border-black last:border-b-0 relative group"
+      className="border-b border-gray-200 last:border-b-0 relative group hover:bg-gray-50/50 transition-colors"
     >
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-black group-hover:w-2 transition-all duration-200" />
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
 
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full text-left py-6 pl-6 pr-4 hover:bg-gray-50 transition-all duration-200 cursor-pointer group-hover:pl-8"
+        className="w-full text-left py-6 md:py-8 px-4 md:px-6 transition-all duration-200 cursor-pointer"
       >
-        <div className="flex items-start gap-3 md:gap-4">
+        <div className="flex items-start gap-4 md:gap-6">
           {/* Date and Title Container */}
-          <div className="flex-1 min-w-0 space-y-3">
+          <div className="flex-1 min-w-0 space-y-2">
             {/* Date */}
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 border-2 border-black bg-white shrink-0" />
-              <span className="text-xs uppercase tracking-wider font-mono">{item.date}</span>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-gray-500 uppercase tracking-widest font-mono font-medium">{item.date}</span>
+              <span className="text-gray-300">•</span>
+              <span
+                className={cn(
+                  "text-[10px] uppercase tracking-widest font-mono font-semibold px-2.5 py-0.5 rounded-sm",
+                  typeColors[item.type],
+                )}
+              >
+                {item.type}
+              </span>
             </div>
 
             {/* Title */}
-            <h3 className="text-lg md:text-xl font-bold leading-tight pr-2">{item.title}</h3>
+            <h3 className="text-xl md:text-2xl font-bold leading-snug tracking-tight text-gray-900 group-hover:text-black transition-colors">
+              {item.title}
+            </h3>
           </div>
 
-          {/* Right Side: Type Badge and Expand Icon */}
-          <div className="flex flex-col items-end gap-3 shrink-0">
-            {/* Type Badge */}
-            <div
-              className={cn(
-                "text-xs uppercase tracking-wider font-mono px-3 py-1 whitespace-nowrap",
-                typeColors[item.type],
-              )}
-            >
-              {item.type}
-            </div>
-
-            {/* Expand Icon */}
+          {/* Expand Icon */}
+          <div className="flex items-center justify-center shrink-0 w-8 h-8 mt-1">
             <motion.div
               animate={{ rotate: isExpanded ? 45 : 0 }}
               transition={{ duration: 0.2 }}
-              className="shrink-0 group-hover:scale-110 transition-transform"
+              className="text-gray-400 group-hover:text-black transition-colors"
             >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="stroke-current">
-                <path d="M 0 10 L 20 10" strokeWidth="2" />
-                <path d="M 10 0 L 10 20" strokeWidth="2" />
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="stroke-current" strokeWidth="2">
+                <path d="M 0 9 L 18 9" />
+                <path d="M 9 0 L 9 18" />
               </svg>
             </motion.div>
           </div>
@@ -83,51 +83,57 @@ export default function FeedItem({ item, index }: FeedItemProps) {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="pl-6 pr-4 pb-6 space-y-4">
-              <div className="h-px bg-black mb-4" />
+            <div className="px-4 md:px-6 pb-8 space-y-5">
+              <div className="h-px bg-gray-200" />
 
               {/* Summary */}
               <div>
-                <span className="text-xs uppercase tracking-wider font-mono font-bold block mb-2">Summary:</span>
+                <span className="text-[10px] uppercase tracking-widest font-mono font-semibold text-gray-500 block mb-2">Summary</span>
                 <div 
-                  className="text-sm leading-relaxed text-gray-700 prose prose-sm max-w-none"
+                  className="text-base leading-relaxed text-gray-700 prose prose-sm max-w-none [&_p]:mb-3 [&_p]:leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: item.summary }}
                 />
               </div>
 
-              {/* Authors */}
-              <div>
-                <span className="text-xs uppercase tracking-wider font-mono font-bold block mb-2">Author:</span>
-                <div className="flex flex-wrap gap-2">
-                  {item.authors.map((author) => (
-                    <span key={author} className="text-sm">
-                      {author}
-                    </span>
-                  ))}
+              {/* Authors & Topics Row */}
+              <div className="flex flex-wrap gap-8">
+                {/* Authors */}
+                <div>
+                  <span className="text-[10px] uppercase tracking-widest font-mono font-semibold text-gray-500 block mb-2">Author</span>
+                  <div className="flex flex-wrap gap-2">
+                    {item.authors.map((author) => (
+                      <span key={author} className="text-sm font-medium text-gray-800">
+                        {author}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Topics */}
-              <div>
-                <span className="text-xs uppercase tracking-wider font-mono font-bold block mb-2">Topic:</span>
-                <div className="flex flex-wrap gap-2">
-                  {item.topics.map((topic) => (
-                    <span
-                      key={topic}
-                      className="text-xs uppercase tracking-wider font-mono px-2 py-1 border-2 border-black bg-white"
-                    >
-                      {topic}
-                    </span>
-                  ))}
+                {/* Topics */}
+                <div>
+                  <span className="text-[10px] uppercase tracking-widest font-mono font-semibold text-gray-500 block mb-2">Topics</span>
+                  <div className="flex flex-wrap gap-2">
+                    {item.topics.map((topic) => (
+                      <span
+                        key={topic}
+                        className="text-xs font-medium uppercase tracking-wide px-2.5 py-1 bg-gray-100 text-gray-700 rounded-sm"
+                      >
+                        {topic}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
 
               {/* Link */}
               <Link
                 href={item.link}
-                className="inline-block mt-4 px-6 py-3 bg-black text-white text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-800 transition-colors border-2 border-black"
+                className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 bg-black text-white text-sm font-semibold tracking-wide hover:bg-gray-800 transition-colors rounded-sm"
               >
                 Read More
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </Link>
             </div>
           </motion.div>

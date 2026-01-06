@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { getFeedItemBySlug } from "@/lib/airtable-feed"
+import { getFeedItemBySlug } from "@/lib/api-feed"
 import FeedDetailClientPage from "./client-page"
 
-// Force dynamic rendering to match the main feed page behavior
+// Force dynamic rendering
 export const dynamic = 'force-dynamic'
 
 interface FeedDetailPageProps {
@@ -17,11 +17,18 @@ export async function generateMetadata({ params }: FeedDetailPageProps): Promise
     const { slug } = await params
     let item = await getFeedItemBySlug(slug)
 
-    // Fallback to static data if not found in Airtable
+    // Fallback to static data if not found in API
     if (!item) {
       try {
         const { feedItems } = await import('@/data/feed-data')
-        item = feedItems.find((staticItem) => staticItem.slug === slug) || null
+        const staticItem = feedItems.find((staticItem) => staticItem.slug === slug)
+        if (staticItem) {
+          item = {
+            ...staticItem,
+            published_date: staticItem.date,
+            ogImage: staticItem.ogImage || '',
+          }
+        }
       } catch (staticErr) {
         console.error('Error loading static fallback for metadata:', staticErr)
       }
@@ -33,26 +40,31 @@ export async function generateMetadata({ params }: FeedDetailPageProps): Promise
       }
     }
 
+    // Use og_title/og_description if available, otherwise fallback to title/summary
+    const ogTitle = item.og_title || item.title
+    const ogDescription = item.og_description || item.summary
+    const ogImage = item.ogImage
+
     return {
       title: `${item.title} | The Feed - Digital Canvas`,
       description: item.summary,
       openGraph: {
-        title: item.title,
-        description: item.summary,
-        images: [
+        title: ogTitle,
+        description: ogDescription,
+        images: ogImage ? [
           {
-            url: item.ogImage,
+            url: ogImage,
             width: 1200,
             height: 630,
-            alt: item.title,
+            alt: ogTitle,
           },
-        ],
+        ] : [],
       },
       twitter: {
         card: "summary_large_image",
-        title: item.title,
-        description: item.summary,
-        images: [item.ogImage],
+        title: ogTitle,
+        description: ogDescription,
+        images: ogImage ? [ogImage] : [],
       },
     }
   } catch (error) {
@@ -68,11 +80,18 @@ export default async function FeedDetailPage({ params }: FeedDetailPageProps) {
     const { slug } = await params
     let item = await getFeedItemBySlug(slug)
 
-    // Fallback to static data if not found in Airtable
+    // Fallback to static data if not found in API
     if (!item) {
       try {
         const { feedItems } = await import('@/data/feed-data')
-        item = feedItems.find((staticItem) => staticItem.slug === slug) || null
+        const staticItem = feedItems.find((staticItem) => staticItem.slug === slug)
+        if (staticItem) {
+          item = {
+            ...staticItem,
+            published_date: staticItem.date,
+            ogImage: staticItem.ogImage || '',
+          }
+        }
       } catch (staticErr) {
         console.error('Error loading static fallback:', staticErr)
       }

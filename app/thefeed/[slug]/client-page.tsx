@@ -6,67 +6,71 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { NewsletterTemplate } from "@/components/thefeed/newsletter-template"
 import type { FeedItem } from "@/data/feed-data"
+import type { TransformedFeedItem } from "@/lib/api-feed"
 
 interface ClientPageProps {
-  item: FeedItem
+  item: FeedItem | TransformedFeedItem
 }
 
 export default function FeedDetailClientPage({ item }: ClientPageProps) {
   const typeColors = {
     video: "bg-black text-white",
-    article: "bg-white text-black border-2 border-black",
+    article: "bg-gray-100 text-gray-800",
     podcast: "bg-gray-800 text-white",
-    newsletter: "bg-gray-200 text-black border-2 border-black",
+    newsletter: "bg-gray-100 text-gray-800",
   }
 
   return (
-    <div className="min-h-screen bg-white pt-24 pb-16">
+    <div className="min-h-screen bg-white pt-24 pb-20">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Button */}
         <Link
           href="/thefeed"
-          className="inline-flex items-center gap-2 mb-8 text-sm uppercase tracking-wider font-mono hover:underline"
+          className="inline-flex items-center gap-2 mb-10 text-sm text-gray-500 hover:text-black transition-colors font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Feed
         </Link>
 
         {/* Header */}
-        <header className="border-b-4 border-black pb-8 mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-3 h-3 border-2 border-black bg-white" />
-            <span className="text-xs uppercase tracking-wider font-mono">{item.date}</span>
-            <span className={`text-xs uppercase tracking-wider font-mono px-3 py-1 ${typeColors[item.type]}`}>
+        <header className="border-b border-gray-200 pb-10 mb-12">
+          {/* Meta Row */}
+          <div className="flex items-center gap-3 mb-5">
+            <span className="text-sm text-gray-500 font-medium">{item.date}</span>
+            <span className="text-gray-300">•</span>
+            <span className={`text-[11px] uppercase tracking-widest font-semibold px-2.5 py-1 rounded-sm ${typeColors[item.type]}`}>
               {item.type}
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-menda-black uppercase tracking-tight mb-6 text-balance">
+          {/* Title */}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] mb-6 text-gray-900">
             {item.title}
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 text-pretty">
+          {/* Summary */}
+          <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8 max-w-3xl">
             {item.summary}
           </p>
 
           {/* Meta Info */}
-          <div className="flex flex-wrap gap-6 text-sm">
+          <div className="flex flex-wrap gap-8 text-sm">
             <div>
-              <span className="text-xs uppercase tracking-wider font-mono font-bold block mb-2">Authors:</span>
+              <span className="text-[10px] uppercase tracking-widest font-semibold text-gray-400 block mb-2">Authors</span>
               <div className="flex flex-wrap gap-2">
                 {item.authors.map((author) => (
-                  <span key={author}>{author}</span>
+                  <span key={author} className="font-medium text-gray-700">{author}</span>
                 ))}
               </div>
             </div>
 
             <div>
-              <span className="text-xs uppercase tracking-wider font-mono font-bold block mb-2">Topics:</span>
+              <span className="text-[10px] uppercase tracking-widest font-semibold text-gray-400 block mb-2">Topics</span>
               <div className="flex flex-wrap gap-2">
                 {item.topics.map((topic) => (
                   <span
                     key={topic}
-                    className="text-xs uppercase tracking-wider font-mono px-2 py-1 border-2 border-black bg-white"
+                    className="text-xs font-medium uppercase tracking-wide px-2.5 py-1 bg-gray-100 text-gray-700 rounded-sm"
                   >
                     {topic}
                   </span>
@@ -80,14 +84,14 @@ export default function FeedDetailClientPage({ item }: ClientPageProps) {
         {item.newsletterContent ? (
           <NewsletterTemplate content={item.newsletterContent} />
         ) : (
-          <div className="prose prose-lg max-w-none">
-            <div className="border-4 border-black p-8 bg-gray-50 mb-8">
-              <p className="text-center text-gray-600 font-mono">
-                [Content for this feed item would be displayed here]
+          <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-p:text-gray-700 prose-p:leading-relaxed">
+            <div className="border border-gray-200 rounded-sm p-8 bg-gray-50 mb-8">
+              <p className="text-center text-gray-500 font-medium">
+                Content for this feed item would be displayed here
               </p>
             </div>
 
-            <div className="space-y-6 text-gray-800 leading-relaxed">
+            <div className="space-y-5 text-gray-700 leading-relaxed">
               <p>
                 This is a placeholder for the full content of the newsletter or article. In a real implementation, you
                 would fetch the full content from your CMS or database and render it here.
@@ -144,29 +148,27 @@ function NewsletterFooterCTA() {
   }
 
   return (
-    <footer className="mt-12 pt-8 border-t-4 border-black">
-      <div className="bg-black text-white p-8">
+    <footer className="mt-16 pt-10 border-t border-gray-200">
+      <div className="bg-gray-900 text-white p-8 md:p-10 rounded-sm">
         {isSuccess ? (
-          <div className="text-center">
-            <div className="inline-block mb-4">
-              <div className="w-12 h-12 border-4 border-white mx-auto flex items-center justify-center">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
+          <div className="text-center py-4">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/10 mb-5">
+              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
             </div>
-            <h2 className="text-2xl font-bold mb-2 font-menda-black uppercase">Subscribed</h2>
-            <p className="text-sm uppercase tracking-wider font-mono">Check your inbox</p>
+            <h2 className="text-2xl font-bold mb-2">You're Subscribed!</h2>
+            <p className="text-gray-400 text-sm">Check your inbox for confirmation</p>
           </div>
         ) : (
-          <div className="max-w-md mx-auto">
-            <h2 className="text-2xl font-bold mb-4 font-menda-black uppercase text-center">
+          <div className="max-w-md mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 tracking-tight">
               Stay Updated
             </h2>
-            <p className="mb-6 text-center text-sm tracking-tight md:tracking-normal">
+            <p className="mb-6 text-gray-400 text-sm md:text-base leading-relaxed">
               See how we blend creativity with community impact through innovative storytelling and design.
             </p>
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
               <input
                 type="email"
                 value={email}
@@ -174,14 +176,14 @@ function NewsletterFooterCTA() {
                 placeholder="Enter your email"
                 required
                 disabled={isLoading}
-                className="w-full px-4 py-3 bg-white text-black border-2 border-white focus:outline-none focus:border-gray-300 disabled:opacity-50 font-mono text-sm"
+                className="w-full px-4 py-3 bg-white text-gray-900 rounded-sm focus:outline-none focus:ring-2 focus:ring-white/30 disabled:opacity-50 text-sm font-medium placeholder:text-gray-400"
               />
-              {error && <p className="text-sm text-red-400 font-mono">{error}</p>}
+              {error && <p className="text-sm text-red-400 text-left">{error}</p>}
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full px-8 py-3 bg-white text-black text-sm uppercase tracking-wider font-mono font-bold hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-6 py-3 bg-white text-gray-900 text-sm font-semibold tracking-wide hover:bg-gray-100 transition-colors rounded-sm disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? "Subscribing..." : "Subscribe Now"}
               </button>

@@ -4,39 +4,47 @@ import { useState, useMemo, useEffect } from "react"
 import FeedHeader from "@/components/thefeed/feed-header"
 import FeedFilters from "@/components/thefeed/feed-filters"
 import FeedList from "@/components/thefeed/feed-list"
-import type { FeedItem } from "@/data/feed-data"
+import type { TransformedFeedItem } from "@/lib/api-feed"
 
 export default function TheFeedPage() {
-  const [feedItems, setFeedItems] = useState<FeedItem[]>([])
+  const [feedItems, setFeedItems] = useState<TransformedFeedItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
   const [selectedTopics, setSelectedTopics] = useState<string[]>([])
   const [selectedAuthors, setSelectedAuthors] = useState<string[]>([])
 
-  // Fetch feed items from API on component mount
+  // Fetch feed items from 434 Media API via local route
   useEffect(() => {
     async function fetchFeedItems() {
       try {
         setIsLoading(true)
         
-        // Try to fetch from API first
         const response = await fetch('/api/feed')
         const result = await response.json()
         
         if (result.success && result.data && result.data.length > 0) {
           setFeedItems(result.data)
         } else {
-          // Fallback to static data if API returns no items or fails
+          // Fallback to static data if API returns no items
           const { feedItems: staticItems } = await import('@/data/feed-data')
-          setFeedItems(staticItems)
+          // Transform static items to match TransformedFeedItem shape
+          setFeedItems(staticItems.map(item => ({
+            ...item,
+            published_date: item.date,
+            ogImage: item.ogImage || '',
+          })))
         }
       } catch (err) {
         console.error('Error fetching feed items:', err)
         // Fallback to static data on error
         try {
           const { feedItems: staticItems } = await import('@/data/feed-data')
-          setFeedItems(staticItems)
+          setFeedItems(staticItems.map(item => ({
+            ...item,
+            published_date: item.date,
+            ogImage: item.ogImage || '',
+          })))
         } catch (staticErr) {
           setError('Failed to load feed items')
         }
@@ -58,7 +66,12 @@ export default function TheFeedPage() {
 
         return typeMatch && topicMatch && authorMatch
       })
-      // Items are already sorted by published_date desc from Airtable, so no need to reverse
+      // Sort by published_date descending (newest first)
+      .sort((a, b) => {
+        const dateA = new Date(a.published_date).getTime()
+        const dateB = new Date(b.published_date).getTime()
+        return dateB - dateA
+      })
   }, [feedItems, selectedTypes, selectedTopics, selectedAuthors])
 
   const handleTypeToggle = (type: string) => {
@@ -83,13 +96,14 @@ export default function TheFeedPage() {
     return (
       <div className="min-h-screen bg-white pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center py-12 border-4 border-red-500 bg-red-50">
-            <p className="text-xl font-mono text-red-600">Error loading feed: {error}</p>
+          <div className="text-center py-16 border border-red-200 bg-red-50 rounded-sm">
+            <p className="text-lg font-medium text-red-600 mb-4">Error loading feed</p>
+            <p className="text-sm text-red-500 mb-6">{error}</p>
             <button 
               onClick={() => window.location.reload()} 
-              className="mt-4 px-6 py-2 bg-red-600 text-white font-mono hover:bg-red-700"
+              className="px-5 py-2.5 bg-red-600 text-white text-sm font-semibold rounded-sm hover:bg-red-700 transition-colors"
             >
-              Retry
+              Try Again
             </button>
           </div>
         </div>
@@ -102,7 +116,7 @@ export default function TheFeedPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FeedHeader totalCount={feedItems.length} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
           {/* Filters Sidebar */}
           <aside className="lg:col-span-1">
             <FeedFilters
@@ -119,10 +133,10 @@ export default function TheFeedPage() {
           {/* Feed List */}
           <main className="lg:col-span-3">
             {isLoading ? (
-              <div className="border-4 border-black bg-white p-8">
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-                  <span className="font-mono">Loading feed...</span>
+              <div className="border border-gray-200 bg-white p-12 rounded-sm">
+                <div className="flex flex-col items-center justify-center space-y-3">
+                  <div className="w-6 h-6 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin"></div>
+                  <span className="text-sm text-gray-500 font-medium">Loading feed...</span>
                 </div>
               </div>
             ) : (
