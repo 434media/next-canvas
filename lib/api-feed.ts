@@ -231,7 +231,7 @@ export async function getFeedItems(): Promise<TransformedFeedItem[]> {
     }
     
     const response = await fetch(apiUrl, {
-      next: { revalidate: 300 }, // Cache for 5 minutes
+      cache: 'no-store', // Always fetch fresh data
       headers: getHeaders(),
     })
     
@@ -279,7 +279,7 @@ export async function getFeedItemBySlug(slug: string): Promise<TransformedFeedIt
     }
     
     const response = await fetch(apiUrl, {
-      next: { revalidate: 300 }, // Cache for 5 minutes
+      cache: 'no-store', // Always fetch fresh data
       headers: getHeaders(),
     })
     
