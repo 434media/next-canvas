@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getFeedItemBySlug } from '@/lib/api-feed'
+import { getFeedItemBySlug, clearFeedCache } from '@/lib/api-feed'
 
 export const dynamic = 'force-dynamic'
 
@@ -9,7 +9,15 @@ export async function GET(
 ) {
   try {
     const { slug } = await params
-    const feedItem = await getFeedItemBySlug(slug)
+    const { searchParams } = new URL(request.url)
+    const fresh = searchParams.get('fresh') === 'true'
+    
+    // If fresh=true, bypass cache completely
+    if (fresh) {
+      clearFeedCache()
+    }
+    
+    const feedItem = await getFeedItemBySlug(slug, fresh)
     
     if (!feedItem) {
       return NextResponse.json(
@@ -21,10 +29,25 @@ export async function GET(
       )
     }
     
-    return NextResponse.json({ 
+    // Build response with appropriate cache headers
+    const response = NextResponse.json({ 
       success: true, 
-      data: feedItem 
+      data: feedItem,
+      cached: !fresh,
+      timestamp: new Date().toISOString()
     })
+    
+    if (fresh) {
+      // No caching for fresh requests
+      response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
+      response.headers.set('Pragma', 'no-cache')
+      response.headers.set('Expires', '0')
+    } else {
+      // CDN cache: 1 minute, stale-while-revalidate: 2 minutes
+      response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120')
+    }
+    
+    return response
   } catch (error) {
     console.error('Error in feed item API:', error)
     

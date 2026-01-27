@@ -5,6 +5,39 @@ import { marked } from 'marked'
 
 const API_BASE_URL = process.env.FEED_API_URL || 'https://434media.com/api/public/feed'
 
+// In-memory cache configuration
+// Cache TTL: 10 seconds for faster content updates
+const CACHE_TTL_MS = 10 * 1000 // 10 seconds
+
+interface CacheEntry<T> {
+  data: T
+  timestamp: number
+}
+
+// Simple in-memory cache for feed data
+const feedCache: {
+  items: CacheEntry<TransformedFeedItem[]> | null
+  bySlug: Map<string, CacheEntry<TransformedFeedItem | null>>
+} = {
+  items: null,
+  bySlug: new Map()
+}
+
+// Check if cache entry is still valid
+function isCacheValid<T>(entry: CacheEntry<T> | null | undefined): boolean {
+  if (!entry) return false
+  return Date.now() - entry.timestamp < CACHE_TTL_MS
+}
+
+// Clear all cached feed data
+export function clearFeedCache(): void {
+  feedCache.items = null
+  feedCache.bySlug.clear()
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Feed cache cleared')
+  }
+}
+
 // Configure marked for better HTML output
 marked.setOptions({
   breaks: true, // Convert line breaks to <br>
@@ -219,8 +252,16 @@ function getHeaders(): HeadersInit {
 }
 
 // Fetch all feed items from 434 Media API
-export async function getFeedItems(): Promise<TransformedFeedItem[]> {
+export async function getFeedItems(skipCache = false): Promise<TransformedFeedItem[]> {
   try {
+    // Check in-memory cache first (unless skipCache is true)
+    if (!skipCache && isCacheValid(feedCache.items)) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Returning cached feed items')
+      }
+      return feedCache.items!.data
+    }
+    
     // Request published items from THEFEED table
     const apiUrl = `${API_BASE_URL}?table=THEFEED`
     
@@ -228,10 +269,11 @@ export async function getFeedItems(): Promise<TransformedFeedItem[]> {
     if (process.env.NODE_ENV === 'development') {
       console.log('Fetching feed from:', apiUrl)
       console.log('API Key present:', !!process.env.FEED_API_KEY)
+      console.log('Skip cache:', skipCache)
     }
     
     const response = await fetch(apiUrl, {
-      cache: 'no-store', // Always fetch fresh data
+      cache: 'no-store', // Always fetch fresh data from source
       headers: getHeaders(),
     })
     
@@ -257,11 +299,19 @@ export async function getFeedItems(): Promise<TransformedFeedItem[]> {
     
     // Transform and sort by published_date descending (newest first)
     const items = result.data.map((item: FeedItem) => transformFeedItem(item))
-    return items.sort((a: TransformedFeedItem, b: TransformedFeedItem) => {
+    const sortedItems = items.sort((a: TransformedFeedItem, b: TransformedFeedItem) => {
       const dateA = new Date(a.published_date).getTime()
       const dateB = new Date(b.published_date).getTime()
       return dateB - dateA // Newest first
     })
+    
+    // Update cache
+    feedCache.items = {
+      data: sortedItems,
+      timestamp: Date.now()
+    }
+    
+    return sortedItems
   } catch (error) {
     console.error('Error fetching feed items:', error)
     return []
@@ -269,17 +319,29 @@ export async function getFeedItems(): Promise<TransformedFeedItem[]> {
 }
 
 // Fetch a single feed item by slug from 434 Media API
-export async function getFeedItemBySlug(slug: string): Promise<TransformedFeedItem | null> {
+export async function getFeedItemBySlug(slug: string, skipCache = false): Promise<TransformedFeedItem | null> {
   try {
+    // Check in-memory cache first (unless skipCache is true)
+    if (!skipCache) {
+      const cachedEntry = feedCache.bySlug.get(slug)
+      if (isCacheValid(cachedEntry)) {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Returning cached feed item for slug:', slug)
+        }
+        return cachedEntry!.data
+      }
+    }
+    
     const apiUrl = `${API_BASE_URL}?table=THEFEED&slug=${encodeURIComponent(slug)}`
     
     // Debug logging in development
     if (process.env.NODE_ENV === 'development') {
       console.log('Fetching feed item from:', apiUrl)
+      console.log('Skip cache:', skipCache)
     }
     
     const response = await fetch(apiUrl, {
-      cache: 'no-store', // Always fetch fresh data
+      cache: 'no-store', // Always fetch fresh data from source
       headers: getHeaders(),
     })
     
@@ -299,7 +361,15 @@ export async function getFeedItemBySlug(slug: string): Promise<TransformedFeedIt
       return null
     }
     
-    return transformFeedItem(result.data)
+    const transformedItem = transformFeedItem(result.data)
+    
+    // Update cache
+    feedCache.bySlug.set(slug, {
+      data: transformedItem,
+      timestamp: Date.now()
+    })
+    
+    return transformedItem
   } catch (error) {
     console.error('Error fetching feed item:', error)
     return null
