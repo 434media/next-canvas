@@ -3,6 +3,11 @@
 import { useState, useEffect, useRef } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "motion/react"
+import { SpeakersSection } from "./speakers-section"
+import { SessionsSection } from "./sessions-section"
+import { CommunitySpotlight } from "./community-spotlight"
+import { SponsorsSection } from "./sponsors-section"
+import { RegistrationSection } from "./registration-section"
 
 interface Track {
   id: string
@@ -318,46 +323,106 @@ export function MoreHumanThanHuman() {
       {/* Hidden Audio Element */}
       <audio ref={audioRef} preload="metadata" />
 
-      {/* Video Hero Section */}
-      <section className="relative h-dvh overflow-hidden" data-bg-type="dark">
-        <div className="absolute inset-0 w-full h-full">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source 
-              src="https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4" 
-              type="video/mp4" 
-            />
-            <source 
-              src="https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.webm" 
-              type="video/webm" 
-            />
-          </video>
-        </div>
-        
-        {/* linear overlays */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
-        
-        {/* Content overlay */}
-        <div className="absolute inset-0 flex items-end justify-center pb-20 sm:pb-28">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-center px-4"
-          >
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white uppercase tracking-tight leading-[0.9] mb-6">
-              <span className="text-[#fbbf24] block">More Human</span>
-              <span className="block mt-1">Than Human</span>
-            </h1>
-            <p className="text-white/80 text-lg sm:text-xl font-semibold uppercase tracking-widest">
-              AI Conference • February 28, 2026 • Geekdom
-            </p>
-          </motion.div>
+      {/* Video Hero Section - Split Layout */}
+      <section className="relative min-h-dvh bg-black overflow-hidden" data-bg-type="dark">
+        <div className="relative min-h-dvh flex flex-col lg:flex-row">
+          {/* Left side - Content */}
+          <div className="relative z-10 flex-1 flex items-center justify-center lg:justify-start px-6 sm:px-10 lg:px-16 py-16 lg:py-0 order-2 lg:order-1 md:mt-20">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="max-w-xl"
+            >
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white uppercase tracking-tight leading-[0.95] mb-6">
+                <span className="text-[#fbbf24] block">More Human</span>
+                <span className="block mt-1">Than Human</span>
+              </h1>
+              <p className="text-white/70 text-base sm:text-lg font-semibold uppercase tracking-widest mb-8">
+                AI Conference • February 28, 2026 • Geekdom
+              </p>
+              
+              {/* Event description */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.8 }}
+              >
+                <p className="text-white/50 text-sm sm:text-base font-normal leading-relaxed mb-4">
+                  As AI shifts from a tool we use to an agent that acts, the boundary between human and machine is disappearing. Join San Antonio&apos;s builders, dreamers, and technologists for a deep dive into how AI is fundamentally re-architecting the way we write code, secure the internet, and lead organizations.
+                </p>
+                <p className="text-[#ff9900] text-sm font-medium leading-relaxed">
+                  We aren&apos;t just talking about the future — we&apos;re demonstrating the tools that are defining it.
+                </p>
+              </motion.div>
+
+              {/* Register Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.0 }}
+                className="mt-8"
+              >
+                <a
+                  href="#register"
+                  className="inline-flex items-center gap-3 bg-[#fbbf24] text-[#0a0a0a] font-bold text-sm uppercase tracking-widest py-4 px-8 transition-all hover:bg-[#ff9900] hover:scale-[1.02]"
+                >
+                  Register Now
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </motion.div>
+              
+              {/* Scroll indicator */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 1.2 }}
+                className="mt-10 lg:mt-12"
+              >
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    animate={{ y: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/40">
+                      <polyline points="6,9 12,15 18,9" />
+                    </svg>
+                  </motion.div>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+                    Scroll to explore
+                  </span>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+          
+          {/* Right side - Video */}
+          <div className="relative flex-1 min-h-[50dvh] lg:min-h-dvh order-1 lg:order-2">
+            <div className="absolute inset-0">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              >
+                <source 
+                  src="https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4" 
+                  type="video/mp4" 
+                />
+                <source 
+                  src="https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.webm" 
+                  type="video/webm" 
+                />
+              </video>
+              {/* Gradient overlays for blending */}
+              <div className="absolute inset-0 bg-linear-to-r from-black via-black/50 to-transparent lg:block hidden" />
+              <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent lg:hidden" />
+              <div className="absolute inset-0 bg-black/20" />
+            </div>
+          </div>
         </div>
 
         {/* Terminal Music Player Toggle */}
@@ -579,145 +644,20 @@ export function MoreHumanThanHuman() {
         </AnimatePresence>
       </section>
 
-      {/* Coming Soon Section */}
-      <section className="relative py-20 sm:py-28 bg-[#0a0a0a]" data-bg-type="dark">
-        <AztecBackground />
-        
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <AztecBorder />
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white uppercase tracking-tight mt-8 mb-4">
-              Coming Soon
-            </h2>
-            <p className="text-[#a3a3a3] text-lg max-w-2xl mx-auto">
-              We&apos;re building something extraordinary. Stay tuned for announcements.
-            </p>
-          </motion.div>
+      {/* Speakers Section */}
+      <SpeakersSection />
 
-          {/* Cards Grid */}
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {/* Speakers Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="relative group"
-            >
-              <div className="absolute inset-0 bg-linear-to-br from-[#ff9900]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative border border-[#333] bg-[#111] p-8 transition-all duration-300 group-hover:border-[#ff9900]/50">
-                <div className="absolute top-0 left-0"><AztecCorner position="top-left" /></div>
-                <div className="absolute top-0 right-0"><AztecCorner position="top-right" /></div>
-                
-                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 border border-[#333] bg-[#0a0a0a] group-hover:border-[#ff9900] transition-colors">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ff9900" strokeWidth="1.5">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                </div>
-                
-                <h3 className="text-xl font-bold text-white uppercase tracking-wide text-center mb-3">
-                  Speakers
-                </h3>
-                <p className="text-[#737373] text-sm text-center leading-relaxed">
-                  AI researchers, industry leaders, and active builders will be announced soon.
-                </p>
-                
-                <div className="mt-6 text-center">
-                  <span className="inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff9900] px-3 py-1.5 border border-[#ff9900]/30 bg-[#ff9900]/5">
-                    Announcing Soon
-                  </span>
-                </div>
-              </div>
-            </motion.div>
+      {/* Sessions Section */}
+      <SessionsSection />
 
-            {/* Sessions Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative group"
-            >
-              <div className="absolute inset-0 bg-linear-to-br from-[#00f2ff]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative border border-[#333] bg-[#111] p-8 transition-all duration-300 group-hover:border-[#00f2ff]/50">
-                <div className="absolute top-0 left-0"><AztecCorner position="top-left" /></div>
-                <div className="absolute top-0 right-0"><AztecCorner position="top-right" /></div>
-                
-                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 border border-[#333] bg-[#0a0a0a] group-hover:border-[#00f2ff] transition-colors">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" strokeWidth="1.5">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                    <path d="M8 14h.01" />
-                    <path d="M12 14h.01" />
-                    <path d="M16 14h.01" />
-                    <path d="M8 18h.01" />
-                    <path d="M12 18h.01" />
-                  </svg>
-                </div>
-                
-                <h3 className="text-xl font-bold text-white uppercase tracking-wide text-center mb-3">
-                  Sessions
-                </h3>
-                <p className="text-[#737373] text-sm text-center leading-relaxed">
-                  Deep-dive interactive sessions exploring the current state of building with AI.
-                </p>
-                
-                <div className="mt-6 text-center">
-                  <span className="inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-[#00f2ff] px-3 py-1.5 border border-[#00f2ff]/30 bg-[#00f2ff]/5">
-                    Announcing Soon
-                  </span>
-                </div>
-              </div>
-            </motion.div>
+      {/* Community Spotlight Section */}
+      <CommunitySpotlight />
 
-            {/* Sponsors Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="relative group"
-            >
-              <div className="absolute inset-0 bg-linear-to-br from-[#fbbf24]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative border border-[#333] bg-[#111] p-8 transition-all duration-300 group-hover:border-[#fbbf24]/50">
-                <div className="absolute top-0 left-0"><AztecCorner position="top-left" /></div>
-                <div className="absolute top-0 right-0"><AztecCorner position="top-right" /></div>
-                
-                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 border border-[#333] bg-[#0a0a0a] group-hover:border-[#fbbf24] transition-colors">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="1.5">
-                    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-                  </svg>
-                </div>
-                
-                <h3 className="text-xl font-bold text-white uppercase tracking-wide text-center mb-3">
-                  Sponsors
-                </h3>
-                <p className="text-[#737373] text-sm text-center leading-relaxed">
-                  Leading companies and organizations partnering to make this event possible.
-                </p>
-                
-                <div className="mt-6 text-center">
-                  <span className="inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-[#fbbf24] px-3 py-1.5 border border-[#fbbf24]/30 bg-[#fbbf24]/5">
-                    Announcing Soon
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* Sponsors & Community Partners Section */}
+      <SponsorsSection />
+
+      {/* Registration Section */}
+      <RegistrationSection />
     </main>
   )
 }

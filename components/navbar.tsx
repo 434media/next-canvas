@@ -3,20 +3,13 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { motion, useScroll, useTransform } from "motion/react"
+import { motion } from "motion/react"
 import { Menu } from "lucide-react"
 import SlideoverMenu from "./slideover-menu"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const { scrollY } = useScroll()
-  const pathname = usePathname()
-  const isChristmasPage = pathname === "/events/mxratmain"
-
-  const navbarOpacity = useTransform(scrollY, [0, 50], [0.85, 0.98])
-  const backgroundOpacity = useTransform(scrollY, [0, 50], [0, 0.95])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,30 +25,12 @@ const Navbar = () => {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-40 ${isScrolled ? "backdrop-blur-xl" : "backdrop-blur-md"}`}
       >
-        {!isChristmasPage && (
-          <div className="absolute inset-0 bg-white/20">
-            <div
-              className="absolute inset-0 opacity-5"
-              style={{
-                backgroundImage: `radial-gradient(circle, black 1px, transparent 1px)`,
-                backgroundSize: "20px 20px",
-              }}
-            />
-          </div>
-        )}
-
-        <motion.div
-          className={`absolute inset-0 ${isChristmasPage ? "bg-black" : "bg-white/30"}`}
-          style={{
-            opacity: backgroundOpacity,
-          }}
-        />
+        <div className="absolute inset-0 bg-black" />
 
         <motion.nav
-          className={`relative ${isChristmasPage ? "border-b-2" : "border-b-4 border-black"}`}
+          className="relative border-b border-[#333]"
           style={{
-            background: isChristmasPage ? `#000000` : `rgba(255, 255, 255, 0.1)`,
-            borderImage: isChristmasPage ? "linear-gradient(to right, #c41e3a, #228b22) 1" : "none",
+            background: '#000000',
           }}
         >
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
@@ -67,17 +42,14 @@ const Navbar = () => {
               >
                 <Link href="/" passHref>
                   <motion.div
-                    className="relative cursor-pointer bg-black border border-white p-1.5 transform hover:rotate-1 shadow-lg"
-                    style={{
-                      filter: "drop-shadow(2px 2px 0px black)",
-                    }}
+                    className="relative cursor-pointer bg-black border border-[#333] p-1 transform hover:rotate-1 hover:border-[#ff9900] transition-colors"
                   >
                     <div className="relative z-10">
                       <Image
                         src="https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
                         alt="Digital Canvas Logo"
-                        width={80}
-                        height={24}
+                        width={64}
+                        height={20}
                         className="transition-all duration-300"
                       />
                     </div>
@@ -92,17 +64,14 @@ const Navbar = () => {
                   setIsMenuOpen(true)
                   window.dispatchEvent(new CustomEvent("navbar-menu-toggle", { detail: { isOpen: true } }))
                 }}
-                className="transition-colors duration-300 relative group bg-black border border-white p-2 transform hover:rotate-1 shadow-lg"
+                className="transition-colors duration-300 relative group bg-black border border-[#333] p-1.5 transform hover:rotate-1 hover:border-[#ff9900]"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 aria-label="Open menu - Digital Canvas"
-                style={{
-                  filter: "drop-shadow(2px 2px 0px black)",
-                }}
               >
                 <motion.div animate={{ rotate: isMenuOpen ? 5 : 0 }} transition={{ duration: 0.3, ease: "easeOut" }}>
-                  <Menu className="w-5 h-5 text-white" />
+                  <Menu className="w-4 h-4 text-white" />
                 </motion.div>
               </motion.button>
             </div>
