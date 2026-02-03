@@ -1,7 +1,27 @@
 "use client"
 import { useState, useEffect } from "react"
 import type React from "react"
+import Link from "next/link"
 import { motion, useAnimation } from "motion/react"
+
+// Navigation links
+const navLinks = [
+  { name: "Events", href: "/events" },
+  { name: "Workshops", href: "/workshops" },
+  { name: "The Feed", href: "/thefeed" },
+]
+
+// In-house brands from the creative team
+const brands = [
+  { name: "DEVSA", url: "https://devsa.community" },
+  { name: "The AMPD Project", url: "https://theampdproject.com" },
+  { name: "TXMX Boxing", url: "https://txmxboxing.com" },
+  { name: "Vemoas Vamos", url: "https://vemoasvamos.com" },
+  { name: "Mil City USA", url: "https://milcityusa.com" },
+  { name: "Que es SDOH", url: "https://queessdoh.com" },
+  { name: "AIM", url: "https://aim.434media.com" },
+  { name: "Tech Day", url: "https://techday.434media.com" },
+]
 
 const Footer = () => {
   const [isClient, setIsClient] = useState(false)
@@ -17,72 +37,90 @@ const Footer = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
         delayChildren: 0.1,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
       },
     },
   }
 
   return (
-    <footer className="bg-transparent relative overflow-hidden z-10">
-      {/* Enhanced Footer Bottom - kept as requested */}
+    <footer className="bg-[#0a0a0a] relative overflow-hidden z-10">
+      {/* Main Footer Content */}
       <motion.div
-        className="bg-neutral-950 py-4 md:py-2.5 px-6 md:px-8 relative z-20"
-        variants={itemVariants}
+        className="relative"
+        variants={containerVariants}
         initial="hidden"
         animate={controls}
       >
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <motion.p
-              className="text-white/50 text-sm"
-              whileHover={{ color: "rgba(255,255,255,0.7)" }}
-              transition={{ duration: 0.2 }}
-            >
-              &copy; 2025 434 MEDIA All rights reserved.
-            </motion.p>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://www.linkedin.com/company/434media"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-neutral-950 rounded"
-                aria-label="Follow 434 Media on LinkedIn"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
+        {/* Top border */}
+        <div className="h-px w-full bg-[#222]" />
+        {/* Bottom Bar */}
+        <motion.div
+          className="py-6 px-6"
+          variants={itemVariants}
+        >
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              {/* Copyright & Brand */}
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                <a
+                  href="https://434media.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white font-bold text-sm uppercase tracking-widest hover:text-[#fbbf24] transition-colors"
                 >
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
-              </a>
-              {/* Instagram link */}
-              <a
-                href="https://www.instagram.com/digitalcanvashq/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-neutral-950 rounded"
-                aria-label="Follow 434 Media on Instagram"
-              >
-                <InstagramIcon className="w-6 h-6" />
-              </a>
+                  434 Media
+                </a>
+                <span className="hidden sm:inline text-[#333]">•</span>
+                <p className="text-[#525252] text-xs font-normal">
+                  &copy; {new Date().getFullYear()} All rights reserved
+                </p>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://www.linkedin.com/company/434media"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#525252] hover:text-white transition-colors"
+                  aria-label="Follow 434 Media on LinkedIn"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.instagram.com/digitalcanvashq/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#525252] hover:text-white transition-colors"
+                  aria-label="Follow Digital Canvas on Instagram"
+                >
+                  <InstagramIcon className="w-[18px] h-[18px]" />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
     </footer>
   )
