@@ -259,7 +259,7 @@ function generateConfirmationEmail(firstName: string, fullName: string): string 
                 We'll send you updates as we announce speakers, sessions, and more details. Keep an eye on your inbox!
               </p>
               <p style="margin: 0; font-size: 14px; color: #737373;">
-                Questions? Reply to this email or reach out to us at <a href="mailto:hello@devsa.community" style="color: #ff9900; text-decoration: none;">hello@devsa.community</a>
+                Questions? Reply to this email or reach out to us at <a href="mailto:jesse@devsanantonio.com" style="color: #ff9900; text-decoration: none;">jesse@devsanantonio.com</a>
               </p>
             </td>
           </tr>
@@ -276,7 +276,7 @@ function generateConfirmationEmail(firstName: string, fullName: string): string 
                 Powered by DEVSA
               </p>
               <p style="margin: 0; font-size: 12px; color: #404040;">
-                San Antonio's Developer Community
+                Your Direct Connection to the Tech Community
               </p>
               <p style="margin: 16px 0 0 0; font-size: 11px; color: #333;">
                 © ${new Date().getFullYear()} Digital Canvas Network. All rights reserved.
