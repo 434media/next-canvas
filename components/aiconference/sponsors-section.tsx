@@ -2,6 +2,42 @@
 
 import { motion } from "motion/react"
 
+// Sponsor data
+const sponsors = [
+  {
+    name: "v0 by Vercel",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/v0.svg",
+    url: "https://v0.app/ref/MVBIAI",
+    invert: true,
+    heightClass: "h-24 md:h-32",
+  },
+  {
+    name: "Lean Techniques",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/lean.png",
+    url: "https://www.leantechniques.com/",
+    invert: false,
+    heightClass: "h-24 md:h-24",
+  },
+]
+
+// Partner data
+const partners = [
+  {
+    name: "DEVSA TV",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/devsatv-logo.PNG",
+    url: "https://devsa.community",
+    invert: false,
+    heightClass: "h-24 md:h-28",
+  },
+  {
+    name: "434 Media",
+    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/434media-light.svg",
+    url: "https://434media.com",
+    invert: false,
+    heightClass: "h-16 md:mb-4",
+  },
+]
+
 // Aztec-inspired corner decoration
 function AztecCorner({ position }: { position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' }) {
   const rotations = {
@@ -55,7 +91,7 @@ export function SponsorsSection() {
             Sponsors & Partners
           </h2>
           <p className="text-[#a3a3a3] text-lg max-w-2xl mx-auto">
-            Organizations making this groundbreaking event possible
+            Thank you to the organizations making this event possible
           </p>
         </motion.div>
 
@@ -67,70 +103,78 @@ export function SponsorsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative group"
+            className="relative group h-full"
           >
             <div className="absolute inset-0 bg-linear-to-br from-[#fbbf24]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative border border-[#333] bg-[#111] p-8 lg:p-10 transition-all duration-300 group-hover:border-[#fbbf24]/50 min-h-[300px] flex flex-col">
+            <div className="relative border border-[#333] bg-[#111] p-8 lg:p-10 transition-all duration-300 group-hover:border-[#fbbf24]/50 h-full min-h-[400px] flex flex-col">
               <div className="absolute top-0 left-0"><AztecCorner position="top-left" /></div>
               <div className="absolute top-0 right-0"><AztecCorner position="top-right" /></div>
               <div className="absolute bottom-0 left-0"><AztecCorner position="bottom-left" /></div>
               <div className="absolute bottom-0 right-0"><AztecCorner position="bottom-right" /></div>
               
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-4 mb-8">
                 <h3 className="text-2xl font-bold text-white uppercase tracking-wide">
                   Sponsors
                 </h3>
               </div>  
-              <div className="flex items-center justify-center flex-1">
-                <a 
-                  href="https://v0.app/ref/MVBIAI"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-opacity hover:opacity-80"
-                >
-                  <img 
-                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/v0.svg" 
-                    alt="v0 by Vercel" 
-                    className="h-48 md:h-72 w-auto invert"
-                  />
-                </a>
+              {/* Sponsor logos grid */}
+              <div className="flex-1 flex flex-col items-center justify-center gap-10">
+                {sponsors.map((sponsor) => (
+                  <a
+                    key={sponsor.name}
+                    href={sponsor.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-opacity hover:opacity-80"
+                  >
+                    <img
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      className={`${sponsor.heightClass} w-auto ${sponsor.invert ? 'invert' : ''}`}
+                    />
+                  </a>
+                ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Community Partners Card */}
+          {/* Partners Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative group"
+            className="relative group h-full"
           >
             <div className="absolute inset-0 bg-linear-to-br from-[#00f2ff]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative border border-[#333] bg-[#111] p-8 lg:p-10 transition-all duration-300 group-hover:border-[#00f2ff]/50 min-h-[300px] flex flex-col">
+            <div className="relative border border-[#333] bg-[#111] p-8 lg:p-10 transition-all duration-300 group-hover:border-[#00f2ff]/50 h-full min-h-[400px] flex flex-col">
               <div className="absolute top-0 left-0"><AztecCorner position="top-left" /></div>
               <div className="absolute top-0 right-0"><AztecCorner position="top-right" /></div>
               <div className="absolute bottom-0 left-0"><AztecCorner position="bottom-left" /></div>
               <div className="absolute bottom-0 right-0"><AztecCorner position="bottom-right" /></div>
               
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-4 mb-8">
                 <h3 className="text-2xl font-bold text-white uppercase tracking-wide">
-                  Community Partners
+                  Partners
                 </h3>
               </div>
-              <div className="flex items-center justify-center flex-1">
-                <a 
-                  href="https://434media.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-opacity hover:opacity-80"
-                >
-                  <img 
-                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/434media-light.svg" 
-                    alt="434 Media" 
-                    className="h-24 md:h-72 w-auto"
-                  />
-                </a>
+              {/* Partner logos grid */}
+              <div className="flex-1 flex flex-col items-center justify-center gap-10">
+                {partners.map((partner) => (
+                  <a
+                    key={partner.name}
+                    href={partner.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-opacity hover:opacity-80"
+                  >
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className={`${partner.heightClass} w-auto ${partner.invert ? 'invert' : ''}`}
+                    />
+                  </a>
+                ))}
               </div>
             </div>
           </motion.div>

@@ -105,7 +105,7 @@ export function CommunitySpotlight() {
               Community Spotlight
             </h2>
             <p className="text-[#a3a3a3] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              Celebrating the communities, events, and organizations shaping the future of tech in Texas
+              Celebrating the communities, and organizations empowering the active learners and builders in San Antonio.
             </p>
           </div>
         </motion.div>
