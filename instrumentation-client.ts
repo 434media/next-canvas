@@ -19,5 +19,10 @@ initBotId({
       path: '/api/contact',
       method: 'POST',
     },
+    {
+      // Event registration (More Human Than Human AI Conference)
+      path: '/api/event-registration',
+      method: 'POST',
+    },
   ],
 });
