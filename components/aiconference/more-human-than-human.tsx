@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "motion/react"
 import { SpeakersSection } from "./speakers-section"
 import { SessionsSection } from "./sessions-section"
@@ -109,21 +108,6 @@ function AztecBorder() {
 }
 
 export function MoreHumanThanHuman() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const isSubmitted = searchParams.get('submitted') === 'true'
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    sessionTitle: "",
-    sessionFormat: "",
-    abstract: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [magenSessionId, setMagenSessionId] = useState<string | null>(null)
-
   // Terminal Player State
   const [isPlayerOpen, setIsPlayerOpen] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -238,83 +222,6 @@ export function MoreHumanThanHuman() {
       const x = e.clientX - rect.left
       const percentage = x / rect.width
       audioRef.current.currentTime = percentage * duration
-    }
-  }
-
-  useEffect(() => {
-    const startMagenSession = async () => {
-      try {
-        const response = await fetch('/api/magen/start-session', {
-          method: 'POST',
-        })
-
-        if (response.ok) {
-          const data = await response.json()
-          setMagenSessionId(data?.sessionId || null)
-        }
-      } catch {
-        // MAGEN not available
-      }
-    }
-
-    startMagenSession()
-  }, [])
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-    if (error) setError(null)
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError(null)
-
-    try {
-      // Verify Magen session before proceeding (if available)
-      let verifiedHumanScore: number | undefined;
-      if (magenSessionId) {
-        const verifyResponse = await fetch('/api/magen/verify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId: magenSessionId }),
-        })
-        
-        if (verifyResponse.ok) {
-          const verifyData = await verifyResponse.json()
-          verifiedHumanScore = verifyData.humanScore
-          if (verifyData.humanScore !== undefined && verifyData.humanScore < 0.7) {
-            setError("Verification failed. Please try again.")
-            setIsSubmitting(false)
-            return
-          }
-        }
-      }
-
-      // Submit to API with verified human score
-      const response = await fetch('/api/call-for-speakers', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          magenSessionId,
-          magenHumanScore: verifiedHumanScore,
-        }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit proposal')
-      }
-
-      router.push('/events/morehumanthanhuman?submitted=true')
-    } catch (err) {
-      console.error('Form submission error:', err)
-      setError(err instanceof Error ? err.message : 'Failed to submit proposal. Please try again.')
-    } finally {
-      setIsSubmitting(false)
     }
   }
 

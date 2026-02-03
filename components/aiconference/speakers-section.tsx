@@ -32,13 +32,13 @@ const speakers: Speaker[] = [
     sessionTitle: "Humanity in an Agentic World",
   },
   {
-    id: "jesse-hernandez",
-    name: "Jesse Hernandez",
-    title: "Web Developer",
-    company: "434 MEDIA",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/hat-jesse-headshot.jpg",
-    linkedin: "https://www.linkedin.com/in/jessebubble/",
-    sessionTitle: "Dream It, Ship It",
+    id: "zac-brown",
+    name: "Zac Brown",
+    title: "Founder & CEO",
+    company: "NonprofitsHQ",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/zac.jpeg",
+    linkedin: "https://www.linkedin.com/in/zacjordanbrown/",
+    sessionTitle: "Debugging Pipeline",
   },
   {
     id: "werner-mendizabal",
@@ -59,15 +59,6 @@ const speakers: Speaker[] = [
     sessionTitle: "GitHub Copilot SDK",
   },
   {
-    id: "zac-brown",
-    name: "Zac Brown",
-    title: "Founder & CEO",
-    company: "NonprofitsHQ",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/zac.jpeg",
-    linkedin: "https://www.linkedin.com/in/zacjordanbrown/",
-    sessionTitle: "Debugging Pipeline",
-  },
-  {
     id: "angel-escobedo",
     name: "Angel Escobedo",
     title: "Lead Software Developer",
@@ -75,6 +66,15 @@ const speakers: Speaker[] = [
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/angel.jpeg",
     linkedin: "https://www.linkedin.com/in/angel-escobedo-771a671a2/",
     sessionTitle: "What's Left When the Code Writes Itself?",
+  },
+  {
+    id: "jesse-hernandez",
+    name: "Jesse Hernandez",
+    title: "Web Developer",
+    company: "434 MEDIA",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/hat-jesse-headshot.jpg",
+    linkedin: "https://www.linkedin.com/in/jessebubble/",
+    sessionTitle: "Dream It, Ship It",
   },
 ]
 
