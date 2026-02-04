@@ -1046,7 +1046,7 @@ export default function DevsaTVPage() {
               Community → Content → Library → Sponsors → Growth
             </p>
             <Link
-              href="mailto:jesse@devsanantonio.com?subject=Digital%20Canvas%20Sponsorship%20Inquiry"
+              href="mailto:build@434media.com?subject=Digital%20Canvas%20Sponsorship%20Inquiry"
               className="group inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 px-6 py-3 text-sm font-bold uppercase tracking-wider text-slate-900 transition-all"
             >
               <span>Partner With Digital Canvas</span>

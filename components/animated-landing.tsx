@@ -200,7 +200,7 @@ export default function AnimatedLanding() {
         >
           <h2 className="mx-auto mt-2 max-w-4xl text-center text-5xl font-black tracking-tighter text-balance text-neutral-950 sm:text-6xl lg:text-7xl">
             Meet The{" "}
-            <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
               Creative Team
             </span>{" "}
           </h2>
@@ -267,7 +267,7 @@ export default function AnimatedLanding() {
                 backgroundImage: `url(${bentoItems[1].media})`,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/40" />
+            <div className="absolute inset-0 bg-linear-to-br from-black/30 via-transparent to-black/40" />
             <div className="px-8 pt-8 sm:px-10 sm:pt-10 relative z-10 h-80 md:h-full">
               <span
                 className={`inline-block px-3 py-1 bg-white bg-opacity-20 backdrop-blur-sm rounded-full text-black text-sm font-medium mb-2 shadow-sm`}
@@ -291,7 +291,7 @@ export default function AnimatedLanding() {
                 backgroundImage: `url(${bentoItems[2].media})`,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/60" />
+            <div className="absolute inset-0 bg-linear-to-br from-black/40 via-transparent to-black/60" />
             <motion.div
               className="absolute inset-0"
               animate={{
@@ -341,7 +341,7 @@ export default function AnimatedLanding() {
                   className="size-full object-cover"
                 />
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-tr from-orange-500/20 to-transparent"
+                  className="absolute inset-0 bg-linear-to-tr from-orange-500/20 to-transparent"
                   animate={{ opacity: [0.2, 0.4, 0.2] }}
                   transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
                 />
@@ -364,7 +364,7 @@ export default function AnimatedLanding() {
                       backgroundImage: `url(${item.media})`,
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/50" />
+                  <div className="absolute inset-0 bg-linear-to-br from-black/40 via-transparent to-black/50" />
                 </>
               )}
               <div className="px-6 pt-6 pb-2 relative z-10 h-80 md:h-full">
@@ -438,7 +438,7 @@ export default function AnimatedLanding() {
                       className="w-full h-full object-cover"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
 
                   <div className="absolute top-6 left-6">
                     <span className="inline-block px-4 py-2 bg-white bg-opacity-90 backdrop-blur-sm rounded-full text-neutral-900 text-sm font-medium">
@@ -484,7 +484,7 @@ export default function AnimatedLanding() {
                       href={selectedItem.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200"
                     >
                       Instagram
                     </a>
