@@ -185,7 +185,7 @@ const MissionStatement = () => {
     <section className="relative min-h-screen overflow-hidden" ref={containerRef}>
       <AnimatePresence mode="wait">{renderBackground()}</AnimatePresence>
 
-      <div className="absolute inset-0 z-5 bg-gradient-to-br from-white/5 via-transparent to-black/5 backdrop-blur-[0.5px]" />
+      <div className="absolute inset-0 z-5 bg-linear-to-br from-white/5 via-transparent to-black/5 backdrop-blur-[0.5px]" />
 
       <div className="relative z-10 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-7xl mx-auto">
