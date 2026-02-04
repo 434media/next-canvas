@@ -993,41 +993,6 @@ export default function DevsaTVPage() {
               )
             })}
           </div>
-
-          {/* Strategic Deliverables */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-slate-100 border border-slate-200 p-6 sm:p-8"
-          >
-            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
-              Strategic Deliverables — What You Get After the Event
-            </h3>
-            <div className="grid sm:grid-cols-3 gap-4">
-              <div className="flex items-start gap-3">
-                <Video className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-semibold text-slate-900 mb-1">Raw & Refined Footage</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">Professional 4K recordings of your participation</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Users className="w-5 h-5 text-cyan-500 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-semibold text-slate-900 mb-1">The &ldquo;Human&rdquo; Metric</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">Engagement data from Discord and LinkedIn surveys</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Target className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-semibold text-slate-900 mb-1">The Identity</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">Alignment with the most authentic builder movement in South Texas</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
