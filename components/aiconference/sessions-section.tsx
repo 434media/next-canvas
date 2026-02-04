@@ -40,10 +40,10 @@ const sessions: Session[] = [
     type: "talk",
   },
   {
-    id: "debugging-pipeline",
-    title: "Building an AI-Assisted Debugging Pipeline: From Bug Report to Pull Request",
-    speaker: "Zac Brown",
-    description: "We'll break down an AI-assisted debugging pipeline that takes a bug report, reproduces the issue, identifies root causes, proposes fixes, runs tests, and prepares a pull request — all with minimal human intervention. We'll explore where AI works well today and where it absolutely doesn't.",
+    id: "build-agents",
+    title: "How Do Agents Actually Work?",
+    speaker: "Samad Ahmed",
+    description: "Let's build an agent from scratch! We'll implement perception (what can I see?), planning (what should I do?), action (execute safely), memory (what happened before?), and reflection (did it work?), the core loop that makes agents autonomous. Live code showing how these components wire together, when they fail, and how to make them production-ready.",
     type: "talk",
   },
   {
