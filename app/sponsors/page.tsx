@@ -2,13 +2,14 @@
 
 import { motion } from "motion/react"
 import Link from "next/link"
-import { ArrowRight, Lock, Tv, FileText } from "lucide-react"
+import { ArrowRight, Lock, FileText } from "lucide-react"
 
 interface SponsorCard {
   id: string
   name: string
   tagline: string
   logo: string
+  image: string
   slug: string
   available: boolean
   comingSoon?: boolean
@@ -20,6 +21,7 @@ const sponsorDecks: SponsorCard[] = [
     name: "DEVSA",
     tagline: "From Community to Content",
     logo: "https://devsa-assets.s3.us-east-2.amazonaws.com/devsa-white.svg",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/devsa-group.jpg",
     slug: "/sponsors/devsa",
     available: true,
   },
@@ -28,6 +30,7 @@ const sponsorDecks: SponsorCard[] = [
     name: "Vemos Vamos",
     tagline: "Bicultural Media for a new generation",
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/vemos-vamos/vemos-vamos-logo.png",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/Website+VV+Assets.png",
     slug: "/sponsors/vemos-vamos",
     available: false,
     comingSoon: true,
@@ -37,6 +40,7 @@ const sponsorDecks: SponsorCard[] = [
     name: "TXMX Boxing",
     tagline: "Levantamos Los Puños",
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/txmx-logo.png",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/bam2.jpg",
     slug: "/sponsors/txmx-boxing",
     available: false,
     comingSoon: true,
@@ -45,7 +49,7 @@ const sponsorDecks: SponsorCard[] = [
 
 export default function SponsorsPage() {
   return (
-    <main className="min-h-dvh bg-black overflow-x-hidden overflow-y-auto">
+    <main className="min-h-dvh bg-black overflow-x-hidden overflow-y-auto pt-20 md:pt-32 lg:pt-40">
       {/* Hero Section with Digital Canvas Logo */}
       <section className="relative min-h-[60vh] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 border-b border-white/10">
         {/* Background gradient */}
@@ -103,7 +107,7 @@ export default function SponsorsPage() {
             className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed"
           >
             Explore sponsorship opportunities across our creative network. 
-            Each property offers unique ways to connect with San Antonio&apos;s most engaged communities.
+            Each property offers unique ways to connect with our most engaged communities in San Antonio and beyond.
           </motion.p>
         </div>
       </section>
@@ -147,17 +151,22 @@ export default function SponsorsPage() {
                     <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-amber-500 via-orange-500 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                     
                     <div className="p-6 sm:p-8">
-                      {/* Logo placeholder */}
-                      <div className="h-16 flex items-center justify-center mb-6">
-                        {deck.logo ? (
+                      {/* Property Image Box */}
+                      <div className="relative h-40 mb-6 overflow-hidden rounded-lg">
+                        <img 
+                          src={deck.image} 
+                          alt={deck.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
+                        {/* Logo overlay */}
+                        <div className="absolute inset-0 flex items-center justify-center">
                           <img 
                             src={deck.logo} 
                             alt={deck.name}
-                            className="max-h-full max-w-full object-contain"
+                            className="max-h-12 max-w-[80%] object-contain drop-shadow-lg"
                           />
-                        ) : (
-                          <Tv className="w-10 h-10 text-amber-500" />
-                        )}
+                        </div>
                       </div>
                       
                       <h3 className="text-xl font-bold text-white mb-2 text-center">
@@ -177,7 +186,7 @@ export default function SponsorsPage() {
                   <div className="relative bg-zinc-900/30 border border-white/5 overflow-hidden opacity-50 cursor-not-allowed">
                     {/* Coming Soon Badge */}
                     {deck.comingSoon && (
-                      <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2 py-1 bg-white/5 border border-white/10 rounded-full">
+                      <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2 py-1 bg-black/50 border border-white/10 rounded-full">
                         <Lock className="w-3 h-3 text-white/40" />
                         <span className="text-[10px] font-semibold tracking-wider uppercase text-white/40">
                           Coming Soon
@@ -186,17 +195,22 @@ export default function SponsorsPage() {
                     )}
                     
                     <div className="p-6 sm:p-8">
-                      {/* Logo placeholder */}
-                      <div className="h-16 flex items-center justify-center mb-6 grayscale">
-                        {deck.logo ? (
+                      {/* Property Image Box */}
+                      <div className="relative h-40 mb-6 overflow-hidden rounded-lg grayscale">
+                        <img 
+                          src={deck.image} 
+                          alt={deck.name}
+                          className="w-full h-full object-cover opacity-40"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/20" />
+                        {/* Logo overlay */}
+                        <div className="absolute inset-0 flex items-center justify-center">
                           <img 
                             src={deck.logo} 
                             alt={deck.name}
-                            className="max-h-full max-w-full object-contain opacity-30"
+                            className="max-h-12 max-w-[80%] object-contain opacity-30"
                           />
-                        ) : (
-                          <Tv className="w-10 h-10 text-white/20" />
-                        )}
+                        </div>
                       </div>
                       
                       <h3 className="text-xl font-bold text-white/40 mb-2 text-center">
@@ -231,7 +245,7 @@ export default function SponsorsPage() {
               Interested in a custom partnership? Let&apos;s talk.
             </p>
             <Link
-              href="mailto:jesse@434media.com?subject=Sponsorship%20Inquiry"
+              href="mailto:build@434media.com?subject=Sponsorship%20Inquiry"
               className="inline-flex items-center gap-2 bg-white hover:bg-white/90 px-6 py-3 text-sm font-bold uppercase tracking-wider text-black transition-all"
             >
               <span>Contact Us</span>
