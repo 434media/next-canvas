@@ -234,18 +234,42 @@ export function MoreHumanThanHuman() {
       <section className="relative min-h-dvh bg-black overflow-hidden" data-bg-type="dark">
         <div className="relative min-h-dvh flex flex-col lg:flex-row">
           {/* Left side - Content */}
-          <div className="relative z-10 flex-1 flex items-center justify-center lg:justify-start px-6 sm:px-10 lg:px-16 py-16 lg:py-0 order-2 lg:order-1 md:mt-20">
+          <div className="relative z-10 flex-1 flex items-start lg:items-center justify-center lg:justify-start px-5 sm:px-10 lg:px-16 pt-4 pb-12 lg:py-0 order-2 lg:order-1">
+            {/* Mobile Music Button - between video and content */}
+            <motion.button
+              onClick={() => setIsPlayerOpen(!isPlayerOpen)}
+              className="absolute -top-7 right-5 z-50 flex lg:hidden h-11 w-11 items-center justify-center border border-[#333] bg-[#0a0a0a]/90 backdrop-blur-sm font-mono text-xs uppercase tracking-wider text-[#ff9900] transition-all hover:border-[#ff9900] hover:bg-[#ff9900] hover:text-[#0a0a0a]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label={isPlayerOpen ? "Close audio player" : "Open audio player"}
+            >
+              {isPlaying ? (
+                <div className="flex items-center gap-0.5">
+                  <span className="inline-block h-3 w-0.5 animate-pulse bg-current" style={{ animationDelay: "0ms" }} />
+                  <span className="inline-block h-4 w-0.5 animate-pulse bg-current" style={{ animationDelay: "150ms" }} />
+                  <span className="inline-block h-2 w-0.5 animate-pulse bg-current" style={{ animationDelay: "300ms" }} />
+                  <span className="inline-block h-5 w-0.5 animate-pulse bg-current" style={{ animationDelay: "450ms" }} />
+                </div>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 18V5l12-2v13" />
+                  <circle cx="6" cy="18" r="3" />
+                  <circle cx="18" cy="16" r="3" />
+                </svg>
+              )}
+            </motion.button>
+
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="max-w-xl"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white uppercase tracking-tight leading-[0.95] mb-6">
+              <h1 className="text-[2.5rem] sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white uppercase tracking-tight leading-[0.9] mb-3 sm:mb-6">
                 <span className="text-[#fbbf24] block">More Human</span>
-                <span className="block mt-1">Than Human</span>
+                <span className="block">Than Human</span>
               </h1>
-              <p className="text-white/70 text-base sm:text-lg font-semibold uppercase tracking-widest mb-8">
+              <p className="text-white/60 text-xs sm:text-base font-semibold uppercase tracking-[0.15em] sm:tracking-widest mb-4 sm:mb-8">
                 AI Conference • February 28, 2026 • Geekdom
               </p>
               
@@ -255,10 +279,10 @@ export function MoreHumanThanHuman() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.8 }}
               >
-                <p className="text-white/50 text-sm sm:text-base font-normal leading-relaxed mb-4">
+                <p className="text-white/50 text-sm leading-relaxed mb-3">
                   As AI shifts from a tool we use to an agent that acts, the boundary between human and machine is disappearing. Join San Antonio&apos;s builders, dreamers, and technologists for a deep dive into how AI is fundamentally re-architecting the way we write code, secure the internet, and lead organizations.
                 </p>
-                <p className="text-[#ff9900] text-sm font-medium leading-relaxed">
+                <p className="text-[#ff9900] text-xs sm:text-sm font-medium leading-relaxed">
                   We aren&apos;t just talking about the future — we&apos;re demonstrating the tools that are defining it.
                 </p>
               </motion.div>
@@ -268,11 +292,11 @@ export function MoreHumanThanHuman() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.0 }}
-                className="mt-8"
+                className="mt-5 sm:mt-8"
               >
                 <a
                   href="#register"
-                  className="inline-flex items-center gap-3 bg-[#fbbf24] text-[#0a0a0a] font-bold text-sm uppercase tracking-widest py-4 px-8 transition-all hover:bg-[#ff9900] hover:scale-[1.02]"
+                  className="inline-flex items-center gap-3 bg-[#fbbf24] text-[#0a0a0a] font-bold text-xs sm:text-sm uppercase tracking-widest py-3 sm:py-4 px-6 sm:px-8 transition-all hover:bg-[#ff9900] hover:scale-[1.02]"
                 >
                   Register Now
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -286,7 +310,7 @@ export function MoreHumanThanHuman() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
-                className="mt-10 lg:mt-12"
+                className="mt-6 sm:mt-10 lg:mt-12 hidden sm:block"
               >
                 <div className="flex items-center gap-3">
                   <motion.div
@@ -306,8 +330,8 @@ export function MoreHumanThanHuman() {
           </div>
           
           {/* Right side - Video */}
-          <div className="relative flex-1 min-h-[50dvh] lg:min-h-dvh order-1 lg:order-2">
-            <div className="absolute inset-0">
+          <div className="relative flex-1 min-h-[45dvh] lg:min-h-dvh order-1 lg:order-2 pt-14 lg:pt-0">
+            <div className="absolute inset-0 top-14 lg:top-0">
               <video
                 autoPlay
                 loop
@@ -332,10 +356,10 @@ export function MoreHumanThanHuman() {
           </div>
         </div>
 
-        {/* Terminal Music Player Toggle */}
+        {/* Terminal Music Player Toggle - Desktop only */}
         <motion.button
           onClick={() => setIsPlayerOpen(!isPlayerOpen)}
-          className="absolute bottom-6 right-6 z-50 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center border border-[#333] bg-[#0a0a0a]/90 backdrop-blur-sm font-mono text-xs uppercase tracking-wider text-[#ff9900] transition-all hover:border-[#ff9900] hover:bg-[#ff9900] hover:text-[#0a0a0a] glitch-hover"
+          className="absolute bottom-6 right-6 z-50 hidden lg:flex h-14 w-14 items-center justify-center border border-[#333] bg-[#0a0a0a]/90 backdrop-blur-sm font-mono text-xs uppercase tracking-wider text-[#ff9900] transition-all hover:border-[#ff9900] hover:bg-[#ff9900] hover:text-[#0a0a0a] glitch-hover"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           aria-label={isPlayerOpen ? "Close audio player" : "Open audio player"}
