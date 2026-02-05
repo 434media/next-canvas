@@ -177,18 +177,101 @@ export async function GET() {
           {/* Tagline */}
           <p
             style={{
-              fontSize: "20px",
+              fontSize: "18px",
+              fontWeight: 500,
+              color: "#a3a3a3",
+              marginTop: "24px",
+              marginBottom: "0",
+              textAlign: "center",
+              maxWidth: "900px",
+              lineHeight: 1.5,
+            }}
+          >
+            As AI shifts from a tool we use to an agent that acts, the boundary between human and machine is disappearing.
+          </p>
+          <p
+            style={{
+              fontSize: "16px",
               fontWeight: 600,
               color: "#ff9900",
-              marginTop: "32px",
+              marginTop: "16px",
               marginBottom: "0",
               textAlign: "center",
               maxWidth: "800px",
               lineHeight: 1.4,
             }}
           >
-            We aren&apos;t just talking about the future — we&apos;re demonstrating the tools that are defining it.
+            We aren&apos;t just talking about the future — we&apos;re demonstrating it.
           </p>
+
+          {/* Session topics */}
+          <div
+            style={{
+              display: "flex",
+              gap: "16px",
+              marginTop: "32px",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              maxWidth: "900px",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                color: "#00f2ff",
+                padding: "6px 12px",
+                border: "1px solid #00f2ff",
+                backgroundColor: "rgba(0, 242, 255, 0.1)",
+              }}
+            >
+              Build Agents from Scratch
+            </span>
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                color: "#00f2ff",
+                padding: "6px 12px",
+                border: "1px solid #00f2ff",
+                backgroundColor: "rgba(0, 242, 255, 0.1)",
+              }}
+            >
+              GitHub Copilot SDK
+            </span>
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                color: "#00f2ff",
+                padding: "6px 12px",
+                border: "1px solid #00f2ff",
+                backgroundColor: "rgba(0, 242, 255, 0.1)",
+              }}
+            >
+              AI Security
+            </span>
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                color: "#00f2ff",
+                padding: "6px 12px",
+                border: "1px solid #00f2ff",
+                backgroundColor: "rgba(0, 242, 255, 0.1)",
+              }}
+            >
+              AI Leadership
+            </span>
+          </div>
 
           {/* Event details */}
           <div
@@ -196,8 +279,8 @@ export async function GET() {
               display: "flex",
               alignItems: "center",
               gap: "24px",
-              marginTop: "48px",
-              padding: "16px 32px",
+              marginTop: "28px",
+              padding: "12px 28px",
               border: "1px solid #333",
               backgroundColor: "#111",
             }}
@@ -205,8 +288,8 @@ export async function GET() {
             <span
               style={{
                 fontFamily: "monospace",
-                fontSize: "14px",
-                letterSpacing: "3px",
+                fontSize: "12px",
+                letterSpacing: "2px",
                 textTransform: "uppercase",
                 color: "#a3a3a3",
               }}
@@ -217,8 +300,8 @@ export async function GET() {
             <span
               style={{
                 fontFamily: "monospace",
-                fontSize: "14px",
-                letterSpacing: "3px",
+                fontSize: "12px",
+                letterSpacing: "2px",
                 textTransform: "uppercase",
                 color: "#ffffff",
                 fontWeight: 600,
@@ -230,8 +313,8 @@ export async function GET() {
             <span
               style={{
                 fontFamily: "monospace",
-                fontSize: "14px",
-                letterSpacing: "3px",
+                fontSize: "12px",
+                letterSpacing: "2px",
                 textTransform: "uppercase",
                 color: "#a3a3a3",
               }}

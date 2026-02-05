@@ -47,6 +47,13 @@ const sessions: Session[] = [
     type: "talk",
   },
   {
+    id: "without-you",
+    title: "We Can’t Do This Without YOU: There is no “I” in AI",
+    speaker: "Dirce E. Hernandez",
+    description: "A deep dive into the importance of the unsung heroes of tech—the Security and GRC professionals who were once pushed aside but are now central to the AI revolution. We’ll explore why the relationship between developers and security teams has never been more critical, using Cyber Threat Intelligence as a prime example of why AI development must be a team sport.",
+    type: "talk",
+  },
+  {
     id: "code-writes-itself",
     title: "What's Left When the Code Writes Itself?",
     speaker: "Angel Escobedo",
