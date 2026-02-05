@@ -24,5 +24,10 @@ initBotId({
       path: '/api/event-registration',
       method: 'POST',
     },
+    {
+      // Sponsor inquiry form (Digital Canvas sponsorship)
+      path: '/api/sponsor-inquiry',
+      method: 'POST',
+    },
   ],
 });
