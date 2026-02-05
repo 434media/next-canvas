@@ -1,8 +1,9 @@
 "use client"
 
-import { motion } from "motion/react"
+import { useState } from "react"
+import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
-import { ArrowRight, Lock, FileText } from "lucide-react"
+import { ArrowRight, Lock, FileText, X, CheckCircle2, Loader2 } from "lucide-react"
 
 interface SponsorCard {
   id: string
@@ -48,6 +49,53 @@ const sponsorDecks: SponsorCard[] = [
 ]
 
 export default function SponsorsPage() {
+  const [isFormOpen, setIsFormOpen] = useState(false)
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    company: '',
+    email: '',
+    phone: '',
+    message: ''
+  })
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [formError, setFormError] = useState('')
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setFormStatus('submitting')
+    setFormError('')
+
+    try {
+      const response = await fetch('/api/sponsor-inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          source: 'sponsor-digitalcanvas'
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit')
+      }
+
+      setFormStatus('success')
+      setFormData({ firstName: '', lastName: '', company: '', email: '', phone: '', message: '' })
+    } catch (error) {
+      setFormStatus('error')
+      setFormError(error instanceof Error ? error.message : 'An error occurred')
+    }
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
   return (
     <main className="min-h-dvh bg-black overflow-x-hidden overflow-y-auto pt-20 md:pt-32 lg:pt-40">
       {/* Hero Section with Digital Canvas Logo */}
@@ -244,16 +292,189 @@ export default function SponsorsPage() {
             <p className="text-white/50 mb-4">
               Interested in a custom partnership? Let&apos;s talk.
             </p>
-            <Link
-              href="mailto:build@434media.com?subject=Sponsorship%20Inquiry"
-              className="inline-flex items-center gap-2 bg-white hover:bg-white/90 px-6 py-3 text-sm font-bold uppercase tracking-wider text-black transition-all"
+            <button
+              onClick={() => { setIsFormOpen(true); setFormStatus('idle'); setFormError(''); }}
+              className="inline-flex items-center gap-2 bg-white hover:bg-white/90 px-6 py-3 text-sm font-bold uppercase tracking-wider text-black transition-all cursor-pointer"
             >
               <span>Contact Us</span>
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </button>
           </motion.div>
         </div>
       </section>
+
+      {/* Sponsor Inquiry Form Modal */}
+      <AnimatePresence>
+        {isFormOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={(e) => { if (e.target === e.currentTarget) setIsFormOpen(false) }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-lg bg-black border border-white/20 rounded-lg shadow-2xl overflow-hidden"
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 border-b border-white/10">
+                <div>
+                  <h2 className="text-xl font-bold text-white">Partner With Digital Canvas</h2>
+                  <p className="text-sm text-white/50 mt-1">Tell us about your sponsorship interests</p>
+                </div>
+                <button
+                  onClick={() => setIsFormOpen(false)}
+                  className="p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Close form"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Form Content */}
+              <div className="p-6">
+                {formStatus === 'success' ? (
+                  <div className="text-center py-8">
+                    <CheckCircle2 className="w-16 h-16 text-white mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-white mb-2">Thank You!</h3>
+                    <p className="text-white/50 mb-6">We&apos;ve received your inquiry and will be in touch soon.</p>
+                    <button
+                      onClick={() => setIsFormOpen(false)}
+                      className="px-6 py-2 bg-white hover:bg-white/90 text-black font-semibold rounded transition-colors"
+                    >
+                      Close
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleFormSubmit} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="firstName" className="block text-sm font-medium text-white/70 mb-1">
+                          First Name <span className="text-white/50">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="firstName"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+                          placeholder="First name"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="lastName" className="block text-sm font-medium text-white/70 mb-1">
+                          Last Name <span className="text-white/50">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="lastName"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+                          placeholder="Last name"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="company" className="block text-sm font-medium text-white/70 mb-1">
+                        Company <span className="text-white/50">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+                        placeholder="Company name"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-1">
+                        Work Email <span className="text-white/50">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+                        placeholder="you@company.com"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-white/70 mb-1">
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+                        placeholder="(555) 123-4567"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-white/70 mb-1">
+                        Message
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        rows={3}
+                        className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent resize-none"
+                        placeholder="Tell us about your sponsorship interests, goals, or questions..."
+                      />
+                    </div>
+
+                    {formStatus === 'error' && (
+                      <div className="p-3 bg-white/5 border border-white/20 rounded text-white/70 text-sm">
+                        {formError}
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={formStatus === 'submitting'}
+                      className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-white hover:bg-white/90 disabled:bg-white/50 disabled:cursor-not-allowed text-black font-bold uppercase tracking-wider transition-colors"
+                    >
+                      {formStatus === 'submitting' ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Submitting...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Submit Inquiry</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }
