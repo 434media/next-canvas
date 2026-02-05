@@ -343,6 +343,41 @@ function AztecCardCorner({ position }: { position: 'top-left' | 'top-right' | 'b
   )
 }
 
+// Larger corner decoration for featured sections
+function AztecCorner({ position }: { position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' }) {
+  const rotations = {
+    'top-left': 'rotate-0',
+    'top-right': 'rotate-90',
+    'bottom-right': 'rotate-180',
+    'bottom-left': '-rotate-90',
+  }
+  
+  return (
+    <div className={`w-12 h-12 lg:w-16 lg:h-16 ${rotations[position]}`}>
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <path d="M0 0h8v64H0z" fill="#333" />
+        <path d="M0 0h64v8H0z" fill="#333" />
+        <path d="M16 16h4v24h-4z" fill="#ff9900" opacity="0.6" />
+        <path d="M16 16h24v4H16z" fill="#ff9900" opacity="0.6" />
+        <path d="M28 28h2v12h-2z" fill="#00f2ff" opacity="0.4" />
+        <path d="M28 28h12v2H28z" fill="#00f2ff" opacity="0.4" />
+      </svg>
+    </div>
+  )
+}
+
+// Upcoming event data for More Human Than Human
+const upcomingEvent = {
+  title: "More Human Than Human",
+  subtitle: "Digital Canvas AI Conference • Powered by DevSA",
+  date: "Feb 28, 2026",
+  venue: "San Antonio, TX",
+  description: "San Antonio's first AI conference exploring the intersection of artificial intelligence, creativity, and human connection. Join industry leaders, researchers, and innovators for a day of insights and collaboration.",
+  tagline: "Redefining the relationship between humanity and AI through thoughtful exploration and community dialogue.",
+  image: "https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4",
+  href: "/events/morehumanthanhuman"
+}
+
 export default function DevsaTVPage() {
   const [activeTab, setActiveTab] = useState<'conferences' | 'workshops' | 'documentaries'>('conferences')
 
@@ -353,54 +388,7 @@ export default function DevsaTVPage() {
   const revenueOutlets = [
     { id: 'conferences' as const, label: 'Quarterly Conferences', icon: Calendar, investment: 'Powered by DevSA' },
     { id: 'workshops' as const, label: 'Sponsored Workshops', icon: Mic2, investment: 'Powered by DevSA' },
-    { id: 'documentaries' as const, label: 'Documentary Stories', icon: Film, investment: 'Powered by DevSA' },
-  ]
-
-  const annualTiers = [
-    {
-      name: "The Documentary Story",
-      tier: "Premier Tier",
-      icon: Film,
-      investment: "$50,000/yea",
-      goal: "2 Partners",
-      target: "Local Pillars (Frost, H-E-B, USAA, PortSA, UTSA, Spurs)",
-      benefits: [
-        "45-minute cinematic documentary chronicling your team's innovation, culture, and community impact",
-        "Episodic flexibility: Option to break into a Limited Series (3 x 15-minute episodes)",
-        "Exclusive red-carpet premiere screening at the DEVSA Annual Conference",
-        "Permanent placement in the 434 MEDIA Library as a historical 'Source of Truth'",
-        "10+ professional short-form vertical assets (Reels/TikToks) from feature content",
-        "12-month 'Presented By' placement on all DEVSA TV documentary trailers and season teasers",
-      ],
-    },
-    {
-      name: "The Quarterly Conference",
-      tier: "Event Tier",
-      icon: Calendar,
-      investment: "$25,000/event",
-      goal: "4 Events per Season",
-      target: "Infrastructure & Dev Tools (Vercel, Cloudflare, Microsoft, Cursor, Google)",
-      benefits: [
-        "Exclusive title sponsorship of one major conference (e.g., More Human Than Human)",
-        "One 45-minute Main Stage Keynote or deep-dive technical showcase",
-        "Professional 'Deep Dive' video of your session, edited for DEVSA TV YouTube channel",
-        "Your logo featured on the DEVSA TV interview set",
-      ],
-    },
-    {
-      name: "The Sponsored Workshop",
-      tier: "Growth Tier",
-      icon: Mic2,
-      investment: "$10,000/workshop",
-      goal: "5 Workshops per Season",
-      target: "Local Tech Orgs (VIA, SWBC, 80/20) or Frameworks (Laravel, Cursor, AWS)",
-      benefits: [
-        "A focused technical workshop where developers build using your tools or frameworks",
-        "'Sponsor Story' documentary recap video (3–5 minutes) capturing builders in action",
-        "Direct interaction with a 'vetted' local talent pipeline",
-        "Official 'Bridge Builder' status across all channels and TheFeed",
-      ],
-    },
+    { id: 'documentaries' as const, label: 'Storytelling', icon: Film, investment: 'Powered by DevSA' },
   ]
 
   const eventTiers = [
@@ -601,94 +589,104 @@ export default function DevsaTVPage() {
             </div>
           </motion.div>
 
-          {/* Featured Production Showcase - Tabbed Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="max-w-2xl mx-auto mb-10"
-          >
-            <AnimatePresence mode="wait">
-              {/* Quarterly Conferences Tab */}
-              {activeTab === 'conferences' && (
-                <motion.div
-                  key="conferences"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative bg-[#0a0a0a] p-5 sm:p-6 overflow-hidden"
-                >
-                  {/* Aztec corners */}
-                  <div className="absolute top-1 left-1">
-                    <AztecCardCorner position="top-left" />
-                  </div>
-                  <div className="absolute top-1 right-1">
-                    <AztecCardCorner position="top-right" />
-                  </div>
-                  <div className="absolute bottom-1 left-1">
-                    <AztecCardCorner position="bottom-left" />
-                  </div>
-                  <div className="absolute bottom-1 right-1">
-                    <AztecCardCorner position="bottom-right" />
-                  </div>
-                  
-                  {/* Gradient accent */}
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-[#ef426f] via-[#00f2ff] to-[#ef426f] opacity-60" />
-                  
-                  <div className="relative z-10">
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-2 mb-3 px-2.5 py-1 border border-[#333] bg-[#111]/80">
-                      <Tv className="w-3 h-3 text-[#ff9900]" />
-                      <span className="font-mono text-[9px] sm:text-[10px] text-[#a3a3a3] tracking-[0.12em] uppercase">Featured Production</span>
-                      <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
-                    </div>
+          {/* Upcoming Event - Featured */}
+          <AnimatePresence mode="wait">
+            {/* Quarterly Conferences Tab */}
+            {activeTab === 'conferences' && (
+              <section className="relative py-8 sm:py-2">
+                <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    <Link href={upcomingEvent.href} className="group block">
+                      <div className="relative border border-[#333] bg-[#111] overflow-hidden transition-all duration-500 group-hover:border-[#fbbf24]/50">
+                        {/* Corner decorations */}
+                        <div className="absolute top-0 left-0 z-20"><AztecCorner position="top-left" /></div>
+                        <div className="absolute top-0 right-0 z-20"><AztecCorner position="top-right" /></div>
+                        <div className="absolute bottom-0 left-0 z-20"><AztecCorner position="bottom-left" /></div>
+                        <div className="absolute bottom-0 right-0 z-20"><AztecCorner position="bottom-right" /></div>
 
-                    {/* Title */}
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight mb-2 leading-tight">
-                      <span className="text-[#e5e5e5]">More Human </span>
-                      <span className="text-[#ff9900]">Than Human</span>
-                    </h2>
+                        <div className="grid lg:grid-cols-2">
+                          {/* Video side */}
+                          <div className="relative h-56 sm:h-64 lg:h-auto lg:min-h-80 overflow-hidden">
+                            <video
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            >
+                              <source src={upcomingEvent.image} type="video/mp4" />
+                            </video>
+                            <div className="absolute inset-0 bg-linear-to-r from-transparent via-transparent to-[#111] lg:block hidden" />
+                            <div className="absolute inset-0 bg-linear-to-t from-[#111] via-transparent to-transparent lg:hidden" />
+                            <div className="absolute inset-0 bg-black/30" />
+                            
+                            {/* Status badge */}
+                            <div className="absolute top-4 left-4 z-10">
+                              <span className="inline-flex items-center gap-2 bg-[#fbbf24] text-[#0a0a0a] font-semibold text-[10px] uppercase tracking-wider px-3 py-1.5">
+                                <span className="w-1.5 h-1.5 bg-[#0a0a0a] rounded-full animate-pulse" />
+                                Registration Open
+                              </span>
+                            </div>
+                          </div>
 
-                    {/* Subtitle */}
-                    <p className="font-mono text-[10px] sm:text-xs text-[#00f2ff] tracking-[0.12em] uppercase mb-3">
-                      Digital Canvas AI Conference • Powered by DevSA
-                    </p>
+                          {/* Content side */}
+                          <div className="relative p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
+                            <div className="absolute inset-0 bg-linear-to-br from-[#fbbf24]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            <div className="relative">
+                              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#666] mb-3">
+                                {upcomingEvent.date} • {upcomingEvent.venue}
+                              </p>
+                              
+                              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white uppercase tracking-tight leading-none mb-1">
+                                <span className="text-[#fbbf24]">{upcomingEvent.title.split(' ').slice(0, 2).join(' ')}</span>
+                                <span className="block">{upcomingEvent.title.split(' ').slice(2).join(' ')}</span>
+                              </h2>
+                              
+                              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#444] mb-4">
+                                {upcomingEvent.subtitle}
+                              </p>
+                              
+                              <p className="text-[#999] text-sm leading-relaxed mb-3">
+                                {upcomingEvent.description}
+                              </p>
+                              
+                              <p className="text-[#ff9900] text-xs font-medium italic leading-relaxed mb-6">
+                                {upcomingEvent.tagline}
+                              </p>
 
-                    {/* Details */}
-                    <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-3">
-                      <div className="flex items-center gap-1.5 font-mono text-[10px] sm:text-xs text-[#e5e5e5]">
-                        <Calendar className="w-3 h-3 text-[#ff9900]" />
-                        <span>Feb 28, 2026</span>
+                              <div className="flex items-center">
+                                <span className="inline-flex items-center gap-2 bg-[#fbbf24] text-[#0a0a0a] font-semibold text-xs uppercase tracking-wider px-5 py-2.5 transition-all group-hover:bg-[#ff9900]">
+                                  View Event
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                  </svg>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-1.5 font-mono text-[10px] sm:text-xs text-[#e5e5e5]">
-                        <Video className="w-3 h-3 text-[#00f2ff]" />
-                        <span>Full Documentary Coverage</span>
-                      </div>
-                    </div>
-
-                    {/* CTA */}
-                    <Link
-                      href="/events/morehumanthanhuman"
-                      className="group inline-flex items-center gap-1.5 bg-[#ff9900] px-3 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#0a0a0a] transition-all hover:bg-[#00f2ff]"
-                    >
-                      <Clapperboard className="w-3 h-3" />
-                      <span className="font-mono">Learn More</span>
-                      <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                     </Link>
-                  </div>
-                </motion.div>
-              )}
+                  </motion.div>
+                </div>
+              </section>
+            )}
 
               {/* Sponsored Workshops Tab */}
               {activeTab === 'workshops' && (
                 <motion.div
                   key="workshops"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="relative bg-[#0a0a0a] p-5 sm:p-6 overflow-hidden"
+                  className="relative bg-[#0a0a0a] p-5 sm:p-6 overflow-hidden max-w-4xl mx-auto"
                 >
                   {/* Gradient accent */}
                   <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-[#10b981] via-[#3b82f6] to-[#10b981] opacity-60" />
@@ -756,11 +754,11 @@ export default function DevsaTVPage() {
               {activeTab === 'documentaries' && (
                 <motion.div
                   key="documentaries"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="relative bg-[#0a0a0a] p-5 sm:p-6 overflow-hidden"
+                  className="relative bg-[#0a0a0a] p-5 sm:p-6 overflow-hidden max-w-4xl mx-auto"
                 >
                   {/* Gradient accent */}
                   <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-[#f59e0b] via-[#ef4444] to-[#f59e0b] opacity-60" />
@@ -824,7 +822,6 @@ export default function DevsaTVPage() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
 
           {/* 2026 Schedule */}
           <motion.div
@@ -858,141 +855,231 @@ export default function DevsaTVPage() {
         </div>
       </section>
 
-      {/* Event-Specific Tiers: More Human Than Human */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200" data-bg-type="light">
-        <div className="w-full max-w-6xl mx-auto">
+      {/* Event-Specific Tiers: Modern Comparison Table */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#fafafa] border-b border-slate-200" data-bg-type="light">
+        <div className="w-full max-w-5xl mx-auto">
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-10"
+            className="text-center mb-8"
           >
-            <p className="text-xs font-semibold tracking-wider uppercase text-cyan-600 mb-2">
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-amber-600 mb-2">
               2026 Quarterly Conference Sponsorship
             </p>
-            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mb-3">
+            <h2 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 mb-2">
               Powered by DevSA
             </h2>
-            <p className="text-sm text-slate-500 mb-3">
+            <p className="text-xs text-slate-500">
               4 Quarterly Conferences | Digital Canvas Event Series
-            </p>
-            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Digital Canvas conferences, powered by DevSA, bring together builders, architects, and industry leaders to explore the synergy between human creativity and machine intelligence.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-            {eventTiers.map((tier, index) => {
-              const colorClasses = {
-                amber: {
-                  bg: 'bg-slate-900',
-                  border: 'border-amber-500/50',
-                  borderB: 'border-amber-500/30',
-                  icon: 'bg-amber-500',
-                  iconText: 'text-slate-900',
-                  title: 'text-white',
-                  subtitle: 'text-amber-400',
-                  limit: 'text-amber-500',
-                  price: 'text-white',
-                  check: 'text-amber-500',
-                  benefit: 'text-slate-300',
-                },
-                yellow: {
-                  bg: 'bg-amber-50',
-                  border: 'border-amber-200',
-                  borderB: 'border-amber-100',
-                  icon: 'bg-amber-500',
-                  iconText: 'text-white',
-                  title: 'text-slate-900',
-                  subtitle: 'text-amber-600',
-                  limit: 'text-amber-600',
-                  price: 'text-slate-900',
-                  check: 'text-amber-500',
-                  benefit: 'text-slate-600',
-                },
-                slate: {
-                  bg: 'bg-slate-100',
-                  border: 'border-slate-200',
-                  borderB: 'border-slate-200',
-                  icon: 'bg-slate-400',
-                  iconText: 'text-white',
-                  title: 'text-slate-900',
-                  subtitle: 'text-slate-500',
-                  limit: 'text-slate-500',
-                  price: 'text-slate-900',
-                  check: 'text-slate-400',
-                  benefit: 'text-slate-600',
-                },
-                green: {
-                  bg: 'bg-emerald-50',
-                  border: 'border-emerald-200',
-                  borderB: 'border-emerald-100',
-                  icon: 'bg-emerald-500',
-                  iconText: 'text-white',
-                  title: 'text-slate-900',
-                  subtitle: 'text-emerald-600',
-                  limit: 'text-emerald-600',
-                  price: 'text-slate-900',
-                  check: 'text-emerald-500',
-                  benefit: 'text-slate-600',
-                },
-              }
-              const colors = colorClasses[tier.color]
-              
-              return (
-                <motion.div
-                  key={tier.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`border overflow-hidden transition-colors ${colors.bg} ${colors.border} hover:shadow-lg`}
-                >
-                  {/* Header */}
-                  <div className={`p-5 border-b ${colors.borderB}`}>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className={`w-10 h-10 flex items-center justify-center ${colors.icon}`}>
-                        <tier.icon className={`w-5 h-5 ${colors.iconText}`} />
-                      </div>
-                      <div>
-                        <h3 className={`text-lg font-bold leading-tight ${colors.title}`}>
-                          {tier.name}
-                        </h3>
-                        <p className={`text-xs ${colors.subtitle}`}>
-                          {tier.subtitle}
-                        </p>
-                      </div>
-                    </div>
-                    {tier.limit && (
-                      <p className={`text-[10px] font-semibold tracking-wider uppercase ${colors.limit} mb-2`}>
-                        Limited to {tier.limit}
-                      </p>
-                    )}
-                    <div className="flex items-baseline gap-2">
-                      <span className={`text-2xl font-extrabold ${colors.price}`}>
-                        {tier.investment}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {/* Benefits */}
-                  <div className="p-5 max-h-80 overflow-y-auto">
-                    <ul className="space-y-2">
-                      {tier.benefits.map((benefit, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${colors.check}`} />
-                          <span className={`text-xs leading-relaxed ${colors.benefit}`}>
-                            {benefit}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
+          {/* Tier Headers */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-5 gap-px bg-slate-200 mb-px"
+          >
+            <div className="bg-[#fafafa] p-4" />
+            {eventTiers.map((tier) => (
+              <div key={tier.name} className={`p-4 text-center ${tier.color === 'amber' ? 'bg-slate-900' : 'bg-white'}`}>
+                <p className={`text-lg font-black ${tier.color === 'amber' ? 'text-amber-400' : 'text-slate-900'}`}>
+                  {tier.name}
+                </p>
+                <p className={`text-[10px] uppercase tracking-wider ${tier.color === 'amber' ? 'text-slate-400' : 'text-slate-500'}`}>
+                  {tier.subtitle}
+                </p>
+                <p className={`text-xl font-bold mt-2 ${tier.color === 'amber' ? 'text-white' : 'text-slate-900'}`}>
+                  {tier.investment}
+                </p>
+                <p className={`text-[9px] uppercase tracking-wider mt-1 ${tier.color === 'amber' ? 'text-amber-500' : 'text-slate-400'}`}>
+                  {tier.limit}
+                </p>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Comparison Rows */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            {/* Speaking Opportunities */}
+            <div className="grid grid-cols-5 gap-px bg-slate-200">
+              <div className="bg-white p-3 flex items-center">
+                <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">Speaking</span>
+              </div>
+              <div className="bg-slate-900 p-3 text-center">
+                <span className="text-[10px] text-amber-400 font-medium">Keynote + Panel</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Lightning Talk</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Workshop</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-400">—</span>
+              </div>
+            </div>
+
+            {/* Logo Placement */}
+            <div className="grid grid-cols-5 gap-px bg-slate-200">
+              <div className="bg-white p-3 flex items-center">
+                <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">Logo Placement</span>
+              </div>
+              <div className="bg-slate-900 p-3 text-center">
+                <span className="text-[10px] text-amber-400 font-medium">All Signage</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Secondary</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Select Areas</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Digital Only</span>
+              </div>
+            </div>
+
+            {/* Video Content */}
+            <div className="grid grid-cols-5 gap-px bg-slate-200">
+              <div className="bg-white p-3 flex items-center">
+                <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">Video Content</span>
+              </div>
+              <div className="bg-slate-900 p-3 text-center">
+                <span className="text-[10px] text-amber-400 font-medium">4 Videos</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">1 Video</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Mention</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-400">—</span>
+              </div>
+            </div>
+
+            {/* Podcast Features */}
+            <div className="grid grid-cols-5 gap-px bg-slate-200">
+              <div className="bg-white p-3 flex items-center">
+                <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">Podcast</span>
+              </div>
+              <div className="bg-slate-900 p-3 text-center">
+                <span className="text-[10px] text-amber-400 font-medium">2 Features</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">1 Mention</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Group Mention</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-400">—</span>
+              </div>
+            </div>
+
+            {/* Discord Sessions */}
+            <div className="grid grid-cols-5 gap-px bg-slate-200">
+              <div className="bg-white p-3 flex items-center">
+                <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">Discord</span>
+              </div>
+              <div className="bg-slate-900 p-3 text-center">
+                <span className="text-[10px] text-amber-400 font-medium">2 Sessions</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">2 Sessions</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-400">—</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-400">—</span>
+              </div>
+            </div>
+
+            {/* Newsletter */}
+            <div className="grid grid-cols-5 gap-px bg-slate-200">
+              <div className="bg-white p-3 flex items-center">
+                <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">Newsletter</span>
+              </div>
+              <div className="bg-slate-900 p-3 text-center">
+                <span className="text-[10px] text-amber-400 font-medium">Spotlight</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Highlight</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Group</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Group</span>
+              </div>
+            </div>
+
+            {/* Happy Hour */}
+            <div className="grid grid-cols-5 gap-px bg-slate-200">
+              <div className="bg-white p-3 flex items-center">
+                <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">Happy Hour</span>
+              </div>
+              <div className="bg-slate-900 p-3 text-center">
+                <span className="text-[10px] text-amber-400 font-medium">Host</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Recognition</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">Break Sponsor</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-400">—</span>
+              </div>
+            </div>
+
+            {/* Tickets */}
+            <div className="grid grid-cols-5 gap-px bg-slate-200">
+              <div className="bg-white p-3 flex items-center">
+                <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">Tickets</span>
+              </div>
+              <div className="bg-slate-900 p-3 text-center">
+                <span className="text-[10px] text-amber-400 font-medium">8 per event</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">6 per event</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">4 per event</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-600 font-medium">2 per event</span>
+              </div>
+            </div>
+
+            {/* Attendee List */}
+            <div className="grid grid-cols-5 gap-px bg-slate-200 mb-px">
+              <div className="bg-white p-3 flex items-center">
+                <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">Attendee List</span>
+              </div>
+              <div className="bg-slate-900 p-3 text-center">
+                <CheckCircle2 className="w-4 h-4 text-amber-400 mx-auto" />
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-400">—</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-400">—</span>
+              </div>
+              <div className="bg-white p-3 text-center">
+                <span className="text-[10px] text-slate-400">—</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
