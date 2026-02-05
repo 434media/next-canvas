@@ -429,9 +429,14 @@ export default function DevsaTVPage() {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  // YouTube video IDs - extract from URL:
-  const workshopVideoId = "BOCU-seUXQ8"
-  const documentaryVideoId = "8pDqJVdNa44"
+  // Video sources - supports YouTube IDs or direct video URLs (S3, etc)
+  // YouTube: use just the video ID (e.g., "BOCU-seUXQ8")
+  // Direct URL: use full URL (e.g., "https://example.com/video.mp4")
+  const workshopVideo = "BOCU-seUXQ8"
+  const documentaryVideo = "https://ampd-asset.s3.us-east-2.amazonaws.com/Learn2AI+-+081825+G.mp4"
+
+  // Helper to detect if value is a direct video URL vs YouTube ID
+  const isDirectVideoUrl = (src: string) => src.startsWith('http') || src.startsWith('/')
 
   const revenueOutlets = [
     { id: 'conferences' as const, label: 'Quarterly Conferences', icon: Calendar, investment: 'Powered by DevSA' },
@@ -757,16 +762,25 @@ export default function DevsaTVPage() {
                       Hands-On Learning • Your Tools • Our Community
                     </p>
 
-                    {/* YouTube Video Embed or Placeholder */}
-                    {workshopVideoId ? (
+                    {/* Video Embed or Placeholder */}
+                    {workshopVideo ? (
                       <div className="relative aspect-video bg-[#111] border border-[#333] mb-4 overflow-hidden">
-                        <iframe
-                          src={`https://www.youtube.com/embed/${workshopVideoId}?rel=0&modestbranding=1`}
-                          title="Workshop Recap Video"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="absolute inset-0 w-full h-full"
-                        />
+                        {isDirectVideoUrl(workshopVideo) ? (
+                          <video
+                            src={workshopVideo}
+                            controls
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
+                        ) : (
+                          <iframe
+                            src={`https://www.youtube.com/embed/${workshopVideo}?rel=0&modestbranding=1`}
+                            title="Workshop Recap Video"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            className="absolute inset-0 w-full h-full"
+                          />
+                        )}
                       </div>
                     ) : (
                       <div className="relative aspect-video bg-[#111] border border-[#333] mb-4 flex items-center justify-center group cursor-pointer hover:border-[#10b981] transition-colors">
@@ -820,8 +834,8 @@ export default function DevsaTVPage() {
 
                     {/* Title */}
                     <h2 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight mb-2 leading-tight">
-                      <span className="text-[#e5e5e5]">Documentary </span>
-                      <span className="text-[#f59e0b]">Stories</span>
+                      <span className="text-[#e5e5e5]">Story</span>
+                      <span className="text-[#f59e0b]">telling</span>
                     </h2>
 
                     {/* Subtitle */}
@@ -829,16 +843,25 @@ export default function DevsaTVPage() {
                       Cinematic Storytelling • Your Impact • Lasting Legacy
                     </p>
 
-                    {/* YouTube Video Embed or Placeholder */}
-                    {documentaryVideoId ? (
+                    {/* Video Embed or Placeholder */}
+                    {documentaryVideo ? (
                       <div className="relative aspect-video bg-[#111] border border-[#333] mb-4 overflow-hidden">
-                        <iframe
-                          src={`https://www.youtube.com/embed/${documentaryVideoId}?rel=0&modestbranding=1`}
-                          title="Documentary Trailer"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="absolute inset-0 w-full h-full"
-                        />
+                        {isDirectVideoUrl(documentaryVideo) ? (
+                          <video
+                            src={documentaryVideo}
+                            controls
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
+                        ) : (
+                          <iframe
+                            src={`https://www.youtube.com/embed/${documentaryVideo}?rel=0&modestbranding=1`}
+                            title="Documentary Trailer"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            className="absolute inset-0 w-full h-full"
+                          />
+                        )}
                       </div>
                     ) : (
                       <div className="relative aspect-video bg-[#111] border border-[#333] mb-4 flex items-center justify-center group cursor-pointer hover:border-[#f59e0b] transition-colors">
