@@ -15,7 +15,7 @@ const sessions: Session[] = [
     id: "key-ai-skills",
     title: "Key AI skills for leaders",
     speaker: "Wes Etheredge",
-    description: "Outlining a framework for different levels of AI interactions and how to align your goals to the right level. For leaders this is largely using AI as a Thought partner. This talk outlines the framework then focuses on 3 key methods leaders need to learn to use with AI.",
+    description: "This session introduces a framework for different levels of AI interaction, exploring how to leverage AI as a \"Thought Partner\" and diving into three essential methods leaders must master to align their organizational goals with agentic tools.",
     type: "talk",
   },
   {

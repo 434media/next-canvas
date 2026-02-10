@@ -23,10 +23,10 @@ const spotlights: Spotlight[] = [
   },
   {
     id: "ai-april-2",
-    title: "AI-April 2",
-    description: "The 2nd Annual AI Agent Showcase—a science fair-style event where builders of all skill levels, from beginners to experts to startup founders, can present their AI-powered projects.",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/aiapril.avif",
-    link: "https://www.meetup.com/meetup-group-umecjcqo/events/312775121/",
+    title: "AI-April",
+    description: "Ai-April is a month of exploring innovation, ethics, and impact of ai. Featuring: a showcase, workshops, build nights, and conversations shaping responsible AI in Texas.",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/ai-april.jpg",
+    link: "https://geeksanddrinks.tech/ai-april",
     accentColor: "#ff9900",
   },
   {
@@ -39,7 +39,7 @@ const spotlights: Spotlight[] = [
   },
   {
     id: "velocicode-2",
-    title: "VelociCode 2",
+    title: "VelociCode II",
     description: "The month-long, learning-first game jam hosted by ACM San Antonio in partnership with the Greater Gaming Society, built for folks who want a fun reason to ship a game and meet other builders in the SA tech + game dev scene.",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/velocicode.avif",
     link: "https://acmsa.org/",
