@@ -61,6 +61,13 @@ const sessions: Session[] = [
     type: "lightning",
   },
   {
+    id: "gtm-research",
+    title: "Build for the Right Market: GTM Research in the Age of AI",
+    speaker: "Serena Hernandez",
+    description: "Every winning go-to-market (GTM) strategy starts with research—but not the slow, outdated kind. In this lightning session, Serena Hernandez shares how she uses software and AI tools like Claude, Gong, Crayon CI, and n8n workflows to transform how product marketing validates markets, understands customer pain points, monitors competitors, and defines ideal customer profiles (ICPs).",
+    type: "lightning",
+  },
+  {
     id: "dream-ship-v0",
     title: "Dream It, Ship It",
     speaker: "Jesse Hernandez",

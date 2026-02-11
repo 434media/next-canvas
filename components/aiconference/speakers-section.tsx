@@ -41,6 +41,16 @@ const speakers: Speaker[] = [
     sessionTitle: "We Can’t Do This Without YOU!",
   },
   {
+    id: "serena-hernandez",
+    name: "Serena Hernandez",
+    title: "Product Marketing Manager",
+    company: "NMI",
+    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/sayp.jpeg",
+    linkedin: "https://www.linkedin.com/in/serena-hernandez-81b515167/",
+    sessionTitle: "GTM Research with AI",
+  },
+
+  {
     id: "daniel-ward",
     name: "Daniel Ward",
     title: "Software Consultant",
