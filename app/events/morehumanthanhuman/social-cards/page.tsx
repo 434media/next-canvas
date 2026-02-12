@@ -799,17 +799,16 @@ function ResponsiveCardWrapper({
   return (
     <div ref={containerRef} className="w-full">
       <div
-        className="mx-auto"
+        className="mx-auto overflow-hidden"
         style={{
-          width: cardWidth,
+          width: Math.min(cardWidth, cardWidth * scale),
           height: cardHeight * scale,
-          overflow: "hidden",
         }}
       >
         <div
           style={{
             transform: `scale(${scale})`,
-            transformOrigin: "top center",
+            transformOrigin: "top left",
             width: cardWidth,
             height: cardHeight,
           }}
