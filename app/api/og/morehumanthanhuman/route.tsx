@@ -201,7 +201,7 @@ export async function GET() {
               lineHeight: 1.4,
             }}
           >
-            We aren&apos;t just talking about the future — we&apos;re demonstrating it.
+            9 live sessions — we aren&apos;t just talking about the future, we&apos;re demonstrating it.
           </p>
 
           {/* Session topics */}
@@ -227,7 +227,7 @@ export async function GET() {
                 backgroundColor: "rgba(0, 242, 255, 0.1)",
               }}
             >
-              Build Agents from Scratch
+              How Agents Actually Work
             </span>
             <span
               style={{
@@ -255,7 +255,7 @@ export async function GET() {
                 backgroundColor: "rgba(0, 242, 255, 0.1)",
               }}
             >
-              AI Security
+              Proving Humanity
             </span>
             <span
               style={{
@@ -269,7 +269,7 @@ export async function GET() {
                 backgroundColor: "rgba(0, 242, 255, 0.1)",
               }}
             >
-              AI Leadership
+              AI Security & Leadership
             </span>
           </div>
 
@@ -294,7 +294,7 @@ export async function GET() {
                 color: "#a3a3a3",
               }}
             >
-              AI Conference
+              AI Conference — 9 Sessions
             </span>
             <span style={{ color: "#333" }}>•</span>
             <span
