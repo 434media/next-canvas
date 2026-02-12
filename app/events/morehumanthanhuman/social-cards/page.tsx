@@ -251,7 +251,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
         </div>
 
         {/* ── Speaker image ── */}
-        <div className="relative mx-14 overflow-hidden" style={{ height: 540 }}>
+        <div className="relative mx-14 overflow-hidden" style={{ height: 777 }}>
           <div className="absolute inset-0 border border-[#333]" />
           <img
             src={speaker.image}
@@ -464,7 +464,7 @@ function SpotlightCard({ spotlight }: { spotlight: Spotlight }) {
         </div>
 
         {/* ── Organization image ── */}
-        <div className="relative mx-14 overflow-hidden flex items-center justify-center" style={{ height: 480, backgroundColor: spotlight.imageBgColor || "#141414" }}>
+        <div className="relative mx-14 overflow-hidden flex items-center justify-center" style={{ height: 777, backgroundColor: spotlight.imageBgColor || "#141414" }}>
           <div className="absolute inset-0 border border-[#333]" />
           <img
             src={spotlight.image}
@@ -628,6 +628,36 @@ async function fetchImageAsDataUrl(
 ): Promise<string> {
   const res = await fetch(`/api/image-proxy?url=${encodeURIComponent(src)}`)
   const blob = await res.blob()
+  const isSvg = blob.type.includes("svg") || src.toLowerCase().endsWith(".svg")
+
+  if (isSvg) {
+    // SVGs lack intrinsic dimensions and can fail with createImageBitmap.
+    // Load via <img> which rasterises the SVG at a usable size.
+    const objectUrl = URL.createObjectURL(blob)
+    const dataUrl = await new Promise<string>((resolve, reject) => {
+      const img = new Image()
+      img.onload = () => {
+        const w = img.naturalWidth || 800
+        const h = img.naturalHeight || 800
+        const cvs = document.createElement("canvas")
+        cvs.width = w
+        cvs.height = h
+        const ctx = cvs.getContext("2d")!
+        if (opts?.grayscale) ctx.filter = "grayscale(1)"
+        ctx.drawImage(img, 0, 0, w, h)
+        URL.revokeObjectURL(objectUrl)
+        resolve(cvs.toDataURL("image/png"))
+      }
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl)
+        reject(new Error("Failed to load SVG image"))
+      }
+      img.crossOrigin = "anonymous"
+      img.src = objectUrl
+    })
+    return dataUrl
+  }
+
   const bitmap = await createImageBitmap(blob)
   const cvs = document.createElement("canvas")
   cvs.width = bitmap.width
