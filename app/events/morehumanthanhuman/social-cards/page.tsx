@@ -53,7 +53,7 @@ const speakers: Speaker[] = [
     title: "Product Marketing Manager",
     company: "NMI",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/sayp.jpeg",
-    sessionTitle: "Build for the Right Market: GTM Research in the Age of AI",
+    sessionTitle: "Build for the Right Market",
     description:
       "Every winning go-to-market (GTM) strategy starts with research—but not the slow, outdated kind. In this lightning session, Serena Hernandez shares how she uses software and AI tools like Claude, Gong, Crayon CI, and n8n workflows to transform how product marketing validates markets, understands customer pain points, monitors competitors, and defines ideal customer profiles (ICPs).",
   },
@@ -251,7 +251,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
         </div>
 
         {/* ── Speaker image ── */}
-        <div className="relative mx-14 overflow-hidden" style={{ height: 620 }}>
+        <div className="relative mx-14 overflow-hidden" style={{ height: 540 }}>
           <div className="absolute inset-0 border border-[#333]" />
           <img
             src={speaker.image}
@@ -281,7 +281,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
             <h2
               className="text-white uppercase"
               style={{
-                fontSize: 40,
+                fontSize: 44,
                 fontWeight: 800,
                 lineHeight: 1.08,
                 letterSpacing: "0.025em",
@@ -295,7 +295,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
           <p
             className="text-[#a3a3a3] mb-6"
             style={{
-              fontSize: 19,
+              fontSize: 22,
               fontWeight: 400,
               lineHeight: 1.5,
               letterSpacing: "0.005em",
@@ -305,7 +305,7 @@ function SpeakerCard({ speaker }: { speaker: Speaker }) {
           </p>
 
           {/* Spacer */}
-          <div className="flex-1" />
+          <div className="flex-1 min-h-4" />
 
           {/* Speaker info + Event name footer */}
           <div className="pb-12">
@@ -464,7 +464,7 @@ function SpotlightCard({ spotlight }: { spotlight: Spotlight }) {
         </div>
 
         {/* ── Organization image ── */}
-        <div className="relative mx-14 overflow-hidden flex items-center justify-center" style={{ height: 560, backgroundColor: spotlight.imageBgColor || "#141414" }}>
+        <div className="relative mx-14 overflow-hidden flex items-center justify-center" style={{ height: 480, backgroundColor: spotlight.imageBgColor || "#141414" }}>
           <div className="absolute inset-0 border border-[#333]" />
           <img
             src={spotlight.image}
@@ -520,7 +520,7 @@ function SpotlightCard({ spotlight }: { spotlight: Spotlight }) {
           <p
             className="text-[#a3a3a3]"
             style={{
-              fontSize: 24,
+              fontSize: 26,
               fontWeight: 400,
               lineHeight: 1.55,
               letterSpacing: "0.01em",
@@ -530,7 +530,7 @@ function SpotlightCard({ spotlight }: { spotlight: Spotlight }) {
           </p>
 
           {/* Spacer */}
-          <div className="flex-1" />
+          <div className="flex-1 min-h-4" />
 
           {/* Footer */}
           <div className="pb-12">
@@ -788,20 +788,24 @@ function ResponsiveCardWrapper({
   useEffect(() => {
     const updateScale = () => {
       if (!containerRef.current) return
-      const available = containerRef.current.clientWidth
-      setScale(Math.min(1, available / cardWidth))
+      const availableW = containerRef.current.clientWidth
+      // On desktop, also constrain to viewport height (minus sticky bar ~64px + some padding)
+      const availableH = window.innerHeight - 100
+      const scaleW = availableW / cardWidth
+      const scaleH = availableH / cardHeight
+      setScale(Math.min(1, scaleW, scaleH))
     }
     updateScale()
     window.addEventListener("resize", updateScale)
     return () => window.removeEventListener("resize", updateScale)
-  }, [cardWidth])
+  }, [cardWidth, cardHeight])
 
   return (
     <div ref={containerRef} className="w-full">
       <div
         className="mx-auto overflow-hidden"
         style={{
-          width: Math.min(cardWidth, cardWidth * scale),
+          width: cardWidth * scale,
           height: cardHeight * scale,
         }}
       >
@@ -825,7 +829,7 @@ function SpeakerCardWithDownload({ speaker }: { speaker: Speaker }) {
   const ref = useRef<HTMLDivElement>(null)
   return (
     <div className="flex flex-col items-center gap-4 w-full px-4">
-      <div className="flex items-center gap-4">
+      <div className="hidden md:flex items-center gap-4">
         <span
           className="text-[#525252] uppercase"
           style={{ fontSize: 11, fontFamily: "monospace", letterSpacing: "0.2em" }}
@@ -847,7 +851,7 @@ function SpotlightCardWithDownload({ spotlight }: { spotlight: Spotlight }) {
   const ref = useRef<HTMLDivElement>(null)
   return (
     <div className="flex flex-col items-center gap-4 w-full px-4">
-      <div className="flex items-center gap-4">
+      <div className="hidden md:flex items-center gap-4">
         <span
           className="text-[#525252] uppercase"
           style={{ fontSize: 11, fontFamily: "monospace", letterSpacing: "0.2em" }}
@@ -884,11 +888,13 @@ const videoPartners = [
     name: "DEVSA TV",
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/devsatv-logo.PNG",
     invert: false,
+    height: 80,
   },
   {
     name: "434 Media",
     logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/434media-light.svg",
     invert: false,
+    height: 40,
   },
 ]
 
@@ -1470,24 +1476,46 @@ function HypeVideo() {
                     key={pt.name}
                     src={pt.logo}
                     alt={pt.name}
-                    className={`h-20 w-auto ${pt.invert ? "invert" : ""}`}
+                    style={{ height: pt.height || 80 }}
+                    className={`w-auto ${pt.invert ? "invert" : ""}`}
                   />
                 ))}
               </motion.div>
 
-              {/* Venue */}
-              <motion.p
-                className="text-[#525252] uppercase text-center"
-                style={{ fontSize: 14, fontWeight: 500, letterSpacing: "0.2em", fontFamily: "monospace" }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.8, duration: 0.5 }}
+              {/* Venue Host */}
+              <motion.div
+                className="flex flex-col items-center mt-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.8, duration: 0.6 }}
               >
-                Hosted at <span className="text-[#ff9900]">Geekdom</span> • San Antonio, TX
-              </motion.p>
+                <div className="h-px w-64 bg-linear-to-r from-transparent via-[#ff9900]/50 to-transparent mb-6" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-0.5 w-8 bg-[#ff9900]" />
+                  <span
+                    className="uppercase tracking-[0.25em] text-[#ff9900]"
+                    style={{ fontSize: 14, fontWeight: 600, fontFamily: "monospace" }}
+                  >
+                    Venue Host
+                  </span>
+                  <div className="h-0.5 w-8 bg-[#ff9900]" />
+                </div>
+                <p
+                  className="text-white uppercase text-center"
+                  style={{ fontSize: 36, fontWeight: 900, letterSpacing: "0.12em", lineHeight: 1.1 }}
+                >
+                  Geekdom
+                </p>
+                <p
+                  className="text-[#737373] uppercase text-center mt-3"
+                  style={{ fontSize: 16, fontWeight: 500, letterSpacing: "0.2em", fontFamily: "monospace" }}
+                >
+                  San Antonio, TX
+                </p>
+              </motion.div>
 
               <motion.div
-                className="h-[3px] bg-linear-to-r from-transparent via-[#fbbf24] to-transparent mt-12"
+                className="h-[3px] bg-linear-to-r from-transparent via-[#fbbf24] to-transparent mt-10"
                 initial={{ width: 0 }}
                 animate={{ width: 500 }}
                 transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
