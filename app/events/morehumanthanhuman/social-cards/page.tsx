@@ -772,11 +772,60 @@ function DownloadButton({
   )
 }
 
+/* ─── Responsive wrapper — scales fixed-size cards to fit viewport ─── */
+function ResponsiveCardWrapper({
+  children,
+  cardWidth = 1080,
+  cardHeight = 1350,
+}: {
+  children: React.ReactNode
+  cardWidth?: number
+  cardHeight?: number
+}) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(1)
+
+  useEffect(() => {
+    const updateScale = () => {
+      if (!containerRef.current) return
+      const available = containerRef.current.clientWidth
+      setScale(Math.min(1, available / cardWidth))
+    }
+    updateScale()
+    window.addEventListener("resize", updateScale)
+    return () => window.removeEventListener("resize", updateScale)
+  }, [cardWidth])
+
+  return (
+    <div ref={containerRef} className="w-full">
+      <div
+        className="mx-auto"
+        style={{
+          width: cardWidth,
+          height: cardHeight * scale,
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            transform: `scale(${scale})`,
+            transformOrigin: "top center",
+            width: cardWidth,
+            height: cardHeight,
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ─── Card wrapper with ref ─── */
 function SpeakerCardWithDownload({ speaker }: { speaker: Speaker }) {
   const ref = useRef<HTMLDivElement>(null)
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 w-full px-4">
       <div className="flex items-center gap-4">
         <span
           className="text-[#525252] uppercase"
@@ -786,9 +835,11 @@ function SpeakerCardWithDownload({ speaker }: { speaker: Speaker }) {
         </span>
         <DownloadButton cardRef={ref} filename={`mhth-speaker-${speaker.id}`} />
       </div>
-      <div ref={ref}>
-        <SpeakerCard speaker={speaker} />
-      </div>
+      <ResponsiveCardWrapper>
+        <div ref={ref}>
+          <SpeakerCard speaker={speaker} />
+        </div>
+      </ResponsiveCardWrapper>
     </div>
   )
 }
@@ -796,7 +847,7 @@ function SpeakerCardWithDownload({ speaker }: { speaker: Speaker }) {
 function SpotlightCardWithDownload({ spotlight }: { spotlight: Spotlight }) {
   const ref = useRef<HTMLDivElement>(null)
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 w-full px-4">
       <div className="flex items-center gap-4">
         <span
           className="text-[#525252] uppercase"
@@ -806,9 +857,11 @@ function SpotlightCardWithDownload({ spotlight }: { spotlight: Spotlight }) {
         </span>
         <DownloadButton cardRef={ref} filename={`mhth-community-${spotlight.id}`} />
       </div>
-      <div ref={ref}>
-        <SpotlightCard spotlight={spotlight} />
-      </div>
+      <ResponsiveCardWrapper>
+        <div ref={ref}>
+          <SpotlightCard spotlight={spotlight} />
+        </div>
+      </ResponsiveCardWrapper>
     </div>
   )
 }
@@ -957,7 +1010,7 @@ function HypeVideo() {
   }, [])
 
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center gap-6 w-full px-4">
       {/* Controls */}
       <div className="flex items-center gap-3 flex-wrap justify-center">
         {!isPlaying ? (
@@ -1007,6 +1060,7 @@ function HypeVideo() {
       </div>
 
       {/* Video Canvas */}
+      <ResponsiveCardWrapper>
       <div
         ref={canvasRef}
         className="relative shrink-0 overflow-hidden"
@@ -1554,6 +1608,7 @@ function HypeVideo() {
           </div>
         )}
       </div>
+      </ResponsiveCardWrapper>
     </div>
   )
 }
@@ -1566,23 +1621,23 @@ export default function SocialCardsPage() {
     <div className="min-h-screen bg-[#050505] text-white">
       {/* ── Controls bar ── */}
       <div className="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur border-b border-[#222]">
-        <div className="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between gap-6 flex-wrap">
-          <div>
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-6">
+          <div className="min-w-0">
             <h1
               className="text-white uppercase tracking-wider"
-              style={{ fontSize: 16, fontWeight: 700, letterSpacing: "0.08em" }}
+              style={{ fontSize: 14, fontWeight: 700, letterSpacing: "0.08em" }}
             >
               Social Media Cards
             </h1>
-            <p className="text-[#525252] text-xs mt-0.5" style={{ fontFamily: "monospace" }}>
+            <p className="text-[#525252] text-xs mt-0.5 hidden sm:block" style={{ fontFamily: "monospace" }}>
               1080 × 1350 — Right-click → Save image / Screenshot
             </p>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full sm:w-auto">
             <button
               onClick={() => setActiveTab("speakers")}
-              className={`px-4 py-2 text-xs uppercase tracking-[0.15em] font-semibold border transition-all ${
+              className={`flex-1 sm:flex-initial px-4 py-2 text-xs uppercase tracking-[0.15em] font-semibold border transition-all ${
                 activeTab === "speakers"
                   ? "border-[#ff9900] text-[#ff9900] bg-[#ff9900]/10"
                   : "border-[#333] text-[#737373] hover:border-[#555] hover:text-white"
@@ -1592,7 +1647,7 @@ export default function SocialCardsPage() {
             </button>
             <button
               onClick={() => setActiveTab("spotlights")}
-              className={`px-4 py-2 text-xs uppercase tracking-[0.15em] font-semibold border transition-all ${
+              className={`flex-1 sm:flex-initial px-4 py-2 text-xs uppercase tracking-[0.15em] font-semibold border transition-all ${
                 activeTab === "spotlights"
                   ? "border-[#00f2ff] text-[#00f2ff] bg-[#00f2ff]/10"
                   : "border-[#333] text-[#737373] hover:border-[#555] hover:text-white"
@@ -1602,7 +1657,7 @@ export default function SocialCardsPage() {
             </button>
             <button
               onClick={() => setActiveTab("video")}
-              className={`px-4 py-2 text-xs uppercase tracking-[0.15em] font-semibold border transition-all ${
+              className={`flex-1 sm:flex-initial px-4 py-2 text-xs uppercase tracking-[0.15em] font-semibold border transition-all ${
                 activeTab === "video"
                   ? "border-[#fbbf24] text-[#fbbf24] bg-[#fbbf24]/10"
                   : "border-[#333] text-[#737373] hover:border-[#555] hover:text-white"
