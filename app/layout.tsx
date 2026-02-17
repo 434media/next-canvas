@@ -1,6 +1,9 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono, Dancing_Script } from "next/font/google"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
+import { GeistPixelSquare, GeistPixelGrid, GeistPixelCircle, GeistPixelTriangle, GeistPixelLine } from "geist/font/pixel"
+import { Dancing_Script } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
 import Navbar from "../components/navbar"
@@ -8,18 +11,6 @@ import Footer from "../components/footer"
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-})
 
 const mendaBlack = localFont({
   src: "../fonts/Menda-Black.otf",
@@ -36,14 +27,17 @@ const dancingScript = Dancing_Script({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.community"
 
 export const metadata: Metadata = {
-  title: "Digital Canvas | The Creative Layer of 434 MEDIA",
+  title: {
+    default: "Digital Canvas | Powered by DEVSA x 434 MEDIA",
+    template: "%s | Digital Canvas",
+  },
   description:
-    "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network. From innovative properties to transformative partnerships.",
+    "Powered by DEVSA x 434 MEDIA, Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.",
   keywords:
-    "434 MEDIA, creative layer, digital canvas, IP properties, client partnerships, creative network, San Antonio",
-  authors: [{ name: "434 MEDIA Team" }],
-  creator: "434 MEDIA Team",
-  publisher: "434 MEDIA",
+    "Digital Canvas, San Antonio, tech conferences, workshops, AI agents, creative technology, community, storytelling, DevSA, MHTH",
+  authors: [{ name: "Digital Canvas" }],
+  creator: "Digital Canvas",
+  publisher: "Digital Canvas",
   formatDetection: {
     email: false,
     address: false,
@@ -54,9 +48,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Digital Canvas | The Creative Layer of 434 MEDIA",
+    title: "Digital Canvas | Powered by DEVSA x 434 MEDIA",
     description:
-      "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network.",
+      "Powered by DEVSA x 434 MEDIA, Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.",
     url: siteUrl,
     siteName: "Digital Canvas",
     images: [
@@ -64,7 +58,7 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Digital Canvas - The Creative Layer of 434 MEDIA',
+        alt: 'Digital Canvas - Powered by DEVSA x 434 MEDIA, Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.',
       },
     ],
     locale: "en_US",
@@ -72,12 +66,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Canvas | The Creative Layer of 434 MEDIA",
+    title: "Digital Canvas | Powered by DEVSA x 434 MEDIA",
     description:
-      "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network.",
+      "Powered by DEVSA x 434 MEDIA, Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.",
     images: ['/opengraph-image.png'],
-    creator: '@434media',
-    site: '@434media',
+    creator: '@devsatx',
+    site: '@devsatx',
   },
     robots: {
     index: true,
@@ -111,16 +105,12 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Digital Canvas",
-              alternateName: "434 MEDIA Digital Canvas",
+              alternateName: "Digital Canvas Community",
               description:
-                "Digital Canvas connects our IP & client work, showcasing the stories, brands, & campaigns shaping the 434 network. From innovative properties to transformative partnerships.",
+                "Digital Canvas connects creativity, community, and technology in San Antonio. Conferences, workshops, AI agents, storytelling, and curated content.",
               url: siteUrl,
               logo: "https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg",
               foundingDate: "2020",
-              parentOrganization: {
-                "@type": "Organization",
-                name: "434 MEDIA",
-              },
               areaServed: {
                 "@type": "City",
                 name: "San Antonio",
@@ -154,7 +144,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${mendaBlack.variable} ${dancingScript.variable} min-h-screen overflow-x-hidden scroll-auto bg-white antialiased selection:bg-sky-100 selection:text-sky-600`}
+        className={`${GeistSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable} ${GeistPixelGrid.variable} ${GeistPixelCircle.variable} ${GeistPixelTriangle.variable} ${GeistPixelLine.variable} ${mendaBlack.variable} ${dancingScript.variable} min-h-screen overflow-x-hidden scroll-auto bg-white antialiased selection:bg-sky-100 selection:text-sky-600`}
       >
         {/* Google Analytics */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-NY5R12BN23" strategy="afterInteractive" />

@@ -11,7 +11,7 @@ const upcomingEvent = {
   venue: "Geekdom, San Antonio",
   description: "San Antonio's premier AI conference exploring how artificial intelligence is reshaping code, security, and leadership. As AI shifts from a tool we use to an agent that acts, the boundary between human and machine is disappearing.",
   tagline: "We aren't just talking about the future — we're demonstrating the tools that are defining it.",
-  href: "/events/morehumanthanhuman",
+  href: "/conferences/morehumanthanhuman",
   image: "https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4",
   status: "upcoming",
 }

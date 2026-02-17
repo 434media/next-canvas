@@ -96,7 +96,7 @@ export function CallForSpeakers() {
       }
 
       // Redirect to AI conference page after successful submission
-      router.push('/events/morehumanthanhuman?submitted=true')
+      router.push('/conferences/morehumanthanhuman?submitted=true')
     } catch (err) {
       console.error('Form submission error:', err)
       setError(err instanceof Error ? err.message : 'Failed to submit proposal. Please try again.')

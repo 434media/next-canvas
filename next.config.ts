@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/events/morehumanthanhuman",
+        destination: "/conferences/morehumanthanhuman",
+        permanent: true,
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {

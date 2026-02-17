@@ -15,10 +15,10 @@ export default function FeedList({ items }: FeedListProps) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="text-center py-16 border border-gray-200 bg-gray-50 rounded-sm"
+        className="text-center py-16 border border-[#222] bg-[#111] rounded-sm"
       >
-        <p className="text-lg font-medium text-gray-700">No items match your filters</p>
-        <p className="text-sm text-gray-500 mt-2">Try adjusting your filter selections</p>
+        <p className="text-lg font-medium text-white/60">No items match your filters</p>
+        <p className="text-sm text-white/30 mt-2">Try adjusting your filter selections</p>
       </motion.div>
     )
   }
@@ -28,7 +28,7 @@ export default function FeedList({ items }: FeedListProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="border border-gray-200 rounded-sm bg-white divide-y divide-gray-200"
+      className="border border-[#222] rounded-sm bg-[#0a0a0a] divide-y divide-[#222]"
     >
       {items.map((item, index) => (
         <FeedItem key={item.id} item={item} index={index} />

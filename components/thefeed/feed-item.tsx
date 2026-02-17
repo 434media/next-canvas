@@ -16,10 +16,10 @@ export default function FeedItem({ item, index }: FeedItemProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const typeColors = {
-    video: "bg-black text-white",
-    article: "bg-white text-black border-2 border-black",
-    podcast: "bg-gray-800 text-white",
-    newsletter: "bg-gray-200 text-black border-2 border-black",
+    video: "bg-white/10 text-white border border-white/10",
+    article: "bg-[#ff9900]/10 text-[#ff9900] border border-[#ff9900]/20",
+    podcast: "bg-[#00f2ff]/10 text-[#00f2ff] border border-[#00f2ff]/20",
+    newsletter: "bg-[#fbbf24]/10 text-[#fbbf24] border border-[#fbbf24]/20",
   }
 
   return (
@@ -27,9 +27,9 @@ export default function FeedItem({ item, index }: FeedItemProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="border-b border-gray-200 last:border-b-0 relative group hover:bg-gray-50/50 transition-colors"
+      className="border-b border-[#222] last:border-b-0 relative group hover:bg-white/2 transition-colors"
     >
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#ff9900] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
 
       <button
         onClick={() => setIsExpanded(!isExpanded)}
@@ -40,8 +40,8 @@ export default function FeedItem({ item, index }: FeedItemProps) {
           <div className="flex-1 min-w-0 space-y-2">
             {/* Date */}
             <div className="flex items-center gap-3">
-              <span className="text-xs text-gray-500 uppercase tracking-widest font-mono font-medium">{item.date}</span>
-              <span className="text-gray-300">•</span>
+              <span className="text-xs text-white/30 uppercase tracking-widest font-mono font-medium">{item.date}</span>
+              <span className="text-white/20">•</span>
               <span
                 className={cn(
                   "text-[10px] uppercase tracking-widest font-mono font-semibold px-2.5 py-0.5 rounded-sm",
@@ -53,7 +53,7 @@ export default function FeedItem({ item, index }: FeedItemProps) {
             </div>
 
             {/* Title */}
-            <h3 className="text-xl md:text-2xl font-bold leading-snug tracking-tight text-gray-900 group-hover:text-black transition-colors">
+            <h3 className="text-xl md:text-2xl font-bold leading-snug tracking-tight text-white group-hover:text-white transition-colors">
               {item.title}
             </h3>
           </div>
@@ -63,7 +63,7 @@ export default function FeedItem({ item, index }: FeedItemProps) {
             <motion.div
               animate={{ rotate: isExpanded ? 45 : 0 }}
               transition={{ duration: 0.2 }}
-              className="text-gray-400 group-hover:text-black transition-colors"
+              className="text-gray-400 group-hover:text-white transition-colors"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="stroke-current" strokeWidth="2">
                 <path d="M 0 9 L 18 9" />
@@ -84,13 +84,13 @@ export default function FeedItem({ item, index }: FeedItemProps) {
             className="overflow-hidden"
           >
             <div className="px-4 md:px-6 pb-8 space-y-5">
-              <div className="h-px bg-gray-200" />
+              <div className="h-px bg-[#222]" />
 
               {/* Summary */}
               <div>
-                <span className="text-[10px] uppercase tracking-widest font-mono font-semibold text-gray-500 block mb-2">Summary</span>
+                <span className="text-[10px] uppercase tracking-widest font-mono font-semibold text-white/30 block mb-2">Summary</span>
                 <div 
-                  className="text-base leading-relaxed text-gray-700 prose prose-sm max-w-none [&_p]:mb-3 [&_p]:leading-relaxed"
+                  className="text-base leading-relaxed text-white/60 prose prose-sm prose-invert max-w-none [&_p]:mb-3 [&_p]:leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: item.summary }}
                 />
               </div>
@@ -99,10 +99,10 @@ export default function FeedItem({ item, index }: FeedItemProps) {
               <div className="flex flex-wrap gap-8">
                 {/* Authors */}
                 <div>
-                  <span className="text-[10px] uppercase tracking-widest font-mono font-semibold text-gray-500 block mb-2">Author</span>
+                  <span className="text-[10px] uppercase tracking-widest font-mono font-semibold text-white/30 block mb-2">Author</span>
                   <div className="flex flex-wrap gap-2">
                     {item.authors.map((author) => (
-                      <span key={author} className="text-sm font-medium text-gray-800">
+                      <span key={author} className="text-sm font-medium text-white/70">
                         {author}
                       </span>
                     ))}
@@ -111,12 +111,12 @@ export default function FeedItem({ item, index }: FeedItemProps) {
 
                 {/* Topics */}
                 <div>
-                  <span className="text-[10px] uppercase tracking-widest font-mono font-semibold text-gray-500 block mb-2">Topics</span>
+                  <span className="text-[10px] uppercase tracking-widest font-mono font-semibold text-white/30 block mb-2">Topics</span>
                   <div className="flex flex-wrap gap-2">
                     {item.topics.map((topic) => (
                       <span
                         key={topic}
-                        className="text-xs font-medium uppercase tracking-wide px-2.5 py-1 bg-gray-100 text-gray-700 rounded-sm"
+                        className="text-xs font-medium uppercase tracking-wide px-2.5 py-1 bg-white/5 text-white/50 rounded-sm border border-white/10"
                       >
                         {topic}
                       </span>
@@ -128,7 +128,7 @@ export default function FeedItem({ item, index }: FeedItemProps) {
               {/* Link */}
               <Link
                 href={item.link}
-                className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 bg-black text-white text-sm font-semibold tracking-wide hover:bg-gray-800 transition-colors rounded-sm"
+                className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 bg-[#ff9900] text-[#0a0a0a] text-sm font-semibold tracking-wide hover:bg-[#ffaa22] transition-colors rounded-sm"
               >
                 Read More
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

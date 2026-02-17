@@ -7,6 +7,13 @@ import { motion } from "motion/react"
 import { Menu } from "lucide-react"
 import SlideoverMenu from "./slideover-menu"
 
+const navLinks = [
+  { href: "/conferences", label: "Conferences" },
+  { href: "/workshops", label: "Workshops" },
+  { href: "/storytelling", label: "Storytelling" },
+  { href: "/agents", label: "Agents", comingSoon: true },
+]
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -57,14 +64,31 @@ const Navbar = () => {
                 </Link>
               </motion.div>
 
-              <div className="flex-1"></div>
+              {/* Desktop navigation links */}
+              <div className="hidden md:flex items-center gap-8">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="relative font-(family-name:--font-geist-pixel-square) text-xs text-white/70 uppercase tracking-widest hover:text-white transition-colors duration-200 flex items-center gap-1.5"
+                  >
+                    {link.label}
+                    {link.comingSoon && (
+                      <span className="font-(family-name:--font-geist-pixel-square) text-[7px] uppercase tracking-wider bg-[#ff9900] text-[#0a0a0a] px-1.5 py-px leading-tight font-semibold">
+                        in development
+                      </span>
+                    )}
+                  </Link>
+                ))}
+              </div>
 
+              {/* Mobile menu button */}
               <motion.button
                 onClick={() => {
                   setIsMenuOpen(true)
                   window.dispatchEvent(new CustomEvent("navbar-menu-toggle", { detail: { isOpen: true } }))
                 }}
-                className="transition-colors duration-300 relative group bg-black border border-[#333] p-1.5 transform hover:rotate-1 hover:border-[#ff9900]"
+                className="md:hidden transition-colors duration-300 relative group bg-black border border-[#333] p-1.5 transform hover:rotate-1 hover:border-[#ff9900]"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}

@@ -377,7 +377,7 @@ const upcomingEvent = {
   description: "San Antonio's first AI conference exploring the intersection of artificial intelligence, creativity, and human connection. Join industry leaders, researchers, and innovators for a day of insights and collaboration.",
   tagline: "Redefining the relationship between humanity and AI through thoughtful exploration and community dialogue.",
   image: "https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4",
-  href: "/events/morehumanthanhuman"
+  href: "/conferences/morehumanthanhuman"
 }
 
 export default function DevsaTVPage() {

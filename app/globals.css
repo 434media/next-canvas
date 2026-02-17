@@ -350,6 +350,27 @@ body {
 }
 
 /* Animation keyframes */
+@keyframes cell-ripple {
+  0% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.08);
+    background-color: rgba(255, 153, 0, 0.25);
+    border-color: rgba(255, 153, 0, 0.5);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+}
+
+.animate-cell-ripple {
+  animation: cell-ripple var(--duration, 600ms) ease-out var(--delay, 0ms);
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

@@ -41,12 +41,12 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: `${siteUrl}/events/morehumanthanhuman`,
+    canonical: `${siteUrl}/conferences/morehumanthanhuman`,
   },
   openGraph: {
     title: "More Human Than Human | AI Conference Powered by DEVSA | February 28, 2026 | San Antonio",
     description: "9 live sessions. Build agents from scratch, embed Copilot with the GitHub SDK, prove humanity in an agentic internet, master AI leadership skills, and explore what's left when the code writes itself. Powered by DEVSA at Geekdom.",
-    url: `${siteUrl}/events/morehumanthanhuman`,
+    url: `${siteUrl}/conferences/morehumanthanhuman`,
     siteName: "DEVSA",
     images: [
       {

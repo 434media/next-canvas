@@ -1,16 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import MissionStatement from "../components/mission-statement"
-import DigitalCanvasNetwork from "../components/digital-canvas-network"
-import AnimatedLanding from "../components/animated-landing"
-import NewsletterPopup from "../components/newsletter-popup"
+
+import ConferencePopup from "../components/conference-popup"
+import DigitalCanvasParticles from "../components/hero-particles"
 
 export default function Home() {
    const [showPopup, setShowPopup] = useState(false)
 
   useEffect(() => {
-    const hasShownPopup = sessionStorage.getItem("aim2026-popup-shown")
+    const hasShownPopup = sessionStorage.getItem("mhth2026-popup-shown")
 
     if (!hasShownPopup) {
       const timer = setTimeout(() => {
@@ -23,21 +22,14 @@ export default function Home() {
 
   const handleClosePopup = () => {
     setShowPopup(false)
-    sessionStorage.setItem("aim2026-popup-shown", "true")
+    sessionStorage.setItem("mhth2026-popup-shown", "true")
   }
 
   return (
     <div>
-      <MissionStatement />
+      <DigitalCanvasParticles />
 
-      <div className="xs:px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-        <div className="xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
-          <DigitalCanvasNetwork />
-          <AnimatedLanding />
-        </div>
-      </div>
-
-      <NewsletterPopup showModal={showPopup} onClose={handleClosePopup} />
+      <ConferencePopup showModal={showPopup} onClose={handleClosePopup} />
     </div>
   )
 }
