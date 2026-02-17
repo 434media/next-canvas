@@ -349,6 +349,16 @@ body {
   display: none;
 }
 
+/* Mobile scrolling row animations — GPU-composited via transform */
+@keyframes scroll-left {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes scroll-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
 /* Animation keyframes */
 @keyframes cell-ripple {
   0% {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, type FormEvent } from "react"
+import { useState, useEffect, useRef, useCallback, type FormEvent } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { X, ArrowRight } from "lucide-react"
 import Link from "next/link"
@@ -39,21 +39,37 @@ const mediaItems = [
   { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_4665.jpg", alt: "DevSA Community Event" },
 ]
 
-// Distribute items uniquely across 6 rows — no image repeats between rows
-const ROWS = 6
-const ITEMS_PER_ROW = Math.ceil(mediaItems.length / ROWS)
-const rows: (typeof mediaItems)[] = Array.from({ length: ROWS }, (_, i) =>
-  mediaItems.slice(i * ITEMS_PER_ROW, (i + 1) * ITEMS_PER_ROW)
-).map(row => row.length > 0 ? row : mediaItems.slice(0, ITEMS_PER_ROW))
+// ── Detect mobile vs desktop ──────────────────────────────────
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(true) // default mobile-first for SSR safety
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)")
+    const update = () => setIsMobile(!mq.matches)
+    update()
+    mq.addEventListener("change", update)
+    return () => mq.removeEventListener("change", update)
+  }, [])
+  return isMobile
+}
 
-function ScrollingRow({ items, direction, speed }: { items: typeof mediaItems; direction: "left" | "right"; speed: number }) {
+/* ═══════════════════════════════════════════════════════════════
+   DESKTOP — Original implementation (untouched)
+   6 rows, 4x duplication, RAF scrolling, videos with autoPlay
+   ═══════════════════════════════════════════════════════════════ */
+
+const DESKTOP_ROWS = 6
+const DESKTOP_ITEMS_PER_ROW = Math.ceil(mediaItems.length / DESKTOP_ROWS)
+const desktopRows: (typeof mediaItems)[] = Array.from({ length: DESKTOP_ROWS }, (_, i) =>
+  mediaItems.slice(i * DESKTOP_ITEMS_PER_ROW, (i + 1) * DESKTOP_ITEMS_PER_ROW)
+).map(row => row.length > 0 ? row : mediaItems.slice(0, DESKTOP_ITEMS_PER_ROW))
+
+function DesktopScrollingRow({ items, direction, speed }: { items: typeof mediaItems; direction: "left" | "right"; speed: number }) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
 
-    // Check reduced motion preference
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     if (prefersReducedMotion) return
 
@@ -87,7 +103,6 @@ function ScrollingRow({ items, direction, speed }: { items: typeof mediaItems; d
     }
   }, [direction, speed])
 
-  // Quadruple items for wider seamless strip
   const repeated = [...items, ...items, ...items, ...items]
 
   return (
@@ -99,7 +114,7 @@ function ScrollingRow({ items, direction, speed }: { items: typeof mediaItems; d
       {repeated.map((item, i) => (
         <div
           key={`${item.src}-${i}`}
-          className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 shrink-0 overflow-hidden rounded-xl bg-[#111]"
+          className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-[#111]"
         >
           {item.type === "video" ? (
             <video
@@ -124,6 +139,147 @@ function ScrollingRow({ items, direction, speed }: { items: typeof mediaItems; d
       ))}
     </div>
   )
+}
+
+function DesktopScrollingGrid() {
+  return (
+    <div className="space-y-3 py-4">
+      {desktopRows.map((rowItems, idx) => (
+        <DesktopScrollingRow
+          key={idx}
+          items={rowItems}
+          direction={idx % 2 === 0 ? "left" : "right"}
+          speed={0.25 + idx * 0.05}
+        />
+      ))}
+    </div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE — Optimized for low-end devices
+   4 rows, 2x duplication, CSS animation (GPU-composited),
+   no videos, skeleton placeholders, IntersectionObserver,
+   decoding="async", will-change, reactive reduced-motion
+   ═══════════════════════════════════════════════════════════════ */
+
+const MOBILE_ROWS = 4
+const MOBILE_ITEMS_PER_ROW = Math.ceil(mediaItems.length / MOBILE_ROWS)
+const mobileRows: (typeof mediaItems)[] = Array.from({ length: MOBILE_ROWS }, (_, i) =>
+  mediaItems.slice(i * MOBILE_ITEMS_PER_ROW, (i + 1) * MOBILE_ITEMS_PER_ROW)
+).map(row => row.length > 0 ? row : mediaItems.slice(0, MOBILE_ITEMS_PER_ROW))
+
+// Image tile with skeleton placeholder and fade-in
+function MobileTile({ item }: { item: (typeof mediaItems)[number] }) {
+  const [loaded, setLoaded] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    if (imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
+      setLoaded(true)
+    }
+  }, [])
+
+  const handleLoad = useCallback(() => setLoaded(true), [])
+
+  // For video items, show the poster image (or a fallback) instead of loading the video
+  const imgSrc = item.type === "video"
+    ? (item.poster || item.src)
+    : item.src
+
+  return (
+    <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-xl bg-[#111]">
+      {!loaded && (
+        <div className="absolute inset-0 rounded-xl bg-[#1a1a1a] animate-pulse" />
+      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={imgRef}
+        src={imgSrc}
+        alt={item.alt}
+        loading="lazy"
+        decoding="async"
+        onLoad={handleLoad}
+        className={`h-full w-full object-cover rounded-xl transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+      />
+    </div>
+  )
+}
+
+// CSS-animated row — GPU-composited, no JS animation loop
+function MobileScrollingRow({ items, direction, speed }: { items: typeof mediaItems; direction: "left" | "right"; speed: number }) {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  // IntersectionObserver — pause animation for off-screen rows
+  useEffect(() => {
+    const el = trackRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin: "100px" }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  // Reactive prefers-reduced-motion listener
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+    setPrefersReducedMotion(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
+  }, [])
+
+  const shouldAnimate = isVisible && !prefersReducedMotion
+  const duration = Math.round(items.length * (6 / speed))
+
+  // 2x duplication (instead of 4x) — CSS translateX(-50%) loops seamlessly
+  const repeated = [...items, ...items]
+
+  return (
+    <div className="overflow-hidden">
+      <div
+        ref={trackRef}
+        className="flex gap-3 w-max"
+        style={{
+          willChange: shouldAnimate ? "transform" : "auto",
+          animation: shouldAnimate
+            ? `scroll-${direction} ${duration}s linear infinite`
+            : "none",
+        }}
+      >
+        {repeated.map((item, i) => (
+          <MobileTile key={`${item.src}-${i}`} item={item} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function MobileScrollingGrid() {
+  return (
+    <div className="space-y-3 py-4">
+      {mobileRows.map((rowItems, idx) => (
+        <MobileScrollingRow
+          key={idx}
+          items={rowItems}
+          direction={idx % 2 === 0 ? "left" : "right"}
+          speed={0.25 + idx * 0.05}
+        />
+      ))}
+    </div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Adaptive grid — renders the right variant per breakpoint
+   ═══════════════════════════════════════════════════════════════ */
+function ScrollingGrid() {
+  const isMobile = useIsMobile()
+  return isMobile ? <MobileScrollingGrid /> : <DesktopScrollingGrid />
 }
 
 /* ── MHTH Popup CTA ─────────────────────────────────────────── */
@@ -302,21 +458,12 @@ export default function ConferencesPage() {
           </motion.div>
         </div>
 
-        {/* Scrolling grid — 6 dense rows of rounded-xl tiles */}
+        {/* Scrolling grid — adaptive: desktop (original) / mobile (optimized) */}
         <div
           aria-label="Scrolling animation showcasing DevSA conference and event photos"
           className="relative group mt-10 md:mt-14 w-full mb-px"
         >
-          <div className="space-y-3 py-4">
-            {rows.map((rowItems, idx) => (
-              <ScrollingRow
-                key={idx}
-                items={rowItems}
-                direction={idx % 2 === 0 ? "left" : "right"}
-                speed={0.25 + idx * 0.05}
-              />
-            ))}
-          </div>
+          <ScrollingGrid />
 
           {/* Edge fades */}
           <div className="pointer-events-none absolute top-0 left-0 right-0 h-1/4 z-10 bg-linear-to-b from-[#0a0a0a] to-transparent" />
