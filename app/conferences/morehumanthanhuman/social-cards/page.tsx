@@ -921,7 +921,7 @@ const schedule: ScheduleItem[] = [
   { time: "3:40 - 3:45", title: "PyTexas Conference", speaker: "Alamo Python", type: "community" },
   { time: "3:50 - 4:20", title: "We Can\u2019t Do This Without YOU", speaker: "Dirce E. Hernandez", type: "talk" },
   { time: "4:20 - 4:40", title: "Proving Humanity in an Agentic Internet", speaker: "Jacqueline Suttin", type: "talk" },
-  { time: "4:40 - 4:45", title: "Dream It, Ship It", speaker: "Jesse Hernandez", type: "lightning" },
+  { time: "4:40 - 4:55", title: "Dream It, Ship It", speaker: "Jesse Hernandez", type: "lightning" },
 ]
 
 const scheduleTypeColors: Record<ScheduleItem["type"], string> = {
