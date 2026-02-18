@@ -282,17 +282,17 @@ export function MoreHumanThanHuman() {
                 <p className="text-white/50 text-sm leading-relaxed mb-3">
                   As AI shifts from a tool we use to an agent that acts, the boundary between human and machine is disappearing. Join San Antonio&apos;s builders, dreamers, and technologists for a deep dive into how AI is fundamentally re-architecting the way we write code, secure the internet, and lead organizations.
                 </p>
-                <p className="text-[#ff9900] text-xs sm:text-sm font-medium leading-relaxed">
-                  We aren&apos;t just talking about the future — we&apos;re demonstrating the tools that are defining it.
+                <p className="text-[#ff9900] text-sm font-medium leading-relaxed">
+                  Powered by the <span className="font-bold">DEVSA Community</span>
                 </p>
               </motion.div>
 
-              {/* Register Button */}
+              {/* CTA Buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.0 }}
-                className="mt-5 sm:mt-8"
+                className="mt-5 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
               >
                 <a
                   href="#register"
@@ -302,6 +302,18 @@ export function MoreHumanThanHuman() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
+                </a>
+                <a
+                  href="#sessions"
+                  className="inline-flex items-center gap-2 border border-[#333] text-white/70 font-semibold text-xs sm:text-sm uppercase tracking-widest py-3 sm:py-4 px-6 sm:px-8 transition-all hover:border-[#00f2ff] hover:text-[#00f2ff] hover:bg-[#00f2ff]/5"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  View Schedule
                 </a>
               </motion.div>
               
@@ -578,11 +590,11 @@ export function MoreHumanThanHuman() {
       {/* Speakers Section */}
       <SpeakersSection />
 
-      {/* Sessions Section */}
-      <SessionsSection />
-
       {/* Community Spotlight Section */}
       <CommunitySpotlight />
+
+      {/* Sessions Section */}
+      <SessionsSection />
 
       {/* Sponsors & Community Partners Section */}
       <SponsorsSection />

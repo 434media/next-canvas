@@ -32,7 +32,7 @@ const spotlights: Spotlight[] = [
   {
     id: "pytexas",
     title: "PyTexas Conference",
-    description: "20th year of the largest gathering of Python developers within the great state of Texas. Software development, data science, community, and Python. April 17-19 in Austin TX.",
+    description: "Celebrating the 20th year of the largest gathering of Python developers within the great state of Texas. Software development, data science, community, and Python. April 17-19 in Austin TX.",
     image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/pytexas.svg",
     link: "https://www.pytexas.org/2026/",
     accentColor: "#00f2ff",
