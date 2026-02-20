@@ -28,13 +28,13 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.c
 
 export const metadata: Metadata = {
   title: {
-    default: "Digital Canvas | Powered by DEVSA x 434 MEDIA",
+    default: "Digital Canvas | Powered by 434 MEDIA x DEVSA",
     template: "%s | Digital Canvas",
   },
   description:
-    "Powered by DEVSA x 434 MEDIA, Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.",
+    "Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.",
   keywords:
-    "Digital Canvas, San Antonio, tech conferences, workshops, AI agents, creative technology, community, storytelling, DevSA, MHTH",
+    "Digital Canvas, San Antonio, tech conferences, workshops, AI agents, creative technology, community, storytelling, 434 MEDIA, DEVSA",
   authors: [{ name: "Digital Canvas" }],
   creator: "Digital Canvas",
   publisher: "Digital Canvas",
@@ -48,9 +48,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Digital Canvas | Powered by DEVSA x 434 MEDIA",
+    title: "Digital Canvas | Powered by 434 MEDIA x DEVSA",
     description:
-      "Powered by DEVSA x 434 MEDIA, Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.",
+      "Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.",
     url: siteUrl,
     siteName: "Digital Canvas",
     images: [
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Digital Canvas - Powered by DEVSA x 434 MEDIA, Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.',
+        alt: 'Digital Canvas - Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.',
       },
     ],
     locale: "en_US",
@@ -66,9 +66,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Canvas | Powered by DEVSA x 434 MEDIA",
+    title: "Digital Canvas | Powered by 434 MEDIA x DEVSA",
     description:
-      "Powered by DEVSA x 434 MEDIA, Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.",
+      "Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.",
     images: ['/opengraph-image.png'],
     creator: '@devsatx',
     site: '@devsatx',
@@ -107,7 +107,7 @@ export default function RootLayout({
               name: "Digital Canvas",
               alternateName: "Digital Canvas Community",
               description:
-                "Digital Canvas connects creativity, community, and technology in San Antonio. Conferences, workshops, AI agents, storytelling, and curated content.",
+                "Powered by DEVSA x 434 Media, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.",
               url: siteUrl,
               logo: "https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg",
               foundingDate: "2020",
@@ -130,7 +130,7 @@ export default function RootLayout({
                 "Partnership Development",
               ],
               sameAs: [
-                "https://twitter.com/434media",
+                "https://twitter.com/devsatx",
                 "https://linkedin.com/company/434media",
                 "https://instagram.com/digitalcanvashq",
               ],

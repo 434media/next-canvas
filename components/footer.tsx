@@ -202,7 +202,7 @@ export default function Footer() {
               Digital Canvas
             </h2>
             <p className="text-white/40 text-sm leading-relaxed max-w-md">
-              Powered by DEVSA x 434 MEDIA, Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.
+              Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.
             </p>
           </div>
 
