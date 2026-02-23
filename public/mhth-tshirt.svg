@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  MORE HUMAN THAN HUMAN — T-Shirt Print Design
+  AI Conference • February 28, 2026 • Geekdom • San Antonio
+
+  Print Specs:
+  - Canvas: 14" × 15.3" (1008 × 1100 pt @ 72dpi)
+  - Garment: Black shirt (no background fill needed)
+  - Colors: White (#FFFFFF), Gold (#FBBF24), Orange (#FF9900), Cyan (#00F2FF),
+            DevSA brand (#EF426F, #FF8200, #00B2A9, #eee), Geekdom inverted white
+  - Minimum stroke: 1pt for screen print compatibility
+  - All vector artwork — no raster images
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1008 1100" width="1008" height="1100">
+  <defs>
+    <linearGradient id="aztecGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF9900"/>
+      <stop offset="50%" stop-color="#00F2FF"/>
+      <stop offset="100%" stop-color="#FF9900"/>
+    </linearGradient>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="50%" stop-color="#FF9900"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ============================================ -->
+  <!-- TOP: Aztec Corner Decorations                -->
+  <!-- ============================================ -->
+  <g transform="translate(80, 50)">
+    <rect width="8" height="64" fill="#FFFFFF" opacity="0.3"/>
+    <rect width="64" height="8" fill="#FFFFFF" opacity="0.3"/>
+    <rect x="16" y="16" width="4" height="28" fill="#FF9900" opacity="0.7"/>
+    <rect x="16" y="16" width="28" height="4" fill="#FF9900" opacity="0.7"/>
+    <rect x="30" y="30" width="3" height="16" fill="#00F2FF" opacity="0.5"/>
+    <rect x="30" y="30" width="16" height="3" fill="#00F2FF" opacity="0.5"/>
+  </g>
+  <g transform="translate(928, 50) scale(-1,1)">
+    <rect width="8" height="64" fill="#FFFFFF" opacity="0.3"/>
+    <rect width="64" height="8" fill="#FFFFFF" opacity="0.3"/>
+    <rect x="16" y="16" width="4" height="28" fill="#FF9900" opacity="0.7"/>
+    <rect x="16" y="16" width="28" height="4" fill="#FF9900" opacity="0.7"/>
+    <rect x="30" y="30" width="3" height="16" fill="#00F2FF" opacity="0.5"/>
+    <rect x="30" y="30" width="16" height="3" fill="#00F2FF" opacity="0.5"/>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- MONO LABEL                                   -->
+  <!-- ============================================ -->
+  <text x="504" y="100"
+        font-family="'Geist Mono', 'SF Mono', 'Fira Code', monospace"
+        font-size="11" font-weight="500" letter-spacing="0.35em"
+        text-anchor="middle" fill="#737373" text-rendering="geometricPrecision">
+    AI CONFERENCE • FEBRUARY 28, 2026 • GEEKDOM
+  </text>
+
+  <!-- ============================================ -->
+  <!-- ★ MAIN TITLE — THE STAR OF THE DESIGN ★     -->
+  <!-- Massive type with aggressive RGB glitch      -->
+  <!-- Font: 160px Black, leading 136px (0.85)      -->
+  <!-- ============================================ -->
+
+  <!-- ——— "MORE" ——— -->
+  <text x="497" y="260"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#00F2FF" opacity="0.25" text-rendering="geometricPrecision">MORE</text>
+  <text x="511" y="260"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FF9900" opacity="0.25" text-rendering="geometricPrecision">MORE</text>
+  <text x="504" y="260"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FBBF24" text-rendering="geometricPrecision">MORE</text>
+
+  <!-- ——— "HUMAN" (gold) ——— -->
+  <text x="498" y="396"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#00F2FF" opacity="0.2" text-rendering="geometricPrecision">HUMAN</text>
+  <text x="510" y="396"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FF9900" opacity="0.2" text-rendering="geometricPrecision">HUMAN</text>
+  <text x="504" y="390"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FBBF24" opacity="0.08" text-rendering="geometricPrecision">HUMAN</text>
+  <text x="504" y="396"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FBBF24" text-rendering="geometricPrecision">HUMAN</text>
+
+  <!-- ——— "THAN" ——— -->
+  <text x="496" y="532"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#00F2FF" opacity="0.3" text-rendering="geometricPrecision">THAN</text>
+  <text x="512" y="532"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FF9900" opacity="0.3" text-rendering="geometricPrecision">THAN</text>
+  <text x="504" y="526"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FFFFFF" opacity="0.06" text-rendering="geometricPrecision">THAN</text>
+  <text x="504" y="532"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FFFFFF" text-rendering="geometricPrecision">THAN</text>
+
+  <!-- ——— "HUMAN" (white) ——— -->
+  <text x="497" y="668"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#00F2FF" opacity="0.25" text-rendering="geometricPrecision">HUMAN</text>
+  <text x="511" y="668"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FF9900" opacity="0.25" text-rendering="geometricPrecision">HUMAN</text>
+  <text x="502" y="674"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FFFFFF" opacity="0.06" text-rendering="geometricPrecision">HUMAN</text>
+  <text x="504" y="668"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="160" font-weight="900" letter-spacing="0.05em"
+        text-anchor="middle" fill="#FFFFFF" text-rendering="geometricPrecision">HUMAN</text>
+
+  <!-- Glitch scanline accents -->
+  <rect x="130" y="370" width="748" height="2" fill="#00F2FF" opacity="0.08"/>
+  <rect x="180" y="510" width="648" height="2" fill="#FF9900" opacity="0.1"/>
+  <rect x="150" y="640" width="708" height="1.5" fill="#00F2FF" opacity="0.06"/>
+
+  <!-- ============================================ -->
+  <!-- MIDDLE GRADIENT BAR                          -->
+  <!-- ============================================ -->
+  <rect x="160" y="710" width="688" height="3" rx="1.5" fill="url(#goldGradient)" opacity="0.6"/>
+
+  <!-- ============================================ -->
+  <!-- TAGLINE                                      -->
+  <!-- ============================================ -->
+  <text x="504" y="760"
+        font-family="'Geist', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="15" font-weight="400" letter-spacing="0.08em"
+        text-anchor="middle" fill="#A3A3A3" text-rendering="geometricPrecision">
+    <tspan x="504" dy="0">AS AI SHIFTS FROM A TOOL WE USE TO AN AGENT THAT ACTS,</tspan>
+    <tspan x="504" dy="24">THE BOUNDARY BETWEEN HUMAN AND MACHINE IS DISAPPEARING.</tspan>
+  </text>
+
+  <!-- POWERED BY -->
+  <text x="504" y="825"
+        font-family="'Geist Mono', 'SF Mono', 'Fira Code', monospace"
+        font-size="10" font-weight="500" letter-spacing="0.3em"
+        text-anchor="middle" fill="#525252" text-rendering="geometricPrecision">
+    POWERED BY THE DEVSA COMMUNITY
+  </text>
+
+  <!-- ============================================ -->
+  <!-- LOWER GRADIENT BAR                           -->
+  <!-- ============================================ -->
+  <rect x="120" y="855" width="768" height="2" rx="1" fill="url(#aztecGradient)" opacity="0.4"/>
+
+  <!-- ============================================ -->
+  <!-- SPONSORS & PARTNERS — Section Label          -->
+  <!-- ============================================ -->
+  <text x="504" y="895"
+        font-family="'Geist Mono', 'SF Mono', 'Fira Code', monospace"
+        font-size="9" font-weight="500" letter-spacing="0.3em"
+        text-anchor="middle" fill="#737373" text-rendering="geometricPrecision">
+    SPONSORS &amp; PARTNERS
+  </text>
+
+  <!-- ============================================ -->
+  <!-- LOGO ROW — 5 logos, visually balanced        -->
+  <!-- Order: v0, Digital Canvas, DevSA,            -->
+  <!--        Geekdom, Lean Techniques               -->
+  <!-- Logo widths: 67+119+67+132+186=571, gaps: 49px -->
+  <!-- Visual vertical center: y ≈ 947             -->
+  <!-- ============================================ -->
+
+  <!-- ——— 1. v0 by Vercel ——— -->
+  <!-- viewBox 24×18, paths span y:6–18 → scale 2.8 -->
+  <!-- Content offset: 6×2.8=16.8px → y=914 aligns center to 947 -->
+  <g transform="translate(120, 914)">
+    <g transform="scale(2.8)">
+      <path d="M14.066 6.028v2.22h5.729q.075-.001.148.005l-5.853 5.752a2 2 0 0 1-.024-.309V8.247h-2.353v5.45c0 2.322 1.935 4.222 4.258 4.222h5.675v-2.22h-5.675q-.03 0-.059-.003l5.729-5.629q.006.082.006.166v5.465H24v-5.465a4.204 4.204 0 0 0-4.205-4.205zM0 8.245l8.28 9.266c.839.94 2.396.346 2.396-.914V8.245H8.19v5.44l-4.86-5.44Z" fill="#FFFFFF"/>
+    </g>
+  </g>
+
+  <!-- ——— 2. Digital Canvas Network ——— -->
+  <!-- viewBox 394.95×165.31 → scale 0.302 = 119×50px -->
+  <g transform="translate(236, 922) scale(0.302)">
+    <g fill="#FFFFFF">
+      <path d="M0,3.03h11.94c8.4,0,41.88,0,41.88,35.21s-31.06,35.61-37.74,35.61H0V3.03Z"/>
+      <path d="M62.42,3.03h25.29v70.82h-25.29V3.03Z"/>
+      <path d="M96.31,39.56c0-22.46,16.89-37.74,40.67-37.74v37.43h26.91v25.7c-6.37,6.17-16.89,10.12-28.33,10.12-23.98,0-39.25-13.96-39.25-35.51Z"/>
+      <path d="M173.2,3.03h25.29v70.82h-25.29V3.03Z"/>
+      <path d="M207.4,3.03h62.02v24.89h-17.5v45.93h-25.29V27.92h-19.22V3.03Z"/>
+      <path d="M299.97,0l37.53,73.85h-75.07L299.97,0Z"/>
+      <path d="M344.08,3.03h25.29v45.93h25.49v24.89h-50.79V3.03Z"/>
+    </g>
+    <g fill="#FFFFFF">
+      <path d="M52.86,158.42c-5.17,4.59-11.81,6.89-19.9,6.89-6.55,0-12.35-1.54-17.4-4.63-5.04-3.08-8.9-7.34-11.56-12.77-2.67-5.43-4-11.52-4-18.26s1.35-12.85,4.05-18.31c2.7-5.46,6.55-9.75,11.57-12.87,5.01-3.12,10.79-4.67,17.35-4.67,7.84,0,14.34,2.2,19.52,6.6,5.17,4.4,8.47,10.59,9.88,18.55l-15.13.58c-.84-4.3-2.52-7.61-5.06-9.93-2.54-2.31-5.7-3.47-9.49-3.47s-7.1,1-9.73,2.99c-2.64,1.99-4.61,4.77-5.93,8.34-1.32,3.57-1.98,7.63-1.98,12.19s.66,8.58,1.98,12.05c1.32,3.47,3.29,6.22,5.93,8.24,2.63,2.03,5.88,3.04,9.73,3.04s7.24-1.25,9.78-3.76c2.54-2.51,4.16-6.07,4.87-10.7l15.32.58c-1.35,8.29-4.61,14.73-9.78,19.32Z"/>
+      <path d="M90.4,95.34h17.35l24.58,68.43h-15.13l-5.01-14.55h-26.31l-5.11,14.55h-15.03l24.67-68.43ZM108.14,137.27l-9.06-26.6-9.16,26.6h18.22Z"/>
+      <path d="M156.52,95.34l26.99,46.84v-46.84h14.65v68.43h-16.67l-26.5-45.3v45.3h-14.65v-68.43h16.19Z"/>
+      <path d="M222.73,95.34l18.31,51.85,18.02-51.85h15.23l-24.67,68.43h-17.15l-24.77-68.43h15.04Z"/>
+      <path d="M294.15,95.34h17.35l24.58,68.43h-15.13l-5.01-14.55h-26.31l-5.11,14.55h-15.04l24.67-68.43ZM311.88,137.27l-9.06-26.6-9.16,26.6h18.22Z"/>
+      <path d="M356.6,147c1.28,1.8,3,3.2,5.16,4.19,2.15,1,4.64,1.49,7.47,1.49,2.12,0,4.01-.29,5.69-.87,1.67-.58,2.94-1.44,3.81-2.6.87-1.16,1.3-2.54,1.3-4.14,0-2.51-1.16-4.56-3.47-6.17-2.31-1.6-6.17-3.05-11.57-4.34-7.9-1.86-13.94-4.43-18.12-7.71-4.18-3.28-6.27-7.55-6.27-12.82,0-4.11,1.09-7.69,3.28-10.75,2.18-3.05,5.24-5.4,9.16-7.04,3.92-1.64,8.42-2.46,13.49-2.46s9.49.96,13.44,2.89c3.95,1.93,7.13,4.64,9.54,8.14,2.41,3.5,3.87,7.53,4.38,12.1l-14.65.67c-.26-2.31-.95-4.37-2.07-6.17-1.12-1.8-2.62-3.16-4.48-4.1-1.87-.93-4.02-1.4-6.46-1.4-3.21,0-5.81.77-7.81,2.31-1.99,1.54-2.93,3.57-2.8,6.07.06,1.67.67,3.08,1.83,4.24,1.16,1.16,2.63,2.09,4.43,2.79,1.8.71,4.11,1.41,6.94,2.12.32.06.67.16,1.06.29,7.97,1.8,14.13,4.4,18.5,7.81,4.37,3.41,6.55,7.71,6.55,12.91,0,4.24-1.16,7.9-3.47,10.99-2.31,3.08-5.44,5.43-9.4,7.04-3.95,1.61-8.4,2.41-13.35,2.41-5.59,0-10.54-.96-14.84-2.89-4.31-1.93-7.73-4.69-10.26-8.29-2.54-3.6-3.97-7.74-4.29-12.43l14.65-.77c.45,2.51,1.32,4.66,2.6,6.46Z"/>
+    </g>
+  </g>
+
+  <!-- ——— 3. DevSA (original brand colors) ——— -->
+  <!-- viewBox 735.7×551.8 → scale 0.0906 = 67×50px -->
+  <g transform="translate(404, 922) scale(0.0906)">
+    <path d="M0,107.3h735.7v413.8c0,16.8-13.8,30.7-30.7,30.7H30.6c-16.9,0-30.6-13.8-30.6-30.7V107.3Z" fill="#000000"/>
+    <rect x="250.3" width="235" height="91.9" fill="#EF426F"/>
+    <path d="M235,0H30.6C13.8,0,0,13.8,0,30.6v61.3h235V0Z" fill="#00B2A9"/>
+    <path d="M705,0h-204.5v91.9h235.1V30.6c0-16.9-13.8-30.6-30.7-30.6h0Z" fill="#FF8200"/>
+    <g>
+      <path d="M352.5,459.8c0,9.2,6.1,15.3,15.3,15.3h245.2c9.2,0,15.3-6.1,15.3-15.3v-46c0-9.2-6.1-15.3-15.3-15.3h-245.3c-9.2,0-15.3,6.1-15.3,15.3v46h0Z" fill="#eeeeee"/>
+      <path d="M193.1,320.3l-95,95c-7.7,7.7-7.7,18.4,0,24.5l27.6,27.6c7.7,7.7,18.4,7.7,24.5,0l134.9-134.9c6.8-5.6,7.7-15.7,2.1-22.4-.6-.8-1.3-1.5-2.1-2.1l-134.9-134.9c-6.1-6.1-18.4-6.1-24.5,0l-27.6,27.6c-7.7,6.1-7.7,16.9,0,24.5l95,95h0Z" fill="#eeeeee"/>
+      <path d="M370.3,359.6c-11.3-8.5-17.2-20.8-17.8-36.8l49.2,1.1c.5,8.5,4.2,12.8,11,13,2.5,0,4.6-.5,6.4-1.6,1.8-1.1,2.7-3,2.7-5.5,0-3.5-1.7-6.3-5.4-8.6-3.7-2.2-9.5-4.8-17.4-7.8-9.4-3.5-17.1-7-23.2-10.3-6.1-3.3-11.3-8.1-15.6-14.3-4.3-6.2-6.3-14.1-5.9-23.7.2-9.6,2.9-17.7,8-24.3s12-11.6,20.6-14.9c8.6-3.3,18.3-4.8,29-4.6,18.1.4,32.3,4.9,42.8,13.5,10.5,8.6,15.8,20.5,16,35.6l-49.9-1.1c0-4.2-1-7.2-2.9-9-1.9-1.9-4.2-2.8-7-2.9-2,0-3.6.6-4.8,1.9s-2,3.1-2,5.5c0,3.3,1.7,6.1,5.3,8.4,3.6,2.2,9.5,5,17.5,8.2,9.2,3.7,16.8,7.2,22.8,10.5,6,3.3,11.1,7.9,15.4,13.7,4.3,5.8,6.4,13,6.2,21.6-.2,9-2.6,17.1-7.2,24.1-4.6,7.1-11.2,12.5-19.8,16.3-8.6,3.8-18.7,5.6-30.4,5.4-17.7-.4-32.1-4.9-43.4-13.4h0Z" fill="#eeeeee"/>
+      <path d="M573.3,348.2l-48.5-.3-7.3,22-47.9-.3,54.1-145.2,52.6.3,52.2,145.8-48.1-.3-7.1-22h0ZM561.4,318l-13.6-40.3-12.7,40.6,26.3-.3h0Z" fill="#eeeeee"/>
+    </g>
+  </g>
+
+  <!-- ——— 4. Geekdom (inverted to white) ——— -->
+  <!-- viewBox 375×142 → scale 0.352 = 132×50px -->
+  <g transform="translate(520, 922) scale(0.352)">
+    <path d="M37.57,13.73L26.94,5.8c-0.05-0.04-0.12-0.04-0.18,0l-10.63,7.93c-0.05,0.04-0.11,0.04-0.16,0.01l-8.8-5.15C7.07,8.53,6.95,8.6,6.95,8.71v17.25c0,0.11,0.12,0.18,0.21,0.13c3.19-1.7,6.55-2.96,9.99-3.78c5.38-1.28,10.95-1.48,16.39-0.6c1.01,0.16,2.01,0.36,3.01,0.6c3.44,0.82,6.8,2.08,9.99,3.78c0.1,0.05,0.21-0.02,0.21-0.13V8.71c0-0.11-0.12-0.19-0.22-0.13l-8.8,5.15C37.68,13.77,37.62,13.77,37.57,13.73" fill="#FFFFFF"/>
+    <path d="M36.58,27.28c-0.02,0-0.05,0-0.07,0c-0.99,0.23-1.98,0.43-2.97,0.59c-5.43,0.88-10.99,0.68-16.35-0.59c-0.02,0-0.05,0-0.07,0c-3.42,0.82-6.76,2.07-9.94,3.76c-0.11,0.06-0.11,0.21,0,0.27c8.19,4.3,17.45,5.73,26.36,4.31c4.47-0.71,8.86-2.15,12.97-4.31c0.11-0.06,0.11-0.21,0-0.27C43.34,29.35,40,28.1,36.58,27.28" fill="#FFFFFF"/>
+    <path d="M33.54,92.9V62.83c0-0.24-0.19-0.43-0.43-0.43h-8.95c-2.08,0-4,1.74-4,4V88.9c0,2.44,1.99,4.43,4.43,4.43h8.52C33.35,93.33,33.54,93.14,33.54,92.9 M33.54,48.75v-3.48c0-0.24,0.19-0.43,0.43-0.43h12.34c0.24,0,0.43,0.19,0.43,0.43v74.04c0,7.53-6.11,13.64-13.64,13.64H20.59c-0.24,0-0.43-0.19-0.43-0.43v-12.34c0-0.24,0.19-0.43,0.43-0.43h8.95c2.09,0,4-1.74,4-4v-8.78c0-0.24-0.19-0.43-0.43-0.43H20.59c-7.54,0-13.65-6.11-13.65-13.64V62.83c0-7.53,6.11-13.64,13.65-13.64h12.51C33.35,49.19,33.54,48.99,33.54,48.75" fill="#FFFFFF"/>
+    <path d="M69.95,71.26h12.51c0.24,0,0.43-0.19,0.43-0.43v-4.43c0-2.26-1.91-4-4-4h-5.39c-2.08,0-4,1.74-4,4v4.43C69.52,71.06,69.71,71.26,69.95,71.26 M82.47,49.19c7.53,0,13.64,6.11,13.64,13.64v21.21c0,0.24-0.19,0.43-0.43,0.43H69.95c-0.24,0-0.43,0.19-0.43,0.43v4c0,2.44,1.99,4.43,4.43,4.43h15.12c0.24,0,0.43,0.19,0.43,0.43v12.34c0,0.24-0.19,0.43-0.43,0.43H69.95c-7.54,0-13.65-6.11-13.65-13.64V62.83c0-7.53,6.11-13.64,13.65-13.64H82.47z" fill="#FFFFFF"/>
+    <path d="M118.27,71.26h12.51c0.24,0,0.43-0.19,0.43-0.43v-4.43c0-2.26-1.91-4-4-4h-5.39c-2.08,0-4,1.74-4,4v4.43C117.84,71.06,118.03,71.26,118.27,71.26 M130.79,49.19c7.53,0,13.64,6.11,13.64,13.64v21.21c0,0.24-0.19,0.43-0.43,0.43h-25.72c-0.24,0-0.43,0.19-0.43,0.43v4c0,2.44,1.99,4.43,4.43,4.43h15.12c0.24,0,0.43,0.19,0.43,0.43v12.34c0,0.24-0.19,0.43-0.43,0.43h-19.12c-7.54,0-13.65-6.11-13.65-13.64V62.83c0-7.53,6.11-13.64,13.65-13.64H130.79z" fill="#FFFFFF"/>
+    <path d="M202.62,49.92l-15.75,15.92c-0.12,0.12-0.16,0.31-0.09,0.47l16.33,39.63c0.12,0.29-0.09,0.6-0.4,0.6h-13.31c-0.17,0-0.33-0.11-0.4-0.27l-12.33-29.55c-0.12-0.29-0.49-0.36-0.71-0.14l-8.8,8.8c-0.08,0.08-0.13,0.19-0.13,0.31v20.42c0,0.24-0.19,0.43-0.43,0.43h-12.34c-0.24,0-0.43-0.19-0.43-0.43V27.55c0-0.24,0.19-0.43,0.43-0.43h12.34c0.24,0,0.43,0.19,0.43,0.43v38.14c0,0.39,0.47,0.58,0.74,0.31l16.69-16.69c0.08-0.08,0.19-0.13,0.31-0.13h17.55C202.7,49.18,202.89,49.65,202.62,49.92" fill="#FFFFFF"/>
+    <path d="M235.78,92.9V62.83c0-0.24-0.19-0.43-0.43-0.43H227c-2.45,0-4.43,1.98-4.43,4.43v22.51c0,2.08,1.74,4,4,4h8.78C235.58,93.33,235.78,93.14,235.78,92.9 M235.78,48.75V27.55c0-0.24,0.19-0.43,0.43-0.43h12.34c0.24,0,0.43,0.19,0.43,0.43v78.56c0,0.24-0.19,0.43-0.43,0.43H223c-7.54,0-13.65-6.11-13.65-13.64V62.83c0-7.53,6.11-13.64,13.65-13.64h12.34C235.58,49.19,235.78,48.99,235.78,48.75" fill="#FFFFFF"/>
+    <path d="M285.83,66.39c0-2.26-1.74-4-3.82-4h-4.95c-2.45,0-4.43,1.98-4.43,4.43v22.51c0,2.08,1.74,4,4,4h4.78c2.44,0,4.43-2,4.43-4.43V66.39z M285.4,49.19c7.63,0,13.82,6.19,13.82,13.82v29.9c0,7.53-6.11,13.64-13.64,13.64h-12.51c-7.54,0-13.65-6.11-13.65-13.64V62.83c0-7.53,6.11-13.64,13.65-13.64H285.4z" fill="#FFFFFF"/>
+    <path d="M353.36,49.19c7.53,0,13.64,6.11,13.64,13.64v43.28c0,0.24-0.19,0.43-0.43,0.43h-12.34c-0.24,0-0.43-0.19-0.43-0.43V66.83c0-2.45-1.98-4.43-4.43-4.43c-2.45,0-4.43,1.98-4.43,4.43v39.28c0,0.24-0.19,0.43-0.43,0.43h-12.34c-0.24,0-0.43-0.19-0.43-0.43V66.83c0-2.45-1.98-4.43-4.43-4.43c-2.45,0-4.43,1.98-4.43,4.43v39.28c0,0.24-0.19,0.43-0.43,0.43h-12.34c-0.24,0-0.43-0.19-0.43-0.43V45.27c0-0.24,0.19-0.43,0.43-0.43h12.34c0.24,0,0.43,0.19,0.43,0.43v3.48c0,0.24,0.19,0.43,0.43,0.43h8.43c2.19,0,4.37,0.49,6.4,1.62c0.13,0.07,0.28,0.07,0.41,0c2.03-1.13,4.21-1.62,6.4-1.62H353.36z" fill="#FFFFFF"/>
+  </g>
+
+  <!-- ——— 5. Lean Techniques (traced from PNG) ——— -->
+  <!-- Potrace viewBox 360×136.8 → effective content ~186×31px -->
+  <g transform="translate(701, 932) scale(0.636) translate(-32.16, -44.88)">
+    <g transform="translate(0,136.8) scale(0.024,-0.024)" fill="#FFFFFF" stroke="none">
+      <path d="M1340 2850 l0 -1640 1491 0 1492 0 -7 46 c-3 26 -6 93 -6 150 l0 104 -1329 0 -1328 0 -7 46 c-8 59 -8 2571 0 2602 l6 22 1344 0 1344 0 0 -690 0 -690 150 0 150 0 0 845 0 845 -1650 0 -1650 0 0 -1640z"/>
+      <path d="M5540 3415 l0 -415 245 0 245 0 0 50 0 50 -190 0 -190 0 0 365 0 365 -55 0 -55 0 0 -415z"/>
+      <path d="M6320 3415 l0 -415 269 0 269 0 6 16 c4 9 4 32 0 50 l-6 34 -214 0 -215 0 3 138 3 137 213 3 212 2 0 45 0 45 -212 2 -213 3 -3 128 -3 127 215 0 215 0 6 10 c4 6 4 29 0 50 l-7 40 -269 0 -269 0 0 -415z"/>
+      <path d="M7381 3808 c-5 -13 -76 -192 -159 -398 -83 -207 -154 -383 -158 -393 l-6 -17 60 0 60 0 35 88 35 87 208 3 209 2 36 -87 35 -88 62 -3 62 -3 -17 44 c-10 23 -85 210 -168 415 l-150 372 -68 0 -67 0 -9 -22z m166 -311 l82 -212 -166 -3 c-91 -1 -168 0 -171 2 -2 3 33 102 79 220 46 118 86 212 89 209 3 -2 42 -100 87 -216z"/>
+      <path d="M8070 3415 l0 -415 49 0 50 0 5 18 c3 9 4 153 3 320 -2 166 0 302 4 302 4 0 109 -144 235 -320 l229 -319 53 -1 52 0 0 415 0 415 -55 0 -55 0 -2 -315 -3 -315 -230 315 -230 315 -52 0 -53 0 0 -415z"/>
+      <path d="M2030 2860 l0 -680 555 0 555 0 0 80 0 80 -475 0 -475 0 0 600 0 600 -80 0 -80 0 0 -680z"/>
+      <path d="M2940 3435 l0 -85 189 0 c104 0 203 -3 220 -6 l31 -6 0 -579 0 -579 85 0 85 0 0 585 0 585 214 0 214 0 5 33 c2 17 2 56 -1 85 l-5 52 -518 0 -519 0 0 -85z"/>
+      <path d="M7357 2620 c-298 -105 -385 -474 -166 -705 l49 -52 72 -33 72 -33 96 -5 96 -4 55 15 c72 21 142 69 190 130 50 63 52 58 -37 100 l-77 36 -21 -27 c-28 -37 -45 -50 -91 -72 l-40 -20 -50 0 -50 0 -51 24 -50 23 -32 39 c-80 97 -84 247 -9 346 l32 43 54 28 55 27 50 0 51 0 43 -20 c23 -10 58 -36 76 -56 l34 -38 66 28 c36 15 70 34 76 40 l10 13 -29 39 c-39 54 -86 92 -151 123 l-55 25 -105 3 -105 3 -58 -20z"/>
+      <path d="M10599 2621 c-107 -34 -181 -100 -230 -206 l-28 -60 -10 -70 -10 -70 9 -67 c18 -123 71 -219 157 -283 l48 -35 69 -21 68 -22 92 5 91 5 53 25 52 25 35 -38 c42 -47 42 -47 85 -10 l35 29 -39 41 -39 40 26 38 c40 59 65 123 77 199 l11 70 -11 70 c-27 171 -129 294 -279 338 l-55 16 -75 -1 -76 0 -56 -18z m262 -102 l49 -21 36 -40 c20 -23 46 -61 58 -87 l21 -46 0 -110 0 -110 -29 -59 -29 -60 -58 62 c-67 71 -67 71 -102 34 -35 -36 -36 -34 25 -99 l53 -55 -19 -13 c-10 -8 -44 -19 -74 -26 l-55 -11 -55 11 c-107 21 -184 87 -222 189 l-20 53 0 84 0 84 20 54 c62 165 236 237 401 166z"/>
+      <path d="M13242 2621 l-53 -18 -36 -34 c-68 -65 -91 -158 -58 -236 31 -74 82 -105 252 -154 174 -50 218 -82 218 -159 0 -48 -26 -85 -78 -112 l-42 -22 -70 0 -70 0 -58 27 c-32 15 -76 40 -97 57 l-38 30 -27 -36 -28 -37 10 -16 c5 -9 29 -31 52 -48 l42 -33 70 -21 70 -21 97 4 97 4 45 23 c82 42 125 99 136 184 l6 42 -12 45 c-25 95 -84 138 -265 190 -232 67 -291 172 -139 245 l39 18 55 0 c75 0 129 -17 189 -58 l50 -35 30 37 31 37 -18 19 c-51 57 -166 97 -277 97 l-70 -1 -53 -18z"/>
+      <path d="M5470 2550 l0 -80 120 0 120 0 0 -335 0 -335 95 0 95 0 0 335 0 335 115 0 115 0 0 80 0 80 -330 0 -330 0 0 -80z"/>
+      <path d="M6320 2215 l0 -415 295 0 295 0 0 80 0 80 -199 0 -198 0 -7 31 c-3 17 -6 46 -6 64 0 18 3 47 6 64 l7 31 193 0 194 0 0 75 0 75 -194 0 -193 0 -7 42 c-4 22 -4 61 0 85 l6 43 199 0 199 0 0 80 0 80 -295 0 -295 0 0 -415z"/>
+      <path d="M8040 2215 l0 -415 90 0 90 0 0 175 0 175 190 0 190 0 0 -175 0 -175 90 0 90 0 0 415 0 415 -90 0 -90 0 0 -160 0 -160 -190 0 -190 0 0 160 0 160 -90 0 -90 0 0 -415z"/>
+      <path d="M9030 2215 l0 -415 55 0 55 0 2 326 3 325 235 -325 235 -326 53 0 52 0 0 415 0 415 -55 0 -55 0 0 -321 0 -322 -232 321 -233 322 -57 0 -58 0 0 -415z"/>
+      <path d="M9990 2215 l0 -415 55 0 55 0 0 415 0 415 -55 0 -55 0 0 -415z"/>
+      <path d="M11394 2615 c-4 -8 -4 -142 -2 -298 l5 -282 21 -55 c12 -30 35 -72 52 -92 l30 -37 58 -28 57 -28 115 0 115 0 50 23 c65 30 118 83 147 146 l23 51 3 308 3 308 -53 -3 -53 -3 -5 -295 -5 -295 -21 -40 c-25 -46 -45 -66 -94 -90 l-35 -18 -70 -1 -70 0 -40 21 c-46 24 -75 53 -101 103 l-19 35 -3 293 -3 292 -50 0 -50 0 -5 -15z"/>
+      <path d="M12330 2215 l0 -415 270 0 270 0 0 50 0 50 -220 0 -221 0 3 138 3 137 213 3 212 2 0 45 0 45 -212 2 -213 3 -3 128 -3 127 221 0 220 0 0 50 0 50 -270 0 -270 0 0 -415z"/>
+    </g>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- BOTTOM: Aztec corners + footer               -->
+  <!-- ============================================ -->
+  <g transform="translate(80, 1050) scale(1,-1)">
+    <rect width="8" height="64" fill="#FFFFFF" opacity="0.3"/>
+    <rect width="64" height="8" fill="#FFFFFF" opacity="0.3"/>
+    <rect x="16" y="16" width="4" height="28" fill="#FF9900" opacity="0.7"/>
+    <rect x="16" y="16" width="28" height="4" fill="#FF9900" opacity="0.7"/>
+    <rect x="30" y="30" width="3" height="16" fill="#00F2FF" opacity="0.5"/>
+    <rect x="30" y="30" width="16" height="3" fill="#00F2FF" opacity="0.5"/>
+  </g>
+  <g transform="translate(928, 1050) scale(-1,-1)">
+    <rect width="8" height="64" fill="#FFFFFF" opacity="0.3"/>
+    <rect width="64" height="8" fill="#FFFFFF" opacity="0.3"/>
+    <rect x="16" y="16" width="4" height="28" fill="#FF9900" opacity="0.7"/>
+    <rect x="16" y="16" width="28" height="4" fill="#FF9900" opacity="0.7"/>
+    <rect x="30" y="30" width="3" height="16" fill="#00F2FF" opacity="0.5"/>
+    <rect x="30" y="30" width="16" height="3" fill="#00F2FF" opacity="0.5"/>
+  </g>
+
+  <!-- FOOTER -->
+  <text x="504" y="1074"
+        font-family="'Geist Mono', 'SF Mono', 'Fira Code', monospace"
+        font-size="10" font-weight="500" letter-spacing="0.35em"
+        text-anchor="middle" fill="#525252" text-rendering="geometricPrecision">
+    SAN ANTONIO, TX • 2026
+  </text>
+</svg>
