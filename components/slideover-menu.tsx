@@ -119,10 +119,10 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                   </h2>
                   <p className="font-(family-name:--font-geist-pixel-square) text-[13px] leading-[1.8] font-normal text-white/50">
                     Powered by{" "}
-                    <span className="text-[#ff9900] font-semibold">DEVSA</span>
-                    {" x "}
                     <span className="text-[#ff9900] font-semibold">434 MEDIA</span>
-                    , Digital Canvas connects creativity, community, and technology through curated conferences, workshops, storytelling, and agentic tools.
+                    {" x "}
+                    <span className="text-[#ff9900] font-semibold">DEVSA</span>, {" "}
+                    Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.
                   </p>
                 </motion.div>
 

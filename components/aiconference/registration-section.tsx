@@ -1,13 +1,11 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "motion/react"
 
 // Aztec-inspired geometric pattern for background
 function AztecBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Grid pattern */}
       <div 
         className="absolute inset-0 opacity-[0.03]"
         style={{
@@ -18,7 +16,6 @@ function AztecBackground() {
           backgroundSize: '60px 60px',
         }}
       />
-      {/* Gradient overlays */}
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-[#fbbf24]/5 blur-[200px]" />
       <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[#ff9900]/5 blur-[200px]" />
     </div>
@@ -56,53 +53,6 @@ function AztecBorder() {
 }
 
 export function RegistrationSection() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    company: "",
-    subscribeToFeed: true,
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }))
-    if (error) setError(null)
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError(null)
-
-    try {
-      const response = await fetch("/api/event-registration", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || "Registration failed")
-      }
-
-      setIsSubmitted(true)
-    } catch (err) {
-      console.error("Registration error:", err)
-      setError(err instanceof Error ? err.message : "Registration failed. Please try again.")
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
   return (
     <section id="register" className="relative py-20 sm:py-28 bg-[#0a0a0a] overflow-hidden" data-bg-type="dark">
       <AztecBackground />
@@ -113,180 +63,85 @@ export function RegistrationSection() {
       <div className="absolute bottom-0 left-0 z-10"><AztecCornerLarge position="bottom-left" /></div>
       <div className="absolute bottom-0 right-0 z-10"><AztecCornerLarge position="bottom-right" /></div>
       
-      <div className="relative max-w-2xl mx-auto px-4 sm:px-6">
+      <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-10 sm:mb-12"
         >
           <div className="max-w-md mx-auto mb-8">
             <AztecBorder />
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white uppercase tracking-tight mb-4">
-            Register
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white uppercase tracking-tight leading-[0.9] mb-4">
+            Sold Out
           </h2>
-          <p className="text-[#a3a3a3] text-lg leading-relaxed">
-            Join San Antonio's builders, dreamers, and technologists as we explore how AI is transforming the way we write code, test, automate, and ship
+          <p className="text-[#a3a3a3] text-sm sm:text-base leading-[1.7] font-normal max-w-xl mx-auto">
+            This event has reached venue capacity.{" "}
+            Can&apos;t make it in person? Watch every session{" "}
+            <strong className="text-[#ff5f56] font-bold">streamed live</strong>{" "}
+            on the DEVSA YouTube channel.
           </p>
-          <p className="text-[#ff9900] text-base font-semibold mt-2 uppercase tracking-widest">
-            February 28, 2026 • Geekdom
+          <p className="text-[#ff9900] text-xs sm:text-sm font-semibold mt-3 uppercase tracking-widest leading-relaxed">
+            February 28, 2026 &bull; Geekdom &bull; Free Event
           </p>
         </motion.div>
 
-        {/* Registration Form */}
+        {/* Live Stream Embed */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
         >
-          {isSubmitted ? (
-            <div className="border border-[#27ca40]/50 bg-[#27ca40]/10 p-8 text-center">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 border border-[#27ca40] bg-[#0a0a0a]">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#27ca40" strokeWidth="2">
-                  <polyline points="20,6 9,17 4,12" />
-                </svg>
+          <div className="border border-[#333] bg-[#111] p-4 sm:p-6">
+            {/* Live badge + title row */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2.5">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff5f56] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#ff5f56]" />
+                </span>
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-[#ff5f56] font-bold leading-none">
+                  Live Stream
+                </span>
               </div>
-              <h3 className="text-2xl font-bold text-white uppercase tracking-wide mb-3">
-                You&apos;re Registered!
-              </h3>
-              <p className="text-[#a3a3a3] text-base leading-relaxed mb-2">
-                Thank you for registering for More Human Than Human.
-              </p>
-              <p className="text-[#737373] text-sm leading-relaxed">
-                We&apos;ll send event details and updates to your email.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="border border-[#333] bg-[#111] p-6 sm:p-8">
-              {error && (
-                <div className="mb-6 p-4 border border-[#ff5f56]/50 bg-[#ff5f56]/10 text-[#ff5f56] text-sm font-medium">
-                  {error}
-                </div>
-              )}
-
-              <div className="grid sm:grid-cols-2 gap-4 mb-4">
-                {/* First Name */}
-                <div>
-                  <label htmlFor="firstName" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#737373] mb-2">
-                    First Name <span className="text-[#ff9900]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full bg-[#0a0a0a] border border-[#333] px-4 py-3 text-white text-sm font-normal leading-relaxed placeholder:text-[#525252] focus:outline-none focus:border-[#ff9900] transition-colors"
-                    placeholder="John"
-                  />
-                </div>
-
-                {/* Last Name */}
-                <div>
-                  <label htmlFor="lastName" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#737373] mb-2">
-                    Last Name <span className="text-[#ff9900]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full bg-[#0a0a0a] border border-[#333] px-4 py-3 text-white text-sm font-normal leading-relaxed placeholder:text-[#525252] focus:outline-none focus:border-[#ff9900] transition-colors"
-                    placeholder="Doe"
-                  />
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="mb-4">
-                <label htmlFor="email" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#737373] mb-2">
-                  Email <span className="text-[#ff9900]">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full bg-[#0a0a0a] border border-[#333] px-4 py-3 text-white text-sm font-normal leading-relaxed placeholder:text-[#525252] focus:outline-none focus:border-[#ff9900] transition-colors"
-                  placeholder="john@example.com"
-                />
-              </div>
-
-              {/* Company */}
-              <div className="mb-6">
-                <label htmlFor="company" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#737373] mb-2">
-                  Company <span className="text-[#525252]">(Optional)</span>
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  className="w-full bg-[#0a0a0a] border border-[#333] px-4 py-3 text-white text-sm font-normal leading-relaxed placeholder:text-[#525252] focus:outline-none focus:border-[#ff9900] transition-colors"
-                  placeholder="Acme Inc."
-                />
-              </div>
-
-              {/* Subscribe to Feed */}
-              <div className="mb-8">
-                <label className="flex items-start gap-3 cursor-pointer group">
-                  <div className="relative mt-0.5">
-                    <input
-                      type="checkbox"
-                      name="subscribeToFeed"
-                      checked={formData.subscribeToFeed}
-                      onChange={handleInputChange}
-                      className="sr-only peer"
-                    />
-                    <div className="w-5 h-5 border border-[#333] bg-[#0a0a0a] peer-checked:bg-[#ff9900] peer-checked:border-[#ff9900] transition-colors flex items-center justify-center">
-                      {formData.subscribeToFeed && (
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" strokeWidth="3">
-                          <polyline points="20,6 9,17 4,12" />
-                        </svg>
-                      )}
-                    </div>
-                  </div>
-                  <span className="text-[#a3a3a3] text-sm leading-relaxed group-hover:text-white transition-colors">
-                    Subscribe to THE FEED and access our latest newsletters, articles, videos, and podcasts from the Digital Canvas community.
-                  </span>
-                </label>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-[#fbbf24] text-[#0a0a0a] font-bold text-sm uppercase tracking-widest py-4 px-6 transition-all hover:bg-[#ff9900] disabled:opacity-50 disabled:cursor-not-allowed"
+              <a
+                href="https://www.youtube.com/live/JOx9ObjlKAg?si=eXnLWhFAoPiF2EQH"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-1.5 text-[#a3a3a3] hover:text-[#ff5f56] font-semibold text-[10px] sm:text-xs uppercase tracking-widest transition-colors"
               >
-                {isSubmitting ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    Registering...
-                  </span>
-                ) : (
-                  "Register Now"
-                )}
-              </button>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-[#ff5f56]">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814Z" />
+                  <path d="M9.545 15.568V8.432L15.818 12l-6.273 3.568Z" fill="#0a0a0a" />
+                </svg>
+                <span>Open on YouTube</span>
+                <svg 
+                  className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-200" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            </div>
 
-              {/* Footer note */}
-              <p className="mt-6 text-center text-[#525252] font-mono text-[10px] uppercase tracking-[0.15em]">
-                Free Event • Limited Capacity
-              </p>
-            </form>
-          )}
+            {/* YouTube Embed */}
+            <div className="relative w-full aspect-video bg-black border border-[#222]">
+              <iframe
+                src="https://www.youtube.com/embed/JOx9ObjlKAg?si=eXnLWhFAoPiF2EQH"
+                title="More Human Than Human — Live Stream on DEVSA YouTube"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          </div>
         </motion.div>
 
         {/* Bottom border */}
@@ -294,8 +149,8 @@ export function RegistrationSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="max-w-md mx-auto mt-12"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="max-w-md mx-auto mt-12 sm:mt-14"
         >
           <AztecBorder />
         </motion.div>

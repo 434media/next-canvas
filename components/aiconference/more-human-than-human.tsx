@@ -7,6 +7,7 @@ import { SessionsSection } from "./sessions-section"
 import { CommunitySpotlight } from "./community-spotlight"
 import { SponsorsSection } from "./sponsors-section"
 import { RegistrationSection } from "./registration-section"
+import { ParkingSection } from "./parking-section"
 
 interface Track {
   id: string
@@ -283,7 +284,7 @@ export function MoreHumanThanHuman() {
                   As AI shifts from a tool we use to an agent that acts, the boundary between human and machine is disappearing. Join San Antonio&apos;s builders, dreamers, and technologists for a deep dive into how AI is fundamentally re-architecting the way we write code, secure the internet, and lead organizations.
                 </p>
                 <p className="text-[#ff9900] text-sm font-medium leading-relaxed">
-                  Powered by the <span className="font-bold">DEVSA Community</span>
+                  Powered by the <a href="https://devsa.community" target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-2 decoration-[#ff9900]/40 hover:decoration-[#ff9900] transition-colors">DEVSA Community</a>
                 </p>
               </motion.div>
 
@@ -296,16 +297,27 @@ export function MoreHumanThanHuman() {
               >
                 <a
                   href="#register"
-                  className="inline-flex items-center gap-3 bg-[#fbbf24] text-[#0a0a0a] font-bold text-xs sm:text-sm uppercase tracking-widest py-3 sm:py-4 px-6 sm:px-8 transition-all hover:bg-[#ff9900] hover:scale-[1.02]"
+                  className="group relative inline-flex items-center justify-center w-[140px] sm:w-40 bg-[#333] text-[#737373] font-extrabold text-xs sm:text-sm uppercase tracking-widest leading-none py-3 sm:py-4 transition-colors duration-200 hover:bg-[#ff5f56] hover:text-[#0a0a0a]"
                 >
-                  Register Now
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
+                  {/* Default: Sold Out */}
+                  <span className="inline-flex items-center gap-2.5 transition-opacity duration-200 group-hover:opacity-0">
+                    Sold Out
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  </span>
+                  {/* Hover: Watch Live */}
+                  <span className="absolute inset-0 inline-flex items-center justify-center gap-2.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814Z" />
+                      <path d="M9.545 15.568V8.432L15.818 12l-6.273 3.568Z" fill="#0a0a0a" />
+                    </svg>
+                    Watch Live
+                  </span>
                 </a>
                 <a
                   href="#sessions"
-                  className="inline-flex items-center gap-2 border border-[#333] text-white/70 font-semibold text-xs sm:text-sm uppercase tracking-widest py-3 sm:py-4 px-6 sm:px-8 transition-all hover:border-[#00f2ff] hover:text-[#00f2ff] hover:bg-[#00f2ff]/5"
+                  className="inline-flex items-center justify-center gap-2 w-[140px] sm:w-44 border border-[#333] text-white/70 font-semibold text-xs sm:text-sm uppercase tracking-widest leading-none py-3 sm:py-4 transition-all hover:border-[#00f2ff] hover:text-[#00f2ff] hover:bg-[#00f2ff]/5"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -599,7 +611,10 @@ export function MoreHumanThanHuman() {
       {/* Sponsors & Community Partners Section */}
       <SponsorsSection />
 
-      {/* Registration Section */}
+      {/* Parking Section */}
+      <ParkingSection />
+
+      {/* Registration / Sold Out + Live Stream Section */}
       <RegistrationSection />
     </main>
   )
