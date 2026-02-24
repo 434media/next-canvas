@@ -80,12 +80,12 @@ export function RegistrationSection() {
           </h2>
           <p className="text-[#a3a3a3] text-sm sm:text-base leading-[1.7] font-normal max-w-xl mx-auto">
             This event has reached venue capacity.{" "}
-            Can&apos;t make it in person? Watch every session{" "}
-            <strong className="text-[#ff5f56] font-bold">streamed live</strong>{" "}
+            Can&apos;t make it in person? Join us online, we are streaming every session{" "}
+            <strong className="text-[#ff5f56] font-bold">live</strong>{" "}
             on the DEVSA YouTube channel.
           </p>
           <p className="text-[#ff9900] text-xs sm:text-sm font-semibold mt-3 uppercase tracking-widest leading-relaxed">
-            February 28, 2026 &bull; Geekdom &bull; Free Event
+            February 28, 2026 &bull; Geekdom &bull; Watch the Livestream
           </p>
         </motion.div>
 
