@@ -899,6 +899,732 @@ function SpotlightCardWithDownload({ spotlight }: { spotlight: Spotlight }) {
   )
 }
 
+/* ─── Know Before You Go Cards (1080 × 1350) ─── */
+
+function KBYGVenueCard() {
+  return (
+    <div
+      className="relative shrink-0 overflow-hidden"
+      style={{
+        width: 1080,
+        height: 1350,
+        background: "linear-gradient(170deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%)",
+      }}
+    >
+      {/* Background grid */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `
+            linear-gradient(#ff9900 1px, transparent 1px),
+            linear-gradient(90deg, #ff9900 1px, transparent 1px)
+          `,
+          backgroundSize: "54px 54px",
+        }}
+      />
+      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-[#ff9900]/8 blur-[180px]" />
+      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-[#00f2ff]/6 blur-[160px]" />
+
+      {/* Corner decorations */}
+      <div className="absolute top-0 left-0"><AztecCornerSVG size={96} /></div>
+      <div className="absolute top-0 right-0 rotate-90"><AztecCornerSVG size={96} /></div>
+      <div className="absolute bottom-0 right-0 rotate-180"><AztecCornerSVG size={96} /></div>
+      <div className="absolute bottom-0 left-0 -rotate-90"><AztecCornerSVG size={96} /></div>
+
+      <div className="absolute inset-1.5 border border-[#262626]" />
+
+      <div className="relative flex flex-col h-full">
+        {/* Top bar */}
+        <div className="flex items-center justify-between px-14 pt-12 pb-6">
+          <div className="flex items-center gap-4">
+            <div className="h-[3px] w-12 bg-[#ff9900]" />
+            <span
+              className="uppercase tracking-[0.35em] text-[#737373]"
+              style={{ fontSize: 13, fontWeight: 500, fontFamily: "monospace" }}
+            >
+              Know Before You Go
+            </span>
+          </div>
+          <span
+            className="uppercase tracking-[0.25em] text-[#737373]"
+            style={{ fontSize: 12, fontWeight: 500, fontFamily: "monospace" }}
+          >
+            Feb 28, 2026 • <span className="text-[#ff9900]">Geekdom</span>
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col flex-1 px-14 pt-4">
+          {/* Badge */}
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-0.5 w-8 bg-[#00f2ff]" />
+            <span
+              className="uppercase tracking-[0.25em] text-[#00f2ff]"
+              style={{ fontSize: 14, fontWeight: 600, fontFamily: "monospace" }}
+            >
+              Venue Details
+            </span>
+          </div>
+
+          {/* Title */}
+          <h2
+            className="text-white uppercase mb-10"
+            style={{ fontSize: 72, fontWeight: 900, lineHeight: 0.95, letterSpacing: "0.02em" }}
+          >
+            More Human
+          </h2>
+          <h2
+            className="text-white uppercase mb-14"
+            style={{ fontSize: 72, fontWeight: 900, lineHeight: 0.95, letterSpacing: "0.02em" }}
+          >
+            Than Human
+          </h2>
+
+          <div className="h-[3px] bg-linear-to-r from-[#ff9900] via-[#00f2ff] to-[#ff9900] opacity-70 mb-14" />
+
+          {/* Venue info blocks */}
+          <div className="flex flex-col gap-12">
+            {/* Venue */}
+            <div>
+              <span
+                className="uppercase tracking-[0.25em] text-[#ff9900] block mb-3"
+                style={{ fontSize: 14, fontWeight: 700, fontFamily: "monospace", letterSpacing: "0.2em" }}
+              >
+                Venue
+              </span>
+              <p
+                className="text-white uppercase"
+                style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.03em" }}
+              >
+                Geekdom
+              </p>
+              <p
+                className="text-[#a3a3a3] mt-2"
+                style={{ fontSize: 24, fontWeight: 400, lineHeight: 1.5, letterSpacing: "0.01em" }}
+              >
+                110 E Houston St, San Antonio, TX 78205
+              </p>
+            </div>
+
+            {/* Date */}
+            <div>
+              <span
+                className="uppercase tracking-[0.25em] text-[#ff9900] block mb-3"
+                style={{ fontSize: 14, fontWeight: 700, fontFamily: "monospace", letterSpacing: "0.2em" }}
+              >
+                Date
+              </span>
+              <p
+                className="text-white uppercase"
+                style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.03em" }}
+              >
+                February 28, 2026
+              </p>
+              <p
+                className="text-[#a3a3a3] mt-2"
+                style={{ fontSize: 24, fontWeight: 400, lineHeight: 1.5, letterSpacing: "0.01em" }}
+              >
+                Saturday
+              </p>
+            </div>
+
+            {/* Time */}
+            <div>
+              <span
+                className="uppercase tracking-[0.25em] text-[#ff9900] block mb-3"
+                style={{ fontSize: 14, fontWeight: 700, fontFamily: "monospace", letterSpacing: "0.2em" }}
+              >
+                Time
+              </span>
+              <p
+                className="text-white uppercase"
+                style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.03em" }}
+              >
+                1:00 PM — 5:00 PM
+              </p>
+              <p
+                className="text-[#a3a3a3] mt-2"
+                style={{ fontSize: 24, fontWeight: 400, lineHeight: 1.5, letterSpacing: "0.01em" }}
+              >
+                Doors open at 12:30 PM
+              </p>
+            </div>
+          </div>
+
+          <div className="flex-1 min-h-4" />
+
+          {/* Footer */}
+          <div className="pb-12">
+            <div className="h-px bg-linear-to-r from-[#ff9900]/60 via-[#333] to-transparent mb-6" />
+            <div className="flex items-end justify-between">
+              <div>
+                <p
+                  className="text-[#737373] uppercase"
+                  style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.4, letterSpacing: "0.2em", fontFamily: "monospace" }}
+                >
+                  AI Conference
+                </p>
+                <p
+                  className="text-[#737373] uppercase"
+                  style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.4, letterSpacing: "0.2em", fontFamily: "monospace" }}
+                >
+                  San Antonio, TX
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-white uppercase" style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.08em" }}>
+                  More Human
+                </p>
+                <p className="text-white uppercase" style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.08em" }}>
+                  Than Human
+                </p>
+                <p className="text-[#737373] uppercase mt-1" style={{ fontSize: 11, fontWeight: 500, lineHeight: 1.2, letterSpacing: "0.2em", fontFamily: "monospace" }}>
+                  Powered by <span className="text-[#ff9900]">DEVSA</span>
+                </p>
+              </div>
+            </div>
+            <div className="mt-6 h-[3px] bg-linear-to-r from-[#ff9900] via-[#00f2ff] to-[#ff9900] opacity-70" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function KBYGParkingCard() {
+  return (
+    <div
+      className="relative shrink-0 overflow-hidden"
+      style={{
+        width: 1080,
+        height: 1350,
+        background: "linear-gradient(170deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%)",
+      }}
+    >
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `
+            linear-gradient(#ff9900 1px, transparent 1px),
+            linear-gradient(90deg, #ff9900 1px, transparent 1px)
+          `,
+          backgroundSize: "54px 54px",
+        }}
+      />
+      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-[#fbbf24]/8 blur-[180px]" />
+      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-[#ff9900]/6 blur-[160px]" />
+
+      <div className="absolute top-0 left-0"><AztecCornerSVG size={96} /></div>
+      <div className="absolute top-0 right-0 rotate-90"><AztecCornerSVG size={96} /></div>
+      <div className="absolute bottom-0 right-0 rotate-180"><AztecCornerSVG size={96} /></div>
+      <div className="absolute bottom-0 left-0 -rotate-90"><AztecCornerSVG size={96} /></div>
+
+      <div className="absolute inset-1.5 border border-[#262626]" />
+
+      <div className="relative flex flex-col h-full">
+        {/* Top bar */}
+        <div className="flex items-center justify-between px-14 pt-12 pb-6">
+          <div className="flex items-center gap-4">
+            <div className="h-[3px] w-12 bg-[#fbbf24]" />
+            <span
+              className="uppercase tracking-[0.35em] text-[#737373]"
+              style={{ fontSize: 13, fontWeight: 500, fontFamily: "monospace" }}
+            >
+              Know Before You Go
+            </span>
+          </div>
+          <span
+            className="uppercase tracking-[0.25em] text-[#737373]"
+            style={{ fontSize: 12, fontWeight: 500, fontFamily: "monospace" }}
+          >
+            Feb 28, 2026 • <span className="text-[#ff9900]">Geekdom</span>
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col flex-1 px-14 pt-4">
+          {/* Badge */}
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-0.5 w-8 bg-[#fbbf24]" />
+            <span
+              className="uppercase tracking-[0.25em] text-[#fbbf24]"
+              style={{ fontSize: 14, fontWeight: 600, fontFamily: "monospace" }}
+            >
+              Parking
+            </span>
+          </div>
+
+          {/* Title */}
+          <h2
+            className="text-white uppercase mb-6"
+            style={{ fontSize: 64, fontWeight: 900, lineHeight: 0.95, letterSpacing: "0.02em" }}
+          >
+            Downtown
+          </h2>
+          <h2
+            className="text-white uppercase mb-8"
+            style={{ fontSize: 64, fontWeight: 900, lineHeight: 0.95, letterSpacing: "0.02em" }}
+          >
+            Parking
+          </h2>
+
+          <p
+            className="text-[#a3a3a3] mb-12"
+            style={{ fontSize: 24, fontWeight: 400, lineHeight: 1.6, letterSpacing: "0.005em" }}
+          >
+            Convenient and affordable parking within walking distance to Geekdom on historic Houston Street.
+          </p>
+
+          <div className="h-[3px] bg-linear-to-r from-[#fbbf24] via-[#ff9900] to-[#fbbf24] opacity-70 mb-12" />
+
+          {/* Parking option 1 */}
+          <div className="border border-[#fbbf24]/50 bg-[#fbbf24]/5 p-10 mb-6">
+            <div className="flex items-center gap-3 mb-4">
+              <span
+                className="uppercase tracking-[0.2em] text-[#fbbf24]"
+                style={{ fontSize: 12, fontWeight: 700, fontFamily: "monospace" }}
+              >
+                Recommended
+              </span>
+            </div>
+            <div className="flex items-end justify-between">
+              <div>
+                <p
+                  className="text-white uppercase"
+                  style={{ fontSize: 36, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.03em" }}
+                >
+                  St. Mary&apos;s Garage
+                </p>
+                <p
+                  className="text-[#a3a3a3] mt-2"
+                  style={{ fontSize: 20, fontWeight: 400, lineHeight: 1.5 }}
+                >
+                  Day-of event rate
+                </p>
+              </div>
+              <p
+                className="text-[#fbbf24]"
+                style={{ fontSize: 72, fontWeight: 900, lineHeight: 1 }}
+              >
+                $5
+              </p>
+            </div>
+          </div>
+
+          {/* Parking option 2 */}
+          <div className="border border-[#fbbf24]/50 bg-[#fbbf24]/5 p-10">
+            <div className="flex items-center gap-3 mb-4">
+              <span
+                className="uppercase tracking-[0.2em] text-[#fbbf24]"
+                style={{ fontSize: 12, fontWeight: 700, fontFamily: "monospace" }}
+              >
+                Recommended
+              </span>
+            </div>
+            <div className="flex items-end justify-between">
+              <div>
+                <p
+                  className="text-white uppercase"
+                  style={{ fontSize: 36, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.03em" }}
+                >
+                  City Tower Garage
+                </p>
+                <p
+                  className="text-[#a3a3a3] mt-2"
+                  style={{ fontSize: 20, fontWeight: 400, lineHeight: 1.5 }}
+                >
+                  Next door to Geekdom
+                </p>
+              </div>
+              <p
+                className="text-[#fbbf24]"
+                style={{ fontSize: 72, fontWeight: 900, lineHeight: 1 }}
+              >
+                $10
+              </p>
+            </div>
+          </div>
+
+          <div className="flex-1 min-h-4" />
+
+          {/* Footer */}
+          <div className="pb-12">
+            <div className="h-px bg-linear-to-r from-[#fbbf24]/60 via-[#333] to-transparent mb-6" />
+            <div className="flex items-end justify-between">
+              <div>
+                <p
+                  className="text-[#737373] uppercase"
+                  style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.4, letterSpacing: "0.2em", fontFamily: "monospace" }}
+                >
+                  City garages charge a $10 flat rate
+                </p>
+                <p
+                  className="text-[#737373] uppercase"
+                  style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.4, letterSpacing: "0.2em", fontFamily: "monospace" }}
+                >
+                  on weekends
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-white uppercase" style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.08em" }}>
+                  More Human
+                </p>
+                <p className="text-white uppercase" style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.08em" }}>
+                  Than Human
+                </p>
+                <p className="text-[#737373] uppercase mt-1" style={{ fontSize: 11, fontWeight: 500, lineHeight: 1.2, letterSpacing: "0.2em", fontFamily: "monospace" }}>
+                  Powered by <span className="text-[#ff9900]">DEVSA</span>
+                </p>
+              </div>
+            </div>
+            <div className="mt-6 h-[3px] bg-linear-to-r from-[#fbbf24] via-[#ff9900] to-[#fbbf24] opacity-70" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function KBYGSoldOutCard() {
+  return (
+    <div
+      className="relative shrink-0 overflow-hidden"
+      style={{
+        width: 1080,
+        height: 1350,
+        background: "linear-gradient(170deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%)",
+      }}
+    >
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `
+            linear-gradient(#00f2ff 1px, transparent 1px),
+            linear-gradient(90deg, #00f2ff 1px, transparent 1px)
+          `,
+          backgroundSize: "54px 54px",
+        }}
+      />
+      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#00f2ff]/8 blur-[180px]" />
+      <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#ff9900]/6 blur-[160px]" />
+
+      <div className="absolute top-0 left-0"><AztecCornerSVG size={96} /></div>
+      <div className="absolute top-0 right-0 rotate-90"><AztecCornerSVG size={96} /></div>
+      <div className="absolute bottom-0 right-0 rotate-180"><AztecCornerSVG size={96} /></div>
+      <div className="absolute bottom-0 left-0 -rotate-90"><AztecCornerSVG size={96} /></div>
+
+      <div className="absolute inset-1.5 border border-[#262626]" />
+
+      <div className="relative flex flex-col h-full">
+        {/* Top bar */}
+        <div className="flex items-center justify-between px-14 pt-12 pb-6">
+          <div className="flex items-center gap-4">
+            <div className="h-[3px] w-12 bg-[#00f2ff]" />
+            <span
+              className="uppercase tracking-[0.35em] text-[#737373]"
+              style={{ fontSize: 13, fontWeight: 500, fontFamily: "monospace" }}
+            >
+              Know Before You Go
+            </span>
+          </div>
+          <span
+            className="uppercase tracking-[0.25em] text-[#737373]"
+            style={{ fontSize: 12, fontWeight: 500, fontFamily: "monospace" }}
+          >
+            Feb 28, 2026 • <span className="text-[#ff9900]">Geekdom</span>
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col flex-1 px-14 pt-4 justify-center">
+          {/* Badge */}
+          <div className="flex items-center gap-3 mb-10">
+            <div className="h-0.5 w-8 bg-[#ff9900]" />
+            <span
+              className="uppercase tracking-[0.25em] text-[#ff9900]"
+              style={{ fontSize: 14, fontWeight: 600, fontFamily: "monospace" }}
+            >
+              Attendance
+            </span>
+          </div>
+
+          {/* SOLD OUT */}
+          <h2
+            className="text-white uppercase mb-4"
+            style={{ fontSize: 96, fontWeight: 900, lineHeight: 0.9, letterSpacing: "0.02em" }}
+          >
+            Sold
+          </h2>
+          <h2
+            className="text-[#ff9900] uppercase mb-14"
+            style={{ fontSize: 96, fontWeight: 900, lineHeight: 0.9, letterSpacing: "0.02em" }}
+          >
+            Out
+          </h2>
+
+          <div className="h-[3px] bg-linear-to-r from-[#ff9900] via-[#00f2ff] to-[#ff9900] opacity-70 mb-14" />
+
+          {/* Stream info */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-0.5 w-8 bg-[#00f2ff]" />
+            <span
+              className="uppercase tracking-[0.25em] text-[#00f2ff]"
+              style={{ fontSize: 14, fontWeight: 600, fontFamily: "monospace" }}
+            >
+              Livestream
+            </span>
+          </div>
+
+          <p
+            className="text-[#a3a3a3] mb-8"
+            style={{ fontSize: 28, fontWeight: 400, lineHeight: 1.55, letterSpacing: "0.005em" }}
+          >
+            Just because registration is closed doesn't mean you can’t still join us! We’re excited to share that More Human Than Human will be streamed live on the DEVSA YouTube channel and available to watch after the event.
+          </p>
+          <div className="border border-[#00f2ff]/30 bg-[#00f2ff]/5 p-8">
+            <div className="flex items-center gap-4">
+              {/* YouTube icon */}
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z" fill="#ff0000" />
+                <polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="white" />
+              </svg>
+              <div>
+                <p
+                  className="text-white uppercase"
+                  style={{ fontSize: 32, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.03em" }}
+                >
+                  DEVSA YouTube
+                </p>
+                <p
+                  className="text-[#737373] mt-1"
+                  style={{ fontSize: 18, fontWeight: 400, lineHeight: 1.4 }}
+                >
+                  youtube.com/@devsatx
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex-1 min-h-4" />
+
+          {/* Footer */}
+          <div className="pb-12">
+            <div className="h-px bg-linear-to-r from-[#00f2ff]/60 via-[#333] to-transparent mb-6" />
+            <div className="flex items-end justify-between">
+              <div>
+                <p
+                  className="text-[#737373] uppercase"
+                  style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.4, letterSpacing: "0.2em", fontFamily: "monospace" }}
+                >
+                  Watch live from anywhere
+                </p>
+                <p
+                  className="text-[#737373] uppercase"
+                  style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.4, letterSpacing: "0.2em", fontFamily: "monospace" }}
+                >
+                  February 28, 2026 • 1:00 PM CT
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-white uppercase" style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.08em" }}>
+                  More Human
+                </p>
+                <p className="text-white uppercase" style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.08em" }}>
+                  Than Human
+                </p>
+                <p className="text-[#737373] uppercase mt-1" style={{ fontSize: 11, fontWeight: 500, lineHeight: 1.2, letterSpacing: "0.2em", fontFamily: "monospace" }}>
+                  Powered by <span className="text-[#ff9900]">DEVSA</span>
+                </p>
+              </div>
+            </div>
+            <div className="mt-6 h-[3px] bg-linear-to-r from-[#00f2ff] via-[#ff9900] to-[#00f2ff] opacity-70" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function KBYGAfterPartyCard() {
+  return (
+    <div
+      className="relative shrink-0 overflow-hidden"
+      style={{
+        width: 1080,
+        height: 1350,
+        background: "linear-gradient(170deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%)",
+      }}
+    >
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `
+            linear-gradient(#a78bfa 1px, transparent 1px),
+            linear-gradient(90deg, #a78bfa 1px, transparent 1px)
+          `,
+          backgroundSize: "54px 54px",
+        }}
+      />
+      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#a78bfa]/8 blur-[180px]" />
+      <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#ff9900]/6 blur-[160px]" />
+
+      <div className="absolute top-0 left-0"><AztecCornerSVG size={96} /></div>
+      <div className="absolute top-0 right-0 rotate-90"><AztecCornerSVG size={96} /></div>
+      <div className="absolute bottom-0 right-0 rotate-180"><AztecCornerSVG size={96} /></div>
+      <div className="absolute bottom-0 left-0 -rotate-90"><AztecCornerSVG size={96} /></div>
+
+      <div className="absolute inset-1.5 border border-[#262626]" />
+
+      <div className="relative flex flex-col h-full">
+        {/* Top bar */}
+        <div className="flex items-center justify-between px-14 pt-12 pb-6">
+          <div className="flex items-center gap-4">
+            <div className="h-[3px] w-12 bg-[#a78bfa]" />
+            <span
+              className="uppercase tracking-[0.35em] text-[#737373]"
+              style={{ fontSize: 13, fontWeight: 500, fontFamily: "monospace" }}
+            >
+              Know Before You Go
+            </span>
+          </div>
+          <span
+            className="uppercase tracking-[0.25em] text-[#737373]"
+            style={{ fontSize: 12, fontWeight: 500, fontFamily: "monospace" }}
+          >
+            Feb 28, 2026 • <span className="text-[#ff9900]">Geekdom</span>
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col flex-1 px-14 pt-4 justify-center">
+          {/* Badge */}
+          <div className="flex items-center gap-3 mb-10">
+            <div className="h-0.5 w-8 bg-[#a78bfa]" />
+            <span
+              className="uppercase tracking-[0.25em] text-[#a78bfa]"
+              style={{ fontSize: 14, fontWeight: 600, fontFamily: "monospace" }}
+            >
+              After Party
+            </span>
+          </div>
+
+          {/* Title */}
+          <h2
+            className="text-white uppercase mb-4"
+            style={{ fontSize: 80, fontWeight: 900, lineHeight: 0.92, letterSpacing: "0.02em" }}
+          >
+            After
+          </h2>
+          <h2
+            className="text-[#a78bfa] uppercase mb-14"
+            style={{ fontSize: 80, fontWeight: 900, lineHeight: 0.92, letterSpacing: "0.02em" }}
+          >
+            Party
+          </h2>
+
+          <div className="h-[3px] bg-linear-to-r from-[#a78bfa] via-[#ff9900] to-[#a78bfa] opacity-70 mb-14" />
+
+          <p
+            className="text-[#a3a3a3] mb-12"
+            style={{ fontSize: 26, fontWeight: 400, lineHeight: 1.55, letterSpacing: "0.005em" }}
+          >
+            When the event is over, join us as we make our way down to the street level of historic Houston St. to close out the day networking on the Double Standard patio.          </p>
+          {/* Venue details */}
+          <div className="flex flex-col gap-10">
+            <div>
+              <span
+                className="uppercase tracking-[0.25em] text-[#a78bfa] block mb-3"
+                style={{ fontSize: 14, fontWeight: 700, fontFamily: "monospace", letterSpacing: "0.2em" }}
+              >
+                Location
+              </span>
+              <p
+                className="text-white uppercase"
+                style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.03em" }}
+              >
+                Double Standard
+              </p>
+            </div>
+
+            <div>
+              <span
+                className="uppercase tracking-[0.25em] text-[#a78bfa] block mb-3"
+                style={{ fontSize: 14, fontWeight: 700, fontFamily: "monospace", letterSpacing: "0.2em" }}
+              >
+                Time
+              </span>
+              <p
+                className="text-white uppercase"
+                style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.03em" }}
+              >
+                5:00 PM — 7:00 PM
+              </p>
+            </div>
+          </div>
+
+          <div className="flex-1 min-h-4" />
+
+          {/* Footer */}
+          <div className="pb-12">
+            <div className="h-px bg-linear-to-r from-[#a78bfa]/60 via-[#333] to-transparent mb-6" />
+            <div className="flex items-end justify-between">
+              <div>
+                <p
+                  className="text-[#737373] uppercase"
+                  style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.4, letterSpacing: "0.2em", fontFamily: "monospace" }}
+                >
+                  Connect with speakers &amp; community
+                </p>
+                <p
+                  className="text-[#737373] uppercase"
+                  style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.4, letterSpacing: "0.2em", fontFamily: "monospace" }}
+                >
+                  after the conference
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-white uppercase" style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.08em" }}>
+                  More Human
+                </p>
+                <p className="text-white uppercase" style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.1, letterSpacing: "0.08em" }}>
+                  Than Human
+                </p>
+                <p className="text-[#737373] uppercase mt-1" style={{ fontSize: 11, fontWeight: 500, lineHeight: 1.2, letterSpacing: "0.2em", fontFamily: "monospace" }}>
+                  Powered by <span className="text-[#ff9900]">DEVSA</span>
+                </p>
+              </div>
+            </div>
+            <div className="mt-6 h-[3px] bg-linear-to-r from-[#a78bfa] via-[#ff9900] to-[#a78bfa] opacity-70" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ─── KBYG Card wrappers with download ─── */
+function KBYGCardWithDownload({ id, label, children }: { id: string; label: string; children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  return (
+    <div className="flex flex-col items-center gap-4 w-full px-4">
+      <div className="hidden md:flex items-center gap-4">
+        <span
+          className="text-[#737373] uppercase"
+          style={{ fontSize: 11, fontFamily: "monospace", letterSpacing: "0.2em" }}
+        >
+          {label}
+        </span>
+        <DownloadButton cardRef={ref} filename={`mhth-kbyg-${id}`} />
+      </div>
+      <ResponsiveCardWrapper>
+        <div ref={ref}>
+          {children}
+        </div>
+      </ResponsiveCardWrapper>
+    </div>
+  )
+}
+
 /* ─── Schedule Data ─── */
 interface ScheduleItem {
   time: string
@@ -2011,7 +2737,7 @@ function HypeVideo() {
 
 /* ─── Page Shell ─── */
 export default function SocialCardsPage() {
-  const [activeTab, setActiveTab] = useState<"speakers" | "spotlights" | "schedule" | "video">("speakers")
+  const [activeTab, setActiveTab] = useState<"speakers" | "spotlights" | "schedule" | "kbyg" | "video">("speakers")
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
@@ -2062,6 +2788,16 @@ export default function SocialCardsPage() {
               Schedule
             </button>
             <button
+              onClick={() => setActiveTab("kbyg")}
+              className={`flex-1 sm:flex-initial px-4 py-2 text-xs uppercase tracking-[0.15em] font-semibold border transition-all ${
+                activeTab === "kbyg"
+                  ? "border-[#a78bfa] text-[#a78bfa] bg-[#a78bfa]/10"
+                  : "border-[#333] text-[#737373] hover:border-[#555] hover:text-white"
+              }`}
+            >
+              KBYG (4)
+            </button>
+            <button
               onClick={() => setActiveTab("video")}
               className={`flex-1 sm:flex-initial px-4 py-2 text-xs uppercase tracking-[0.15em] font-semibold border transition-all ${
                 activeTab === "video"
@@ -2094,6 +2830,22 @@ export default function SocialCardsPage() {
             {spotlights.map((spotlight) => (
               <SpotlightCardWithDownload key={spotlight.id} spotlight={spotlight} />
             ))}
+          </div>
+        )}
+        {activeTab === "kbyg" && (
+          <div className="flex flex-col items-center gap-16">
+            <KBYGCardWithDownload id="venue" label="Venue & Details">
+              <KBYGVenueCard />
+            </KBYGCardWithDownload>
+            <KBYGCardWithDownload id="parking" label="Parking">
+              <KBYGParkingCard />
+            </KBYGCardWithDownload>
+            <KBYGCardWithDownload id="sold-out" label="Sold Out / Livestream">
+              <KBYGSoldOutCard />
+            </KBYGCardWithDownload>
+            <KBYGCardWithDownload id="after-party" label="After Party">
+              <KBYGAfterPartyCard />
+            </KBYGCardWithDownload>
           </div>
         )}
         {activeTab === "video" && (
