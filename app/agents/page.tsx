@@ -9,25 +9,25 @@ const stats = [
     value: "100%",
     label: "Human in the Loop",
     description:
-      "Every decision point reviewed by a human operator. No hallucinated outputs. No improvised answers. No creative interpretation of your data.",
+      "Every decision point reviewed by a real person. We're building agents that defer to human judgment — not ones that guess and hope for the best.",
   },
   {
     value: "AI SDK",
     label: "Provider Agnostic",
     description:
-      "The AI SDK standardizes integrating artificial intelligence models across supported providers. One interface, any model — swap providers without rewriting your agent logic.",
+      "We're standardizing on the AI SDK so you're never locked into a single model provider. One interface, any model — the flexibility to evolve as the landscape shifts.",
   },
   {
     value: "RAG",
     label: "Structured Retrieval",
     description:
-      "Ask complex questions, get highly accurate answers from your data. Structured RAG pipelines that never imagine facts or improvise on the plan.",
+      "Grounded answers from your actual data — not hallucinated ones. We're developing structured RAG pipelines that retrieve facts instead of inventing them.",
   },
   {
-    value: "24/7",
-    label: "Always-On Agents",
+    value: "WIP",
+    label: "In Development",
     description:
-      "Consistent, accurate AI agents that do serious work.",
+      "We're not shipping half-baked. These agents are actively being built and tested — and we'll launch them when they're genuinely useful, not just impressive in a demo.",
   },
 ]
 
@@ -36,25 +36,25 @@ const solutions = [
   {
     title: "Custom Integrated Websites",
     description:
-      "White-label web solutions with built-in databases, Stripe payments, Resend email, and admin CRM — onboarded and ready to launch under your brand.",
+      "White-label web solutions with databases, Stripe payments, Resend email, and admin CRM — designed to actually solve problems, not just check boxes.",
     color: "#ff9900",
   },
   {
     title: "CMS & Admin Dashboard",
     description:
-      "Content management and customer relationship tools baked into every build. Manage content, track leads, and run operations from a single admin panel.",
+      "Content management and CRM tools built into every project. One admin panel to manage content, track leads, and run operations — no bolt-on integrations.",
     color: "#00f2ff",
   },
   {
     title: "Payments & Billing",
     description:
-      "Stripe-powered checkout, subscriptions, and invoicing integrated from day one. Accept payments, manage plans, and automate billing workflows out of the box.",
+      "Stripe-powered checkout, subscriptions, and invoicing wired in from day one. We're building the billing layer so you don't have to piece it together.",
     color: "#fbbf24",
   },
   {
     title: "Email & Notifications",
     description:
-      "Transactional email via Resend, newsletter campaigns, and automated notifications — all wired into your CMS and CRM for seamless communication.",
+      "Transactional email via Resend, newsletters, and automated notifications — all connected to your CMS and CRM. Currently being integrated and tested.",
     color: "#a855f7",
   },
 ]
@@ -173,12 +173,12 @@ export default function AgentsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.35em] text-white/30 block mb-5 font-normal leading-loose">
-              Digital Canvas Agents
+            <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.35em] text-[#ff9900] block mb-5 font-medium leading-loose">
+              Currently in Development
             </span>
-            <h1 className="font-(family-name:--font-geist-pixel-square) text-3xl md:text-5xl lg:text-6xl text-white font-bold leading-[1.1] tracking-wide max-w-4xl">
-              Human in the Loop.{" "}
-              <span className="text-white/30">Every&nbsp;time.</span>
+            <h1 className="font-(family-name:--font-geist-pixel-square) text-3xl md:text-5xl lg:text-6xl text-white font-black leading-[1.2] tracking-wide max-w-4xl">
+              <span className="font-(family-name:--font-geist-pixel-square)">AI-Driven</span> Experiences{" "}
+              <span className="text-white/30 font-medium">That Make&nbsp;Sense.</span>
             </h1>
           </motion.div>
 
@@ -200,7 +200,7 @@ export default function AgentsPage() {
             <AnimatePresence mode="wait">
               <motion.p
                 key={activeStatIndex}
-                className="text-white/50 text-sm md:text-base leading-[1.85] font-light"
+                className="text-white/50 text-sm md:text-base leading-[1.85] font-medium"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
@@ -227,11 +227,12 @@ export default function AgentsPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white font-bold leading-[1.15] tracking-wide mb-6">
-              Interested in learning more?
+            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white font-black leading-[1.2] tracking-wide mb-6">
+              Building in the{" "}
+              <span className="text-white/30 font-medium">Open.</span>
             </h2>
-            <p className="text-white/40 text-sm md:text-base leading-[1.85] font-light max-w-xl mx-auto mb-10">
-              We'll reach out when agents and solutions go live. No spam, just updates on our launch and early access opportunities.
+            <p className="tracking-tighter text-white/40 text-sm md:text-base leading-[1.85] font-medium max-w-xl mx-auto mb-10">
+              These agents are actively in development. Leave your info and we&apos;ll reach out when they&apos;re ready — no hype, just a heads-up when there&apos;s something real to show.
             </p>
 
             {/* Arrow toggle */}

@@ -1,385 +1,133 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback, type FormEvent } from "react"
-import { motion, AnimatePresence } from "motion/react"
-import { X, ArrowRight } from "lucide-react"
+import { useState, useEffect, useRef, useMemo, type FormEvent } from "react"
+import { motion } from "motion/react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 
-// Media items from DevSA conferences — images and video from real events
+// Images-only from DevSA conferences — videos removed for performance
 const mediaItems = [
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/coworking-space/IMG_6350.jpg", alt: "DevSA Community Space" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/gdg.jpg", alt: "GDG San Antonio Event" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa7.jpg", alt: "PySanAntonio Conference" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/techday.jpg", alt: "DevSA Tech Day" },
-  { type: "video" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/coworking-space/IMG_6956.MOV", poster: undefined, alt: "DevSA Community Space" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/replay1.JPG", alt: "DevSA Replay Event" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/coworking-space/IMG_7186.jpg", alt: "DevSA Community" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_1484.jpg", alt: "DevSA Community Event" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa8.jpg", alt: "PySanAntonio Conference" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/gdg4.jpg", alt: "GDG San Antonio" },
-  { type: "video" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa3.mov", poster: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa.jpg", alt: "PySanAntonio Conference" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/techday2.jpg", alt: "DevSA Tech Day" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/coworking-space/IMG_5061.jpg", alt: "DevSA Community Space" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_2756.jpg", alt: "DevSA Community" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/replay7.jpg", alt: "DevSA Replay Event" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa5.jpg", alt: "PySanAntonio Conference" },
-  { type: "video" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/coworking-space/IMG_6982.mov", poster: undefined, alt: "DevSA Collaboration" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_5006.jpg", alt: "DevSA Event" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/techday4.JPG", alt: "DevSA Tech Day" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/coworking-space/IMG_6429.jpg", alt: "DevSA Community" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_4427.jpg", alt: "DevSA Community Event" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa.jpg", alt: "PySanAntonio After Party" },
-  { type: "video" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa2.mov", poster: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa-mauricio.png", alt: "PySanAntonio Speaker" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/replay9.jpg", alt: "DevSA Replay Event" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_4381.jpg", alt: "DevSA Community" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/techday5.jpg", alt: "DevSA Tech Day" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_3385.jpg", alt: "DevSA Event" },
-  { type: "video" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa6.MOV", poster: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa3.jpg", alt: "PySanAntonio Conference" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/replay13.jpg", alt: "DevSA Replay Event" },
-  { type: "image" as const, src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_4665.jpg", alt: "DevSA Community Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/coworking-space/IMG_7186.jpg", alt: "DevSA Community" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_1484.jpg", alt: "DevSA Community Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa8.jpg", alt: "PySanAntonio Conference" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/replay9.jpg", alt: "DevSA Replay Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa7.jpg", alt: "PySanAntonio Conference" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/replay13.jpg", alt: "DevSA Replay Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/techday2.jpg", alt: "DevSA Tech Day" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa.jpg", alt: "PySanAntonio After Party" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/replay7.jpg", alt: "GDG San Antonio" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/techday4.JPG", alt: "DevSA Tech Day" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/coworking-space/IMG_6429.jpg", alt: "DevSA Community" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_4427.jpg", alt: "DevSA Community Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_4665.jpg", alt: "DevSA Community Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/replay1.JPG", alt: "DevSA Replay Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa5.jpg", alt: "PySanAntonio Conference" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/techday.jpg", alt: "DevSA Tech Day" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/techday5.jpg", alt: "DevSA Tech Day" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/gdg.jpg", alt: "GDG San Antonio Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_3385.jpg", alt: "DevSA Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/gdg4.jpg", alt: "DevSA Replay Event" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/coworking-space/IMG_5061.jpg", alt: "DevSA Community Space" },
+  { src: "https://devsa-assets.s3.us-east-2.amazonaws.com/IMG_2756.jpg", alt: "DevSA Community" },
 ]
 
-// ── Detect mobile vs desktop ──────────────────────────────────
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(true) // default mobile-first for SSR safety
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)")
-    const update = () => setIsMobile(!mq.matches)
-    update()
-    mq.addEventListener("change", update)
-    return () => mq.removeEventListener("change", update)
-  }, [])
-  return isMobile
+type MediaItem = (typeof mediaItems)[number]
+
+// Split media into columns for the scrolling background
+function splitIntoColumns(items: MediaItem[], cols: number): MediaItem[][] {
+  const columns: MediaItem[][] = Array.from({ length: cols }, () => [])
+  items.forEach((item, i) => columns[i % cols].push(item))
+  return columns
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   DESKTOP — Original implementation (untouched)
-   6 rows, 4x duplication, RAF scrolling, videos with autoPlay
-   ═══════════════════════════════════════════════════════════════ */
-
-const DESKTOP_ROWS = 6
-const DESKTOP_ITEMS_PER_ROW = Math.ceil(mediaItems.length / DESKTOP_ROWS)
-const desktopRows: (typeof mediaItems)[] = Array.from({ length: DESKTOP_ROWS }, (_, i) =>
-  mediaItems.slice(i * DESKTOP_ITEMS_PER_ROW, (i + 1) * DESKTOP_ITEMS_PER_ROW)
-).map(row => row.length > 0 ? row : mediaItems.slice(0, DESKTOP_ITEMS_PER_ROW))
-
-function DesktopScrollingRow({ items, direction, speed }: { items: typeof mediaItems; direction: "left" | "right"; speed: number }) {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    if (prefersReducedMotion) return
-
-    let raf: number
-    let pos = direction === "left" ? 0 : el.scrollWidth / 2
-
-    const animate = () => {
-      if (direction === "left") {
-        pos += speed
-        if (pos >= el.scrollWidth / 2) pos = 0
-      } else {
-        pos -= speed
-        if (pos <= 0) pos = el.scrollWidth / 2
-      }
-      el.scrollLeft = pos
-      raf = requestAnimationFrame(animate)
-    }
-
-    raf = requestAnimationFrame(animate)
-
-    const pause = () => cancelAnimationFrame(raf)
-    const resume = () => { raf = requestAnimationFrame(animate) }
-
-    el.addEventListener("mouseenter", pause)
-    el.addEventListener("mouseleave", resume)
-
-    return () => {
-      cancelAnimationFrame(raf)
-      el.removeEventListener("mouseenter", pause)
-      el.removeEventListener("mouseleave", resume)
-    }
-  }, [direction, speed])
-
-  const repeated = [...items, ...items, ...items, ...items]
-
-  return (
-    <div
-      ref={scrollRef}
-      className="flex gap-3 overflow-x-hidden"
-      style={{ scrollBehavior: "auto" }}
-    >
-      {repeated.map((item, i) => (
-        <div
-          key={`${item.src}-${i}`}
-          className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-[#111]"
-        >
-          {item.type === "video" ? (
-            <video
-              src={item.src}
-              poster={item.poster}
-              muted
-              autoPlay
-              loop
-              playsInline
-              className="h-full w-full object-cover rounded-xl"
-            />
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={item.src}
-              alt={item.alt}
-              loading="lazy"
-              className="h-full w-full object-cover rounded-xl"
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function DesktopScrollingGrid() {
-  return (
-    <div className="space-y-3 py-4">
-      {desktopRows.map((rowItems, idx) => (
-        <DesktopScrollingRow
-          key={idx}
-          items={rowItems}
-          direction={idx % 2 === 0 ? "left" : "right"}
-          speed={0.25 + idx * 0.05}
-        />
-      ))}
-    </div>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   MOBILE — Optimized for low-end devices
-   4 rows, 2x duplication, CSS animation (GPU-composited),
-   no videos, skeleton placeholders, IntersectionObserver,
-   decoding="async", will-change, reactive reduced-motion
-   ═══════════════════════════════════════════════════════════════ */
-
-const MOBILE_ROWS = 4
-const MOBILE_ITEMS_PER_ROW = Math.ceil(mediaItems.length / MOBILE_ROWS)
-const mobileRows: (typeof mediaItems)[] = Array.from({ length: MOBILE_ROWS }, (_, i) =>
-  mediaItems.slice(i * MOBILE_ITEMS_PER_ROW, (i + 1) * MOBILE_ITEMS_PER_ROW)
-).map(row => row.length > 0 ? row : mediaItems.slice(0, MOBILE_ITEMS_PER_ROW))
-
-// Image tile with skeleton placeholder and fade-in
-function MobileTile({ item }: { item: (typeof mediaItems)[number] }) {
-  const [loaded, setLoaded] = useState(false)
-  const imgRef = useRef<HTMLImageElement>(null)
-
-  useEffect(() => {
-    if (imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
-      setLoaded(true)
-    }
-  }, [])
-
-  const handleLoad = useCallback(() => setLoaded(true), [])
-
-  // For video items, show the poster image (or a fallback) instead of loading the video
-  const imgSrc = item.type === "video"
-    ? (item.poster || item.src)
-    : item.src
-
-  return (
-    <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-xl bg-[#111]">
-      {!loaded && (
-        <div className="absolute inset-0 rounded-xl bg-[#1a1a1a] animate-pulse" />
-      )}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        ref={imgRef}
-        src={imgSrc}
-        alt={item.alt}
-        loading="lazy"
-        decoding="async"
-        onLoad={handleLoad}
-        className={`h-full w-full object-cover rounded-xl transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
-      />
-    </div>
-  )
-}
-
-// CSS-animated row — GPU-composited, no JS animation loop
-function MobileScrollingRow({ items, direction, speed }: { items: typeof mediaItems; direction: "left" | "right"; speed: number }) {
-  const trackRef = useRef<HTMLDivElement>(null)
+// Lazy-loaded image card — only loads src when near viewport
+function LazyImage({ src, alt }: { src: string; alt: string }) {
+  const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
-  // IntersectionObserver — pause animation for off-screen rows
   useEffect(() => {
-    const el = trackRef.current
+    const el = ref.current
     if (!el) return
     const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { rootMargin: "100px" }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: "200px" }
     )
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
-  // Reactive prefers-reduced-motion listener
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setPrefersReducedMotion(mq.matches)
-    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
-    mq.addEventListener("change", handler)
-    return () => mq.removeEventListener("change", handler)
-  }, [])
+  return (
+    <div
+      ref={ref}
+      className="relative w-full rounded-xl overflow-hidden aspect-3/4 shrink-0 bg-[#111]"
+    >
+      {isVisible && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover"
+        />
+      )}
+    </div>
+  )
+}
 
-  const shouldAnimate = isVisible && !prefersReducedMotion
-  const duration = Math.round(items.length * (6 / speed))
-
-  // 2x duplication (instead of 4x) — CSS translateX(-50%) loops seamlessly
-  const repeated = [...items, ...items]
+// Pure CSS scrolling column — no JS animation runtime, fully GPU-composited
+function ScrollingColumn({
+  items,
+  direction = "up",
+  durationS = 60,
+}: {
+  items: MediaItem[]
+  direction?: "up" | "down"
+  durationS?: number
+}) {
+  const doubled = useMemo(() => [...items, ...items], [items])
 
   return (
-    <div className="overflow-hidden">
+    <div className="relative overflow-hidden h-full flex-1">
       <div
-        ref={trackRef}
-        className="flex gap-3 w-max"
+        className="flex flex-col gap-3 md:gap-4 will-change-transform"
         style={{
-          willChange: shouldAnimate ? "transform" : "auto",
-          animation: shouldAnimate
-            ? `scroll-${direction} ${duration}s linear infinite`
-            : "none",
+          animation: `hero-scroll-${direction} ${durationS}s linear infinite`,
         }}
       >
-        {repeated.map((item, i) => (
-          <MobileTile key={`${item.src}-${i}`} item={item} />
+        {doubled.map((item, i) => (
+          <LazyImage key={`${item.src}-${i}`} src={item.src} alt={item.alt} />
         ))}
       </div>
     </div>
   )
 }
 
-function MobileScrollingGrid() {
-  return (
-    <div className="space-y-3 py-4">
-      {mobileRows.map((rowItems, idx) => (
-        <MobileScrollingRow
-          key={idx}
-          items={rowItems}
-          direction={idx % 2 === 0 ? "left" : "right"}
-          speed={0.25 + idx * 0.05}
-        />
-      ))}
-    </div>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   Adaptive grid — renders the right variant per breakpoint
-   ═══════════════════════════════════════════════════════════════ */
-function ScrollingGrid() {
-  const isMobile = useIsMobile()
-  return isMobile ? <MobileScrollingGrid /> : <DesktopScrollingGrid />
-}
-
-/* ── MHTH Popup CTA ─────────────────────────────────────────── */
-function MHTHPopup() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [isDismissed, setIsDismissed] = useState(false)
-
-  useEffect(() => {
-    const dismissed = sessionStorage.getItem("mhth-conf-popup-dismissed")
-    if (dismissed) {
-      setIsDismissed(true)
-      return
-    }
-    const timer = setTimeout(() => setIsVisible(true), 2500)
-    return () => clearTimeout(timer)
-  }, [])
-
-  const handleDismiss = () => {
-    setIsVisible(false)
-    setIsDismissed(true)
-    sessionStorage.setItem("mhth-conf-popup-dismissed", "true")
-  }
-
-  if (isDismissed) return null
-
-  return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ opacity: 0, y: 100, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 100, scale: 0.9 }}
-          transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="fixed bottom-4 right-4 z-50 w-80 sm:w-90"
-        >
-          <div className="relative border border-[#333] bg-[#111] shadow-2xl shadow-black/50 overflow-hidden">
-            {/* Close */}
-            <button
-              onClick={handleDismiss}
-              className="absolute top-3 right-3 z-10 p-1.5 text-[#666] hover:text-white hover:bg-[#333] transition-colors"
-              aria-label="Dismiss popup"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            {/* Accent bar */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-[#ff9900] via-[#fbbf24] to-[#ff9900]" />
-
-            {/* Content */}
-            <div className="p-5">
-              <div className="flex items-start gap-3 mb-4">
-                <div className="relative h-14 w-14 shrink-0 overflow-hidden border border-[#ff9900]/30 bg-[#ff9900]/10">
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover"
-                  >
-                    <source src="https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <div>
-                  <p className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-wider text-[#666] mb-1">
-                    Upcoming Conference
-                  </p>
-                  <h3 className="text-base font-bold text-white leading-tight">
-                    More Human Than Human
-                  </h3>
-                </div>
-              </div>
-
-              <p className="text-sm text-[#999] leading-relaxed mb-4 line-clamp-2">
-                Join San Antonio's builders, dreamers, and technologist as we explore how AI is transforming the way we write code, test, automate, and ship.
-              </p>
-
-              <div className="flex items-center justify-between">
-                <p className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-wider text-[#666]">
-                  Feb 28, 2026
-                </p>
-                <Link
-                  href="/conferences/morehumanthanhuman"
-                  onClick={handleDismiss}
-                  className="inline-flex items-center gap-2 bg-[#fbbf24] text-[#0a0a0a] font-semibold text-xs uppercase tracking-wider px-4 py-2 hover:bg-[#ff9900] transition-colors"
-                >
-                  Learn More
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  )
-}
-
 export default function ConferencesPage() {
+  const [columnCount, setColumnCount] = useState(3)
   const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [errorMessage, setErrorMessage] = useState("")
+
+  // Responsive column count: 3 on mobile, 4 on tablet, 5 on desktop
+  useEffect(() => {
+    function update() {
+      const w = window.innerWidth
+      setColumnCount(w < 640 ? 3 : w < 1024 ? 4 : 5)
+    }
+    update()
+    window.addEventListener("resize", update)
+    return () => window.removeEventListener("resize", update)
+  }, [])
+
+  const columns = useMemo(
+    () => splitIntoColumns(mediaItems, columnCount),
+    [columnCount]
+  )
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -419,64 +167,103 @@ export default function ConferencesPage() {
 
   return (
     <div className="bg-[#0a0a0a] min-h-screen">
-      {/* MHTH Popup CTA */}
-      <MHTHPopup />
+      {/* Hero — 3D scrolling columns with left-aligned content */}
+      <section
+        className="w-full relative min-h-dvh flex items-center justify-start overflow-hidden bg-[#0a0a0a]"
+      >
+        {/* Inject CSS keyframes once */}
+        <style>{`
+          @keyframes hero-scroll-up {
+            from { transform: translateY(0); }
+            to   { transform: translateY(-50%); }
+          }
+          @keyframes hero-scroll-down {
+            from { transform: translateY(-50%); }
+            to   { transform: translateY(0); }
+          }
+        `}</style>
 
-      {/* Hero — Scrolling media grid */}
-      <section className="relative overflow-hidden bg-[#0a0a0a]">
-        {/* Heading — overlaid on the top-left like Shopify */}
-        <div className="relative z-20 container mx-auto px-6 pt-28 md:pt-36 pb-0">
-          <motion.div
-            className="max-w-lg md:max-w-xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+        {/* Hidden H1 for SEO */}
+        <h1 className="sr-only">
+          Quarterly Tech Conferences by Digital Canvas
+        </h1>
+
+        {/* 3D Photo Carousel Background */}
+        <div
+          className="absolute inset-0 z-0"
+          style={{ perspective: "1200px" }}
+        >
+          <div
+            className="absolute inset-[-10%] flex gap-3 md:gap-4 px-2 md:px-4"
+            style={{
+              transform: "rotateX(8deg) rotateY(-6deg) rotateZ(2deg) scale(1.2)",
+              transformOrigin: "center center",
+            }}
           >
-            <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#ff9900] block mb-4">
-              Powered by DevSA x 434 MEDIA
-            </span>
-            <h1 className="font-(family-name:--font-geist-pixel-square) text-3xl md:text-5xl lg:text-6xl text-white uppercase tracking-wide leading-tight mb-6">
-              Quarterly Conferences
-            </h1>
-            <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-xl">
-              Every quarter, DEVSA x 434 MEDIA bring together hundreds of developers, designers, and technologists from across all industries for hands-on sessions, lightning talks, and real community.
-            </p>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-8"
-            >
-              <Link
-                href="/conferences/morehumanthanhuman"
-                className="inline-flex items-center gap-3 bg-[#ff9900] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest py-3 px-6 transition-all hover:bg-[#fbbf24] hover:scale-[1.02]"
-              >
-                More Human Than Human
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
-          </motion.div>
+            {columns.map((col, i) => (
+              <ScrollingColumn
+                key={`${columnCount}-${i}`}
+                items={col}
+                direction={i % 2 === 0 ? "up" : "down"}
+                durationS={55 + i * 10}
+              />
+            ))}
+          </div>
+
+          {/* Gradient overlays — heavy left for text readability, fading right to reveal images */}
+          <div className="absolute inset-0 bg-linear-to-r from-[#0a0a0a] via-[#0a0a0a]/85 to-transparent z-10" />
+          <div className="absolute inset-0 bg-linear-to-b from-[#0a0a0a]/70 via-transparent to-[#0a0a0a]/70 z-10" />
+          <div
+            className="absolute inset-0 z-10"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 40%, rgba(10,10,10,0.15) 65%, transparent 100%)",
+            }}
+          />
         </div>
 
-        {/* Scrolling grid — adaptive: desktop (original) / mobile (optimized) */}
-        <div
-          aria-label="Scrolling animation showcasing DevSA conference and event photos"
-          className="relative group mt-10 md:mt-14 w-full mb-px"
-        >
-          <ScrollingGrid />
+        {/* Foreground hero content — left aligned */}
+        <div className="relative z-20 w-full md:max-w-[55%] flex flex-col items-start text-left pl-6 sm:pl-10 md:pl-16 lg:pl-20 py-20 md:py-28">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
+            <div className="space-y-4">
+              <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#ff9900]">
+                Powered by 434 MEDIA x DEVSA
+              </span>
+              <h2 className="font-(family-name:--font-geist-pixel-square) text-balance text-white leading-[1.2] text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-wide">
+                Quarterly{" "}
+                <span className="text-white/40 font-medium">Conferences</span>
+              </h2>
+            </div>
 
-          {/* Edge fades */}
-          <div className="pointer-events-none absolute top-0 left-0 right-0 h-1/4 z-10 bg-linear-to-b from-[#0a0a0a] to-transparent" />
-          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/4 z-10 bg-linear-to-t from-[#0a0a0a] to-transparent" />
-          <div className="pointer-events-none absolute top-0 bottom-0 left-0 w-24 md:w-48 z-10 bg-linear-to-r from-[#0a0a0a] to-transparent" />
-          <div className="pointer-events-none absolute top-0 bottom-0 right-0 w-24 md:w-48 z-10 bg-linear-to-l from-[#0a0a0a] to-transparent" />
+            <div className="space-y-6 max-w-2xl">
+              <p className="text-balance text-lg md:text-xl text-white/60 leading-[1.7] font-medium">
+                Designed and produced by <span className="font-(family-name:--font-geist-pixel-square) text-white uppercase tracking-wide">434 MEDIA x DEVSA</span> — connecting creativity, community, and technology across hundreds of developers, designers, and technologists every quarter.
+              </p>
+            </div>
 
-          {/* Hover spotlight radial glow */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none mix-blend-darken transition-opacity duration-1000 opacity-0 group-hover:opacity-60"
-            style={{ background: "radial-gradient(circle at 50% 50%, white, rgb(10, 10, 10) 30%)" }}
-          />
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-start gap-3">
+              <Link
+                href="/conferences/morehumanthanhuman"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#ff9900] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest transition-all hover:bg-[#fbbf24] hover:scale-[1.02]"
+              >
+                More Human Than Human
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Link>
+              <a
+                href="#sponsor"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/10 bg-white/5 text-white font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest transition-colors duration-200 hover:bg-white/10 hover:border-white/20"
+              >
+                Become a Sponsor
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -490,11 +277,11 @@ export default function ConferencesPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight mb-6">
+            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white font-black uppercase tracking-wide leading-snug mb-6">
               Interested in Sponsoring?
             </h2>
             <div className="h-px w-48 mx-auto bg-linear-to-r from-[#ff9900] to-[#00f2ff] opacity-60 mb-8" />
-            <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-lg mx-auto">
+            <p className="text-white/60 text-sm md:text-base leading-relaxed font-medium max-w-lg mx-auto">
               Partner with Digital Canvas to support San Antonio&apos;s thriving tech community and gain visibility among hundreds of local technologists across all industries.
             </p>
           </motion.div>

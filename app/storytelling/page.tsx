@@ -18,15 +18,6 @@ type Story = {
 
 const stories: Story[] = [
   {
-    title: "More Human Than Human",
-    subtitle: "AI Conference",
-    date: "Feb 28, 2026",
-    href: "/conferences/morehumanthanhuman",
-    active: true,
-    previewVideo:
-      "https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4",
-  },
-  {
     title: "The Feed",
     subtitle: "Newsletters, Articles & Podcasts",
     date: "Ongoing",
@@ -44,6 +35,15 @@ const stories: Story[] = [
     active: true,
     previewVideo:
       "https://ampd-asset.s3.us-east-2.amazonaws.com/DEVSA+Web+Banner.mp4",
+  },
+  {
+    title: "More Human Than Human",
+    subtitle: "AI Conference",
+    date: "",
+    href: "/conferences/morehumanthanhuman",
+    active: true,
+    previewVideo:
+      "https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4",
   },
   {
     title: "Learn2AI",
@@ -317,8 +317,19 @@ export default function StorytellingPage() {
 
         {/* Content overlay */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto">
+          <motion.div
+            className="mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#ff9900]">
+              Powered by 434 MEDIA x DEVSA
+            </span>
+          </motion.div>
+
           <motion.h1
-            className="font-(family-name:--font-geist-pixel-square) text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white uppercase tracking-tight leading-none mb-4"
+            className="font-(family-name:--font-geist-pixel-square) text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white uppercase tracking-tight leading-[1.05] mb-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -328,22 +339,21 @@ export default function StorytellingPage() {
           </motion.h1>
 
           <motion.p
-            className="text-white/50 text-sm md:text-base font-mono uppercase tracking-[0.2em] mb-2"
+            className="font-(family-name:--font-geist-pixel-square) text-white/50 text-sm md:text-base uppercase tracking-[0.2em] mb-2 font-medium"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Builders x Bits
+            Stories x Innovation
           </motion.p>
 
           <motion.p
-            className="text-white/40 text-base md:text-lg max-w-xl leading-relaxed mt-4"
+            className="text-white/40 text-base md:text-lg max-w-xl leading-[1.7] font-medium mt-4 text-balance"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            This is where we explore the human side of innovation in a world of
-            increasingly capable AI.
+            Original stories spotlighting the builders, creators, and communities driving innovation — where creativity, community, and technology connect.
           </motion.p>
         </div>
 

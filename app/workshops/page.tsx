@@ -60,15 +60,16 @@ export default function WorkshopsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.35em] text-white/40 block mb-5 font-normal leading-loose">
+            <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.35em] text-[#ff9900] block mb-5 font-normal leading-loose">
               Workshops &amp; Outreach
             </span>
-            <h1 className="font-(family-name:--font-geist-pixel-square) text-3xl md:text-5xl text-white uppercase tracking-wide leading-[1.15] font-bold mb-6">
-              Two Ways to Build
+            <h1 className="font-(family-name:--font-geist-pixel-square) text-3xl md:text-5xl text-white uppercase tracking-wide leading-[1.2] font-black mb-6">
+              Two Ways to{" "}
+              <span className="text-white/40 font-medium">Build</span>
             </h1>
             <div className="h-px w-48 mx-auto bg-linear-to-r from-[#ff9900] to-[#00f2ff] opacity-60 mb-7" />
-            <p className="text-white/50 text-sm md:text-base leading-[1.8] font-light max-w-2xl mx-auto">
-              Digital Canvas runs hands-on workshops and we partner with companies who want to do the same. Whether you&apos;re here to learn or here to lead, there&apos;s a seat at the table.
+            <p className="text-white/50 text-sm md:text-base leading-[1.8] font-medium max-w-2xl mx-auto">
+              <span className="font-(family-name:--font-geist-pixel-square) text-white/70 uppercase tracking-wide">Digital Canvas</span> produces hands-on workshops and partners with organizations who want to do the same — connecting creativity, community, and technology at&nbsp;scale.
             </p>
           </motion.div>
 
@@ -88,7 +89,7 @@ export default function WorkshopsPage() {
                 Digital Canvas Workshops
               </h2>
               <div className="h-px w-full bg-[#ff9900]/25 mb-5" />
-              <p className="text-white/50 text-sm leading-[1.85] font-light mb-6">
+              <p className="text-white/50 text-sm leading-[1.85] font-medium mb-6">
                 Community-driven sessions where we explore emerging tools, ship real projects, and learn in public. From prompt-to-product pipelines to full-stack deployments — we build together.
               </p>
               <div className="flex items-center gap-2.5 text-[#ff9900] font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] font-normal">
