@@ -24,7 +24,7 @@ const pastEvents = [
     venue: "Main Plaza, San Antonio",
     description: "An incredible evening of connection, celebration, and community. A holiday gathering that brought together San Antonio's creative and tech community.",
     href: "/events/mxratmain",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/mxr-rsvp-desktop.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/mxr-rsvp-desktop.jpg",
     accentColor: "#c41e3a",
   },
   {
@@ -34,7 +34,7 @@ const pastEvents = [
     venue: "San Antonio",
     description: "Equipping aspiring women in technology from historically under-resourced San Antonio neighborhoods with critical tools for success.",
     href: "/events/vanitaleochristmas",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/VanitaLeo-loop.mp4",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/VanitaLeo-loop.mp4",
     accentColor: "#dc2626",
   },
 ]

@@ -5,49 +5,49 @@ import { motion } from "motion/react"
 
 const ornaments = [
   {
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-main.png",
+    src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ornament-main.png",
     alt: "Main Building Ornament",
     size: "w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36",
     delay: 0.1,
   },
   {
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-434.png",
+    src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ornament-434.png",
     alt: "434 Media Ornament",
     size: "w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36",
     delay: 0.2,
   },
   {
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-dc.png",
+    src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ornament-dc.png",
     alt: "Digital Canvas Ornament",
     size: "w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36",
     delay: 0.3,
   },
   {
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-txmx.png",
+    src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ornament-txmx.png",
     alt: "TXMX Ornament",
     size: "w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36",
     delay: 0.4,
   },
   {
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-lola.png",
+    src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ornament-lola.png",
     alt: "Lola Ornament",
     size: "w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36",
     delay: 0.5,
   },
   {
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-devsatv.png",
+    src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ornament-devsatv.png",
     alt: "DevSA TV Ornament",
     size: "w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36",
     delay: 0.6,
   },
   {
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-cd.png",
+    src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ornament-cd.png",
     alt: "Culture Deck Ornament",
     size: "w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36",
     delay: 0.7,
   },
   {
-    src: "https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-pysa.png",
+    src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ornament-pysa.png",
     alt: "PySA Ornament",
     size: "w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36",
     delay: 0.8,

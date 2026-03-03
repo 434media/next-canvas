@@ -22,7 +22,7 @@ const speakers: Speaker[] = [
     name: "Wes Etheredge",
     title: "AI, Analytics, and Cloud Leader",
     company: "",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/Wes.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/Wes.jpg",
     sessionTitle: "Key AI Skills for Leaders",
     description:
       "This session introduces a framework for different levels of AI interaction, exploring how to leverage AI as a \"Thought Partner\" and diving into three essential methods leaders must master to align their organizational goals with agentic tools.",
@@ -32,7 +32,7 @@ const speakers: Speaker[] = [
     name: "Werner Mendizabal",
     title: "Senior Software Engineer",
     company: "Walt Disney Company",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/werner.jpeg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/werner.jpeg",
     sessionTitle: "Godot Audio Stack",
     description:
       "Building a unified audio ecosystem for Godot: godot-csound for real-time synthesis, godot-lv2-host and godot-vst3-host for loading real audio plugins, and godot-distrho to explore plugin-style workflows. This talk focuses on real-time procedural music, interactive sound design, and using the same instruments in a DAW and in-game.",
@@ -42,7 +42,7 @@ const speakers: Speaker[] = [
     name: "Dirce E. Hernandez",
     title: "Cybersecurity, Information Security, and GRC Leader",
     company: "",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/dirce.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/dirce.jpg",
     sessionTitle: "We Can't Do This Without YOU!",
     description:
       "A deep dive into the importance of the unsung heroes of tech—the Security and GRC professionals who were once pushed aside but are now central to the AI revolution. We’ll explore why the relationship between developers and security teams has never been more critical, using Cyber Threat Intelligence as a prime example of why AI development must be a team sport.",
@@ -52,7 +52,7 @@ const speakers: Speaker[] = [
     name: "Serena Hernandez",
     title: "Product Marketing Manager",
     company: "NMI",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/sayp.jpeg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/sayp.jpeg",
     sessionTitle: "Build for the Right Market",
     description:
       "Every winning go-to-market (GTM) strategy starts with research—but not the slow, outdated kind. In this lightning session, Serena Hernandez shares how she uses software and AI tools like Claude, Gong, Crayon CI, and n8n workflows to transform how product marketing validates markets, understands customer pain points, monitors competitors, and defines ideal customer profiles (ICPs).",
@@ -62,7 +62,7 @@ const speakers: Speaker[] = [
     name: "Daniel Ward",
     title: "Software Consultant",
     company: "Lean TECHniques",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/ward.jpeg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/ward.jpeg",
     sessionTitle: "GitHub Copilot SDK",
     description:
       "What if adding a custom AI agent to your app took less time than your next standup? This session shows you how to go from zero to a working AI agent embedded in your application in 10 minutes or less, live on stage. You'll leave with working knowledge of how to use the GitHub Copilot SDK.",
@@ -73,7 +73,7 @@ const speakers: Speaker[] = [
     name: "Jacqueline Suttin",
     title: "Founder",
     company: "MAGEN Trust",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/jacqueline.jpeg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/jacqueline.jpeg",
     sessionTitle: "Proving Humanity in an Agentic Internet",
     description:
       "As AI agents become capable of writing code, filing forms, scraping systems, and acting autonomously across the web, the internet is quietly losing a foundational assumption: that most traffic is human. We'll explore how MAGEN Trust approaches the problem differently: treating human verification as a dynamic, behavioral, upstream security layer rather than a challenge-response gate.",
@@ -84,7 +84,7 @@ const speakers: Speaker[] = [
     name: "Samad Ahmed",
     title: "Founder & CEO",
     company: "Chamoy",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/samad.jpeg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/samad.jpeg",
     sessionTitle: "How Do Agents Actually Work?",
     description:
       "Let's build an agent from scratch! We'll implement perception (what can I see?), planning (what should I do?), action (execute safely), memory (what happened before?), and reflection (did it work?), the core loop that makes agents autonomous. Live code showing how these components wire together, when they fail, and how to make them production-ready.",
@@ -94,7 +94,7 @@ const speakers: Speaker[] = [
     name: "Angel Escobedo",
     title: "Lead Software Developer",
     company: "Webhead",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/angel.jpeg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/angel.jpeg",
     sessionTitle: "What's Left When the Code Writes Itself?",
     description:
       "AI can scaffold a project, write boilerplate, and debug faster than most of us. So what's left? Everything that actually matters. The real shift isn't fewer engineers, it's fewer coding tasks. What remains is architecture, trade-off analysis, system design, and the judgment to know what to build and why.",
@@ -105,7 +105,7 @@ const speakers: Speaker[] = [
     name: "Jesse Hernandez",
     title: "Web Developer",
     company: "434 MEDIA",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/hat-jesse-headshot.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/hat-jesse-headshot.jpg",
     sessionTitle: "Dream It, Ship It",
     description:
       "Moving from a product idea to a live production environment used to require hours of scaffolding, database configuration, and UI tinkering. Today, that workflow is being compressed into minutes. In this live workshop, we'll explore importing existing GitHub repos, provisioning AWS databases on the fly, and shipping a full-stack React application without ever leaving the v0 interface.",
@@ -128,7 +128,7 @@ const spotlights: Spotlight[] = [
     title: "ACM UTSA",
     description:
       "Connecting the next generation of talent — from RowdyHacks and Code in Color to ACM-W and Rowdy Cybercon.",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/utsa.png",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/utsa.png",
     accentColor: "#00f2ff",
   },
   {
@@ -143,7 +143,7 @@ const spotlights: Spotlight[] = [
     title: "PyTexas Conference",
     description:
       "This year marks the 20th year of the largest gathering of Python developers in Texas. Software development, data science, community, and Python. April 17-19 in Austin TX.",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/pytexas.svg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/pytexas.svg",
     accentColor: "#00f2ff",
     imageBgColor: "#ffffff",
   },
@@ -152,7 +152,7 @@ const spotlights: Spotlight[] = [
     title: "VelociCode II",
     description:
       "The month-long, learning-first game jam hosted by ACM San Antonio in partnership with the Greater Gaming Society — built for folks who want a fun reason to ship a game.",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/velocicode.avif",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/velocicode.avif",
     accentColor: "#fbbf24",
   },
   {
@@ -160,7 +160,7 @@ const spotlights: Spotlight[] = [
     title: "Chaincraft",
     description:
       "Revolutionizing how we build, own, and monetize gaming.",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/chain.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/chain.jpg",
     accentColor: "#ff9900",
   },
 ]
@@ -1968,12 +1968,12 @@ function ScheduleCardWithDownload() {
 const videoSponsors = [
   {
     name: "v0 by Vercel",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/v0.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/v0.svg",
     invert: true,
   },
   {
     name: "Lean Techniques",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/lean.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/lean.png",
     invert: false,
   },
 ]
@@ -1981,13 +1981,13 @@ const videoSponsors = [
 const videoPartners = [
   {
     name: "DEVSA TV",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/devsatv-logo.PNG",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/devsatv-logo.PNG",
     invert: false,
     height: 80,
   },
   {
     name: "434 Media",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/434media-light.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/434media-light.svg",
     invert: false,
     height: 40,
   },

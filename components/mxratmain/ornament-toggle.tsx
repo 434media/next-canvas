@@ -26,7 +26,7 @@ export function OrnamentToggle({ isActive, onClick }: OrnamentToggleProps) {
           className={`relative w-16 h-20 transition-all duration-500 z-10 ${isActive ? "scale-110" : "hover:scale-105"}`}
         >
           <Image
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/ornament-vv.png"
+            src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ornament-vv.png"
             alt="Christmas ornament"
             fill
             className="object-contain drop-shadow-lg"

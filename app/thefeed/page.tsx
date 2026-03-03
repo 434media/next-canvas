@@ -115,7 +115,7 @@ export default function TheFeedPage() {
               {/* Video container */}
               <div className="relative aspect-video w-full overflow-hidden border border-[#222] bg-black rounded-sm">
                 <video
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/digitalcanvas.mov"
+                  src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/digitalcanvas.mov"
                   className="w-full h-full object-cover"
                   autoPlay
                   muted

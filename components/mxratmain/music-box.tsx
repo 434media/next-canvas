@@ -34,7 +34,7 @@ export function MusicBox() {
         <div className="relative w-32 h-6 bg-green-800 rounded-full border border-yellow-500/30 shadow-sm flex items-center justify-center z-20 mb-3">
           <div className="absolute w-48 h-24 -top-11 left-1/2 -translate-x-1/2 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">
             <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/flyers-63-xmas.png"
+              src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/flyers-63-xmas.png"
               alt="Digital Canvas"
               fill
               className="object-contain"

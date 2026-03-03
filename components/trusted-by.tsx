@@ -6,47 +6,47 @@ import { Vortex } from "./vortex"
 const trustedByIcons = [
   {
     name: "VelocityTX",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/Sponsor+Logos/VelocityTX+Logo+MAIN+RGB+(1).png",
+    iconFile: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Sponsor%20Logos/VelocityTX%20Logo%20MAIN%20RGB%20(1).png",
     website: "https://velocitytx.org/",
   },
   {
     name: "Alt Bionics",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/altbionics.png",
+    iconFile: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/altbionics.png",
     website: "https://www.altbionics.com/",
   },
   {
     name: "The Health Cell",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/healthcell.png",
+    iconFile: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/healthcell.png",
     website: "https://thehealthcell.org/",
   },
   {
     name: "Mission Road Ministries",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/missionroad.svg",
+    iconFile: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/missionroad.svg",
     website: "https://www.missionroadministries.org/",
   },
   {
     name: "Univision",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/univision-logo.svg",
+    iconFile: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/univision-logo.svg",
     website: "https://www.univision.com/",
   },
   {
     name: "Methodist Healthcare Ministries",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/mhm.png",
+    iconFile: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/mhm.png",
     website: "https://www.mhm.org/",
   },
   {
     name: "Akshar Staffing",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/vemos-vamos/Akshar-Staffing.png",
+    iconFile: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/vemos-vamos/Akshar-Staffing.png",
     website: "https://www.aksharstaffing.com/",
   },
   {
     name: "Alamo Angels",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/angels.png",
+    iconFile: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/angels.png",
     website: "https://alamoangels.com/",
   },
   {
     name: "Tech Bloc",
-    iconFile: "https://ampd-asset.s3.us-east-2.amazonaws.com/healthcell-2-techbloc.png",
+    iconFile: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/healthcell-2-techbloc.png",
     website: "https://satechbloc.com/",
   },
 ]

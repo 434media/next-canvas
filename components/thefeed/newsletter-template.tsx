@@ -151,7 +151,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
               className="absolute -top-6 -left-6 md:-top-8 md:-left-8 w-32 h-16 md:w-40 md:h-20 z-10"
             >
               <Image
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/ActionsSpeakLouder.png"
+                src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/The%20Feed/ActionsSpeakLouder.png"
                 alt="Actions Speak Louder"
                 fill
                 className="object-contain drop-shadow-lg"
@@ -283,7 +283,7 @@ export function NewsletterTemplate({ content }: NewsletterTemplateProps) {
             className="absolute -right-5 -top-10 md:-top-8 md:-right-10 w-24 h-24 md:w-32 md:h-32 z-10"
           >
             <Image
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/The+Feed/434Featured.png"
+              src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/The%20Feed/434Featured.png"
               alt="434 Featured Event"
               fill
               className="object-contain drop-shadow-2xl"

@@ -6,14 +6,14 @@ import { motion } from "motion/react"
 const sponsors = [
   {
     name: "v0 by Vercel",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/v0.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/v0.svg",
     url: "https://v0.app/ref/MVBIAI",
     invert: true,
     heightClass: "h-24 md:h-32",
   },
   {
     name: "Lean Techniques",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/lean.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/lean.png",
     url: "https://www.leantechniques.com/",
     invert: false,
     heightClass: "h-24 md:h-24",
@@ -24,14 +24,14 @@ const sponsors = [
 const partners = [
   {
     name: "DEVSA TV",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/devsatv-logo.PNG",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/devsatv-logo.PNG",
     url: "https://devsa.community",
     invert: false,
     heightClass: "h-24 md:h-28",
   },
   {
     name: "434 Media",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/434media-light.svg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/434media-light.svg",
     url: "https://434media.com",
     invert: false,
     heightClass: "h-16 md:mb-4",

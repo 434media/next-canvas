@@ -124,7 +124,7 @@ const HeroSection = () => {
 
           {/* Main 434 Logo with Enhanced Effects */}
           <motion.img
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/434MediaICONWHITE.png"
+            src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/434MediaICONWHITE.png"
             alt="434 MEDIA - Click to unlock easter egg"
             className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 object-cover rounded-full relative z-10 transition-all duration-300"
             animate={{

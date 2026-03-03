@@ -147,7 +147,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
                 poster="/placeholder.svg?height=720&width=1280"
                 preload="metadata"
               >
-                <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/OVERDRIVE_1080_v02.MOV" type="video/mp4" />
+                <source src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/OVERDRIVE_1080_v02.MOV" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
@@ -169,7 +169,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <Image
-                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/434MediaICONWHITE.png"
+                    src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/434MediaICONWHITE.png"
                     alt="434 MEDIA"
                     className="w-6 h-6 sm:w-8 sm:h-8 rounded-full"
                   />

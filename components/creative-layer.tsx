@@ -20,7 +20,7 @@ export function CreativeLayer({}: CreativeLayerProps) {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <img
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
+            src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/digital-canvas-dark.svg"
             alt="Digital Canvas"
             className={`${isMobile ? "w-96 h-auto" : "w-[600px] h-auto"} mx-auto`}
             style={{

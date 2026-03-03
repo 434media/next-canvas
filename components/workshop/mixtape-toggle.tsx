@@ -83,7 +83,7 @@ export function MixtapeToggle({ theme, onToggle, isMenuOpen }: MixtapeToggleProp
           />
         )}
         <Image
-          src="https://ampd-asset.s3.us-east-2.amazonaws.com/mixtape.png"
+          src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/mixtape.png"
           alt="Mixtape cassette"
           width={160}
           height={160}

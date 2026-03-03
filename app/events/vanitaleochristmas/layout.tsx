@@ -125,7 +125,7 @@ export default function VanitaLeoLayout({
         name: "DevSA",
       },
     ],
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/vanitachristmas.png",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/vanitachristmas.png",
     offers: {
       "@type": "Offer",
       price: "0",

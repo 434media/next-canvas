@@ -31,9 +31,9 @@ const bentoItems: BentoItem[] = [
     category: "Studio",
     description: "We create for the audience that lives in two worlds and belongs to both. Bringing together 70 years of combined expertise in bilingual storytelling, design, and community-driven marketing, our team crafts meaningful brand experiences deeply rooted in Latinx culture.",
     type: "video",
-    media: "https://ampd-asset.s3.us-east-2.amazonaws.com/vv.mp4",
+    media: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/vv.mp4",
     size: "large",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/Website+VV+Assets.png",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Website%20VV%20Assets.png",
     website: "https://vemosvamos.com",
     instagram: "https://instagram.com/vemos.vamos",
     theme: {
@@ -47,9 +47,9 @@ const bentoItems: BentoItem[] = [
     category: "Non-Profit",
     description: "Sparking change through art, empowering youth for a journey of growth and success. The Art, Music, Photography/Film, and Design (AMPD) Project is a veteran-founded 501(c)(3) non-profit organization. We are dedicated to empowering students and veterans through their passion for media and entertainment production.",
     type: "image",
-    media: "https://ampd-asset.s3.us-east-2.amazonaws.com/ampg-og-poster.png",
+    media: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ampg-og-poster.png",
     size: "medium",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/ATBPod-7.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/ATBPod-7.jpg",
     website: "https://ampdproject.com",
     instagram: "https://instagram.com/ampdproject",
     theme: {
@@ -63,9 +63,9 @@ const bentoItems: BentoItem[] = [
     category: "Sport",
     description: "Levantamos Los Puños. TXMX Boxing is a dynamic media platform designed to connect brands with a passionate fight fan audience. By celebrating the rich cultural heritage of Texas and Mexico, TXMX Boxing offers unique opportunities for brands to authentically engage with a community that is deeply rooted in both sport and culture.",
     type: "image",
-    media: "https://ampd-asset.s3.us-east-2.amazonaws.com/bam3.jpg",
+    media: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/bam3.jpg",
     size: "small",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/bam2.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/bam2.jpg",
     website: "https://txmxboxing.com",
     instagram: "https://instagram.com/txmxboxing",
     theme: {
@@ -79,9 +79,9 @@ const bentoItems: BentoItem[] = [
     category: "Tech",
     description: "Activating the tech community in San Antonio through collaboration, strategic partnerships and video. DEVSA is your direct connection to the tech community.",
     type: "image",
-    media: "https://ampd-asset.s3.us-east-2.amazonaws.com/flyers-39-print+(1).png",
+    media: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/flyers-39-print%20(1).png",
     size: "large",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/devsa-group.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/devsa-group.jpg",
     website: "https://devsa.community",
     instagram: "https://instagram.com/devsatx",
     theme: {
@@ -98,9 +98,9 @@ const bentoItems: BentoItem[] = [
     description:
       "Salute to Troops is a unique event marketing platform dedicated to fostering collaboration between Academia, Industry, and the Military. Our mission is to drive innovation, build community, and assist the military in overcoming historic challenges related to recruitment, retention, and reintegration by creating impactful narratives.",
     type: "image",
-    media: "https://ampd-asset.s3.us-east-2.amazonaws.com/mcu-poster.png",
+    media: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/mcu-poster.png",
     size: "small",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/recap+poster.png",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/recap%20poster.png",
     website: "https://salutetotroops.com",
     instagram: "https://instagram.com/milcityusa",
     theme: {
@@ -115,9 +115,9 @@ const bentoItems: BentoItem[] = [
     description:
       "¿Qué es SDOH? is a program designed to break down this big, often misunderstood topic into everyday language—and show how local leaders, innovators, and entrepreneurs can turn awareness into action.",
     type: "image",
-    media: "https://ampd-asset.s3.us-east-2.amazonaws.com/AC+Collage.png",
+    media: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/AC%20Collage.png",
     size: "medium",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/sdoh-group.JPG",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/sdoh-group.JPG",
     website: "https://434media.com/sdoh",
     instagram: "https://instagram.com/digitalcanvas.community",
     theme: {
@@ -132,9 +132,9 @@ const bentoItems: BentoItem[] = [
     description:
       "Join military and civilian leaders, researchers, and innovators to explore breakthrough technologies, share cutting-edge research, and forge partnerships that will transform healthcare for our service members and beyond.",
     type: "image",
-    media: "https://ampd-asset.s3.us-east-2.amazonaws.com/aim-bento.png",
+    media: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/aim-bento.png",
     size: "small",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/aim-group.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/aim-group.jpg",
     website: "https://aimsatx.com",
     instagram: "https://instagram.com/digitalcanvas.community",
     theme: {

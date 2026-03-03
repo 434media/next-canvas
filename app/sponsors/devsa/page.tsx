@@ -433,7 +433,7 @@ export default function DevsaTVPage() {
   // YouTube: use just the video ID (e.g., "BOCU-seUXQ8")
   // Direct URL: use full URL (e.g., "https://example.com/video.mp4")
   const workshopVideo = "BOCU-seUXQ8"
-  const documentaryVideo = "https://ampd-asset.s3.us-east-2.amazonaws.com/Learn2AI+-+081825+G.mp4"
+  const documentaryVideo = "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Learn2AI%20-%20081825%20G.mp4"
 
   // Helper to detect if value is a direct video URL vs YouTube ID
   const isDirectVideoUrl = (src: string) => src.startsWith('http') || src.startsWith('/')
@@ -570,7 +570,7 @@ export default function DevsaTVPage() {
               className="mb-6"
             >
               <img
-                src="https://ampd-asset.s3.us-east-2.amazonaws.com/morehuman/devsatv-logo.PNG"
+                src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/morehuman/devsatv-logo.PNG"
                 alt="DevSA"
                 className="w-56 sm:w-72 md:w-80 h-auto mx-auto"
               />

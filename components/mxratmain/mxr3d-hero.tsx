@@ -32,7 +32,7 @@ function LogoHeader() {
           className={`absolute inset-0 bg-white/10 blur-3xl rounded-full transition-opacity duration-500 ${isPlaying ? "opacity-60 animate-pulse" : "opacity-30 group-hover:opacity-50"}`}
         />
         <Image
-          src="https://ampd-asset.s3.us-east-2.amazonaws.com/mxr.png"
+          src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/mxr.png"
           alt="Digital Canvas Christmas"
           fill
           className="object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] relative z-10"

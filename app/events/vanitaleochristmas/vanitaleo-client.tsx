@@ -37,7 +37,7 @@ export default function VanitaLeoClient() {
           />
           
           <video
-            src="https://ampd-asset.s3.us-east-2.amazonaws.com/VanitaLeo-loop.mp4"
+            src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/VanitaLeo-loop.mp4"
             autoPlay
             loop
             muted
@@ -102,13 +102,13 @@ export default function VanitaLeoClient() {
                   </p>
                   <div className="flex items-center justify-center gap-0 lg:gap-3 mx-auto" style={{ maxWidth: 'fit-content' }}>
                     {[
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-434.png", alt: "434 MEDIA", url: "https://www.434media.com/", large: true },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-vv.png", alt: "Vemos Vamos", url: "https://vemosvamos.com/", large: true },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-levantatech.png", alt: "Levántatech", url: "https://levantatech.org/", large: true },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-devsa.png", alt: "DEVSA", url: "https://devsa.community/", large: true },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-human.png", alt: "Human I-T", url: "https://www.humanit.org/", large: true },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-sdoh.png", alt: "SDOH", url: "https://www.434media.com/en/sdoh", large: true },
-                      { src: "https://ampd-asset.s3.us-east-2.amazonaws.com/christmas/flyers-46-velocity.png", alt: "Velocity TX", url: "https://velocitytx.org/", large: true },
+                      { src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/christmas/flyers-46-434.png", alt: "434 MEDIA", url: "https://www.434media.com/", large: true },
+                      { src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/christmas/flyers-46-vv.png", alt: "Vemos Vamos", url: "https://vemosvamos.com/", large: true },
+                      { src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/christmas/flyers-46-levantatech.png", alt: "Levántatech", url: "https://levantatech.org/", large: true },
+                      { src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/christmas/flyers-46-devsa.png", alt: "DEVSA", url: "https://devsa.community/", large: true },
+                      { src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/christmas/flyers-46-human.png", alt: "Human I-T", url: "https://www.humanit.org/", large: true },
+                      { src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/christmas/flyers-46-sdoh.png", alt: "SDOH", url: "https://www.434media.com/en/sdoh", large: true },
+                      { src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/christmas/flyers-46-velocity.png", alt: "Velocity TX", url: "https://velocitytx.org/", large: true },
                     ].map((ornament, index) => (
                       <motion.a
                         key={ornament.alt}
@@ -197,11 +197,11 @@ export default function VanitaLeoClient() {
                 
                 <div className="aspect-4/5 w-full bg-black">
                   <video
-                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/434+Media+Laptop+Giveaway.MOV"
+                    src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/434%20Media%20Laptop%20Giveaway.MOV"
                     controls
                     playsInline
                     className="vanita-video w-full h-full object-cover"
-                    poster="https://ampd-asset.s3.us-east-2.amazonaws.com/vanita-xmas.jpg"
+                    poster="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/vanita-xmas.jpg"
                   >
                     Your browser does not support the video tag.
                   </video>

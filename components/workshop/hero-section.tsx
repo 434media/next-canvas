@@ -352,7 +352,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
                 >
                   {/* Generated 90s hip hop style image */}
                   <Image
-                    src="https://ampd-asset.s3.us-east-2.amazonaws.com/hood.webp"
+                    src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/hood.webp"
                     alt="Hood Kid 90s hip hop aesthetic"
                     fill
                     className="object-cover"
@@ -371,7 +371,7 @@ export function HeroSection({ theme }: HeroSectionProps) {
               <div className="relative h-[400px] w-full overflow-hidden rounded-2xl shadow-2xl md:h-[450px]">
                 {/* Generated professional image */}
                 <Image
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/good.webp"
+                  src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/good.webp"
                   alt="Good Kid professional leadership"
                   fill  
                   className="object-cover"

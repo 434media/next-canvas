@@ -22,7 +22,7 @@ const sponsorDecks: SponsorCard[] = [
     name: "DEVSA",
     tagline: "From Community to Content",
     logo: "https://devsa-assets.s3.us-east-2.amazonaws.com/devsa-white.svg",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/devsa-group.jpg",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/devsa-group.jpg",
     slug: "/sponsors/devsa",
     available: true,
   },
@@ -30,8 +30,8 @@ const sponsorDecks: SponsorCard[] = [
     id: "vemos-vamos",
     name: "Vemos Vamos",
     tagline: "Bicultural Media for a new generation",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/vemos-vamos/vemos-vamos-logo.png",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/Website+VV+Assets.png",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/vemos-vamos/vemos-vamos-logo.png",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Website%20VV%20Assets.png",
     slug: "/sponsors/vemos-vamos",
     available: false,
     comingSoon: true,
@@ -40,8 +40,8 @@ const sponsorDecks: SponsorCard[] = [
     id: "txmx-boxing",
     name: "TXMX Boxing",
     tagline: "Levantamos Los Puños",
-    logo: "https://ampd-asset.s3.us-east-2.amazonaws.com/txmx-logo.png",
-    image: "https://ampd-asset.s3.us-east-2.amazonaws.com/bam2.jpg",
+    logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/txmx-logo.png",
+    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/bam2.jpg",
     slug: "/sponsors/txmx-boxing",
     available: false,
     comingSoon: true,
@@ -121,7 +121,7 @@ export default function SponsorsPage() {
             className="mb-8"
           >
             <img
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
+              src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/digital-canvas-dark.svg"
               alt="Digital Canvas"
               className="w-80 sm:w-[500px] max-w-[90vw] h-auto mx-auto invert"
             />

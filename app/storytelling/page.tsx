@@ -24,7 +24,7 @@ const stories: Story[] = [
     href: "/thefeed",
     active: true,
     previewVideo:
-      "https://ampd-asset.s3.us-east-2.amazonaws.com/digitalcanvas.mov",
+      "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/digitalcanvas.mov",
   },
   {
     title: "DevSA",
@@ -34,7 +34,7 @@ const stories: Story[] = [
     external: true,
     active: true,
     previewVideo:
-      "https://ampd-asset.s3.us-east-2.amazonaws.com/DEVSA+Web+Banner.mp4",
+      "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/DEVSA%20Web%20Banner.mp4",
   },
   {
     title: "More Human Than Human",
@@ -51,9 +51,9 @@ const stories: Story[] = [
     date: "",
     active: true,
     video:
-      "https://ampd-asset.s3.us-east-2.amazonaws.com/Learn2AI+-+081825+G.mp4",
+      "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Learn2AI%20-%20081825%20G.mp4",
     previewVideo:
-      "https://ampd-asset.s3.us-east-2.amazonaws.com/Learn2AI+-+081825+G.mp4",
+      "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Learn2AI%20-%20081825%20G.mp4",
   },
   {
     title: "SDOH Accelerator",
@@ -61,9 +61,9 @@ const stories: Story[] = [
     date: "",
     active: true,
     video:
-      "https://ampd-asset.s3.us-east-2.amazonaws.com/SDOH+ACCELERATOR+PROGRAM+RECAP_2025.mp4",
+      "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/SDOH%20ACCELERATOR%20PROGRAM%20RECAP_2025.mp4",
     previewVideo:
-      "https://ampd-asset.s3.us-east-2.amazonaws.com/SDOH+ACCELERATOR+PROGRAM+RECAP_2025.mp4",
+      "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/SDOH%20ACCELERATOR%20PROGRAM%20RECAP_2025.mp4",
   },
 ]
 

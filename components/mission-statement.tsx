@@ -110,7 +110,7 @@ const MissionStatement = () => {
                 }
               }}
             >
-              <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/deepmind.mp4" type="video/mp4" />
+              <source src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/deepmind.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-black/20" />
           </motion.div>
@@ -136,7 +136,7 @@ const MissionStatement = () => {
                 video.playbackRate = 0.6
               }}
             >
-              <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/pexels-deepmind-growth.mp4" type="video/mp4" />
+              <source src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/pexels-deepmind-growth.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-purple-900/30" />
           </motion.div>
@@ -162,7 +162,7 @@ const MissionStatement = () => {
                 video.playbackRate = 1.2
               }}
             >
-              <source src="https://ampd-asset.s3.us-east-2.amazonaws.com/pexel-deepmind-colors.mp4" type="video/mp4" />
+              <source src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/pexel-deepmind-colors.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-cyan-900/25" />
           </motion.div>
@@ -199,7 +199,7 @@ const MissionStatement = () => {
                 style={getLogoStyle()}
               >
                 <img
-                  src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
+                  src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/digital-canvas-dark.svg"
                   alt="Digital Canvas"
                   className={`${isMobile ? "w-80 max-w-[90vw]" : "w-[600px] max-w-[80vw]"} h-auto mx-auto transition-all duration-500`}
                 />

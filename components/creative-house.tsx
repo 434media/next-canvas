@@ -19,7 +19,7 @@ export default function CreativeHouse() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: "url(https://ampd-asset.s3.us-east-2.amazonaws.com/finesilver.jpg)",
+              backgroundImage: "url(https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/finesilver.jpg)",
             }}
           />
           <div className="absolute inset-0 bg-black/50" />

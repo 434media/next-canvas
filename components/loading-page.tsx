@@ -80,7 +80,7 @@ export default function LoadingPage() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.img
-              src="https://ampd-asset.s3.us-east-2.amazonaws.com/digital-canvas-dark.svg"
+              src="https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/digital-canvas-dark.svg"
               alt="Digital Canvas Logo"
               className="w-40 h-40 md:w-48 md:h-48 drop-shadow-lg"
               animate={{
