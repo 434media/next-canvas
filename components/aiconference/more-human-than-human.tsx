@@ -3,11 +3,8 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { SpeakersSection } from "./speakers-section"
-import { SessionsSection } from "./sessions-section"
 import { CommunitySpotlight } from "./community-spotlight"
 import { SponsorsSection } from "./sponsors-section"
-import { RegistrationSection } from "./registration-section"
-import { ParkingSection } from "./parking-section"
 
 interface Track {
   id: string
@@ -117,8 +114,10 @@ export function MoreHumanThanHuman() {
   const [duration, setDuration] = useState(0)
   const [volume, setVolume] = useState(0.7)
   const [terminalLines, setTerminalLines] = useState<string[]>([])
+  const [isVideoOpen, setIsVideoOpen] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
+  const recapVideoRef = useRef<HTMLVideoElement>(null)
 
   const addTerminalLine = (line: string) => {
     setTerminalLines((prev) => [...prev.slice(-15), line])
@@ -281,7 +280,7 @@ export function MoreHumanThanHuman() {
                 transition={{ duration: 1, delay: 0.8 }}
               >
                 <p className="text-white/50 text-sm leading-relaxed mb-3">
-                  As AI shifts from a tool we use to an agent that acts, the boundary between human and machine is disappearing. Join San Antonio&apos;s builders, dreamers, and technologists for a deep dive into how AI is fundamentally re-architecting the way we write code, secure the internet, and lead organizations.
+                  On February 28, 2026, San Antonio&apos;s builders, dreamers, and technologists gathered at Geekdom to explore how AI is fundamentally re-architecting the way we write code, secure the internet, and lead organizations — as the boundary between human and machine continues to disappear.
                 </p>
                 <p className="text-[#ff9900] text-sm font-medium leading-relaxed">
                   Powered by the <a href="https://devsa.community" target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-2 decoration-[#ff9900]/40 hover:decoration-[#ff9900] transition-colors">DEVSA Community</a>
@@ -295,38 +294,15 @@ export function MoreHumanThanHuman() {
                 transition={{ duration: 0.6, delay: 1.0 }}
                 className="mt-5 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
               >
-                <a
-                  href="#register"
-                  className="group relative inline-flex items-center justify-center w-[140px] sm:w-40 bg-[#333] text-[#737373] font-extrabold text-xs sm:text-sm uppercase tracking-widest leading-none py-3 sm:py-4 transition-colors duration-200 hover:bg-[#ff5f56] hover:text-[#0a0a0a]"
+                <button
+                  onClick={() => setIsVideoOpen(true)}
+                  className="inline-flex items-center justify-center gap-2 w-40 sm:w-52 border border-[#333] text-white/70 font-semibold text-xs sm:text-sm uppercase tracking-widest leading-none py-3 sm:py-4 transition-all hover:border-[#00f2ff] hover:text-[#00f2ff] hover:bg-[#00f2ff]/5"
                 >
-                  {/* Default: Sold Out */}
-                  <span className="inline-flex items-center gap-2.5 transition-opacity duration-200 group-hover:opacity-0">
-                    Sold Out
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M18 6L6 18M6 6l12 12" />
-                    </svg>
-                  </span>
-                  {/* Hover: Watch Live */}
-                  <span className="absolute inset-0 inline-flex items-center justify-center gap-2.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814Z" />
-                      <path d="M9.545 15.568V8.432L15.818 12l-6.273 3.568Z" fill="#0a0a0a" />
-                    </svg>
-                    Watch Live
-                  </span>
-                </a>
-                <a
-                  href="#sessions"
-                  className="inline-flex items-center justify-center gap-2 w-[140px] sm:w-44 border border-[#333] text-white/70 font-semibold text-xs sm:text-sm uppercase tracking-widest leading-none py-3 sm:py-4 transition-all hover:border-[#00f2ff] hover:text-[#00f2ff] hover:bg-[#00f2ff]/5"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5,3 19,12 5,21" />
                   </svg>
-                  View Schedule
-                </a>
+                  View Event Recap
+                </button>
               </motion.div>
               
               {/* Scroll indicator */}
@@ -605,17 +581,108 @@ export function MoreHumanThanHuman() {
       {/* Community Spotlight Section */}
       <CommunitySpotlight />
 
-      {/* Sessions Section */}
-      <SessionsSection />
-
       {/* Sponsors & Community Partners Section */}
       <SponsorsSection />
 
-      {/* Parking Section */}
-      <ParkingSection />
+      {/* Event Recap Video Modal */}
+      <AnimatePresence>
+        {isVideoOpen && (
+          <motion.div
+            className="fixed inset-0 z-100 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            {/* Backdrop */}
+            <motion.div
+              className="absolute inset-0 bg-black/95 backdrop-blur-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                setIsVideoOpen(false)
+                if (recapVideoRef.current) recapVideoRef.current.pause()
+              }}
+            />
 
-      {/* Registration / Sold Out + Live Stream Section */}
-      <RegistrationSection />
+            {/* Ambient glows */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#ff9900]/10 rounded-full blur-[120px]" />
+              <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#00f2ff]/10 rounded-full blur-[120px]" />
+            </div>
+
+            {/* Modal */}
+            <motion.div
+              className="relative z-10 w-full max-w-5xl border border-[#333] bg-[#0a0a0a] shadow-2xl shadow-black/80"
+              initial={{ scale: 0.92, opacity: 0, y: 30 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 30 }}
+              transition={{ type: "spring", damping: 28, stiffness: 320 }}
+            >
+              {/* Terminal header bar */}
+              <div className="flex items-center justify-between border-b border-[#333] bg-[#111] px-4 py-2.5">
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-1.5">
+                    <button
+                      onClick={() => {
+                        setIsVideoOpen(false)
+                        if (recapVideoRef.current) recapVideoRef.current.pause()
+                      }}
+                      className="h-2.5 w-2.5 bg-[#ff5f56] transition-opacity hover:opacity-80"
+                      aria-label="Close"
+                    />
+                    <div className="h-2.5 w-2.5 bg-[#ffbd2e]" />
+                    <div className="h-2.5 w-2.5 bg-[#27ca40]" />
+                  </div>
+                  <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#737373]">
+                    EVENT_RECAP.mp4 — More Human Than Human 2026
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    setIsVideoOpen(false)
+                    if (recapVideoRef.current) recapVideoRef.current.pause()
+                  }}
+                  className="flex h-7 w-7 items-center justify-center border border-[#333] text-[#737373] transition-all hover:border-[#ff9900] hover:text-[#ff9900]"
+                  aria-label="Close video"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Video */}
+              <div className="relative w-full bg-black" style={{ aspectRatio: "16/9" }}>
+                <video
+                  ref={recapVideoRef}
+                  className="w-full h-full object-contain bg-black"
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="metadata"
+                >
+                  <source
+                    src="https://devsa-assets.s3.us-east-2.amazonaws.com/morehuman/DevSA_MoreHuman2026_0313B.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+
+              {/* Footer label */}
+              <div className="border-t border-[#222] bg-[#0a0a0a] px-4 py-2 flex items-center justify-between">
+                <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#525252]">
+                  Powered by <span className="text-[#ff9900]">DEVSA</span> Community
+                </span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#333]">
+                  February 28, 2026 • Geekdom, San Antonio
+                </span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }
