@@ -72,7 +72,7 @@ export async function GET() {
               fontFamily: "monospace",
             }}
           >
-            Powered by DevSA x Digital Canvas
+            Proof · Conferences
           </div>
 
           {/* Title */}
@@ -87,7 +87,7 @@ export async function GET() {
               marginBottom: "24px",
             }}
           >
-            Quarterly Conferences
+            Events that ship the thesis
           </div>
 
           {/* Description */}
@@ -99,8 +99,7 @@ export async function GET() {
               maxWidth: "600px",
             }}
           >
-            Connecting the San Antonio tech community through quarterly
-            conferences, workshops, and cultural events.
+            Quarterly conferences where the design, workflows, and agents we build show up in the room — for hundreds of operators, developers, and creators.
           </div>
 
           {/* Stat pills */}

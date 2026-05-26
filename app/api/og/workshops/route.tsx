@@ -72,7 +72,7 @@ export async function GET() {
               fontFamily: "monospace",
             }}
           >
-            Workshops & Outreach
+            02 · Workflows
           </div>
 
           {/* Title */}
@@ -87,7 +87,7 @@ export async function GET() {
               marginBottom: "24px",
             }}
           >
-            Two Ways to Build
+            Workflows by Digital Canvas
           </div>
 
           {/* Description */}
@@ -99,11 +99,10 @@ export async function GET() {
               maxWidth: "600px",
             }}
           >
-            Hands-on workshops for the San Antonio tech community — and
-            partnerships with companies who want to do the same.
+            Free monthly workshops. Bite-size workflow examples by industry and AI model — ship one in an hour, take the pattern home.
           </div>
 
-          {/* Track badges */}
+          {/* Format badges */}
           <div
             style={{
               display: "flex",
@@ -119,14 +118,14 @@ export async function GET() {
                 fontSize: "12px",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#ff9900",
-                border: "1px solid rgba(255,153,0,0.3)",
+                color: "#00f2ff",
+                border: "1px solid rgba(0,242,255,0.3)",
                 padding: "6px 16px",
                 fontFamily: "monospace",
               }}
             >
-              <div style={{ width: "6px", height: "6px", backgroundColor: "#ff9900", borderRadius: "50%" }} />
-              Track 01 — Community
+              <div style={{ width: "6px", height: "6px", backgroundColor: "#00f2ff", borderRadius: "50%" }} />
+              Monthly · Free
             </div>
             <div
               style={{
@@ -136,14 +135,14 @@ export async function GET() {
                 fontSize: "12px",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#00f2ff",
-                border: "1px solid rgba(0,242,255,0.3)",
+                color: "#ff9900",
+                border: "1px solid rgba(255,153,0,0.3)",
                 padding: "6px 16px",
                 fontFamily: "monospace",
               }}
             >
-              <div style={{ width: "6px", height: "6px", backgroundColor: "#00f2ff", borderRadius: "50%" }} />
-              Track 02 — Sponsored
+              <div style={{ width: "6px", height: "6px", backgroundColor: "#ff9900", borderRadius: "50%" }} />
+              Claude · MCP · v0
             </div>
           </div>
         </div>
@@ -178,7 +177,7 @@ export async function GET() {
               fontFamily: "monospace",
             }}
           >
-            Digital Canvas Community
+            Stories. Transactions. Loops.
           </div>
         </div>
       </div>

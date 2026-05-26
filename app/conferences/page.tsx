@@ -185,7 +185,7 @@ export default function ConferencesPage() {
 
         {/* Hidden H1 for SEO */}
         <h1 className="sr-only">
-          Quarterly Tech Conferences by Digital Canvas
+          Conferences by Digital Canvas — events that demonstrate the loop
         </h1>
 
         {/* 3D Photo Carousel Background */}
@@ -231,18 +231,24 @@ export default function ConferencesPage() {
             className="space-y-8"
           >
             <div className="space-y-4">
-              <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#ff9900]">
-                Powered by 434 MEDIA x DEVSA
-              </span>
+              <div className="flex items-center gap-3">
+                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#ff9900] font-bold">
+                  Proof
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ff9900]" />
+                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/60">
+                  Conferences
+                </span>
+              </div>
               <h2 className="font-(family-name:--font-geist-pixel-square) text-balance text-white leading-[1.2] text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-wide">
-                Quarterly{" "}
-                <span className="text-white/40 font-medium">Conferences</span>
+                Events{" "}
+                <span className="text-white/40 font-medium">that ship the thesis.</span>
               </h2>
             </div>
 
             <div className="space-y-6 max-w-2xl">
               <p className="text-balance text-lg md:text-xl text-white/60 leading-[1.7] font-medium">
-                Designed and produced by <span className="font-(family-name:--font-geist-pixel-square) text-white uppercase tracking-wide">434 MEDIA x DEVSA</span> — connecting creativity, community, and technology across hundreds of developers, designers, and technologists every quarter.
+                Quarterly conferences where the design, workflows, and agents we build show up in the room — for hundreds of operators, developers, and creators who came to see the work, not the slides.
               </p>
             </div>
 
@@ -278,11 +284,11 @@ export default function ConferencesPage() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white font-black uppercase tracking-wide leading-snug mb-6">
-              Interested in Sponsoring?
+              Sponsor the next one
             </h2>
             <div className="h-px w-48 mx-auto bg-linear-to-r from-[#ff9900] to-[#00f2ff] opacity-60 mb-8" />
             <p className="text-white/60 text-sm md:text-base leading-relaxed font-medium max-w-lg mx-auto">
-              Partner with Digital Canvas to support San Antonio&apos;s thriving tech community and gain visibility among hundreds of local technologists across all industries.
+              Put your name in front of the operators, developers, and creators who showed up for the last one. Sponsorship tiers shape activations on stage, on the floor, and in the post-event content loop.
             </p>
           </motion.div>
 
@@ -410,12 +416,8 @@ export default function ConferencesPage() {
                 disabled={formState === "submitting"}
                 className="w-full bg-linear-to-r from-[#ff9900] to-[#fbbf24] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest py-4 px-8 transition-all hover:opacity-90 hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {formState === "submitting" ? "Sending..." : "Contact Us to Sponsor"}
+                {formState === "submitting" ? "Sending..." : "Send Sponsorship Inquiry"}
               </button>
-
-              <p className="text-white/30 text-[10px] text-center font-(family-name:--font-geist-pixel-square) uppercase tracking-widest">
-                Powered by DevSA x 434 MEDIA
-              </p>
             </motion.form>
           )}
         </div>

@@ -7,27 +7,27 @@ import DigitalCanvasParticles from "../components/hero-particles"
 
 const pillars = [
   {
-    label: "Conferences",
-    href: "/conferences",
-    description: "Large-scale quarterly events designed to connect organizations with the developers, designers, and technologists building the future.",
-    accent: "#ff9900",
-  },
-  {
-    label: "Workshops",
-    href: "/workshops",
-    description: "Hands-on production sessions — from prompt engineering to full-stack builds — designed to move teams from concept to capability.",
-    accent: "#00f2ff",
-  },
-  {
-    label: "Stories",
+    number: "01",
+    label: "Design",
     href: "/storytelling",
-    description: "Original content spotlighting the builders, creators, and communities driving innovation across industries.",
+    description:
+      "Making the web feel intentional, not incidental — using UI and the browser to tell stories. Editorial typography, scroll-based composition, interfaces that earn attention.",
     accent: "#fbbf24",
   },
   {
+    number: "02",
+    label: "Workflows",
+    href: "/workshops",
+    description:
+      "Streamlined, real-world transactions — partner pipelines, content systems, event ops, custom auth. Modular systems that compound into shipped outcomes.",
+    accent: "#00f2ff",
+  },
+  {
+    number: "03",
     label: "Agents",
     href: "/agents",
-    description: "AI-driven experiences built to solve real problems — custom agents as a service, currently in development.",
+    description:
+      "Wrapping workflows in autonomous loops — compressing weeks of execution into hours. Built with Claude, MCP, and small composable tools that do real work.",
     accent: "#a855f7",
   },
 ]
@@ -37,13 +37,13 @@ export default function Home() {
     <div>
       <DigitalCanvasParticles />
 
-      {/* Platform context — scroll-reveal section below the hero */}
+      {/* Thesis — scroll-reveal section below the hero */}
       <section className="relative bg-[#050505] py-24 md:py-32 px-6 overflow-hidden">
         {/* Top edge fade for seamless hero transition */}
         <div className="absolute top-0 left-0 right-0 h-24 bg-linear-to-b from-[#050505] to-transparent z-10 pointer-events-none" />
 
         <div className="relative z-10 max-w-5xl mx-auto">
-          {/* Tagline */}
+          {/* Tagline + ICP hook */}
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -52,16 +52,22 @@ export default function Home() {
             className="mb-16 md:mb-20"
           >
             <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#ff9900] mb-5">
-              Powered by 434 MEDIA x DEVSA
+              Stories. Transactions. Loops.
             </p>
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-[1.25] tracking-tight max-w-3xl">
-              <span className="font-(family-name:--font-geist-pixel-square) uppercase tracking-wide">Digital Canvas</span> designs and produces conferences, workshops, and AI-driven experiences{" "}
-              <span className="text-white/30 font-medium">that help organizations connect creativity, community, and technology — at&nbsp;scale.</span>
+              <span className="font-(family-name:--font-geist-pixel-square) uppercase tracking-wide">
+                Digital Canvas
+              </span>{" "}
+              is for operators and product teams shipping intentional digital
+              products{" "}
+              <span className="text-white/30 font-medium">
+                — and the autonomous workflows behind them.
+              </span>
             </h2>
           </motion.div>
 
-          {/* Pillar cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#222] border border-[#222]">
+          {/* Triad: 01 Design · 02 Workflows · 03 Agents */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#222] border border-[#222]">
             {pillars.map((pillar, i) => (
               <motion.div
                 key={pillar.label}
@@ -74,10 +80,18 @@ export default function Home() {
                   href={pillar.href}
                   className="group block bg-[#0a0a0a] p-8 md:p-10 h-full transition-colors duration-300 hover:bg-[#111]"
                 >
-                  <div
-                    className="w-2 h-2 rounded-full mb-5"
-                    style={{ backgroundColor: pillar.accent }}
-                  />
+                  <div className="flex items-center gap-3 mb-5">
+                    <span
+                      className="font-(family-name:--font-geist-pixel-square) text-xs tracking-[0.2em] font-bold"
+                      style={{ color: pillar.accent }}
+                    >
+                      {pillar.number}
+                    </span>
+                    <div
+                      className="w-2 h-2 rounded-full"
+                      style={{ backgroundColor: pillar.accent }}
+                    />
+                  </div>
                   <h3 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.2em] text-white font-bold mb-3">
                     {pillar.label}
                   </h3>
@@ -95,6 +109,46 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+
+          {/* Funnel CTA — workshops on ramp, consultancy off ramp */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-20 md:mt-24 border-t border-[#222] pt-12 md:pt-16"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-end">
+              <div>
+                <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#00f2ff] mb-4">
+                  Where to start
+                </p>
+                <h3 className="text-xl md:text-3xl font-black text-white leading-[1.3] tracking-tight">
+                  Free monthly workshops.{" "}
+                  <span className="text-white/30 font-medium">
+                    Bite-size workflow examples by industry and AI model — ship
+                    one in an hour, take the pattern home.
+                  </span>
+                </h3>
+              </div>
+              <div className="flex flex-col sm:flex-row md:flex-col gap-3 md:items-end">
+                <Link
+                  href="/workshops"
+                  className="group inline-flex items-center justify-between gap-3 bg-white text-black px-6 py-4 text-xs uppercase tracking-[0.2em] font-bold hover:bg-[#00f2ff] transition-colors duration-200"
+                >
+                  Workflows by Digital Canvas
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  href="/agents"
+                  className="group inline-flex items-center justify-between gap-3 border border-[#333] text-white/70 hover:text-white hover:border-white/50 px-6 py-4 text-xs uppercase tracking-[0.2em] font-bold transition-colors duration-200"
+                >
+                  Work with us
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

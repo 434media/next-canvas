@@ -318,13 +318,17 @@ export default function StorytellingPage() {
         {/* Content overlay */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto">
           <motion.div
-            className="mb-4"
+            className="mb-4 flex items-center gap-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#ff9900]">
-              Powered by 434 MEDIA x DEVSA
+            <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#fbbf24] font-bold">
+              01
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#fbbf24]" />
+            <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/60">
+              Design
             </span>
           </motion.div>
 
@@ -334,8 +338,8 @@ export default function StorytellingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <span className="text-[#fbbf24]">Human</span>
-            <span className="text-[#00f2ff]">+</span>
+            <span className="text-[#fbbf24]">Intentional</span>
+            <span className="text-white/30">.</span>
           </motion.h1>
 
           <motion.p
@@ -344,7 +348,7 @@ export default function StorytellingPage() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Stories x Innovation
+            Not incidental.
           </motion.p>
 
           <motion.p
@@ -353,7 +357,7 @@ export default function StorytellingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Original stories spotlighting the builders, creators, and communities driving innovation — where creativity, community, and technology connect.
+            Editorial typography, scroll-based composition, interfaces that earn attention. Below are field notes from the work — surfaces where the design carried the story.
           </motion.p>
         </div>
 

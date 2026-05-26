@@ -70,7 +70,7 @@ export async function GET() {
               fontFamily: "monospace",
             }}
           >
-            Content Hub
+            Field Notes
           </div>
 
           {/* Title */}
@@ -97,8 +97,7 @@ export async function GET() {
               maxWidth: "600px",
             }}
           >
-            Curated content from Digital Canvas — articles, videos, and resources
-            at the intersection of creativity and technology.
+            Field notes from the work — workflows we shipped, loops we tuned, design choices we&apos;re still defending.
           </div>
 
           {/* Type badges */}
@@ -173,7 +172,7 @@ export async function GET() {
               fontFamily: "monospace",
             }}
           >
-            Digital Canvas
+            Stories. Transactions. Loops.
           </div>
         </div>
       </div>

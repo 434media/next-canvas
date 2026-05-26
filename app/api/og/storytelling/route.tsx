@@ -74,7 +74,7 @@ export async function GET() {
               fontFamily: "monospace",
             }}
           >
-            Builders x Bits
+            01 · Design
           </div>
 
           {/* Title */}
@@ -88,26 +88,25 @@ export async function GET() {
           >
             <div
               style={{
-                fontSize: "72px",
+                fontSize: "84px",
                 fontWeight: 800,
-                color: "#ffffff",
+                color: "#fbbf24",
                 lineHeight: 1.1,
                 textTransform: "uppercase",
                 letterSpacing: "0.02em",
               }}
             >
-              Human
+              Intentional
             </div>
             <div
               style={{
-                fontSize: "72px",
+                fontSize: "84px",
                 fontWeight: 300,
-                color: "#fbbf24",
+                color: "rgba(255,255,255,0.3)",
                 lineHeight: 1.1,
-                letterSpacing: "0.02em",
               }}
             >
-              +
+              .
             </div>
           </div>
 
@@ -120,8 +119,7 @@ export async function GET() {
               maxWidth: "600px",
             }}
           >
-            Stories from the intersection of creativity, community, and
-            technology. Real projects. Real people. San Antonio.
+            Editorial typography, scroll-based composition, interfaces that earn attention. Field notes from the work — surfaces where the design carried the story.
           </div>
 
           {/* Story tags */}
@@ -133,7 +131,7 @@ export async function GET() {
               flexWrap: "wrap",
             }}
           >
-            {["MHTH Conference", "The Feed", "DevSA", "Learn2AI", "SDOH Accelerator"].map((tag) => (
+            {["The Feed", "DevSA", "MHTH", "Learn2AI", "SDOH"].map((tag) => (
               <div
                 key={tag}
                 style={{
@@ -182,7 +180,7 @@ export async function GET() {
               fontFamily: "monospace",
             }}
           >
-            Digital Canvas Community
+            Stories. Transactions. Loops.
           </div>
         </div>
       </div>

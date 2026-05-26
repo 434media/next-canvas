@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const { email } = await request.json()
+    const { email, tags: extraTags } = await request.json()
 
     if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email is required" }, { status: 400 })
@@ -38,6 +38,13 @@ export async function POST(request: Request) {
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
+
+    // Merge client-supplied tags with the site defaults so segmented signups
+    // (e.g. workshop waitlist) carry both the global and the per-source tag.
+    const sanitizedExtraTags = Array.isArray(extraTags)
+      ? extraTags.filter((t): t is string => typeof t === "string" && t.length > 0 && t.length < 64)
+      : []
+    const mergedTags = Array.from(new Set([...SITE_TAGS, ...sanitizedExtraTags]))
 
     const mailchimpEnabled = mailchimpApiKey && mailchimpListId
     if (!mailchimpEnabled) {
@@ -53,7 +60,7 @@ export async function POST(request: Request) {
       {
         email: email.toLowerCase().trim(),
         source: SITE_SOURCE,
-        tags: SITE_TAGS,
+        tags: mergedTags,
         pageUrl: request.headers.get("referer") || undefined,
       },
       {
@@ -73,7 +80,7 @@ export async function POST(request: Request) {
         {
           email_address: email,
           status: "subscribed",
-          tags: SITE_TAGS,
+          tags: mergedTags,
         },
         {
           auth: {
@@ -109,12 +116,12 @@ export async function POST(request: Request) {
       const mailchimpResult = results[1]
       if (mailchimpResult.status === "rejected") {
         console.error("Mailchimp error:", mailchimpResult.reason)
-        await handleMailchimpError(mailchimpResult.reason, email, errors)
+        await handleMailchimpError(mailchimpResult.reason, email, errors, mergedTags)
       } else if (mailchimpResult.status === "fulfilled") {
         const response = mailchimpResult.value
         if (response.status >= 400 && response.data?.title === "Member Exists") {
           // Update existing member with tags
-          await updateMailchimpMemberTags(email)
+          await updateMailchimpMemberTags(email, mergedTags)
         } else if (response.status >= 400) {
           console.error("Mailchimp error:", response.data)
           errors.push("Mailchimp subscription failed")
@@ -150,7 +157,7 @@ export async function POST(request: Request) {
   }
 }
 
-async function handleMailchimpError(error: any, email: string, errors: string[]) {
+async function handleMailchimpError(error: any, email: string, errors: string[], tags: string[]) {
   if (error?.response?.data) {
     const responseData = error.response.data
     if (typeof responseData === "string" && responseData.includes("<!DOCTYPE")) {
@@ -158,7 +165,7 @@ async function handleMailchimpError(error: any, email: string, errors: string[])
       errors.push("Mailchimp authentication failed")
     } else if (responseData?.title === "Member Exists") {
       console.log("Email already exists in Mailchimp, updating tags")
-      await updateMailchimpMemberTags(email)
+      await updateMailchimpMemberTags(email, tags)
     } else {
       errors.push("Mailchimp subscription failed")
     }
@@ -167,13 +174,13 @@ async function handleMailchimpError(error: any, email: string, errors: string[])
   }
 }
 
-async function updateMailchimpMemberTags(email: string) {
+async function updateMailchimpMemberTags(email: string, tags: string[]) {
   try {
     const emailHash = crypto.createHash("md5").update(email.toLowerCase()).digest("hex")
     await axios.post(
       `https://${mailchimpDatacenter}.api.mailchimp.com/3.0/lists/${mailchimpListId}/members/${emailHash}/tags`,
       {
-        tags: SITE_TAGS.map(tag => ({ name: tag, status: "active" })),
+        tags: tags.map(tag => ({ name: tag, status: "active" })),
       },
       {
         auth: {

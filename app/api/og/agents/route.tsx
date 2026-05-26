@@ -23,7 +23,7 @@ export async function GET() {
             left: 0,
             right: 0,
             height: "4px",
-            background: "linear-gradient(to right, #ff9900, #fbbf24, #ff9900)",
+            background: "linear-gradient(to right, #a855f7, #00f2ff, #a855f7)",
           }}
         />
 
@@ -35,7 +35,7 @@ export async function GET() {
             right: "10%",
             width: "500px",
             height: "500px",
-            background: "radial-gradient(circle, rgba(255,153,0,0.08) 0%, transparent 60%)",
+            background: "radial-gradient(circle, rgba(168,85,247,0.10) 0%, transparent 60%)",
           }}
         />
 
@@ -60,7 +60,7 @@ export async function GET() {
               fontFamily: "monospace",
             }}
           >
-            Human in the Loop
+            03 · Agents
           </div>
 
           {/* Title */}
@@ -75,7 +75,7 @@ export async function GET() {
               marginBottom: "24px",
             }}
           >
-            AI Agents
+            Autonomous Loops
           </div>
 
           {/* Description */}
@@ -87,8 +87,7 @@ export async function GET() {
               maxWidth: "600px",
             }}
           >
-            White-label web development powered by structured RAG and the AI
-            SDK. Your data, your brand, your customers — our infrastructure.
+            Wrapping workflows in autonomous loops — compressing weeks of execution into hours. Built with Claude, MCP, and small composable tools.
           </div>
 
           {/* Stats row */}
@@ -100,10 +99,10 @@ export async function GET() {
             }}
           >
             {[
-              { value: "100%", label: "Human Governed" },
-              { value: "AI SDK", label: "Vercel Foundation" },
-              { value: "RAG", label: "Structured Context" },
-              { value: "24/7", label: "Always On" },
+              { value: "100%", label: "Human in the Loop" },
+              { value: "AI SDK", label: "Provider Agnostic" },
+              { value: "RAG", label: "Structured Retrieval" },
+              { value: "30D", label: "Time to First Loop" },
             ].map((stat) => (
               <div
                 key={stat.label}
@@ -117,7 +116,7 @@ export async function GET() {
                   style={{
                     fontSize: "28px",
                     fontWeight: 700,
-                    color: "#ff9900",
+                    color: "#a855f7",
                     fontFamily: "monospace",
                   }}
                 >
@@ -164,13 +163,13 @@ export async function GET() {
             style={{
               fontSize: "12px",
               letterSpacing: "0.25em",
-              color: "#ff9900",
+              color: "#a855f7",
               textTransform: "uppercase",
               fontFamily: "monospace",
-              opacity: 0.5,
+              opacity: 0.6,
             }}
           >
-            Coming Soon
+            Stories. Transactions. Loops.
           </div>
         </div>
       </div>

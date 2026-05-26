@@ -9,11 +9,12 @@ import {
 } from './digital-canvas-logo-paths'
 
 const navLinks = [
-  { name: 'Conferences', href: '/conferences' },
-  { name: 'Workshops', href: '/workshops' },
-  { name: 'Storytelling', href: '/storytelling' },
-  { name: 'The Feed', href: '/thefeed' },
+  { name: 'Workflows', href: '/workshops' },
   { name: 'Agents', href: '/agents' },
+  { name: 'The Feed', href: '/thefeed' },
+  { name: 'Events', href: '/events' },
+  { name: 'Sponsors', href: '/sponsors' },
+  { name: 'Design', href: '/storytelling' },
 ]
 
 const socialLinks = [
@@ -199,10 +200,13 @@ export default function Footer() {
           {/* Brand + Description */}
           <div className="md:col-span-6 space-y-4">
             <h2 className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#ff9900]/60">
-              Digital Canvas
+              Stories. Transactions. Loops.
             </h2>
             <p className="text-white/40 text-sm leading-relaxed max-w-md">
-              Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.
+              Digital Canvas is for operators and product teams shipping intentional digital products — and the autonomous workflows behind them.
+            </p>
+            <p className="text-white/25 text-xs font-mono tracking-[0.15em] uppercase pt-2">
+              A 434 Media &times; DevSA production
             </p>
           </div>
 
@@ -262,7 +266,7 @@ export default function Footer() {
             &copy; {year} Digital Canvas. All rights reserved.
           </p>
           <p className="text-white/10 text-[10px] font-mono tracking-wider uppercase">
-            San Antonio, TX
+            San Antonio, TX &middot; 434 Media &times; DevSA
           </p>
         </div>
       </div>

@@ -4,28 +4,30 @@ import Link from "next/link"
 import { motion } from "motion/react"
 
 // Event data
-const upcomingEvent = {
-  title: "More Human Than Human",
-  subtitle: "AI Conference",
-  date: "February 28, 2026",
-  venue: "Geekdom, San Antonio",
-  description: "San Antonio's premier AI conference exploring how artificial intelligence is reshaping code, security, and leadership. As AI shifts from a tool we use to an agent that acts, the boundary between human and machine is disappearing.",
-  tagline: "We aren't just talking about the future — we're demonstrating the tools that are defining it.",
-  href: "/conferences/morehumanthanhuman",
-  image: "https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4",
-  status: "upcoming",
+type UpcomingEvent = {
+  title: string
+  subtitle: string
+  date: string
+  venue: string
+  description: string
+  tagline: string
+  href: string
+  image: string
+  status: string
 }
+
+const upcomingEvent: UpcomingEvent | null = null
 
 const pastEvents = [
   {
-    title: "MXR@Main",
-    subtitle: "Holiday Celebration",
-    date: "December 2025",
-    venue: "Main Plaza, San Antonio",
-    description: "An incredible evening of connection, celebration, and community. A holiday gathering that brought together San Antonio's creative and tech community.",
-    href: "/events/mxratmain",
-    image: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/mxr-rsvp-desktop.jpg",
-    accentColor: "#c41e3a",
+    title: "More Human Than Human",
+    subtitle: "AI Conference",
+    date: "February 2026",
+    venue: "Geekdom, San Antonio",
+    description: "San Antonio's premier AI conference exploring how artificial intelligence is reshaping code, security, and leadership — and where the boundary between human and machine is disappearing.",
+    href: "/conferences/morehumanthanhuman",
+    image: "https://devsa-assets.s3.us-east-2.amazonaws.com/HEAD_v01.mp4",
+    accentColor: "#fbbf24",
   },
   {
     title: "Vanita Leo Christmas",
@@ -100,13 +102,14 @@ export default function EventsPage() {
               Events
             </h1>
             <p className="text-[#a3a3a3] text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto font-normal mt-6">
-              Where stories come to life. Curated experiences that bring together San Antonio&apos;s builders, dreamers, and community.
+              Where the thesis ships. Conferences, workshops, and gatherings where the design, workflows, and agents show up in the room — not on a slide.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Upcoming Event - Featured */}
+      {upcomingEvent && (
       <section className="relative py-16 sm:py-24">
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div
@@ -206,6 +209,7 @@ export default function EventsPage() {
           </motion.div>
         </div>
       </section>
+      )}
 
       {/* Past Events */}
       <section className="relative py-16 sm:py-24">

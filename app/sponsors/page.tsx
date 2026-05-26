@@ -145,7 +145,7 @@ export default function SponsorsPage() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-4"
           >
-            Partner With Us
+            Sponsor the work
           </motion.h1>
 
           <motion.p
@@ -154,8 +154,7 @@ export default function SponsorsPage() {
             transition={{ delay: 0.5 }}
             className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed"
           >
-            Explore sponsorship opportunities across our creative network. 
-            Each property offers unique ways to connect with our most engaged communities in San Antonio and beyond.
+            Put your name on the conferences, workshops, and content that operators actually show up for. Pick a property — each one comes with a pitch deck, tiers, and a real audience.
           </motion.p>
         </div>
       </section>

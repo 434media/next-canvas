@@ -8,10 +8,10 @@ import { Menu } from "lucide-react"
 import SlideoverMenu from "./slideover-menu"
 
 const navLinks = [
-  { href: "/conferences", label: "Conferences" },
-  { href: "/workshops", label: "Workshops" },
-  { href: "/storytelling", label: "Storytelling" },
-  { href: "/agents", label: "Agents", comingSoon: true },
+  { href: "/workshops", label: "Workflows" },
+  { href: "/agents", label: "Agents" },
+  { href: "/thefeed", label: "The Feed" },
+  { href: "/events", label: "Events" },
 ]
 
 const Navbar = () => {
@@ -73,11 +73,6 @@ const Navbar = () => {
                     className="relative font-(family-name:--font-geist-pixel-square) text-xs text-white/70 uppercase tracking-widest hover:text-white transition-colors duration-200 flex items-center gap-1.5"
                   >
                     {link.label}
-                    {link.comingSoon && (
-                      <span className="font-(family-name:--font-geist-pixel-square) text-[7px] uppercase tracking-wider bg-[#ff9900] text-[#0a0a0a] px-1.5 py-px leading-tight font-semibold">
-                        in development
-                      </span>
-                    )}
                   </Link>
                 ))}
               </div>

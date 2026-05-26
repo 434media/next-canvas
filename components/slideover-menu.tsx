@@ -12,11 +12,10 @@ interface SlideoverMenuProps {
 }
 
 const navLinks = [
-  { href: "/conferences", label: "Conferences" },
-  { href: "/workshops", label: "Workshops" },
-  { href: "/storytelling", label: "Storytelling" },
+  { href: "/workshops", label: "Workflows" },
+  { href: "/agents", label: "Agents" },
   { href: "/thefeed", label: "The Feed" },
-  { href: "/agents", label: "Agents", comingSoon: true },
+  { href: "/events", label: "Events" },
 ]
 
 const socialLinks = [
@@ -115,14 +114,10 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                   transition={{ delay: 0.25, duration: 0.5, ease: "easeOut" }}
                 >
                   <h2 className="font-(family-name:--font-geist-pixel-square) text-[9px] tracking-[0.3em] uppercase text-[#ff9900]/60 mb-4">
-                    Digital Canvas
+                    Stories. Transactions. Loops.
                   </h2>
                   <p className="font-(family-name:--font-geist-pixel-square) text-[13px] leading-[1.8] font-normal text-white/50">
-                    Powered by{" "}
-                    <span className="text-[#ff9900] font-semibold">434 MEDIA</span>
-                    {" x "}
-                    <span className="text-[#ff9900] font-semibold">DEVSA</span>, {" "}
-                    Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.
+                    Digital Canvas is for operators and product teams shipping intentional digital products — and the autonomous workflows behind them.
                   </p>
                 </motion.div>
 
@@ -147,14 +142,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                           onClick={onClose}
                           className="flex items-center justify-between py-3 px-4 text-white/40 hover:text-[#ff9900] font-(family-name:--font-geist-pixel-square) text-sm uppercase tracking-widest hover:bg-white/2 transition-all duration-200"
                         >
-                          <span className="flex items-center gap-2">
-                            {link.label}
-                            {link.comingSoon && (
-                              <span className="font-(family-name:--font-geist-pixel-square) text-[7px] uppercase tracking-wider bg-[#ff9900] text-[#0a0a0a] px-1.5 py-px leading-tight font-semibold">
-                                in development
-                              </span>
-                            )}
-                          </span>
+                          <span>{link.label}</span>
                           <ArrowRightIcon className="w-3.5 h-3.5 opacity-30" />
                         </NextLink>
                       </motion.div>
@@ -211,7 +199,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                     &copy; {new Date().getFullYear()} Digital Canvas
                   </p>
                   <p className="font-(family-name:--font-geist-pixel-square) text-white/10 text-[8px] tracking-wider uppercase mt-1">
-                    San Antonio, TX
+                    San Antonio, TX · 434 Media &times; DevSA
                   </p>
                 </motion.div>
               </motion.div>

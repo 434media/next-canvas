@@ -19,7 +19,7 @@ export default function FeedHeader({ totalCount }: FeedHeaderProps) {
         <sup className="font-(family-name:--font-geist-pixel-square) text-base md:text-lg lg:text-xl ml-2 font-normal text-white/40">({totalCount})</sup>
       </h1>
       <p className="mt-5 text-base md:text-lg text-white/50 max-w-3xl leading-[1.8] font-light">
-        Explore our latest newsletters, and community spotlights from the DEVSA x 434 MEDIA community.
+        Field notes from the work — workflows we shipped, loops we tuned, design choices we&apos;re still defending. New posts whenever there&apos;s something worth saying.
       </p>
     </motion.div>
   )

@@ -26,15 +26,18 @@ const dancingScript = Dancing_Script({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.community"
 
+const TAGLINE = "Stories. Transactions. Loops."
+const DESCRIPTION =
+  "Digital Canvas is for operators and product teams shipping intentional digital products — and the autonomous workflows behind them. Design, workflows, and agents built with Claude, MCP, and small composable tools."
+
 export const metadata: Metadata = {
   title: {
-    default: "Digital Canvas | Powered by 434 MEDIA x DEVSA",
+    default: `Digital Canvas | ${TAGLINE}`,
     template: "%s | Digital Canvas",
   },
-  description:
-    "Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.",
+  description: DESCRIPTION,
   keywords:
-    "Digital Canvas, San Antonio, tech conferences, workshops, AI agents, creative technology, community, storytelling, 434 MEDIA, DEVSA",
+    "Digital Canvas, autonomous workflows, AI agents, Claude, MCP, design engineering, consulting, workshops, San Antonio, 434 Media, DevSA",
   authors: [{ name: "Digital Canvas" }],
   creator: "Digital Canvas",
   publisher: "Digital Canvas",
@@ -48,9 +51,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Digital Canvas | Powered by 434 MEDIA x DEVSA",
-    description:
-      "Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.",
+    title: `Digital Canvas | ${TAGLINE}`,
+    description: DESCRIPTION,
     url: siteUrl,
     siteName: "Digital Canvas",
     images: [
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Digital Canvas - Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.',
+        alt: `Digital Canvas — ${TAGLINE}`,
       },
     ],
     locale: "en_US",
@@ -66,9 +68,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Canvas | Powered by 434 MEDIA x DEVSA",
-    description:
-      "Powered by 434 MEDIA x DEVSA, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.",
+    title: `Digital Canvas | ${TAGLINE}`,
+    description: DESCRIPTION,
     images: ['/opengraph-image.png'],
     creator: '@devsatx',
     site: '@devsatx',
@@ -106,8 +107,7 @@ export default function RootLayout({
               "@type": "Organization",
               name: "Digital Canvas",
               alternateName: "Digital Canvas Community",
-              description:
-                "Powered by DEVSA x 434 Media, Digital Canvas designs and produces conferences, workshops, and AI-driven experiences that help organizations connect creativity, community, and technology — at scale.",
+              description: DESCRIPTION,
               url: siteUrl,
               logo: "https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg",
               foundingDate: "2020",
@@ -118,16 +118,16 @@ export default function RootLayout({
                 addressCountry: "US",
               },
               knowsAbout: [
-                "Creative Development",
-                "Brand Strategy",
-                "Digital Marketing",
-                "Content Creation",
-                "IP Development",
+                "Autonomous Workflows",
+                "AI Agents",
+                "Claude",
+                "Model Context Protocol",
+                "Design Engineering",
+                "Editorial Typography",
+                "Workshops",
+                "AI Consultancy",
                 "Event Production",
                 "Community Building",
-                "Media Production",
-                "Creative Technology",
-                "Partnership Development",
               ],
               sameAs: [
                 "https://twitter.com/devsatx",
