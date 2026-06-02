@@ -5,8 +5,15 @@ import Image from "next/image"
 import { motion } from "motion/react"
 import { ArrowRight, Calendar, Clock, MapPin } from "lucide-react"
 
-const ACCENT = "#88FF00"
-const ACCENT_ALT = "#FF006E"
+// Carroll Strategy & Operations color system — used on this event page only.
+// Light background stays; the Digital Canvas green/magenta accents are
+// replaced with Carroll Emerald, Coral, Executive Navy, and Professional Gray.
+// Only EMERALD and CORAL are exported via JS — they're passed into inline
+// style props for dynamic backgrounds/borders. The other Carroll values
+// (Navy #041C32, Gray #6F7883, Border #E1E4EA) live inline in Tailwind
+// arbitrary classes (e.g. text-[#041C32]) since Tailwind can't read JS vars.
+const EMERALD = "#1AAD9B" // positive accent: success, selection, structural bullets
+const CORAL = "#FF5757" // sparingly: CTAs, urgency eyebrows
 
 const FLYER_URL =
   "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/digitalcanvas%2FInvitation%20only%20Limited%20Executive%20Seating.PNG?alt=media"
@@ -81,12 +88,12 @@ export default function LeadWithOpsPage() {
   }
 
   return (
-    <main className="bg-white min-h-screen text-[#0a0a0a]">
+    <main className="bg-white min-h-screen text-[#041C32]">
       {/* Full-page split layout — content scrolls on the left, form is pinned on the right (desktop). */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-28 px-6">
         <div
           className="absolute top-0 left-0 right-0 h-px pointer-events-none"
-          style={{ backgroundImage: `linear-gradient(to right, transparent, ${ACCENT_ALT}55, transparent)` }}
+          style={{ backgroundImage: `linear-gradient(to right, transparent, ${CORAL}55, transparent)` }}
         />
 
         <div className="relative z-10 max-w-7xl mx-auto">
@@ -105,20 +112,20 @@ export default function LeadWithOpsPage() {
                 className="flex items-center gap-3 flex-wrap"
               >
                 <span className="inline-flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: ACCENT }} />
-                  <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#0a0a0a] font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: EMERALD }} />
+                  <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#041C32] font-bold">
                     Executive Working Lunch
                   </span>
                 </span>
-                <span className="hidden sm:inline-block h-px w-6 bg-[#e5e5e5]" />
+                <span className="hidden sm:inline-block h-px w-6 bg-[#E1E4EA]" />
                 <span className="inline-flex items-center gap-2">
                   <span
                     className="w-1.5 h-1.5 rounded-full animate-pulse"
-                    style={{ backgroundColor: ACCENT_ALT }}
+                    style={{ backgroundColor: CORAL }}
                   />
                   <span
                     className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold"
-                    style={{ color: ACCENT_ALT }}
+                    style={{ color: CORAL }}
                   >
                     Limited Executive Seating
                   </span>
@@ -130,10 +137,10 @@ export default function LeadWithOpsPage() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                className="font-(family-name:--font-geist-pixel-square) text-3xl md:text-5xl lg:text-6xl text-[#0a0a0a] uppercase tracking-wide leading-[1.1] font-black"
+                className="font-(family-name:--font-geist-pixel-square) text-3xl md:text-5xl lg:text-6xl text-[#041C32] uppercase tracking-wide leading-[1.1] font-black"
               >
                 Lead with Ops.{" "}
-                <span className="text-black/35 font-medium block">Layer in AI.</span>
+                <span className="text-[#6F7883] font-medium block">Layer in AI.</span>
               </motion.h1>
 
               {/* Subtitle */}
@@ -141,10 +148,10 @@ export default function LeadWithOpsPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.18 }}
-                className="text-[#525252] text-base md:text-lg leading-relaxed max-w-2xl"
+                className="text-[#6F7883] text-base md:text-lg leading-relaxed max-w-2xl"
               >
                 A practical executive working lunch with{" "}
-                <span className="text-[#0a0a0a] font-medium">Adam Carroll, Founder of Carroll Strategy &amp; Operations</span>{" "}
+                <span className="text-[#041C32] font-medium">Adam Carroll, Founder of Carroll Strategy &amp; Operations</span>{" "}
                 — clarity on aligning AI initiatives with business strategy, operational priorities, and measurable outcomes.
               </motion.p>
 
@@ -153,27 +160,27 @@ export default function LeadWithOpsPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.28 }}
-                className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#e5e5e5] border border-[#e5e5e5]"
+                className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#E1E4EA] border border-[#E1E4EA]"
               >
                 <div className="bg-white p-5 flex items-center gap-3">
-                  <Calendar className="w-4 h-4 shrink-0 text-[#0a0a0a]" />
+                  <Calendar className="w-4 h-4 shrink-0 text-[#041C32]" />
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#737373] mb-1">Date</p>
-                    <p className="text-[#0a0a0a] text-sm font-semibold">June 18, 2026</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#6F7883] mb-1">Date</p>
+                    <p className="text-[#041C32] text-sm font-semibold">June 18, 2026</p>
                   </div>
                 </div>
                 <div className="bg-white p-5 flex items-center gap-3">
-                  <Clock className="w-4 h-4 shrink-0 text-[#0a0a0a]" />
+                  <Clock className="w-4 h-4 shrink-0 text-[#041C32]" />
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#737373] mb-1">Time</p>
-                    <p className="text-[#0a0a0a] text-sm font-semibold">11:30 AM &ndash; 1:00 PM</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#6F7883] mb-1">Time</p>
+                    <p className="text-[#041C32] text-sm font-semibold">11:30 AM &ndash; 1:00 PM</p>
                   </div>
                 </div>
                 <div className="bg-white p-5 flex items-center gap-3">
-                  <MapPin className="w-4 h-4 shrink-0 text-[#0a0a0a]" />
+                  <MapPin className="w-4 h-4 shrink-0 text-[#041C32]" />
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#737373] mb-1">Location</p>
-                    <p className="text-[#0a0a0a] text-sm font-semibold">VelocityTX</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#6F7883] mb-1">Location</p>
+                    <p className="text-[#041C32] text-sm font-semibold">VelocityTX</p>
                   </div>
                 </div>
               </motion.div>
@@ -184,8 +191,8 @@ export default function LeadWithOpsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.36 }}
                 href="#register"
-                className="lg:hidden group inline-flex items-center justify-between gap-3 text-[#0a0a0a] px-6 py-4 text-xs uppercase tracking-[0.2em] font-bold hover:bg-[#0a0a0a] hover:text-white transition-colors duration-200"
-                style={{ backgroundColor: ACCENT }}
+                className="lg:hidden group inline-flex items-center justify-between gap-3 text-[#041C32] px-6 py-4 text-xs uppercase tracking-[0.2em] font-bold hover:bg-[#041C32] hover:text-white transition-colors duration-200"
+                style={{ backgroundColor: CORAL }}
               >
                 Reserve your seat
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -199,7 +206,7 @@ export default function LeadWithOpsPage() {
                 transition={{ duration: 0.6 }}
               >
                 <p
-                  className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] mb-5 text-[#0a0a0a] font-bold"
+                  className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] mb-5 text-[#041C32] font-bold"
                 >
                   What we&apos;ll explore
                 </p>
@@ -208,9 +215,9 @@ export default function LeadWithOpsPage() {
                     <li
                       key={q}
                       className="flex gap-4 pl-4 border-l-2"
-                      style={{ borderLeftColor: ACCENT_ALT }}
+                      style={{ borderLeftColor: EMERALD }}
                     >
-                      <p className="text-[#0a0a0a] text-base md:text-lg font-medium leading-snug">
+                      <p className="text-[#041C32] text-base md:text-lg font-medium leading-snug">
                         {q}
                       </p>
                     </li>
@@ -224,12 +231,12 @@ export default function LeadWithOpsPage() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6 }}
-                className="border-l-2 border-[#0a0a0a] pl-5 max-w-2xl"
+                className="border-l-2 border-[#041C32] pl-5 max-w-2xl"
               >
-                <p className="text-[#0a0a0a] text-base md:text-lg leading-relaxed font-medium">
+                <p className="text-[#041C32] text-base md:text-lg leading-relaxed font-medium">
                   Not a product demo or software pitch.
                 </p>
-                <p className="text-[#525252] text-sm md:text-base leading-relaxed mt-2">
+                <p className="text-[#6F7883] text-sm md:text-base leading-relaxed mt-2">
                   An executive-level conversation for CEOs, Presidents, Operators, and business leaders looking for clarity before making AI investments.
                 </p>
               </motion.div>
@@ -240,7 +247,7 @@ export default function LeadWithOpsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6 }}
-                className="relative border border-[#e5e5e5] overflow-hidden"
+                className="relative border border-[#E1E4EA] overflow-hidden"
               >
                 <div className="relative aspect-[8.5/11] w-full max-w-md">
                   <Image
@@ -262,20 +269,20 @@ export default function LeadWithOpsPage() {
                 transition={{ duration: 0.6 }}
               >
                 <p
-                  className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] mb-4 text-[#0a0a0a] font-bold"
+                  className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] mb-4 text-[#041C32] font-bold"
                 >
                   Featured speaker
                 </p>
-                <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-[#0a0a0a] uppercase tracking-wide leading-tight mb-5">
+                <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-[#041C32] uppercase tracking-wide leading-tight mb-5">
                   Adam Carroll.{" "}
-                  <span className="text-black/45 font-medium">
+                  <span className="text-[#6F7883] font-medium">
                     Founder, Carroll Strategy &amp; Operations.
                   </span>
                 </h2>
-                <p className="text-[#525252] text-sm md:text-base leading-relaxed mb-5 max-w-2xl">
+                <p className="text-[#6F7883] text-sm md:text-base leading-relaxed mb-5 max-w-2xl">
                   Adam works with operators to align technology decisions with business outcomes. The session focuses on practical frameworks — how to lead with operations, layer in AI where it creates measurable ROI, and avoid investing in tools without strategic anchor.
                 </p>
-                <p className="text-[#737373] text-sm md:text-base leading-relaxed max-w-2xl">
+                <p className="text-[#6F7883] text-sm md:text-base leading-relaxed max-w-2xl">
                   Designed for CEOs, Presidents, Operators, Founders, and business leaders. Off-the-record, peer-level conversation. Lunch provided.
                 </p>
               </motion.div>
@@ -286,12 +293,12 @@ export default function LeadWithOpsPage() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6 }}
-                className="flex items-center gap-3 pt-6 border-t border-[#e5e5e5]"
+                className="flex items-center gap-3 pt-6 border-t border-[#E1E4EA]"
               >
-                <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#a3a3a3]">
+                <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#6F7883]">
                   Presented by
                 </span>
-                <span className="font-(family-name:--font-geist-pixel-square) text-xs md:text-sm uppercase tracking-wide text-[#0a0a0a]">
+                <span className="font-(family-name:--font-geist-pixel-square) text-xs md:text-sm uppercase tracking-wide text-[#041C32]">
                   Digital Canvas · 434 Media
                 </span>
               </motion.div>
@@ -302,9 +309,9 @@ export default function LeadWithOpsPage() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6 }}
-                className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#737373]"
+                className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#6F7883]"
               >
-                Questions? <a href="mailto:VIP@434MEDIA.COM" className="text-[#0a0a0a] hover:underline font-semibold">VIP@434MEDIA.COM</a>
+                Questions? <a href="mailto:VIP@434MEDIA.COM" className="text-[#041C32] hover:underline font-semibold">VIP@434MEDIA.COM</a>
               </motion.p>
             </div>
 
@@ -317,28 +324,28 @@ export default function LeadWithOpsPage() {
                 className="lg:sticky lg:top-24"
               >
                 {status === "success" && confirmation ? (
-                  <div className="border border-[#e5e5e5] bg-white p-7 md:p-9 relative">
+                  <div className="border border-[#E1E4EA] bg-white p-7 md:p-9 relative">
                     <div
                       className="absolute top-0 left-0 right-0 h-1"
-                      style={{ backgroundColor: ACCENT }}
+                      style={{ backgroundColor: EMERALD }}
                       aria-hidden="true"
                     />
                     <span
-                      className="inline-block font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.3em] font-bold mb-4 px-2.5 py-1 text-[#0a0a0a]"
-                      style={{ backgroundColor: ACCENT }}
+                      className="inline-block font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.3em] font-bold mb-4 px-2.5 py-1 text-[#041C32]"
+                      style={{ backgroundColor: EMERALD }}
                     >
                       Registered
                     </span>
-                    <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-3xl text-[#0a0a0a] uppercase tracking-wide leading-tight mb-4">
+                    <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-3xl text-[#041C32] uppercase tracking-wide leading-tight mb-4">
                       You&apos;re in,{" "}
-                      <span className="text-black/45 font-medium">{confirmation.firstName}.</span>
+                      <span className="text-[#6F7883] font-medium">{confirmation.firstName}.</span>
                     </h2>
-                    <p className="text-[#525252] text-sm md:text-base leading-relaxed mb-4">
+                    <p className="text-[#6F7883] text-sm md:text-base leading-relaxed mb-4">
                       A confirmation email is on its way. We&apos;ll send a know-before-you-go the day before the event.
                     </p>
-                    <p className="text-[#737373] text-sm leading-relaxed">
+                    <p className="text-[#6F7883] text-sm leading-relaxed">
                       Plans change? Write to{" "}
-                      <a href="mailto:VIP@434MEDIA.COM" className="text-[#0a0a0a] hover:underline font-semibold">
+                      <a href="mailto:VIP@434MEDIA.COM" className="text-[#041C32] hover:underline font-semibold">
                         VIP@434MEDIA.COM
                       </a>{" "}
                       so we can offer the seat to another participant.
@@ -347,28 +354,28 @@ export default function LeadWithOpsPage() {
                 ) : (
                   <form
                     onSubmit={handleSubmit}
-                    className="border border-[#e5e5e5] bg-white p-6 md:p-8 space-y-5"
+                    className="border border-[#E1E4EA] bg-white p-6 md:p-8 space-y-5"
                   >
                     <div>
                       <p
                         className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.3em] font-bold mb-2"
-                        style={{ color: ACCENT_ALT }}
+                        style={{ color: CORAL }}
                       >
                         Reserve your seat
                       </p>
-                      <h2 className="font-(family-name:--font-geist-pixel-square) text-xl md:text-2xl text-[#0a0a0a] uppercase tracking-wide leading-tight">
+                      <h2 className="font-(family-name:--font-geist-pixel-square) text-xl md:text-2xl text-[#041C32] uppercase tracking-wide leading-tight">
                         Lunch provided.{" "}
-                        <span className="text-black/45 font-medium">Seating limited.</span>
+                        <span className="text-[#6F7883] font-medium">Seating limited.</span>
                       </h2>
                     </div>
 
-                    <div className="h-px bg-[#e5e5e5]" />
+                    <div className="h-px bg-[#E1E4EA]" />
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label
                           htmlFor="firstName"
-                          className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#525252] font-bold mb-2 block"
+                          className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#6F7883] font-bold mb-2 block"
                         >
                           First name
                         </label>
@@ -378,14 +385,14 @@ export default function LeadWithOpsPage() {
                           type="text"
                           required
                           autoComplete="given-name"
-                          className="w-full bg-white border border-[#e5e5e5] text-[#0a0a0a] text-sm px-3.5 py-3 focus:outline-none focus:border-[#0a0a0a] transition-colors placeholder:text-[#a3a3a3]"
+                          className="w-full bg-white border border-[#E1E4EA] text-[#041C32] text-sm px-3.5 py-3 focus:outline-none focus:border-[#041C32] transition-colors placeholder:text-[#6F7883]/60"
                           placeholder="Jane"
                         />
                       </div>
                       <div>
                         <label
                           htmlFor="lastName"
-                          className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#525252] font-bold mb-2 block"
+                          className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#6F7883] font-bold mb-2 block"
                         >
                           Last name
                         </label>
@@ -395,7 +402,7 @@ export default function LeadWithOpsPage() {
                           type="text"
                           required
                           autoComplete="family-name"
-                          className="w-full bg-white border border-[#e5e5e5] text-[#0a0a0a] text-sm px-3.5 py-3 focus:outline-none focus:border-[#0a0a0a] transition-colors placeholder:text-[#a3a3a3]"
+                          className="w-full bg-white border border-[#E1E4EA] text-[#041C32] text-sm px-3.5 py-3 focus:outline-none focus:border-[#041C32] transition-colors placeholder:text-[#6F7883]/60"
                           placeholder="Operator"
                         />
                       </div>
@@ -404,7 +411,7 @@ export default function LeadWithOpsPage() {
                     <div>
                       <label
                         htmlFor="email"
-                        className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#525252] font-bold mb-2 block"
+                        className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#6F7883] font-bold mb-2 block"
                       >
                         Email
                       </label>
@@ -414,17 +421,17 @@ export default function LeadWithOpsPage() {
                         type="email"
                         required
                         autoComplete="email"
-                        className="w-full bg-white border border-[#e5e5e5] text-[#0a0a0a] text-sm px-3.5 py-3 focus:outline-none focus:border-[#0a0a0a] transition-colors placeholder:text-[#a3a3a3]"
+                        className="w-full bg-white border border-[#E1E4EA] text-[#041C32] text-sm px-3.5 py-3 focus:outline-none focus:border-[#041C32] transition-colors placeholder:text-[#6F7883]/60"
                         placeholder="you@company.com"
                       />
                     </div>
 
                     <div>
                       <fieldset>
-                        <legend className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#525252] font-bold mb-2 block">
+                        <legend className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#6F7883] font-bold mb-2 block">
                           Your current AI adoption
                         </legend>
-                        <p className="text-[#737373] text-xs leading-relaxed mb-3">
+                        <p className="text-[#6F7883] text-xs leading-relaxed mb-3">
                           Used to shape the conversation. Not shared publicly.
                         </p>
                         <div className="grid grid-cols-5 gap-1.5">
@@ -438,15 +445,15 @@ export default function LeadWithOpsPage() {
                                 className={`relative border p-3 transition-all duration-200 ${
                                   isSelected
                                     ? "border-transparent"
-                                    : "border-[#e5e5e5] bg-white hover:border-[#0a0a0a]/40"
+                                    : "border-[#E1E4EA] bg-white hover:border-[#041C32]/40"
                                 }`}
-                                style={isSelected ? { backgroundColor: ACCENT } : undefined}
+                                style={isSelected ? { backgroundColor: EMERALD } : undefined}
                                 aria-pressed={isSelected}
                                 aria-label={`${opt.value} — ${opt.label}`}
                               >
                                 <span
                                   className={`block font-(family-name:--font-geist-pixel-square) text-lg md:text-xl font-bold ${
-                                    isSelected ? "text-[#0a0a0a]" : "text-[#0a0a0a]/70"
+                                    isSelected ? "text-[#041C32]" : "text-[#041C32]/70"
                                   }`}
                                 >
                                   {opt.value}
@@ -456,10 +463,10 @@ export default function LeadWithOpsPage() {
                           })}
                         </div>
                         <div className="flex justify-between mt-2">
-                          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#a3a3a3]">
+                          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6F7883]">
                             {AI_ADOPTION_SCALE[0].label}
                           </span>
-                          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#a3a3a3]">
+                          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6F7883]">
                             {AI_ADOPTION_SCALE[AI_ADOPTION_SCALE.length - 1].label}
                           </span>
                         </div>
@@ -470,9 +477,9 @@ export default function LeadWithOpsPage() {
                       <input
                         type="checkbox"
                         name="optInForUpdates"
-                        className="mt-1 accent-[#0a0a0a]"
+                        className="mt-1 accent-[#041C32]"
                       />
-                      <span className="text-[#525252] text-xs leading-relaxed">
+                      <span className="text-[#6F7883] text-xs leading-relaxed">
                         Opt in for Digital Canvas updates — future events and the occasional ops + AI dispatch.
                       </span>
                     </label>
@@ -480,7 +487,7 @@ export default function LeadWithOpsPage() {
                     {status === "error" && errorMsg && (
                       <p
                         className="text-xs font-(family-name:--font-geist-pixel-square)"
-                        style={{ color: ACCENT_ALT }}
+                        style={{ color: CORAL }}
                       >
                         {errorMsg}
                       </p>
@@ -489,13 +496,13 @@ export default function LeadWithOpsPage() {
                     <button
                       type="submit"
                       disabled={status === "submitting"}
-                      className="w-full text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest py-4 px-6 transition-all hover:bg-[#0a0a0a] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                      style={{ backgroundColor: ACCENT }}
+                      className="w-full text-[#041C32] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest py-4 px-6 transition-all hover:bg-[#041C32] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                      style={{ backgroundColor: CORAL }}
                     >
                       {status === "submitting" ? "Reserving..." : "Reserve my seat"}
                     </button>
 
-                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#a3a3a3] leading-relaxed">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6F7883] leading-relaxed">
                       You&apos;ll receive a confirmation and event-specific updates only. No newsletter spam.
                     </p>
                   </form>
