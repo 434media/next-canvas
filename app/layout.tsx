@@ -10,7 +10,19 @@ import Navbar from "../components/navbar"
 import Footer from "../components/footer"
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/next"
+import { BotIdClient } from "botid/client"
 import { Suspense } from "react"
+
+// API routes protected by Vercel BotID. The client component below injects
+// the BotID fingerprint script and registers these paths so the client knows
+// to attach a verification token on submission. Without this, every server
+// `checkBotId()` call returns isBot=true and the form is rejected.
+const PROTECTED_ROUTES = [
+  { path: "/api/lead-with-ops/register", method: "POST" },
+  { path: "/api/newsletter", method: "POST" },
+  { path: "/api/sponsor-inquiry", method: "POST" },
+  { path: "/api/christmas-rsvp", method: "POST" },
+]
 
 const mendaBlack = localFont({
   src: "../fonts/Menda-Black.otf",
@@ -173,6 +185,11 @@ export default function RootLayout({
             gtag('config', 'G-NY5R12BN23');
           `}
         </Script>
+
+        {/* Vercel BotID client — registers protected API routes so form
+            submissions carry a fingerprint that satisfies checkBotId() on
+            the server. Renders no UI. */}
+        <BotIdClient protect={PROTECTED_ROUTES} />
 
         <Suspense fallback={<div>Loading...</div>}>
           <Navbar />
