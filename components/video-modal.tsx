@@ -71,7 +71,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
               }}
             />
             <motion.div
-              className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl"
+              className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl"
               animate={{
                 scale: [1.2, 1, 1.2],
                 opacity: [0.4, 0.2, 0.4],
@@ -107,7 +107,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
             <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10">
               <div className="flex items-center space-x-4">
                 <motion.div
-                  className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center"
+                  className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-r from-blue-500 to-cyan-600 rounded-full flex items-center justify-center"
                   animate={{
                     boxShadow: [
                       "0 0 0 rgba(59, 130, 246, 0)",

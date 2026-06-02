@@ -13,8 +13,8 @@ function RippleGrid({
   rows = 7,
   cols = 30,
   cellSize = 56,
-  borderColor = "rgba(255, 153, 0, 0.15)",
-  fillColor = "rgba(255, 153, 0, 0.04)",
+  borderColor = "rgba(136, 255, 0, 0.15)",
+  fillColor = "rgba(136, 255, 0, 0.04)",
   clickedCell = null,
   onCellClick = () => {},
   interactive = true,
@@ -66,7 +66,7 @@ function RippleGrid({
             key={idx}
             className={cn(
               "cell relative border-[0.5px] opacity-40 transition-opacity duration-150 will-change-transform hover:opacity-80",
-              "shadow-[0px_0px_40px_1px_rgba(255,153,0,0.08)_inset]",
+              "shadow-[0px_0px_40px_1px_rgba(136,255,0,0.08)_inset]",
               clickedCell && "animate-cell-ripple [animation-fill-mode:none]",
               !interactive && "pointer-events-none"
             )}
@@ -111,8 +111,8 @@ export function BackgroundRippleEffect({
           rows={rows}
           cols={cols}
           cellSize={cellSize}
-          borderColor="rgba(255, 153, 0, 0.15)"
-          fillColor="rgba(255, 153, 0, 0.04)"
+          borderColor="rgba(136, 255, 0, 0.15)"
+          fillColor="rgba(136, 255, 0, 0.04)"
           clickedCell={clickedCell}
           onCellClick={(row, col) => {
             setClickedCell({ row, col })

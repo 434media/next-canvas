@@ -1,20 +1,8 @@
 import { NextResponse } from "next/server"
 import { checkBotId } from "botid/server"
-import { initializeApp, getApps, cert } from "firebase-admin/app"
-import { getFirestore } from "firebase-admin/firestore"
+import { getDigitalCanvasDb } from "@/lib/firebase-admin"
 
 const isDevelopment = process.env.NODE_ENV === "development"
-
-// Initialize Firebase Admin
-function getFirestoreDb() {
-  if (getApps().length === 0) {
-    const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY || "{}")
-    initializeApp({
-      credential: cert(serviceAccount),
-    })
-  }
-  return getFirestore()
-}
 
 const COLLECTION_NAME = "sponsor-inquiries"
 
@@ -57,9 +45,9 @@ export async function POST(request: Request) {
     const fullName = `${firstName.trim()} ${lastName.trim()}`
     const sourceTag = source || "sponsor-devsa"
 
-    // Save to Firestore
+    // Save to Firestore (digitalcanvas database)
     try {
-      const db = getFirestoreDb()
+      const db = getDigitalCanvasDb()
       const inquiryRef = db.collection(COLLECTION_NAME)
 
       // Create inquiry document

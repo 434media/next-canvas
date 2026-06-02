@@ -1,0 +1,42 @@
+# Digital Canvas
+
+> Digital Canvas is a San Antonio builder program connecting AI-native talent to industry pain points — and the capital that funds them. Free workshops, a six-week build bridge, and demo day to an accredited investor audience plus partner capital (Capital Factory, Venture STX, Bexar County, and more). Powered by DevSA and 434 Media, with an accredited investor network as the third pillar. Led by Marcos Resendez. Core message: **build something real**.
+
+The program runs in vertical cohorts — cybersecurity is the anchor vertical, with military, health and science, education, and CPG planned. Each cohort opens with an industry-themed workshop weekend hosted by DevSA, anchored by a keynote from a corporate underwriter who frames real pain points. Builders ship prototypes using AI tools (Cursor, Claude, Codex, Gemini). Committed builders work the six-week bridge from DevSA's downtown San Antonio coworking space, receive pitch coaching from our investor partners, and pitch on demo day to a curated investor audience.
+
+Digital Canvas does not take equity. Builders keep 100% of their company and IP. The workshop is free. Cohort commitment is opt-in after experiencing the workshop weekend.
+
+## Overview
+
+- [Homepage](https://www.digitalcanvas.community/): Build something real. Program overview, the workshop → bridge → demo day model, cohort verticals roadmap, three audience entry points (builders, underwriters, investors), and partner credibility.
+- [About](https://www.digitalcanvas.community/about): Led by Marcos Resendez (Founder & CEO 434 Media, angel investor). Partner story for DevSA, the capital partner, and 434 Media. General contact information.
+
+## For Builders
+
+- [Builders](https://www.digitalcanvas.community/builders): Free, AI-native builder cohort. Six weeks. Two-step application — RSVP to workshop, commit to cohort after the weekend. FAQ on equity, technical requirements, location, and process.
+- [Workshops](https://www.digitalcanvas.community/workshops): The open onramp into a Digital Canvas cohort. Free, industry-themed, hosted by DevSA at their downtown coworking space. Path to demo day: workshop → commit → six-week bridge → demo day.
+
+## For Underwriters
+
+- [Underwriters](https://www.digitalcanvas.community/underwriters): Underwrite a vertical cohort and own that vertical's named exclusivity. Six deliverables — named exclusivity, painpoint authorship, first-look access, investor-grade media, demo day presence, office hour residency. FAQ on cost, term, exclusivity, IP rights, deliverables.
+
+## For Investors
+
+- [Demo Days](https://www.digitalcanvas.community/events): Where the cohort ships. One evening of curated pitches to an accredited investor audience plus partner capital across San Antonio and Texas. Past programming archive included.
+
+## Editorial
+
+- [The Feed](https://www.digitalcanvas.community/thefeed): Field notes from the work — cohort builds, demo days, workshops, and the San Antonio builder ecosystem.
+- [Conferences](https://www.digitalcanvas.community/conferences): Tech conferences powered by the Digital Canvas partner network. Anchored by [More Human Than Human](https://www.digitalcanvas.community/conferences/morehumanthanhuman) — San Antonio's premier AI conference.
+
+## Partners
+
+- **DevSA** — San Antonio's 501(c)(3) tech community hub (20+ affiliated groups, downtown coworking). Hosts workshop weekends and the six-week bridge space. https://www.devsa.community/
+- **Capital Partner (TBA)** — The third pillar: an accredited investor network providing pitch coaching, convening the demo day audience, and continuing post-demo conversations. Named partner announcement coming.
+- **434 Media** — Program operator. Recruits underwriters. Produces cohort media. Owns Digital Canvas brand. https://434media.com/
+
+## Contact
+
+- General inquiries: hello@434media.com
+- Underwriter inquiries (corporate sponsorship): build@434media.com
+- Marcos Resendez (Founder): https://www.linkedin.com/in/marcosresendez/

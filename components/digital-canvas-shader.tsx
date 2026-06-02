@@ -37,8 +37,8 @@ export function DigitalCanvasShader() {
 
   // More Human Than Human palette
   const colors = [
-    "#ff9900",
-    "#00f2ff",
+    "#88FF00",
+    "#FF006E",
     "#fbbf24",
     "#0a0a0a",
     "#1A1A2E",

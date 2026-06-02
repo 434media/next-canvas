@@ -2,7 +2,14 @@ import { ImageResponse } from "next/og"
 
 export const runtime = "edge"
 
-export async function GET() {
+const DC_LOGO = "https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
+
+export async function GET(request: Request) {
+  const origin = new URL(request.url).origin
+  const fontData = await fetch(`${origin}/fonts/GeistPixel-Square.ttf`).then((r) =>
+    r.arrayBuffer()
+  )
+
   return new ImageResponse(
     (
       <div
@@ -23,7 +30,7 @@ export async function GET() {
             left: 0,
             right: 0,
             height: "4px",
-            background: "linear-gradient(to right, #00f2ff, #ff9900)",
+            background: "linear-gradient(to right, #FF006E, #88FF00)",
           }}
         />
 
@@ -33,7 +40,7 @@ export async function GET() {
             position: "absolute",
             inset: 0,
             backgroundImage:
-              "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,242,255,0.01) 3px, rgba(0,242,255,0.01) 4px)",
+              "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,0,110,0.015) 3px, rgba(255,0,110,0.015) 4px)",
           }}
         />
 
@@ -45,9 +52,19 @@ export async function GET() {
             left: "30%",
             width: "500px",
             height: "400px",
-            background: "radial-gradient(ellipse at bottom, rgba(0,242,255,0.06) 0%, transparent 60%)",
+            background: "radial-gradient(ellipse at bottom, rgba(255,0,110,0.07) 0%, transparent 60%)",
           }}
         />
+
+        {/* Logo */}
+        <div
+          style={{
+            display: "flex",
+            padding: "56px 80px 0",
+          }}
+        >
+          <img src={DC_LOGO} alt="Digital Canvas" width={200} height={62} />
+        </div>
 
         {/* Content */}
         <div
@@ -55,34 +72,51 @@ export async function GET() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            padding: "80px",
+            padding: "32px 80px 0",
             flex: 1,
           }}
         >
           {/* Eyebrow */}
           <div
             style={{
-              fontSize: "14px",
-              letterSpacing: "0.3em",
-              color: "rgba(255,255,255,0.3)",
-              textTransform: "uppercase",
-              marginBottom: "24px",
-              fontFamily: "monospace",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "28px",
             }}
           >
-            Field Notes
+            <div
+              style={{
+                width: "8px",
+                height: "8px",
+                backgroundColor: "#FF006E",
+                borderRadius: "50%",
+              }}
+            />
+            <div
+              style={{
+                fontSize: "18px",
+                letterSpacing: "0.35em",
+                color: "#FF006E",
+                textTransform: "uppercase",
+                fontFamily: "GeistPixel",
+              }}
+            >
+              Field Notes
+            </div>
           </div>
 
           {/* Title */}
           <div
             style={{
-              fontSize: "72px",
-              fontWeight: 800,
+              fontSize: "84px",
               color: "#ffffff",
-              lineHeight: 1.1,
-              textTransform: "uppercase",
+              lineHeight: 1.05,
               letterSpacing: "0.02em",
-              marginBottom: "24px",
+              marginBottom: "32px",
+              maxWidth: "1000px",
+              fontFamily: "GeistPixel",
+              textTransform: "uppercase",
             }}
           >
             The Feed
@@ -92,25 +126,26 @@ export async function GET() {
           <div
             style={{
               fontSize: "20px",
-              color: "rgba(255,255,255,0.4)",
-              lineHeight: 1.7,
-              maxWidth: "600px",
+              color: "rgba(255,255,255,0.5)",
+              lineHeight: 1.65,
+              maxWidth: "780px",
+              marginBottom: "36px",
+              fontFamily: "monospace",
             }}
           >
-            Field notes from the work — workflows we shipped, loops we tuned, design choices we&apos;re still defending.
+            Field notes from the work — cohort builds, demo days, workshops, and the San Antonio builder ecosystem.
           </div>
 
           {/* Type badges */}
           <div
             style={{
               display: "flex",
-              gap: "12px",
-              marginTop: "40px",
+              gap: "10px",
             }}
           >
             {[
-              { label: "Articles", color: "#ff9900" },
-              { label: "Videos", color: "#00f2ff" },
+              { label: "Articles", color: "#88FF00" },
+              { label: "Videos", color: "#FF006E" },
               { label: "Resources", color: "#fbbf24" },
             ].map((type) => (
               <div
@@ -119,13 +154,13 @@ export async function GET() {
                   display: "flex",
                   alignItems: "center",
                   gap: "8px",
-                  fontSize: "11px",
-                  letterSpacing: "0.2em",
+                  fontSize: "13px",
+                  letterSpacing: "0.22em",
                   textTransform: "uppercase",
                   color: type.color,
-                  border: `1px solid ${type.color}33`,
-                  padding: "5px 14px",
-                  fontFamily: "monospace",
+                  border: `1px solid ${type.color}40`,
+                  padding: "8px 16px",
+                  fontFamily: "GeistPixel",
                 }}
               >
                 <div
@@ -154,25 +189,25 @@ export async function GET() {
         >
           <div
             style={{
-              fontSize: "12px",
+              fontSize: "13px",
               letterSpacing: "0.25em",
-              color: "rgba(255,255,255,0.2)",
+              color: "rgba(255,255,255,0.3)",
               textTransform: "uppercase",
-              fontFamily: "monospace",
+              fontFamily: "GeistPixel",
             }}
           >
             digitalcanvas.community
           </div>
           <div
             style={{
-              fontSize: "12px",
+              fontSize: "13px",
               letterSpacing: "0.25em",
-              color: "rgba(255,255,255,0.2)",
+              color: "rgba(255,255,255,0.3)",
               textTransform: "uppercase",
-              fontFamily: "monospace",
+              fontFamily: "GeistPixel",
             }}
           >
-            Stories. Transactions. Loops.
+            San Antonio · Builder Program
           </div>
         </div>
       </div>
@@ -180,6 +215,14 @@ export async function GET() {
     {
       width: 1200,
       height: 630,
+      fonts: [
+        {
+          name: "GeistPixel",
+          data: fontData,
+          style: "normal",
+          weight: 400,
+        },
+      ],
     }
   )
 }

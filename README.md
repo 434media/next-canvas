@@ -1,213 +1,297 @@
 # Digital Canvas
 
-## 📁 Project Structure
+San Antonio's builder program. Free workshops hosted by DevSA at the downtown coworking space, a six-week build bridge, and a demo day to an accredited investor audience. No equity, no tuition. Operated by 434 Media in partnership with DevSA.
+
+Live at [digitalcanvas.community](https://digitalcanvas.community).
+
+## What this site is
+
+A marketing + acquisition surface for the Digital Canvas program. Three audience funnels and the program-level story sit on top of a shared brand system:
+
+- **`/`** — overview + the three doors (builders / underwriters / investors)
+- **`/builders`** — applicant funnel
+- **`/underwriters`** — corporate sponsor funnel
+- **`/demo-days`** — what demo day is and who attends
+- **`/workshops`** — the open onramp; DevSA-hosted workshop weekends
+- **`/about`** — founders, partners, the program's operators
+- **`/thefeed`** — editorial / newsletter feed
+- **`/conferences/morehumanthanhuman`** — the More Human Than Human AI conference (preserved standalone with its own orange/cyan brand)
+
+## Tech stack
+
+- **Framework:** Next.js 16 (App Router, Turbopack) + React 19
+- **Styling:** Tailwind CSS v4
+- **Animation:** Motion (Framer Motion v12), GSAP, custom Canvas 2D particle systems
+- **3D:** Three.js + React Three Fiber
+- **Data:** Firebase Admin SDK → Firestore (named database `digitalcanvas`)
+- **Email:** Resend (transactional), Mailchimp (newsletter)
+- **OG images:** `next/og` rendered with GeistPixel-Square (TTF — Satori doesn't accept WOFF2)
+- **Deployment:** Vercel + Vercel BotID for bot protection
+
+## Project structure
 
 ```
 next-canvas/
-├── app/                          # Next.js App Router
-│   ├── layout.tsx               # Root layout with navigation
-│   ├── page.tsx                 # Home page
-│   ├── globals.css              # Global styles
-│   ├── api/                     # API routes
-│   │   ├── feed/                # Feed API endpoints
-│   │   └── newsletter/          # Newsletter subscription
-│   ├── events/                  # Event pages
-│   │   └── prompt-to-product/   # Prompt to Product event
-│   └── thefeed/                 # The Feed section
-│       ├── page.tsx             # Feed listing page
-│       └── [slug]/              # Individual feed items
-├── components/                   # Reusable components
-│   ├── thefeed/                 # Feed-specific components
-│   │   ├── newsletter-template.tsx
-│   │   ├── feed-list.tsx
-│   │   └── feed-filters.tsx
-│   ├── events/                  # Event components
-│   ├── ui/                      # UI components
-│   └── icons/                   # Icon components
-├── data/                        # Static data and types
-│   ├── feed-data.ts            # Feed item types & fallback data
-│   └── prompt-to-product.ts    # Event data
-├── lib/                         # Utility functions
-│   ├── api-feed.ts             # 434 Media Feed API integration
-│   ├── utils.ts                # General utilities
-│   └── gsap-config.ts          # Animation configuration
-├── hooks/                       # Custom React hooks
-└── fonts/                       # Local fonts
+├── app/                              # Next.js App Router
+│   ├── layout.tsx                   # Root layout — navbar, global metadata
+│   ├── page.tsx                     # Home — wordmark hero, program overview
+│   ├── sitemap.ts                   # Dynamic sitemap
+│   ├── globals.css                  # Tailwind v4 + design tokens
+│   ├── about/                       # Founders + partners (constellation hero)
+│   ├── builders/                    # Applicant funnel (spark-trail hero)
+│   ├── underwriters/                # Sponsor funnel (orbital-halo hero)
+│   ├── workshops/                   # Workshop entry (directional-flow hero)
+│   ├── demo-days/                   # Cohort demo day (two-color pairing hero)
+│   ├── thefeed/                     # Editorial feed
+│   ├── conferences/                 # Event-specific pages (MHTH preserved)
+│   ├── events/                      # Archived event sub-routes (mxratmain, vanitaleochristmas)
+│   ├── _archive/                    # Preserved code, intentionally not routed
+│   └── api/
+│       ├── og/                      # OG image routes (one per top-level page)
+│       ├── contact/                 # Contact form → Firestore
+│       ├── event-registration/      # RSVPs → Firestore
+│       ├── newsletter/              # Mailchimp subscription
+│       └── sponsor-inquiry/         # Sponsor inquiries → Firestore
+├── components/
+│   ├── about-constellation.tsx          # About hero — network mesh
+│   ├── builders-sparks.tsx              # Builders hero — spark trails
+│   ├── demo-days-pairing.tsx            # Demo days hero — two-color pairing (active)
+│   ├── demo-days-converge.tsx           # Demo days hero — convergence (alt)
+│   ├── hero-particles.tsx               # Home hero — wordmark scatter/gather
+│   ├── underwriters-orbit.tsx           # Underwriters hero — orbital halo
+│   ├── workshops-flow.tsx               # Workshops hero — directional flow (active)
+│   ├── workshops-gather.tsx             # Workshops hero — cluster (alt)
+│   ├── aiconference/                    # MHTH event components (orange/cyan brand)
+│   ├── navbar.tsx, footer.tsx, slideover-menu.tsx
+│   └── ...
+├── lib/
+│   ├── firebase-admin.ts            # Firestore client (named database: digitalcanvas)
+│   └── ...
+├── public/
+│   ├── fonts/                       # GeistPixel-Square.ttf (used by OG image routes)
+│   ├── llms.txt                     # LLM/agent SEO summary
+│   ├── robots.txt                   # AI bot allowlist
+│   └── ...
+├── data/                            # Static content data
+├── docs/                            # Internal docs
+├── hooks/                           # Custom React hooks
+├── types/                           # Shared TS types
+├── scripts/                         # Build / maintenance scripts
+└── next.config.ts                   # Image domains + redirects (/events → /demo-days)
 ```
 
-### Local Development
+### Hero particle systems
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/434media/next-canvas.git
-   cd next-canvas
-   ```
+Each audience-facing page has a story-specific canvas hero. Each tells a distinct narrative through behavior:
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+| Page | Component | Behavior | Story |
+|------|-----------|----------|-------|
+| Home | `hero-particles.tsx` | DIGITAL CANVAS wordmark; CANVAS row scatters and regathers on cursor | Brand identity |
+| About | `about-constellation.tsx` | Network mesh; cursor connects to nearby nodes | Operator network |
+| Workshops | `workshops-flow.tsx` | Left-to-right current; cursor diverts the flow | Open onramp |
+| Demo Days | `demo-days-pairing.tsx` | White (builders) + amber (investors) drift; lines form across populations | Conversations forming |
+| Builders | `builders-sparks.tsx` | Particles drift with fading green trails; cursor pulls them in | Active building |
+| Underwriters | `underwriters-orbit.tsx` | Particles orbit a magenta focal point; cursor moves the gravity well | You are the anchor |
 
-3. **Set up environment variables:**
-   Create a `.env.local` file in the root directory:
-   ```env
-   # 434 Media Feed API
-   FEED_API_URL=https://434media.com/api/public/feed
-   FEED_API_KEY=your_feed_api_key
-   
-   # Airtable Configuration (for MXR events only)
-   AIRTABLE_API_KEY=your_airtable_api_key
-   MXR_AIRTABLE_BASE_ID=your_mxr_base_id
-   
-   # Newsletter Integration
-   MAILCHIMP_API_KEY=your_mailchimp_api_key
-   MAILCHIMP_AUDIENCE_ID=your_audience_id
-   
-   # Bot Protection (handled by Vercel BotID - no env vars needed)
-   # BotID is automatically configured when deployed to Vercel
-   ```
+## Local development
 
-4. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
+This project uses **pnpm**. Don't mix `npm install` and `pnpm install` — the `pnpm-lock.yaml` is canonical.
 
-5. **Open the application:**
-   Visit [http://localhost:3000](http://localhost:3000)
+### Setup
 
-## 🔄 Git Workflow
-
-### Creating a Feature Branch
-
-1. **Sync with main branch:**
-   ```bash
-   git checkout main
-   git pull origin main
-   ```
-
-2. **Create a new feature branch:**
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or for bug fixes:
-   git checkout -b fix/bug-description
-   ```
-
-### Making Changes
-
-3. **Make your changes and commit regularly:**
-   ```bash
-   git add .
-   git commit -m "feat: add new newsletter template section"
-   
-   # Follow conventional commit format:
-   # feat: new feature
-   # fix: bug fix
-   # docs: documentation
-   # style: formatting
-   # refactor: code restructuring
-   # test: adding tests
-   ```
-
-4. **Keep your branch updated:**
-   ```bash
-   git fetch origin
-   git rebase origin/main
-   ```
-
-### Submitting Changes
-
-5. **Push your branch:**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-6. **Create a Pull Request:**
-   - Go to [GitHub repository](https://github.com/434media/next-canvas)
-   - Click "Compare & pull request"
-   - **Base branch**: `main`
-   - **Compare branch**: your feature branch
-   - Fill out the PR template:
-     ```markdown
-     ## Description
-     Brief description of changes
-     
-     ## Type of Change
-     - [ ] Bug fix
-     - [ ] New feature
-     - [ ] Documentation update
-     - [ ] Performance improvement
-     
-     ## Testing
-     - [ ] Tested locally
-     - [ ] No console errors
-     - [ ] Responsive design verified
-     
-     ## Screenshots (if applicable)
-     ```
-
-7. **Review Process:**
-   - Wait for code review
-   - Address any feedback
-   - Once approved, the PR will be merged
-
-### Branch Naming Conventions
-- `feature/` - New features
-- `fix/` - Bug fixes
-- `docs/` - Documentation updates
-- `refactor/` - Code restructuring
-- `hotfix/` - Critical fixes
-
-## 🧪 Testing & Quality
-
-### Development Commands
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # TypeScript type checking
+git clone https://github.com/434media/next-canvas.git
+cd next-canvas
+pnpm install
 ```
 
-### Code Quality
-- **TypeScript**: Strict type checking enabled
-- **ESLint**: Code linting with Next.js rules
-- **Prettier**: Code formatting (recommended)
-- **Husky**: Git hooks for quality checks (if configured)
+### Environment variables
 
-## 📝 Contributing Guidelines
+Create `.env.local` in the project root. Production env vars live in the Vercel project dashboard — `.env.local` is for local dev only.
 
-1. **Follow the Git workflow** outlined above
-2. **Write clear commit messages** using conventional commit format
-3. **Test your changes** locally before submitting
-4. **Update documentation** if adding new features
-5. **Keep PRs focused** - one feature/fix per PR
-6. **Be responsive** to code review feedback
+```env
+# Site
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
-## 🔧 Environment Setup
+# Firestore (writes to database named "digitalcanvas")
+# Single JSON service account key — paste the entire JSON as one string.
+# Consumed by lib/firebase-admin.ts via getDigitalCanvasDb().
+GOOGLE_SERVICE_ACCOUNT_KEY=
 
-### Required Environment Variables
-See the `.env.example` file for all required environment variables.
+# Resend (transactional email)
+# 434 Media account. Verified sender domain: send.434media.com
+RESEND_API_KEY=
 
-### Airtable Setup
-1. Create tables in your `thefeeds` base
-2. Follow the schema in `AIRTABLE_IMPLEMENTATION.md`
-3. Update field names to match your Airtable structure
+# Lead with Ops test send endpoint — protects POST /api/lead-with-ops/send-test
+LEAD_WITH_OPS_TEST_SECRET=
 
-### Deployment
-The project is configured for deployment on Vercel with automatic deployments from the `main` branch.
+# More Human Than Human reminder broadcast — protects POST /api/event-registration/send-reminder
+REMINDER_SECRET=
 
-## 📚 Additional Documentation
+# Mailchimp (newsletter — /api/newsletter)
+MAILCHIMP_API_KEY=
+MAILCHIMP_AUDIENCE_ID=
 
-- `AIRTABLE_IMPLEMENTATION.md` - Detailed Airtable integration guide
-- `airtable-integration-guide.md` - Schema and setup instructions
+# Airtable (legacy MXR events only)
+AIRTABLE_API_KEY=
+MXR_AIRTABLE_BASE_ID=
 
-## 🤝 Support
+# 434 Media Feed
+FEED_API_URL=https://434media.com/api/public/feed
+FEED_API_KEY=
+```
 
-For questions or issues:
-1. Check existing [GitHub Issues](https://github.com/434media/next-canvas/issues)
-2. Create a new issue with detailed description
-3. Contact the 434 MEDIA development team
+Vercel BotID is auto-configured in production — no env var needed.
 
-## 📄 License
+### Scripts
 
-This project is proprietary to 434 MEDIA. All rights reserved.
+```bash
+pnpm dev          # Dev server with Turbopack
+pnpm build        # Production build
+pnpm start        # Production server
+pnpm lint         # ESLint
+npx tsc --noEmit  # Type check (run before pushing)
+```
+
+Visit [http://localhost:3000](http://localhost:3000).
+
+## Working with the codebase
+
+### Form data goes to Firestore
+
+Every form endpoint (`/api/contact`, `/api/event-registration`, `/api/sponsor-inquiry`, `/api/newsletter`) writes to the **`digitalcanvas`** Firestore database via [`lib/firebase-admin.ts`](lib/firebase-admin.ts).
+
+Use `getDigitalCanvasDb()` to get the cached client — don't call `getFirestore()` directly. The database id is exported as the constant `DATABASE_ID` for reference.
+
+### OG images
+
+Each top-level page has its own OG image route under `app/api/og/*`. They render with `ImageResponse` from `next/og` and load `public/fonts/GeistPixel-Square.ttf`. The file must be TTF — Satori (which `next/og` uses) does not accept WOFF2.
+
+When adding a new top-level page, add a matching OG route and reference it in the page's `layout.tsx` metadata:
+
+```ts
+openGraph: { images: [{ url: "/api/og/your-page", ... }] }
+```
+
+### Email senders
+
+Transactional and broadcast emails go through Resend on the 434 Media account. The verified sender domain is **`send.434media.com`**. For Digital Canvas-branded sends, use `Digital Canvas <hello@send.434media.com>` as the `from` field. The MHTH event still uses the legacy `hello@send.devsa.community` sender for its own templates.
+
+Email template HTML lives in `lib/emails/*.ts` — each file exports a set of template functions that return complete HTML documents to pass to Resend's `html` field.
+
+### Typography pattern
+
+Every section H1/H2/H3 across the site uses the outer-h-tag pixel font pattern. Apply pixel font + uppercase + tracking-wide on the heading element itself, with the muted elaboration as an inner span:
+
+```tsx
+<h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight max-w-3xl">
+  Bold lead.{" "}
+  <span className="text-white/30 font-medium">Elaboration text.</span>
+</h2>
+```
+
+### Color system
+
+- `#88FF00` (green) — Digital Canvas primary brand accent
+- `#FF006E` (magenta) — secondary accent, complementary to green
+- `#fbbf24` (amber) — demo days specifically
+- `#ff9900` (orange) — preserved exclusively for the More Human Than Human conference
+- `#00f2ff` (cyan) — preserved exclusively for MHTH
+
+The MHTH conference keeps its original orange/cyan palette so the event retains its distinct identity. Do not introduce orange or cyan into Digital Canvas brand surfaces.
+
+### Route conventions
+
+- The old `/events` route redirects to `/demo-days` (configured in `next.config.ts`). Sub-paths like `/events/mxratmain` and `/events/vanitaleochristmas` are preserved.
+- Underscore-prefixed folders (e.g. `app/_archive/`) are private to Next.js and are not routed. Use them to preserve code that isn't currently live.
+
+## Git workflow
+
+### Branch and commit
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/your-change
+# make your changes
+git add <specific files — avoid git add .>
+git commit -m "short, specific message"
+git push origin feature/your-change
+```
+
+Conventional commit prefixes are preferred:
+- `feat:` new feature
+- `fix:` bug fix
+- `docs:` documentation
+- `refactor:` restructuring without behavior change
+- `style:` visual polish, formatting
+- `chore:` deps, config, tooling
+
+### Open a PR
+
+Use the GitHub CLI:
+
+```bash
+gh pr create --title "Short, specific PR title" --body "$(cat <<'EOF'
+## Summary
+What changed and why.
+
+## Pages affected
+- [ ] Home
+- [ ] Workshops
+- [ ] Demo Days
+- [ ] Builders
+- [ ] Underwriters
+- [ ] About
+- [ ] The Feed
+- [ ] Conferences
+
+## Test plan
+- [ ] pnpm dev runs without console errors
+- [ ] npx tsc --noEmit passes
+- [ ] Visual review on desktop and mobile
+- [ ] Particle systems render without errors
+- [ ] Forms write to the digitalcanvas Firestore database
+
+## Screenshots
+Before / after for visual changes.
+EOF
+)"
+```
+
+Or via the GitHub UI: go to [the repo](https://github.com/434media/next-canvas), click **Compare & pull request**, and fill in the same template.
+
+### Review and merge
+
+1. Pushing your branch triggers a Vercel preview deployment automatically.
+2. Wait for code review and for the preview link to be checked.
+3. Address feedback in the same branch — push fixes as new commits.
+4. Once approved, squash-merge to `main`. Production deploys automatically.
+
+### Conventions
+
+- **Branch names:** `feature/`, `fix/`, `docs/`, `refactor/`, `hotfix/`
+- **One concern per PR** — don't bundle unrelated work
+- **Keep the diff reviewable** — large changes should be broken into smaller PRs
+- **Run `npx tsc --noEmit`** before pushing
+- **Stage specific files** with `git add <files>`, not `git add .` — avoids accidentally committing `.env.local` or local scratch work
+
+## Code quality
+
+- TypeScript strict-ish — `next.config.ts` has `ignoreBuildErrors: true` for Vercel, but local checks should pass clean
+- ESLint with Next.js + Tailwind v4 rules
+- No formatter pinned in repo — team default is Prettier
+
+## Deployment
+
+The project deploys to Vercel on every push to `main`. Preview deployments fire on every PR. Production environment variables are managed in the Vercel project dashboard, not in committed files.
+
+## Support
+
+- Bug or feature request → open a [GitHub issue](https://github.com/434media/next-canvas/issues)
+- Underwriter / build inquiries → [build@434media.com](mailto:build@434media.com)
+- General contact → [hello@434media.com](mailto:hello@434media.com)
+
+## License
+
+Proprietary to 434 Media. All rights reserved.

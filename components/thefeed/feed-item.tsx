@@ -17,8 +17,8 @@ export default function FeedItem({ item, index }: FeedItemProps) {
 
   const typeColors = {
     video: "bg-white/10 text-white border border-white/10",
-    article: "bg-[#ff9900]/10 text-[#ff9900] border border-[#ff9900]/20",
-    podcast: "bg-[#00f2ff]/10 text-[#00f2ff] border border-[#00f2ff]/20",
+    article: "bg-[#88FF00]/10 text-[#88FF00] border border-[#88FF00]/20",
+    podcast: "bg-[#FF006E]/10 text-[#FF006E] border border-[#FF006E]/20",
     newsletter: "bg-[#fbbf24]/10 text-[#fbbf24] border border-[#fbbf24]/20",
   }
 
@@ -29,7 +29,7 @@ export default function FeedItem({ item, index }: FeedItemProps) {
       transition={{ duration: 0.4, delay: index * 0.05 }}
       className="border-b border-[#222] last:border-b-0 relative group hover:bg-white/2 transition-colors"
     >
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#ff9900] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#88FF00] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
 
       <button
         onClick={() => setIsExpanded(!isExpanded)}
@@ -128,7 +128,7 @@ export default function FeedItem({ item, index }: FeedItemProps) {
               {/* Link */}
               <Link
                 href={item.link}
-                className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 bg-[#ff9900] text-[#0a0a0a] text-sm font-semibold tracking-wide hover:bg-[#ffaa22] transition-colors rounded-sm"
+                className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 bg-[#88FF00] text-[#0a0a0a] text-sm font-semibold tracking-wide hover:bg-[#ffaa22] transition-colors rounded-sm"
               >
                 Read More
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

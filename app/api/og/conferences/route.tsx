@@ -2,7 +2,14 @@ import { ImageResponse } from "next/og"
 
 export const runtime = "edge"
 
-export async function GET() {
+const DC_LOGO = "https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
+
+export async function GET(request: Request) {
+  const origin = new URL(request.url).origin
+  const fontData = await fetch(`${origin}/fonts/GeistPixel-Square.ttf`).then((r) =>
+    r.arrayBuffer()
+  )
+
   return new ImageResponse(
     (
       <div
@@ -15,7 +22,7 @@ export async function GET() {
           position: "relative",
         }}
       >
-        {/* Top accent border */}
+        {/* Top accent */}
         <div
           style={{
             position: "absolute",
@@ -23,23 +30,23 @@ export async function GET() {
             left: 0,
             right: 0,
             height: "4px",
-            background: "linear-gradient(to right, #ff9900, #fbbf24, #ff9900)",
+            background: "linear-gradient(to right, #88FF00, #fbbf24, #88FF00)",
           }}
         />
 
-        {/* Ambient glow — top right */}
+        {/* Ambient glow top-right */}
         <div
           style={{
             position: "absolute",
             top: 0,
             right: 0,
-            width: "400px",
-            height: "400px",
-            background: "radial-gradient(circle, rgba(255,153,0,0.08) 0%, transparent 70%)",
+            width: "500px",
+            height: "500px",
+            background: "radial-gradient(circle, rgba(136,255,0,0.10) 0%, transparent 60%)",
           }}
         />
 
-        {/* Ambient glow — bottom left */}
+        {/* Ambient glow bottom-left */}
         <div
           style={{
             position: "absolute",
@@ -47,9 +54,19 @@ export async function GET() {
             left: 0,
             width: "400px",
             height: "400px",
-            background: "radial-gradient(circle, rgba(0,242,255,0.06) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(255,0,110,0.06) 0%, transparent 60%)",
           }}
         />
+
+        {/* Logo */}
+        <div
+          style={{
+            display: "flex",
+            padding: "56px 80px 0",
+          }}
+        >
+          <img src={DC_LOGO} alt="Digital Canvas" width={200} height={62} />
+        </div>
 
         {/* Content */}
         <div
@@ -57,73 +74,93 @@ export async function GET() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            padding: "80px",
+            padding: "32px 80px 0",
             flex: 1,
           }}
         >
           {/* Eyebrow */}
           <div
             style={{
-              fontSize: "14px",
-              letterSpacing: "0.3em",
-              color: "rgba(255,255,255,0.3)",
-              textTransform: "uppercase",
-              marginBottom: "24px",
-              fontFamily: "monospace",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "28px",
             }}
           >
-            Proof · Conferences
+            <div
+              style={{
+                width: "8px",
+                height: "8px",
+                backgroundColor: "#88FF00",
+                borderRadius: "50%",
+              }}
+            />
+            <div
+              style={{
+                fontSize: "18px",
+                letterSpacing: "0.35em",
+                color: "#88FF00",
+                textTransform: "uppercase",
+                fontFamily: "GeistPixel",
+              }}
+            >
+              Conferences
+            </div>
           </div>
 
           {/* Title */}
           <div
             style={{
-              fontSize: "64px",
-              fontWeight: 800,
+              fontSize: "72px",
               color: "#ffffff",
-              lineHeight: 1.1,
-              textTransform: "uppercase",
+              lineHeight: 1.05,
               letterSpacing: "0.02em",
-              marginBottom: "24px",
+              marginBottom: "32px",
+              maxWidth: "1000px",
+              fontFamily: "GeistPixel",
+              textTransform: "uppercase",
             }}
           >
-            Events that ship the thesis
+            Where the ecosystem{" "}
+            <span style={{ color: "rgba(255,255,255,0.35)" }}>shows up.</span>
           </div>
 
           {/* Description */}
           <div
             style={{
               fontSize: "20px",
-              color: "rgba(255,255,255,0.45)",
-              lineHeight: 1.7,
-              maxWidth: "600px",
+              color: "rgba(255,255,255,0.5)",
+              lineHeight: 1.6,
+              maxWidth: "820px",
+              marginBottom: "36px",
+              fontFamily: "monospace",
             }}
           >
-            Quarterly conferences where the design, workflows, and agents we build show up in the room — for hundreds of operators, developers, and creators.
+            Tech conferences powered by the Digital Canvas partner network — anchored by More Human Than Human and the gatherings shaping San Antonio's builder ecosystem.
           </div>
 
-          {/* Stat pills */}
+          {/* Conference tags */}
           <div
             style={{
               display: "flex",
-              gap: "16px",
-              marginTop: "40px",
+              gap: "10px",
+              flexWrap: "wrap",
             }}
           >
-            {["DevSA", "PySA", "GDG", "Tech Day"].map((label) => (
+            {["More Human Than Human", "DevSA", "434 Media"].map((tag) => (
               <div
-                key={label}
+                key={tag}
                 style={{
-                  fontSize: "12px",
-                  letterSpacing: "0.2em",
+                  fontSize: "13px",
+                  letterSpacing: "0.22em",
                   textTransform: "uppercase",
-                  color: "#ff9900",
-                  border: "1px solid rgba(255,153,0,0.3)",
-                  padding: "6px 16px",
-                  fontFamily: "monospace",
+                  color: "rgba(255,255,255,0.55)",
+                  border: "1px solid rgba(136,255,0,0.3)",
+                  padding: "8px 14px",
+                  fontFamily: "GeistPixel",
                 }}
               >
-                {label}
+                {tag}
               </div>
             ))}
           </div>
@@ -141,25 +178,25 @@ export async function GET() {
         >
           <div
             style={{
-              fontSize: "12px",
+              fontSize: "13px",
               letterSpacing: "0.25em",
-              color: "rgba(255,255,255,0.2)",
+              color: "rgba(255,255,255,0.3)",
               textTransform: "uppercase",
-              fontFamily: "monospace",
+              fontFamily: "GeistPixel",
             }}
           >
             digitalcanvas.community
           </div>
           <div
             style={{
-              fontSize: "12px",
+              fontSize: "13px",
               letterSpacing: "0.25em",
-              color: "rgba(255,255,255,0.2)",
+              color: "rgba(255,255,255,0.3)",
               textTransform: "uppercase",
-              fontFamily: "monospace",
+              fontFamily: "GeistPixel",
             }}
           >
-            San Antonio, TX
+            San Antonio · Builder Program
           </div>
         </div>
       </div>
@@ -167,6 +204,14 @@ export async function GET() {
     {
       width: 1200,
       height: 630,
+      fonts: [
+        {
+          name: "GeistPixel",
+          data: fontData,
+          style: "normal",
+          weight: 400,
+        },
+      ],
     }
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useRef, useEffect, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   DIGITAL_PATHS,
@@ -8,13 +9,53 @@ import {
   DIGITAL_CANVAS_VIEWBOX,
 } from './digital-canvas-logo-paths'
 
-const navLinks = [
-  { name: 'Workflows', href: '/workshops' },
-  { name: 'Agents', href: '/agents' },
+const programLinks = [
+  { name: 'Workshops', href: '/workshops' },
+  { name: 'Demo Days', href: '/demo-days' },
+  { name: 'Cohort Verticals', href: '/#verticals' },
+]
+
+const audienceLinks = [
+  { name: 'For Builders', href: '/builders' },
+  { name: 'For Underwriters', href: '/underwriters' },
+  { name: 'For Investors', href: '/demo-days' },
+]
+
+const discoverLinks = [
+  { name: 'About', href: '/about' },
   { name: 'The Feed', href: '/thefeed' },
-  { name: 'Events', href: '/events' },
-  { name: 'Sponsors', href: '/sponsors' },
-  { name: 'Design', href: '/storytelling' },
+]
+
+const contactLinks = [
+  { name: 'General', href: 'mailto:hello@434media.com', address: 'hello@434media.com' },
+  { name: 'Underwriter', href: 'mailto:build@434media.com', address: 'build@434media.com' },
+]
+
+const linkGroups = [
+  { title: 'Program', links: programLinks },
+  { title: 'Audiences', links: audienceLinks },
+  { title: 'Discover', links: discoverLinks },
+]
+
+const partners = [
+  {
+    name: 'DevSA',
+    role: 'Community',
+    logo: 'https://devsa-assets.s3.us-east-2.amazonaws.com/devsa-logo.svg',
+    href: 'https://www.devsa.community/',
+  },
+  {
+    name: 'Capital Partner',
+    role: 'Capital',
+    logoText: 'Capital',
+    placeholder: true,
+  },
+  {
+    name: '434 Media',
+    role: 'Operator',
+    logo: 'https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/434media-light.svg',
+    href: 'https://434media.com/',
+  },
 ]
 
 const socialLinks = [
@@ -158,7 +199,7 @@ function EndlessCanvas() {
 
         const alpha = p.opacity * (0.6 + 0.4 * Math.sin(time * 1.2 + p.baseX * 0.05))
         ctx.globalAlpha = alpha
-        ctx.fillStyle = p.isTopRow ? '#ff9900' : '#00f2ff'
+        ctx.fillStyle = p.isTopRow ? '#88FF00' : '#FF006E'
         ctx.fillRect(p.baseX + sway, drawY, p.size, p.size)
       }
 
@@ -192,48 +233,72 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#050505] overflow-hidden">
       {/* Top border gradient */}
-      <div className="h-px w-full bg-linear-to-r from-transparent via-[#ff9900]/30 to-transparent" />
+      <div className="h-px w-full bg-linear-to-r from-transparent via-[#88FF00]/30 to-transparent" />
+
+      {/* Ambient ripple background — DC wordmark in drifting particles */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none" aria-hidden="true">
+        <EndlessCanvas />
+      </div>
 
       {/* Content section */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
-          {/* Brand + Description */}
-          <div className="md:col-span-6 space-y-4">
-            <h2 className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#ff9900]/60">
-              Stories. Transactions. Loops.
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-10 md:gap-8">
+          {/* Brand + Description — full width on mobile, 4 cols on desktop */}
+          <div className="col-span-2 md:col-span-4 space-y-4">
+            <h2 className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#88FF00]/60">
+              San Antonio · Builder Program
             </h2>
             <p className="text-white/40 text-sm leading-relaxed max-w-md">
-              Digital Canvas is for operators and product teams shipping intentional digital products — and the autonomous workflows behind them.
+              Digital Canvas connects AI-native talent to industry pain points — and the capital that funds them.
             </p>
             <p className="text-white/25 text-xs font-mono tracking-[0.15em] uppercase pt-2">
-              A 434 Media &times; DevSA production
+              Powered by DevSA · Capital Partner · 434 Media
             </p>
           </div>
 
-          {/* Navigation */}
-          <div className="md:col-span-3">
+          {/* Sitemap groups — Program / Audiences / Discover */}
+          {linkGroups.map((group) => (
+            <div key={group.title} className="col-span-1 md:col-span-2">
+              <h3 className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/20 mb-4">
+                {group.title}
+              </h3>
+              <ul className="space-y-2.5">
+                {group.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-white/40 hover:text-[#88FF00] text-sm transition-colors duration-200"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* Contact + Social */}
+          <div className="col-span-1 md:col-span-2">
             <h3 className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/20 mb-4">
-              Navigate
+              Contact
             </h3>
-            <ul className="space-y-2.5">
-              {navLinks.map((link) => (
+            <ul className="space-y-3 mb-5">
+              {contactLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
+                  <a
                     href={link.href}
-                    className="text-white/40 hover:text-[#ff9900] text-sm transition-colors duration-200"
+                    className="group block"
                   >
-                    {link.name}
-                  </Link>
+                    <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-white/25 group-hover:text-white/40 transition-colors duration-200">
+                      {link.name}
+                    </span>
+                    <span className="block text-white/40 group-hover:text-[#88FF00] text-sm transition-colors duration-200">
+                      {link.address}
+                    </span>
+                  </a>
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Connect */}
-          <div className="md:col-span-3">
-            <h3 className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/20 mb-4">
-              Connect
-            </h3>
             <div className="flex gap-3">
               {socialLinks.map((social) => (
                 <a
@@ -241,7 +306,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/30 hover:text-[#ff9900] transition-colors duration-200"
+                  className="text-white/30 hover:text-[#88FF00] transition-colors duration-200"
                   aria-label={`Follow Digital Canvas on ${social.name}`}
                 >
                   {social.icon}
@@ -254,6 +319,61 @@ export default function Footer() {
             >
               digitalcanvas.community
             </a>
+          </div>
+        </div>
+
+        {/* Powered by — partner logos */}
+        <div className="mt-14 pt-10 border-t border-white/5">
+          <h3 className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/20 mb-6 text-center">
+            Powered by
+          </h3>
+          <div className="grid grid-cols-3 gap-6 md:gap-12 items-center max-w-3xl mx-auto">
+            {partners.map((partner) => {
+              const logoBlock = partner.placeholder ? (
+                <span className="font-(family-name:--font-geist-pixel-square) text-base md:text-lg uppercase tracking-wide text-white/35">
+                  {partner.logoText}
+                </span>
+              ) : (
+                <Image
+                  src={partner.logo!}
+                  alt={`${partner.name} logo`}
+                  fill
+                  className="object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                  sizes="128px"
+                  unoptimized
+                />
+              )
+
+              const inner = (
+                <>
+                  <div className="relative w-24 md:w-32 h-10 md:h-12 flex items-center justify-center">
+                    {logoBlock}
+                  </div>
+                  <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/30 group-hover:text-white/60 transition-colors duration-200">
+                    {partner.role}
+                  </span>
+                </>
+              )
+
+              return partner.placeholder ? (
+                <div
+                  key={partner.name}
+                  className="group flex flex-col items-center gap-2"
+                >
+                  {inner}
+                </div>
+              ) : (
+                <a
+                  key={partner.name}
+                  href={partner.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col items-center gap-2"
+                >
+                  {inner}
+                </a>
+              )
+            })}
           </div>
         </div>
 

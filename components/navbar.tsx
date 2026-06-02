@@ -8,10 +8,10 @@ import { Menu } from "lucide-react"
 import SlideoverMenu from "./slideover-menu"
 
 const navLinks = [
-  { href: "/workshops", label: "Workflows" },
-  { href: "/agents", label: "Agents" },
+  { href: "/workshops", label: "Workshops" },
+  { href: "/demo-days", label: "Demo Days" },
   { href: "/thefeed", label: "The Feed" },
-  { href: "/events", label: "Events" },
+  { href: "/about", label: "About" },
 ]
 
 const Navbar = () => {
@@ -49,7 +49,7 @@ const Navbar = () => {
               >
                 <Link href="/" passHref>
                   <motion.div
-                    className="relative cursor-pointer bg-black border border-[#333] p-1 transform hover:rotate-1 hover:border-[#ff9900] transition-colors"
+                    className="relative cursor-pointer bg-black border border-[#333] p-1 transform hover:rotate-1 hover:border-[#88FF00] transition-colors"
                   >
                     <div className="relative z-10">
                       <Image
@@ -83,7 +83,7 @@ const Navbar = () => {
                   setIsMenuOpen(true)
                   window.dispatchEvent(new CustomEvent("navbar-menu-toggle", { detail: { isOpen: true } }))
                 }}
-                className="md:hidden transition-colors duration-300 relative group bg-black border border-[#333] p-1.5 transform hover:rotate-1 hover:border-[#ff9900]"
+                className="md:hidden transition-colors duration-300 relative group bg-black border border-[#333] p-1.5 transform hover:rotate-1 hover:border-[#88FF00]"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}

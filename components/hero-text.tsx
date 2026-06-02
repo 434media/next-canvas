@@ -39,7 +39,7 @@ export const HeroText = () => {
             The
           </motion.span>
           <motion.span
-            className="inline-block bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 text-transparent bg-clip-text font-black"
+            className="inline-block bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 text-transparent bg-clip-text font-black"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
@@ -91,14 +91,14 @@ export const HeroText = () => {
         </motion.span>{" "}
         and{" "}
         <motion.span
-          className="text-purple-400 font-semibold relative"
+          className="text-cyan-400 font-semibold relative"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4 }}
         >
           client work
           <motion.span
-            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400/0 via-purple-400/60 to-purple-400/0 block"
+            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400/0 via-cyan-400/60 to-cyan-400/0 block"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 1.6, duration: 0.8 }}
@@ -131,14 +131,14 @@ export const HeroText = () => {
       >
         <motion.button
           onClick={scrollToNetwork}
-          className="group relative px-10 py-5 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-lg rounded-xl overflow-hidden shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+          className="group relative px-10 py-5 bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-bold text-lg rounded-xl overflow-hidden shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
           whileHover={{ scale: 1.05, y: -3 }}
           whileTap={{ scale: 0.95 }}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 2, duration: 0.6 }}
         >
-          <motion.div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <motion.div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <span className="relative flex items-center justify-center tracking-wide">
             Explore Our Network
             <i className="ri-arrow-down-line ml-3 text-xl" />

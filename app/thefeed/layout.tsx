@@ -3,18 +3,18 @@ import type { Metadata } from "next"
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.community"
 
 export const metadata: Metadata = {
-  title: "The Feed",
+  title: "The Feed | Digital Canvas",
   description:
-    "Curated content from Digital Canvas — articles, videos, and resources at the intersection of creativity and technology. Stay current with San Antonio's creative tech community.",
+    "Field notes from the work — cohort builds, demo days, workshops, and the San Antonio builder ecosystem. Articles, videos, and resources from Digital Canvas.",
   keywords:
-    "the feed, content hub, articles, videos, resources, Digital Canvas, creative technology, San Antonio",
+    "Digital Canvas feed, San Antonio tech news, AI builder articles, cohort updates, demo day coverage, DevSA articles, builder ecosystem",
   alternates: {
     canonical: "/thefeed",
   },
   openGraph: {
     title: "The Feed | Digital Canvas",
     description:
-      "Curated content from 434 MEDIA — articles, videos, and resources at the intersection of creativity and technology.",
+      "Field notes from the work — cohort builds, demo days, workshops, and the San Antonio builder ecosystem.",
     url: `${siteUrl}/thefeed`,
     siteName: "Digital Canvas",
     images: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         url: "/api/og/thefeed",
         width: 1200,
         height: 630,
-        alt: "The Feed — Digital Canvas Content Hub",
+        alt: "The Feed — Field notes from the Digital Canvas builder ecosystem",
       },
     ],
     locale: "en_US",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Feed | Digital Canvas",
     description:
-      "Curated content from 434 MEDIA — articles, videos, and resources at the intersection of creativity and technology.",
+      "Field notes from the work — cohort builds, demo days, workshops, and the San Antonio builder ecosystem.",
     images: ["/api/og/thefeed"],
     creator: "@434media",
     site: "@434media",

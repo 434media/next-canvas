@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import axios from "axios"
 import crypto from "crypto"
 import { checkBotId } from "botid/server"
+import { getDigitalCanvasDb } from "@/lib/firebase-admin"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 
@@ -53,6 +54,23 @@ export async function POST(request: Request) {
 
     const promises: Promise<any>[] = []
     const errors: string[] = []
+
+    // 0. Save to Digital Canvas Firestore (named database: digitalcanvas)
+    //    Runs in parallel with the legacy 434 Media + Mailchimp writes so a
+    //    failure here doesn't drop the subscription from the other services.
+    try {
+      const db = getDigitalCanvasDb()
+      await db.collection("newsletter-signups").add({
+        email: email.toLowerCase().trim(),
+        tags: mergedTags,
+        source: SITE_SOURCE,
+        pageUrl: request.headers.get("referer") || null,
+        submittedAt: new Date().toISOString(),
+      })
+    } catch (firestoreError) {
+      console.error("Digital Canvas Firestore error (newsletter):", firestoreError)
+      errors.push("Digital Canvas storage failed")
+    }
 
     // 1. Save to 434 Media Firestore (centralized)
     const firestorePromise = axios.post(

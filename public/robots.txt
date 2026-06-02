@@ -1,0 +1,105 @@
+# Digital Canvas — robots policy
+# San Antonio builder program. Powered by DevSA and 434 Media.
+# https://www.digitalcanvas.community
+
+# Default: allow everything except internal APIs
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Search engines — explicit allow (defensive, in case bots ignore wildcard)
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /api/
+
+# OpenAI — search + training crawlers
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+
+# Anthropic — search + training crawlers
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /api/
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /api/
+
+# Google AI (Gemini, training opt-in)
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+
+User-agent: GoogleOther
+Allow: /
+Disallow: /api/
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+Disallow: /api/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+Disallow: /api/
+
+User-agent: FacebookBot
+Allow: /
+Disallow: /api/
+
+# Amazon (Alexa, Rufus)
+User-agent: Amazonbot
+Allow: /
+Disallow: /api/
+
+# Common Crawl (broad training corpus)
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+Disallow: /api/
+
+# ByteDance (Doubao)
+User-agent: Bytespider
+Allow: /
+Disallow: /api/
+
+Sitemap: https://www.digitalcanvas.community/sitemap.xml

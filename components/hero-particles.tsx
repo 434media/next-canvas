@@ -1,11 +1,14 @@
 'use client'
 
 import React, { useRef, useEffect, useState, useCallback } from 'react'
+import { motion } from 'motion/react'
 import {
   DIGITAL_PATHS,
   CANVAS_PATHS,
   DIGITAL_CANVAS_VIEWBOX,
 } from './digital-canvas-logo-paths'
+
+type ParticleRole = 'normal' | 'wanderer' | 'scout'
 
 interface Particle {
   x: number
@@ -15,6 +18,8 @@ interface Particle {
   size: number
   isTopRow: boolean
   life: number
+  role: ParticleRole
+  phase: number
 }
 
 export default function DigitalCanvasParticles() {
@@ -26,7 +31,8 @@ export default function DigitalCanvasParticles() {
   const drawLogoPaths = useCallback(
     (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, mobile: boolean) => {
       const vb = DIGITAL_CANVAS_VIEWBOX
-      const logoHeight = mobile ? 80 : 160
+      // Larger logo — fills more of the viewport on both mobile and desktop
+      const logoHeight = mobile ? 120 : 280
       const scale = logoHeight / vb.height
       const logoWidth = vb.width * scale
 
@@ -93,14 +99,24 @@ export default function DigitalCanvasParticles() {
         const x = Math.floor(Math.random() * w)
         const y = Math.floor(Math.random() * h)
         if (data[(y * w + x) * 4 + 3] > 128) {
+          // Role distribution: ~88% normal, ~7% wanderers, ~5% scouts.
+          // Wanderers visibly orbit their anchor; scouts sense the cursor
+          // from farther away — together they read as a living swarm.
+          const r = Math.random()
+          const role: ParticleRole =
+            r < 0.07 ? 'wanderer' : r < 0.12 ? 'scout' : 'normal'
+
           return {
             x,
             y,
             baseX: x,
             baseY: y,
-            size: Math.random() * 1 + 0.5,
+            // Scale particles up on desktop so the larger logo reads at distance
+            size: Math.random() * (mobile ? 1 : 1.5) + (mobile ? 0.5 : 1),
             isTopRow: y < midY,
             life: Math.random() * 100 + 50,
+            role,
+            phase: Math.random() * Math.PI * 2,
           }
         }
       }
@@ -109,7 +125,7 @@ export default function DigitalCanvasParticles() {
 
     function createInitialParticles() {
       if (!canvas) return
-      const baseCount = 7000
+      const baseCount = 12000
       const count = Math.floor(
         baseCount *
           Math.sqrt((canvas.width * canvas.height) / (1920 * 1080))
@@ -129,27 +145,93 @@ export default function DigitalCanvasParticles() {
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       const { x: mx, y: my } = mousePositionRef.current
-      const maxDist = 240
+      const baseDist = 240
+      // Time in seconds — drives all idle motion. Wrapped so we don't accumulate
+      // huge values that could lose float precision over long sessions.
+      const time = (performance.now() * 0.001) % 1000
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i]
+
+        // DIGITAL (top row) is static at rest — no drift, no roles — but does
+        // react to the cursor like a normal particle. The fixed brand identity
+        // engages when touched, then snaps back.
+        if (p.isTopRow) {
+          const dx = mx - p.x
+          const dy = my - p.y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+
+          const interacting =
+            dist < baseDist &&
+            (isTouchingRef.current || !('ontouchstart' in window))
+
+          if (interacting) {
+            const force = (baseDist - dist) / baseDist
+            const angle = Math.atan2(dy, dx)
+            p.x = p.baseX - Math.cos(angle) * force * 60
+            p.y = p.baseY - Math.sin(angle) * force * 60
+          } else {
+            p.x = p.baseX
+            p.y = p.baseY
+          }
+
+          ctx.fillStyle = '#ffffff'
+          ctx.fillRect(p.x, p.y, p.size, p.size)
+
+          p.life--
+          if (p.life <= 0) {
+            const np = createParticle()
+            if (np) {
+              particles[i] = np
+            } else {
+              particles.splice(i, 1)
+              i--
+            }
+          }
+          continue
+        }
+
+        // CANVAS (bottom row) carries all the alive behaviors — drift, wanderers,
+        // scouts that sense the cursor from afar, and scatter on interaction.
         const dx = mx - p.x
         const dy = my - p.y
         const dist = Math.sqrt(dx * dx + dy * dy)
 
-        if (
-          dist < maxDist &&
+        // Scouts feel the cursor from farther out — creates a wave of motion
+        // that ripples inward as the user approaches the wordmark.
+        const detectDist = p.role === 'scout' ? 380 : baseDist
+
+        const interacting =
+          dist < detectDist &&
           (isTouchingRef.current || !('ontouchstart' in window))
-        ) {
-          const force = (maxDist - dist) / maxDist
+
+        if (interacting) {
+          const force = (detectDist - dist) / detectDist
           const angle = Math.atan2(dy, dx)
           p.x = p.baseX - Math.cos(angle) * force * 60
           p.y = p.baseY - Math.sin(angle) * force * 60
-          // Top row "DIGITAL" scatters mhth orange, bottom row "CANVAS" scatters mhth cyan
-          ctx.fillStyle = p.isTopRow ? '#ff9900' : '#00f2ff'
+          ctx.fillStyle = '#88FF00'
         } else {
-          p.x += (p.baseX - p.x) * 0.1
-          p.y += (p.baseY - p.y) * 0.1
+          // Idle motion — drift so the swarm reads as alive.
+          // Wanderers orbit their anchor visibly. Normals and scouts breathe softly.
+          let targetX = p.baseX
+          let targetY = p.baseY
+
+          if (p.role === 'wanderer') {
+            const radius = 14
+            const speed = 0.25
+            targetX += Math.cos(time * speed + p.phase) * radius
+            targetY += Math.sin(time * speed + p.phase * 1.3) * radius * 0.7
+          } else {
+            const amplitude = p.role === 'scout' ? 4 : 2.5
+            const speed = 0.4
+            targetX += Math.sin(time * speed + p.phase) * amplitude
+            targetY +=
+              Math.cos(time * speed * 0.7 + p.phase * 1.5) * amplitude * 0.8
+          }
+
+          p.x += (targetX - p.x) * 0.08
+          p.y += (targetY - p.y) * 0.08
           ctx.fillStyle = '#ffffff'
         }
 
@@ -168,7 +250,7 @@ export default function DigitalCanvasParticles() {
       }
 
       // Maintain particle density
-      const baseCount = 7000
+      const baseCount = 12000
       const target = Math.floor(
         baseCount *
           Math.sqrt((canvas.width * canvas.height) / (1920 * 1080))
@@ -244,11 +326,19 @@ export default function DigitalCanvasParticles() {
       <canvas
         ref={canvasRef}
         className="w-full h-full absolute inset-0 touch-none"
-        aria-label="Interactive parParticlesPlay CancvasGame PParticle effect displaying the Digital Canvas logo"
+        aria-label="Interactive particle effect displaying the Digital Canvas logo"
       />
-      <p className="absolute bottom-10 font-mono text-neutral-500 text-xs z-10 select-none pointer-events-none">
-        {isMobile ? 'Tap and drag' : 'Move your cursor'} to interact
-      </p>
+      {/* Tagline + interaction hint — bottom */}
+      <motion.div
+        className="absolute bottom-10 left-0 right-0 px-6 text-center z-10 pointer-events-none select-none"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 1.0, ease: 'easeOut' }}
+      >
+        <p className="font-mono text-neutral-500 text-[10px] md:text-xs">
+          {isMobile ? 'Tap and drag' : 'Move your cursor'} to interact
+        </p>
+      </motion.div>
     </div>
   )
 }

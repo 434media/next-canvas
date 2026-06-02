@@ -1,19 +1,6 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
-import { initializeApp, getApps, cert } from "firebase-admin/app"
-import { getFirestore } from "firebase-admin/firestore"
-
-// Initialize Firebase Admin
-function getFirestoreDb() {
-  if (getApps().length === 0) {
-    const raw = process.env.GOOGLE_SERVICE_ACCOUNT_KEY || "{}"
-    const serviceAccount = JSON.parse(raw.replace(/\n/g, "\\n"))
-    initializeApp({
-      credential: cert(serviceAccount),
-    })
-  }
-  return getFirestore()
-}
+import { getDigitalCanvasDb } from "@/lib/firebase-admin"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -28,7 +15,7 @@ export async function POST(request: Request) {
     }
 
     // Fetch all registrants from Firestore
-    const db = getFirestoreDb()
+    const db = getDigitalCanvasDb()
     const registrationsSnapshot = await db
       .collection("event-registrations")
       .where("event", "==", "MoreHumanThanHuman2026")
@@ -121,7 +108,7 @@ function generateReminderEmail(firstName: string): string {
 
           <!-- Header with Aztec border -->
           <tr>
-            <td style="background: linear-gradient(to right, #fbbf24, #ff9900, #fbbf24); height: 4px;"></td>
+            <td style="background: linear-gradient(to right, #fbbf24, #88FF00, #fbbf24); height: 4px;"></td>
           </tr>
 
           <!-- Logo/Event Name -->
@@ -308,7 +295,7 @@ function generateReminderEmail(firstName: string): string {
                 <tr>
                   <td style="padding: 20px 24px;">
                     <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #737373;">
-                      <strong style="color: #a3a3a3;">Note for those who missed a spot:</strong> If you know someone who couldn't register, the event is sold out at the venue, but they can still catch the full program via the live stream on the <a href="https://www.youtube.com/@devsatx" style="color: #ff9900; text-decoration: none; font-weight: 600;">DEVSA YouTube channel</a>.
+                      <strong style="color: #a3a3a3;">Note for those who missed a spot:</strong> If you know someone who couldn't register, the event is sold out at the venue, but they can still catch the full program via the live stream on the <a href="https://www.youtube.com/@devsatx" style="color: #88FF00; text-decoration: none; font-weight: 600;">DEVSA YouTube channel</a>.
                     </p>
                   </td>
                 </tr>
@@ -322,7 +309,7 @@ function generateReminderEmail(firstName: string): string {
               <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.6; color: #ffffff; font-weight: 600;">
                 We can't wait to see you all tomorrow! 🚀
               </p>
-              <p style="margin: 0 0 4px 0; font-size: 15px; color: #ff9900; font-weight: 500; font-style: italic;">
+              <p style="margin: 0 0 4px 0; font-size: 15px; color: #88FF00; font-weight: 500; font-style: italic;">
                 Stay building,
               </p>
               <p style="margin: 0; font-size: 15px; color: #a3a3a3; font-weight: 600;">
@@ -333,7 +320,7 @@ function generateReminderEmail(firstName: string): string {
 
           <!-- Footer border -->
           <tr>
-            <td style="background: linear-gradient(to right, #fbbf24, #ff9900, #fbbf24); height: 4px;"></td>
+            <td style="background: linear-gradient(to right, #fbbf24, #88FF00, #fbbf24); height: 4px;"></td>
           </tr>
 
           <!-- Footer -->

@@ -53,7 +53,7 @@ export default function TShirtDesignPage() {
           {[
             { color: "#FFFFFF", name: "White" },
             { color: "#FBBF24", name: "Gold" },
-            { color: "#FF9900", name: "Orange" },
+            { color: "#ff9900", name: "Orange" },
             { color: "#00F2FF", name: "Cyan" },
             { color: "#EF426F", name: "DevSA" },
             { color: "#00B2A9", name: "DevSA Teal" },
@@ -98,7 +98,7 @@ export default function TShirtDesignPage() {
         <ul className="space-y-2 text-[#a3a3a3] text-xs leading-relaxed">
           <li>• All artwork is 100% vector — no raster images</li>
           <li>• Designed for screen printing on black garments</li>
-          <li>• Spot colors: White, Gold (#FBBF24), Orange (#FF9900), Cyan (#00F2FF), plus brand colors</li>
+          <li>• Spot colors: White, Gold (#FBBF24), Orange (#ff9900), Cyan (#00F2FF), plus brand colors</li>
           <li>• Minimum line weight: 1pt for screen print compatibility</li>
           <li>• Text elements use system fonts — outline before sending to press</li>
           <li>• Canvas size: 1008 × 1100pt (14&quot; × 15.3&quot; print area)</li>

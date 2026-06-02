@@ -1,45 +1,84 @@
 "use client"
-import { useState, type FormEvent } from "react"
-import { motion } from "motion/react"
-import { BackgroundRippleEffect } from "@/components/background-ripple"
+import { useState, useEffect, type FormEvent } from "react"
+import { motion, AnimatePresence } from "motion/react"
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowRight, X, ChevronLeft, ChevronRight } from "lucide-react"
+import WorkshopsFlow from "@/components/workshops-flow"
 
-const upcomingSessions = [
+const proofPhotos = [
   {
-    title: "Prompt to Production",
-    industry: "SaaS · Founders",
-    model: "v0 + Vercel",
-    description:
-      "From a prompt to a live full-stack app — database, auth, public URL — in a single session. Ship one app in an hour, take the pattern home.",
-    accent: "#ff9900",
-    status: "Coming Soon",
+    src: "https://devsa-assets.s3.us-east-2.amazonaws.com/replay9.jpg",
+    alt: "Build with Gemini event",
   },
   {
-    title: "Hood Kid | Good Kid",
-    industry: "Leadership · Reinvention",
-    model: "Claude + agents",
-    description:
-      "Street smarts to boardroom wins. Translating real-world resilience into systems that scale — mixtape mentality, common cents, reinvention, API to the streets.",
-    accent: "#dc143c",
-    status: "Coming Soon",
-    pillars: ["Mixtape Mentality", "Common Cents", "Reinvention", "API to the Streets"],
+    src: "https://devsa-assets.s3.us-east-2.amazonaws.com/morehuman/0P3A9580.jpg",
+    alt: "More Human Than Human conference, San Antonio",
+  },
+  {
+    src: "https://devsa-assets.s3.us-east-2.amazonaws.com/shebuilds/8O8A0023+2.jpg",
+    alt: "Loveable SheBuilds event",
+  },
+  {
+    src: "https://devsa-assets.s3.us-east-2.amazonaws.com/pysa/pysa.jpg",
+    alt: "PySanAntonio conference",
+  },
+  {
+    src: "https://devsa-assets.s3.us-east-2.amazonaws.com/morehuman/0P3A9743.jpg",
+    alt: "More Human Than Human conference, San Antonio",
   },
 ]
 
-const sectors = [
-  { name: "SaaS & Founders", tag: "Workflow Pipelines" },
-  { name: "Fintech", tag: "Compliance + AI" },
-  { name: "Retail / CPG", tag: "Content Ops" },
-  { name: "Civic & Public", tag: "Community Tools" },
-  { name: "Healthcare", tag: "RAG + Records" },
-  { name: "Media & Creative", tag: "Editorial Loops" },
+const path = [
+  {
+    label: "Workshop Weekend",
+    duration: "Sat–Sun",
+    description:
+      "DevSA hosts at the downtown coworking space. Underwriter keynote opens with real industry pain points. Build with Cursor, Claude, Codex, or Gemini. Ship a working prototype by Sunday night.",
+  },
+  {
+    label: "Commit to the Cohort",
+    duration: "Monday",
+    description:
+      "By Monday morning, decide whether to continue. Three short answers and you're in: which painpoint, why you, what would a working demo look like in six weeks.",
+  },
+  {
+    label: "Six-Week Bridge",
+    duration: "Six Weeks",
+    description:
+      "Work from DevSA's space alongside the cohort. Sponsor office hour, pitch coaching from our investor partners, peer review, investor mixer, dress rehearsal. The community shows up while you build.",
+  },
+  {
+    label: "Demo Day",
+    duration: "One Evening",
+    description:
+      "Pitch an accredited investor audience plus partner capital — Capital Factory, Venture STX, Bexar County and more. Warm room. Real follow-up conversations.",
+  },
 ]
 
 export default function WorkshopsPage() {
   const [waitlistState, setWaitlistState] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [waitlistError, setWaitlistError] = useState("")
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
-  const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle")
-  const [errorMessage, setErrorMessage] = useState("")
+  useEffect(() => {
+    if (lightboxIndex === null) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxIndex(null)
+      if (e.key === "ArrowLeft")
+        setLightboxIndex((i) => (i === null ? null : (i - 1 + proofPhotos.length) % proofPhotos.length))
+      if (e.key === "ArrowRight")
+        setLightboxIndex((i) => (i === null ? null : (i + 1) % proofPhotos.length))
+    }
+    window.addEventListener("keydown", onKey)
+    // Prevent body scroll while lightbox is open
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      window.removeEventListener("keydown", onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [lightboxIndex])
 
   async function handleWaitlist(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -53,7 +92,7 @@ export default function WorkshopsPage() {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, tags: ["skills-waitlist", "workflows-by-digital-canvas"] }),
+        body: JSON.stringify({ email, tags: ["workshop-waitlist", "digital-canvas-cohort"] }),
       })
 
       if (!res.ok) {
@@ -69,52 +108,14 @@ export default function WorkshopsPage() {
     }
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setFormState("submitting")
-    setErrorMessage("")
-
-    const form = e.currentTarget
-    const data = {
-      firstName: (form.elements.namedItem("firstName") as HTMLInputElement).value,
-      lastName: (form.elements.namedItem("lastName") as HTMLInputElement).value,
-      company: (form.elements.namedItem("company") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
-      source: "skills-inquiry",
-    }
-
-    try {
-      const res = await fetch("/api/sponsor-inquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-
-      if (!res.ok) {
-        const body = await res.json()
-        throw new Error(body.error || "Something went wrong")
-      }
-
-      setFormState("success")
-      form.reset()
-    } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : "Something went wrong")
-      setFormState("error")
-    }
-  }
-
   return (
     <div className="bg-[#0a0a0a] min-h-screen">
-      {/* Hero — Workflows by Digital Canvas */}
+      {/* Hero */}
       <section className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] py-24 px-6">
-        <BackgroundRippleEffect rows={12} cols={30} cellSize={56} />
+        {/* Directional flow particles — current flows rightward, cursor diverts it like a stone in a river */}
+        <WorkshopsFlow />
 
-        <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-[#00f2ff]/5 blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-[#ff9900]/5 blur-[150px] pointer-events-none" />
-
-        <div className="relative z-10 max-w-4xl w-full mx-auto">
+        <div className="relative z-10 max-w-4xl w-full mx-auto pointer-events-none">
           <motion.div
             className="text-center mb-14"
             initial={{ opacity: 0, y: 24 }}
@@ -122,178 +123,189 @@ export default function WorkshopsPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="flex items-center justify-center gap-3 mb-6">
-              <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#00f2ff] font-bold">
-                02
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00f2ff]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF006E]" />
               <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/60">
-                Workflows
+                The Open Onramp
               </span>
             </div>
             <h1 className="font-(family-name:--font-geist-pixel-square) text-3xl md:text-5xl text-white uppercase tracking-wide leading-[1.2] font-black mb-6">
-              Workflows{" "}
+              Workshops{" "}
               <span className="text-white/40 font-medium">by Digital Canvas</span>
             </h1>
-            <div className="h-px w-48 mx-auto bg-linear-to-r from-[#00f2ff] to-[#ff9900] opacity-60 mb-7" />
+            <div className="h-px w-48 mx-auto bg-linear-to-r from-[#FF006E] to-[#88FF00] opacity-60 mb-7" />
             <p className="text-white/50 text-sm md:text-base leading-[1.8] font-medium max-w-2xl mx-auto">
-              Free monthly workshops. Bite-size workflow examples by industry and AI model — ship one in an hour, take the pattern home.
+              The entry point for builders into a Digital Canvas cohort, hosted by DEVSA — and the path to Demo
+              Day in front of an accredited investor audience.
             </p>
           </motion.div>
 
-          {/* Format strip */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <motion.div
-              className="border border-white/10 bg-[#0a0a0a]/80 backdrop-blur-sm p-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.3em] text-[#00f2ff] mb-3 block font-bold">
-                Monthly
-              </span>
-              <p className="text-white/60 text-sm leading-[1.7]">
-                A new workflow shipped live, every month. Different industry, different model, same one-hour format.
+          {/* Proof strip — DevSA community moments pulled forward as concrete evidence */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="pointer-events-auto"
+          >
+            <div className="flex items-center justify-center gap-3 mb-5">
+              <span className="h-px w-8 bg-white/15" />
+              <p className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.3em] text-white/50 font-bold">
+                Hosted by DEVSA
               </p>
-            </motion.div>
-            <motion.div
-              className="border border-white/10 bg-[#0a0a0a]/80 backdrop-blur-sm p-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.3em] text-[#fbbf24] mb-3 block font-bold">
-                Free
-              </span>
-              <p className="text-white/60 text-sm leading-[1.7]">
-                No ticket, no pitch deck, no upsell mid-session. Bring a laptop and leave with a working pattern.
+              <span className="h-px w-8 bg-white/15" />
+            </div>
+            <div className="grid grid-cols-5 gap-1.5 md:gap-3">
+              {proofPhotos.map((img, i) => (
+                <motion.button
+                  type="button"
+                  key={img.src}
+                  onClick={() => setLightboxIndex(i)}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.55 + i * 0.07 }}
+                  className="relative aspect-square overflow-hidden group cursor-zoom-in block w-full p-0 border-0 bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF006E]"
+                  aria-label={`View larger image: ${img.alt}`}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105 opacity-65 group-hover:opacity-100"
+                    sizes="(max-width: 768px) 20vw, 180px"
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent" />
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Hosted by DevSA */}
+      <section className="relative py-20 md:py-24 px-6 border-t border-[#222]">
+        <div className="relative max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center"
+          >
+            <div className="md:col-span-4 flex md:justify-start justify-center">
+              <a
+                href="https://www.devsa.community/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block w-48 md:w-56"
+              >
+                <div className="relative h-20">
+                  <Image
+                    src="https://devsa-assets.s3.us-east-2.amazonaws.com/devsa-logo.svg"
+                    alt="DevSA logo"
+                    fill
+                    className="object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                    sizes="240px"
+                    unoptimized
+                  />
+                </div>
+              </a>
+            </div>
+            <div className="md:col-span-8">
+              <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#FF006E] mb-4 font-bold">
+                Hosted by DevSA
               </p>
-            </motion.div>
-            <motion.div
-              className="border border-white/10 bg-[#0a0a0a]/80 backdrop-blur-sm p-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.3em] text-[#ff9900] mb-3 block font-bold">
-                Real Work
-              </span>
-              <p className="text-white/60 text-sm leading-[1.7]">
-                Built with Claude, MCP, v0, and small composable tools. Workflows you can take into Monday morning.
+              <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight mb-6">
+                Find your people.{" "}
+                <span className="text-white/40 font-medium">Build your future.</span>
+              </h2>
+              <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-xl">
+                DevSA is the bridge across San Antonio&apos;s tech ecosystem — 20+ grassroots groups, local builders, and industry partners connected through one platform. They don&apos;t replace the communities doing the work; they host them, connect them, and help them grow. The workshop weekend and the six-week bridge both run out of DevSA&apos;s downtown coworking — so when you commit, the platform that already powers SA&apos;s builders is where you build.
               </p>
-            </motion.div>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
+      {/* Path to demo day */}
+      <section className="relative py-20 md:py-28 px-6 border-t border-[#222]">
+        <div className="relative max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 md:mb-16"
+          >
+            <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#88FF00] mb-4 font-bold">
+              Path to Demo Day
+            </p>
+            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight max-w-3xl">
+              Four stages.{" "}
+              <span className="text-white/40 font-medium">
+                Start at a workshop. End in a room full of investors.
+              </span>
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#222] border border-[#222]">
+            {path.map((stage, i) => (
+              <motion.div
+                key={stage.label}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: (i % 2) * 0.1 }}
+                className="bg-[#0a0a0a] p-8 md:p-10"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#88FF00] font-bold">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#88FF00]" />
+                  <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-white/30 ml-auto">
+                    {stage.duration}
+                  </span>
+                </div>
+                <h3 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.2em] text-white font-bold mb-3">
+                  {stage.label}
+                </h3>
+                <p className="text-white/40 text-sm leading-[1.75]">
+                  {stage.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Upcoming Sessions */}
-      <section className="relative py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            className="mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#00f2ff] mb-3 font-bold">
-              Upcoming Sessions
-            </p>
-            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight">
-              What we&apos;re shipping next
-            </h2>
-          </motion.div>
-
-          {upcomingSessions.map((session, idx) => (
-            <motion.div
-              key={session.title}
-              className="relative border border-[#333] bg-[#0a0a0a] p-8 md:p-12 overflow-hidden mb-6"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: idx * 0.1 }}
-            >
-              <motion.span
-                className="absolute top-4 right-4 font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-widest px-3 py-1"
-                style={{ backgroundColor: session.accent, color: session.accent === "#dc143c" ? "#fff" : "#0a0a0a" }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                {session.status}
-              </motion.span>
-
-              <div className="flex flex-wrap items-center gap-3 mb-5">
-                <span
-                  className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] font-bold"
-                  style={{ color: session.accent }}
-                >
-                  {session.industry}
-                </span>
-                <span className="text-white/30 text-[10px]">·</span>
-                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-white/50">
-                  {session.model}
-                </span>
-              </div>
-
-              <h3 className="font-(family-name:--font-geist-pixel-square) text-xl md:text-3xl text-white uppercase tracking-wide leading-tight mb-6">
-                {session.title}
-              </h3>
-
-              <div
-                className="h-px w-full mb-6 opacity-60"
-                style={{ background: `linear-gradient(to right, ${session.accent}, transparent)` }}
-              />
-
-              <p className="text-white/70 text-sm md:text-base leading-relaxed mb-6 max-w-2xl">
-                {session.description}
-              </p>
-
-              {session.pillars && (
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {session.pillars.map((pillar) => (
-                    <span
-                      key={pillar}
-                      className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-widest border px-3 py-1"
-                      style={{ borderColor: `${session.accent}66`, color: session.accent }}
-                    >
-                      {pillar}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Waitlist — primary CTA */}
-      <section className="relative py-20 px-6 overflow-hidden" id="waitlist">
+      {/* Waitlist */}
+      <section className="relative py-20 md:py-28 px-6 border-t border-[#222] overflow-hidden" id="waitlist">
         <div className="absolute inset-0 bg-linear-to-b from-[#0a0a0a] via-[#0f0f0f] to-[#0a0a0a]" />
 
         <div className="relative max-w-3xl mx-auto">
           <motion.div
-            className="border border-[#00f2ff]/30 bg-[#0a0a0a] p-8 md:p-12"
+            className="border border-[#FF006E]/30 bg-[#0a0a0a] p-8 md:p-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#00f2ff] mb-4 font-bold">
-              Get the next session
+            <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#FF006E] mb-4 font-bold">
+              Get the next open call
             </p>
             <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight mb-6">
               One email when{" "}
-              <span className="text-white/40 font-medium">we ship the next workflow</span>
+              <span className="text-white/40 font-medium">the next workshop opens</span>
             </h2>
             <p className="text-white/50 text-sm md:text-base leading-[1.8] mb-8 max-w-xl">
-              No newsletter spam. One email per month with the session details and the working pattern from the last one.
+              No newsletter spam. We email when a workshop is on the calendar — vertical, date, RSVP. Cohort opens get the same notification.
             </p>
 
             {waitlistState === "success" ? (
-              <div className="flex items-center gap-3 text-[#00f2ff] font-(family-name:--font-geist-pixel-square) text-xs uppercase tracking-widest">
-                <span className="inline-block w-2 h-2 bg-[#00f2ff]" />
-                You&apos;re on the list. See you at the next session.
+              <div className="flex items-center gap-3 text-[#FF006E] font-(family-name:--font-geist-pixel-square) text-xs uppercase tracking-widest">
+                <span className="inline-block w-2 h-2 bg-[#FF006E]" />
+                You&apos;re on the list. See you at the next workshop.
               </div>
             ) : (
               <form onSubmit={handleWaitlist} className="flex flex-col sm:flex-row gap-3">
@@ -302,12 +314,12 @@ export default function WorkshopsPage() {
                   name="waitlistEmail"
                   required
                   placeholder="you@company.com"
-                  className="flex-1 bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-4 focus:outline-none focus:border-[#00f2ff] transition-colors placeholder:text-white/20"
+                  className="flex-1 bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-4 focus:outline-none focus:border-[#FF006E] transition-colors placeholder:text-white/20"
                 />
                 <button
                   type="submit"
                   disabled={waitlistState === "submitting"}
-                  className="bg-[#00f2ff] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest py-4 px-8 transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-[#FF006E] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest py-4 px-8 transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {waitlistState === "submitting" ? "Adding..." : "Join Waitlist"}
                 </button>
@@ -322,203 +334,143 @@ export default function WorkshopsPage() {
         </div>
       </section>
 
-      {/* Sectors we ship for */}
-      <section className="relative py-20 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-linear-to-b from-[#0a0a0a] via-[#111] to-[#0a0a0a]" />
-
-        <div className="relative max-w-4xl mx-auto">
+      {/* Final CTA — apply / see demo day */}
+      <section className="relative py-20 md:py-28 px-6 border-t border-[#222]">
+        <div className="relative max-w-5xl mx-auto">
           <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-end"
           >
-            <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#fbbf24] mb-3 font-bold">
-              Sectors we ship for
-            </p>
-            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight mb-6">
-              Different industry. Different model.{" "}
-              <span className="text-white/40 font-medium">Same one-hour format.</span>
-            </h2>
-            <div className="h-px w-48 mx-auto bg-linear-to-r from-[#00f2ff] to-[#fbbf24] opacity-60 mb-8" />
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {sectors.map((sector, i) => (
-              <motion.div
-                key={sector.name}
-                className="border border-[#333] bg-[#0a0a0a]/80 p-5"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-              >
-                <p className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base text-white uppercase tracking-wide mb-1">
-                  {sector.name}
-                </p>
-                <span className="text-white/40 text-[10px] font-(family-name:--font-geist-pixel-square) uppercase tracking-widest">
-                  {sector.tag}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Beyond the workshop — consultancy upsell */}
-      <section className="relative py-20 px-6" id="contact">
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#a855f7] mb-3 font-bold">
-              Beyond the workshop
-            </p>
-            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight mb-6">
-              Want the workflow built{" "}
-              <span className="text-white/40 font-medium">into your stack?</span>
-            </h2>
-            <div className="h-px w-48 mx-auto bg-linear-to-r from-[#a855f7] to-[#00f2ff] opacity-60 mb-8" />
-            <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-lg mx-auto">
-              Workshops show the pattern. We also build them into production for teams who need it live next quarter. Tell us what you&apos;re working on.
-            </p>
-          </motion.div>
-
-          {formState === "success" ? (
-            <motion.div
-              className="border border-[#a855f7]/40 bg-[#a855f7]/5 p-8 md:p-12 text-center"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="inline-flex w-12 h-12 border-2 border-[#a855f7] mb-6 items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              </div>
-              <h3 className="font-(family-name:--font-geist-pixel-square) text-lg text-white uppercase tracking-wide mb-3">
-                Message Sent
-              </h3>
-              <p className="text-white/60 text-sm">
-                Thanks — we&apos;ll be in touch within two business days.
+            <div>
+              <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#88FF00] mb-4 font-bold">
+                Ready to build?
               </p>
-            </motion.div>
-          ) : (
-            <motion.form
-              onSubmit={handleSubmit}
-              className="border border-[#333] bg-[#111] p-8 md:p-12 space-y-6"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="firstName" className="block font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-widest text-white/50 mb-2">
-                    First Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
-                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#a855f7] transition-colors placeholder:text-white/20"
-                    placeholder="Jane"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="block font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-widest text-white/50 mb-2">
-                    Last Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    required
-                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#a855f7] transition-colors placeholder:text-white/20"
-                    placeholder="Doe"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="company" className="block font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-widest text-white/50 mb-2">
-                  Company *
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  required
-                  className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#a855f7] transition-colors placeholder:text-white/20"
-                  placeholder="Acme Corp"
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="email" className="block font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-widest text-white/50 mb-2">
-                    Work Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#a855f7] transition-colors placeholder:text-white/20"
-                    placeholder="jane@company.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-widest text-white/50 mb-2">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#a855f7] transition-colors placeholder:text-white/20"
-                    placeholder="(210) 555-0100"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-widest text-white/50 mb-2">
-                  What workflow are you trying to ship? *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#a855f7] transition-colors resize-none placeholder:text-white/20"
-                  placeholder="The problem, the stack, the deadline. Rough is fine — we&apos;ll come back with questions."
-                />
-              </div>
-
-              {formState === "error" && (
-                <p className="text-red-400 text-sm font-(family-name:--font-geist-pixel-square)">
-                  {errorMessage}
-                </p>
-              )}
-
-              <button
-                type="submit"
-                disabled={formState === "submitting"}
-                className="w-full bg-linear-to-r from-[#a855f7] to-[#00f2ff] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest py-4 px-8 transition-all hover:opacity-90 hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed"
+              <h3 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-3xl text-white uppercase tracking-wide leading-tight">
+                See the full path.{" "}
+                <span className="text-white/40 font-medium">
+                  Or check what demo day looks like.
+                </span>
+              </h3>
+            </div>
+            <div className="flex flex-col sm:flex-row md:flex-col gap-3 md:items-end">
+              <Link
+                href="/builders"
+                className="group inline-flex items-center justify-between gap-3 bg-[#88FF00] text-black px-6 py-4 text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors duration-200"
               >
-                {formState === "submitting" ? "Sending..." : "Start the Conversation"}
-              </button>
-            </motion.form>
-          )}
+                How to apply
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                href="/demo-days"
+                className="group inline-flex items-center justify-between gap-3 border border-[#333] text-white/70 hover:text-white hover:border-white/50 px-6 py-4 text-xs uppercase tracking-[0.2em] font-bold transition-colors duration-200"
+              >
+                Demo day details
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
+
+      {/* Powered by */}
+      <section className="relative py-16 md:py-20 px-6 border-t border-[#222] text-center">
+        <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/30 mb-3">
+          Powered by
+        </p>
+        <p className="font-(family-name:--font-geist-pixel-square) text-white/70 text-sm md:text-base tracking-wide">
+          DevSA · Capital Partner · 434 Media
+        </p>
+      </section>
+
+      {/* Lightbox — full-size viewer for the DevSA proof strip */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-12"
+            onClick={() => setLightboxIndex(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Image viewer"
+          >
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setLightboxIndex(null)
+              }}
+              className="absolute top-4 right-4 md:top-6 md:right-6 text-white/60 hover:text-white p-2 transition-colors"
+              aria-label="Close image viewer"
+            >
+              <X className="w-6 h-6 md:w-7 md:h-7" />
+            </button>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setLightboxIndex((i) =>
+                  i === null ? null : (i - 1 + proofPhotos.length) % proofPhotos.length,
+                )
+              }}
+              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-white p-2 transition-colors"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-7 h-7 md:w-9 md:h-9" />
+            </button>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setLightboxIndex((i) =>
+                  i === null ? null : (i + 1) % proofPhotos.length,
+                )
+              }}
+              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-white p-2 transition-colors"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-7 h-7 md:w-9 md:h-9" />
+            </button>
+
+            <motion.div
+              key={proofPhotos[lightboxIndex].src}
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.25 }}
+              className="relative flex flex-col items-center justify-center max-w-5xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative w-full" style={{ height: "min(80vh, 800px)" }}>
+                <Image
+                  src={proofPhotos[lightboxIndex].src}
+                  alt={proofPhotos[lightboxIndex].alt}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  unoptimized
+                  priority
+                />
+              </div>
+              <div className="mt-4 flex items-center gap-3">
+                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">
+                  {String(lightboxIndex + 1).padStart(2, "0")} / {String(proofPhotos.length).padStart(2, "0")}
+                </span>
+                <span className="h-px w-6 bg-white/15" />
+                <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/60">
+                  {proofPhotos[lightboxIndex].alt}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

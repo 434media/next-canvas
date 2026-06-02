@@ -26,9 +26,9 @@ const dancingScript = Dancing_Script({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.community"
 
-const TAGLINE = "Stories. Transactions. Loops."
+const TAGLINE = "San Antonio · Builder Program"
 const DESCRIPTION =
-  "Digital Canvas is for operators and product teams shipping intentional digital products — and the autonomous workflows behind them. Design, workflows, and agents built with Claude, MCP, and small composable tools."
+  "Digital Canvas is a San Antonio builder program connecting AI-native talent to industry pain points — and the capital that funds them. Free workshops, a six-week build bridge, and demo day to an accredited investor audience. Powered by DevSA and 434 Media."
 
 export const metadata: Metadata = {
   title: {
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   keywords:
-    "Digital Canvas, autonomous workflows, AI agents, Claude, MCP, design engineering, consulting, workshops, San Antonio, 434 Media, DevSA",
+    "Digital Canvas, San Antonio builder program, AI cohort, demo day, prompt to production, DevSA, 434 Media, AI workshops, builder community, accredited investor network",
   authors: [{ name: "Digital Canvas" }],
   creator: "Digital Canvas",
   publisher: "Digital Canvas",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     siteName: "Digital Canvas",
     images: [
       {
-        url: '/opengraph-image.png',
+        url: '/api/og/home',
         width: 1200,
         height: 630,
         alt: `Digital Canvas — ${TAGLINE}`,
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Digital Canvas | ${TAGLINE}`,
     description: DESCRIPTION,
-    images: ['/opengraph-image.png'],
+    images: ['/api/og/home'],
     creator: '@devsatx',
     site: '@devsatx',
   },
@@ -104,6 +104,25 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Digital Canvas",
+              alternateName: "Digital Canvas Community",
+              url: siteUrl,
+              description: DESCRIPTION,
+              publisher: {
+                "@type": "Organization",
+                name: "434 Media",
+                url: "https://434media.com/",
+              },
+              inLanguage: "en-US",
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
               "@type": "Organization",
               name: "Digital Canvas",
               alternateName: "Digital Canvas Community",
@@ -118,16 +137,14 @@ export default function RootLayout({
                 addressCountry: "US",
               },
               knowsAbout: [
-                "Autonomous Workflows",
-                "AI Agents",
-                "Claude",
-                "Model Context Protocol",
-                "Design Engineering",
-                "Editorial Typography",
-                "Workshops",
-                "AI Consultancy",
-                "Event Production",
+                "AI Builder Program",
+                "AI Cohort Programs",
+                "Demo Day Production",
+                "Prompt to Production",
+                "AI Workshops",
+                "San Antonio Tech Ecosystem",
                 "Community Building",
+                "Underwriter Sponsorship",
               ],
               sameAs: [
                 "https://twitter.com/devsatx",

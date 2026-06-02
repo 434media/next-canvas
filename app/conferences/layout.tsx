@@ -3,18 +3,18 @@ import type { Metadata } from "next"
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.community"
 
 export const metadata: Metadata = {
-  title: "Conferences",
+  title: "Conferences | Digital Canvas",
   description:
-    "Quarterly tech conferences connecting San Antonio's creative and developer communities. Featuring DevSA, PySA, GDG, and Tech Day events with hands-on workshops, talks, and networking.",
+    "Tech conferences powered by the Digital Canvas partner network. More Human Than Human and the gatherings that anchor San Antonio's builder ecosystem.",
   keywords:
-    "tech conferences, San Antonio, DevSA, PySA, GDG, Tech Day, developer events, creative community, Digital Canvas",
+    "Digital Canvas conferences, San Antonio AI conference, More Human Than Human, MHTH, DevSA conference, AI ecosystem San Antonio, tech conferences Texas",
   alternates: {
     canonical: "/conferences",
   },
   openGraph: {
     title: "Conferences | Digital Canvas",
     description:
-      "Quarterly tech conferences connecting San Antonio's creative and developer communities.",
+      "Tech conferences powered by the Digital Canvas partner network — anchored by More Human Than Human and the gatherings shaping San Antonio's builder ecosystem.",
     url: `${siteUrl}/conferences`,
     siteName: "Digital Canvas",
     images: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         url: "/api/og/conferences",
         width: 1200,
         height: 630,
-        alt: "Digital Canvas Conferences",
+        alt: "Digital Canvas Conferences — San Antonio tech gatherings",
       },
     ],
     locale: "en_US",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Conferences | Digital Canvas",
     description:
-      "Quarterly tech conferences connecting San Antonio's creative and developer communities.",
+      "Tech conferences powered by the Digital Canvas partner network — anchored by More Human Than Human.",
     images: ["/api/og/conferences"],
     creator: "@434media",
     site: "@434media",

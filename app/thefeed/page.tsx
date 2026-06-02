@@ -130,7 +130,7 @@ export default function TheFeedPage() {
                 <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-white/30 font-normal">
                   Digital Canvas
                 </span>
-                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#ff9900]/60 font-normal">
+                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#88FF00]/60 font-normal">
                   434 Media
                 </span>
               </div>
@@ -148,7 +148,7 @@ export default function TheFeedPage() {
             {isLoading ? (
               <div className="border border-[#222] bg-[#111] p-12 rounded-sm">
                 <div className="flex flex-col items-center justify-center space-y-3">
-                  <div className="w-6 h-6 border-2 border-[#333] border-t-[#ff9900] rounded-full animate-spin"></div>
+                  <div className="w-6 h-6 border-2 border-[#333] border-t-[#88FF00] rounded-full animate-spin"></div>
                   <span className="text-sm text-white/40 font-medium">Loading feed...</span>
                 </div>
               </div>

@@ -12,10 +12,10 @@ interface SlideoverMenuProps {
 }
 
 const navLinks = [
-  { href: "/workshops", label: "Workflows" },
-  { href: "/agents", label: "Agents" },
+  { href: "/workshops", label: "Workshops" },
+  { href: "/demo-days", label: "Demo Days" },
   { href: "/thefeed", label: "The Feed" },
-  { href: "/events", label: "Events" },
+  { href: "/about", label: "About" },
 ]
 
 const socialLinks = [
@@ -113,11 +113,11 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.25, duration: 0.5, ease: "easeOut" }}
                 >
-                  <h2 className="font-(family-name:--font-geist-pixel-square) text-[9px] tracking-[0.3em] uppercase text-[#ff9900]/60 mb-4">
-                    Stories. Transactions. Loops.
+                  <h2 className="font-(family-name:--font-geist-pixel-square) text-[9px] tracking-[0.3em] uppercase text-[#88FF00]/60 mb-4">
+                    San Antonio · Builder Program
                   </h2>
                   <p className="font-(family-name:--font-geist-pixel-square) text-[13px] leading-[1.8] font-normal text-white/50">
-                    Digital Canvas is for operators and product teams shipping intentional digital products — and the autonomous workflows behind them.
+                    Digital Canvas connects AI-native talent to industry pain points — and the capital that funds them.
                   </p>
                 </motion.div>
 
@@ -140,7 +140,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                         <NextLink
                           href={link.href}
                           onClick={onClose}
-                          className="flex items-center justify-between py-3 px-4 text-white/40 hover:text-[#ff9900] font-(family-name:--font-geist-pixel-square) text-sm uppercase tracking-widest hover:bg-white/2 transition-all duration-200"
+                          className="flex items-center justify-between py-3 px-4 text-white/40 hover:text-[#88FF00] font-(family-name:--font-geist-pixel-square) text-sm uppercase tracking-widest hover:bg-white/2 transition-all duration-200"
                         >
                           <span>{link.label}</span>
                           <ArrowRightIcon className="w-3.5 h-3.5 opacity-30" />
@@ -170,7 +170,7 @@ const SlideoverMenu: React.FC<SlideoverMenuProps> = ({ isOpen, onClose }) => {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/30 hover:text-[#ff9900] transition-colors duration-200"
+                        className="text-white/30 hover:text-[#88FF00] transition-colors duration-200"
                         aria-label={`Follow Digital Canvas on ${social.name}`}
                       >
                         {social.icon}

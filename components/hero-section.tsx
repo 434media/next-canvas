@@ -70,7 +70,7 @@ const HeroSection = () => {
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <div className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/60 via-purple-500/60 to-teal-500/60 blur-2xl animate-pulse" />
+            <div className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/60 via-cyan-500/60 to-teal-500/60 blur-2xl animate-pulse" />
           </motion.div>
 
           {/* Expanding Ring Waves - Much More Dramatic */}
@@ -90,7 +90,7 @@ const HeroSection = () => {
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
           >
             <div
-              className="absolute inset-0 rounded-full border-2 border-purple-400/60 animate-ping"
+              className="absolute inset-0 rounded-full border-2 border-cyan-400/60 animate-ping"
               style={{ animationDelay: "0.2s" }}
             />
           </motion.div>
@@ -109,7 +109,7 @@ const HeroSection = () => {
 
           {/* Pulsing Background Circle - More Intense */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/30 via-purple-500/30 to-teal-500/30"
+            className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/30 via-cyan-500/30 to-teal-500/30"
             initial={{ scale: 0.9, opacity: 0 }}
             whileHover={{
               scale: [0.9, 1.4, 1.2],
@@ -160,7 +160,7 @@ const HeroSection = () => {
             }}
           />
           <motion.div
-            className="absolute inset-2 rounded-full border-2 border-purple-400/30"
+            className="absolute inset-2 rounded-full border-2 border-cyan-400/30"
             animate={{ rotate: -360 }}
             transition={{ duration: 15, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
             whileHover={{
@@ -187,7 +187,7 @@ const HeroSection = () => {
             whileHover={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <div className="bg-linear-to-r from-blue-500 to-purple-600 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-white/40 shadow-2xl">
+            <div className="bg-linear-to-r from-blue-500 to-cyan-600 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-white/40 shadow-2xl">
               <div className="flex items-center space-x-2">
                 <motion.i
                   className="ri-play-circle-line text-white text-lg"
@@ -208,7 +208,7 @@ const HeroSection = () => {
           {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-linear-to-r from-blue-400 to-purple-400 rounded-full pointer-events-none"
+              className="absolute w-2 h-2 bg-linear-to-r from-blue-400 to-cyan-400 rounded-full pointer-events-none"
               style={{
                 left: `${50 + Math.cos((i * Math.PI * 2) / 8) * 80}%`,
                 top: `${50 + Math.sin((i * Math.PI * 2) / 8) * 80}%`,
@@ -315,7 +315,7 @@ const HeroSection = () => {
         />
 
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-500/8 rounded-full blur-3xl pointer-events-none"
+          className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-500/8 rounded-full blur-3xl pointer-events-none"
           style={{
             scale: useTransform(scrollYProgress, [0, 0.5], [1, 0.8]),
             opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 0.6, 0.1]),

@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
         destination: "/conferences/morehumanthanhuman",
         permanent: true,
       },
+      {
+        // Page renamed 2026-06 — preserves SEO + any bookmarks.
+        // Exact match only; sub-paths like /events/mxratmain stay intact.
+        source: "/events",
+        destination: "/demo-days",
+        permanent: true,
+      },
     ]
   },
   images: {
@@ -20,6 +27,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "storage.googleapis.com",
         pathname: "/groovy-ego-462522-v2.firebasestorage.app/**",
+      },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        pathname: "/v0/b/groovy-ego-462522-v2.firebasestorage.app/**",
       },
       {
         protocol: "https",

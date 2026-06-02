@@ -232,10 +232,10 @@ export default function ConferencesPage() {
           >
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#ff9900] font-bold">
+                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#88FF00] font-bold">
                   Proof
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#ff9900]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#88FF00]" />
                 <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/60">
                   Conferences
                 </span>
@@ -256,7 +256,7 @@ export default function ConferencesPage() {
             <div className="flex flex-col sm:flex-row items-start gap-3">
               <Link
                 href="/conferences/morehumanthanhuman"
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#ff9900] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest transition-all hover:bg-[#fbbf24] hover:scale-[1.02]"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#88FF00] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest transition-all hover:bg-[#fbbf24] hover:scale-[1.02]"
               >
                 More Human Than Human
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -286,7 +286,7 @@ export default function ConferencesPage() {
             <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white font-black uppercase tracking-wide leading-snug mb-6">
               Sponsor the next one
             </h2>
-            <div className="h-px w-48 mx-auto bg-linear-to-r from-[#ff9900] to-[#00f2ff] opacity-60 mb-8" />
+            <div className="h-px w-48 mx-auto bg-linear-to-r from-[#88FF00] to-[#FF006E] opacity-60 mb-8" />
             <p className="text-white/60 text-sm md:text-base leading-relaxed font-medium max-w-lg mx-auto">
               Put your name in front of the operators, developers, and creators who showed up for the last one. Sponsorship tiers shape activations on stage, on the floor, and in the post-event content loop.
             </p>
@@ -294,13 +294,13 @@ export default function ConferencesPage() {
 
           {formState === "success" ? (
             <motion.div
-              className="border border-[#ff9900]/40 bg-[#ff9900]/5 p-8 md:p-12 text-center"
+              className="border border-[#88FF00]/40 bg-[#88FF00]/5 p-8 md:p-12 text-center"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="inline-flex w-12 h-12 border-2 border-[#ff9900] mb-6 items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff9900" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <div className="inline-flex w-12 h-12 border-2 border-[#88FF00] mb-6 items-center justify-center">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#88FF00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
@@ -330,7 +330,7 @@ export default function ConferencesPage() {
                     id="firstName"
                     name="firstName"
                     required
-                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#ff9900] transition-colors placeholder:text-white/20"
+                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#88FF00] transition-colors placeholder:text-white/20"
                     placeholder="Jane"
                   />
                 </div>
@@ -343,7 +343,7 @@ export default function ConferencesPage() {
                     id="lastName"
                     name="lastName"
                     required
-                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#ff9900] transition-colors placeholder:text-white/20"
+                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#88FF00] transition-colors placeholder:text-white/20"
                     placeholder="Doe"
                   />
                 </div>
@@ -358,7 +358,7 @@ export default function ConferencesPage() {
                   id="company"
                   name="company"
                   required
-                  className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#ff9900] transition-colors placeholder:text-white/20"
+                  className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#88FF00] transition-colors placeholder:text-white/20"
                   placeholder="Acme Corp"
                 />
               </div>
@@ -373,7 +373,7 @@ export default function ConferencesPage() {
                     id="email"
                     name="email"
                     required
-                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#ff9900] transition-colors placeholder:text-white/20"
+                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#88FF00] transition-colors placeholder:text-white/20"
                     placeholder="jane@company.com"
                   />
                 </div>
@@ -385,7 +385,7 @@ export default function ConferencesPage() {
                     type="tel"
                     id="phone"
                     name="phone"
-                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#ff9900] transition-colors placeholder:text-white/20"
+                    className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#88FF00] transition-colors placeholder:text-white/20"
                     placeholder="(210) 555-0100"
                   />
                 </div>
@@ -400,7 +400,7 @@ export default function ConferencesPage() {
                   name="message"
                   required
                   rows={5}
-                  className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#ff9900] transition-colors resize-none placeholder:text-white/20"
+                  className="w-full bg-[#0a0a0a] border border-[#333] text-white text-sm px-4 py-3 focus:outline-none focus:border-[#88FF00] transition-colors resize-none placeholder:text-white/20"
                   placeholder="Tell us which conference you're interested in sponsoring, your goals, and how we can help..."
                 />
               </div>
@@ -414,7 +414,7 @@ export default function ConferencesPage() {
               <button
                 type="submit"
                 disabled={formState === "submitting"}
-                className="w-full bg-linear-to-r from-[#ff9900] to-[#fbbf24] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest py-4 px-8 transition-all hover:opacity-90 hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-linear-to-r from-[#88FF00] to-[#fbbf24] text-[#0a0a0a] font-(family-name:--font-geist-pixel-square) font-bold text-xs uppercase tracking-widest py-4 px-8 transition-all hover:opacity-90 hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {formState === "submitting" ? "Sending..." : "Send Sponsorship Inquiry"}
               </button>
