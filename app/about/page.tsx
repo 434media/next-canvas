@@ -18,7 +18,7 @@ const partners = [
     invert: false,
   },
   {
-    name: "Capital Partner",
+    name: "Capital Partner Network",
     role: "Capital · Pitch Coaching · Investor Network",
     logoText: "Capital",
     description:
@@ -394,7 +394,7 @@ export default function AboutPage() {
           Powered by
         </p>
         <p className="font-(family-name:--font-geist-pixel-square) text-white/70 text-sm md:text-base tracking-wide">
-          DevSA · Capital Partner · 434 Media
+          DevSA · Capital Partner Network · 434 Media
         </p>
       </section>
     </div>

@@ -161,7 +161,7 @@ export async function GET(request: Request) {
           >
             {[
               { label: "DevSA", color: "#FF006E" },
-              { label: "Capital Partner", color: "#fbbf24" },
+              { label: "Capital Partner Network", color: "#fbbf24" },
               { label: "434 Media", color: "#88FF00" },
             ].map((p) => (
               <div

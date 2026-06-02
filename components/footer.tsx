@@ -45,7 +45,7 @@ const partners = [
     href: 'https://www.devsa.community/',
   },
   {
-    name: 'Capital Partner',
+    name: 'Capital Partner Network',
     role: 'Capital',
     logoText: 'Capital',
     placeholder: true,
@@ -252,7 +252,7 @@ export default function Footer() {
               Digital Canvas connects AI-native talent to industry pain points — and the capital that funds them.
             </p>
             <p className="text-white/25 text-xs font-mono tracking-[0.15em] uppercase pt-2">
-              Powered by DevSA · Capital Partner · 434 Media
+              Powered by DevSA · Capital Partner Network · 434 Media
             </p>
           </div>
 

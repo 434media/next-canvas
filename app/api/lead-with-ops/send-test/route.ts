@@ -6,6 +6,13 @@ import {
   kbygEmailHtml,
 } from "@/lib/emails/lead-with-ops"
 
+// Campus map lives in Firebase Storage alongside the flyer and dark logo.
+// Resend's attachments[].path fetches the file at send time, base64-encodes
+// it, and attaches it to the email — no fs / no public/ folder needed.
+const CAMPUS_MAP_URL =
+  "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/digitalcanvas%2FVTX-Campus-Map-2025.pdf?alt=media"
+const CAMPUS_MAP_FILENAME = "VelocityTX-Campus-Map.pdf"
+
 /**
  * Test send endpoint — fires any of the three Lead with Ops email templates
  * to the team for preview before broadcasting to a real list.
@@ -88,6 +95,13 @@ export async function POST(request: Request) {
     }]
   }
 
+  // For KBYG, attach the VelocityTX campus map via Resend's path attribute
+  // (Resend fetches the URL and inlines the file as a base64 attachment).
+  let attachments: { filename: string; path: string }[] | undefined
+  if (template === "kbyg") {
+    attachments = [{ filename: CAMPUS_MAP_FILENAME, path: CAMPUS_MAP_URL }]
+  }
+
   // Build subject + HTML per template. Each recipient gets a personalized
   // greeting so the test send mirrors what a real attendee would receive.
   const results: { recipient: string; status: "sent" | "failed"; error?: string }[] = []
@@ -118,6 +132,7 @@ export async function POST(request: Request) {
         to: recipient.email,
         subject,
         html,
+        attachments,
       })
       results.push({ recipient: recipient.email, status: "sent" })
     } catch (sendError) {

@@ -152,7 +152,7 @@ const partners = [
     href: "https://www.devsa.community/",
   },
   {
-    name: "Capital Partner",
+    name: "Capital Partner Network",
     role: "Investor Network · Pitch Coaching",
     logoText: "Capital",
     placeholder: true,
@@ -579,7 +579,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Powered by — DevSA · Capital Partner · 434 Media */}
+      {/* Powered by — DevSA · Capital Partner Network · 434 Media */}
       <section className="relative bg-[#050505] py-20 md:py-28 px-6 border-t border-[#222]">
         <div className="relative z-10 max-w-5xl mx-auto">
           <motion.div
