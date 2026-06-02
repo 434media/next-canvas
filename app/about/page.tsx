@@ -20,7 +20,7 @@ const partners = [
   {
     name: "Capital Partner Network",
     role: "Capital · Pitch Coaching · Investor Network",
-    logoText: "Capital",
+    logoText: "Capital Partner Network",
     description:
       "An accredited investor network is our third pillar — convening the investor audience for demo day, contributing pitch coaching to cohort builders, and continuing post-demo conversations. The capital partner for cohort 1 is in active conversation; announcement coming.",
     placeholder: true,
@@ -245,7 +245,7 @@ export default function AboutPage() {
                   <div className="md:col-span-4 flex md:justify-start justify-center">
                     <div className="relative w-40 md:w-48 h-16 flex items-center justify-center">
                       {partner.placeholder ? (
-                        <span className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-3xl uppercase tracking-wide text-white/35">
+                        <span className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-widest text-white/35 text-center leading-tight px-2">
                           {partner.logoText}
                         </span>
                       ) : (

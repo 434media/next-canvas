@@ -46,8 +46,8 @@ const partners = [
   },
   {
     name: 'Capital Partner Network',
-    role: 'Capital',
-    logoText: 'Capital',
+    role: 'Investor Network',
+    logoText: 'Capital Partner Network',
     placeholder: true,
   },
   {
@@ -330,7 +330,7 @@ export default function Footer() {
           <div className="grid grid-cols-3 gap-6 md:gap-12 items-center max-w-3xl mx-auto">
             {partners.map((partner) => {
               const logoBlock = partner.placeholder ? (
-                <span className="font-(family-name:--font-geist-pixel-square) text-base md:text-lg uppercase tracking-wide text-white/35">
+                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/40 text-center leading-tight px-1">
                   {partner.logoText}
                 </span>
               ) : (

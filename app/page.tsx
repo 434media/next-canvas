@@ -154,7 +154,7 @@ const partners = [
   {
     name: "Capital Partner Network",
     role: "Investor Network · Pitch Coaching",
-    logoText: "Capital",
+    logoText: "Capital Partner Network",
     placeholder: true,
   },
   {
@@ -604,7 +604,7 @@ export default function Home() {
                 <>
                   <div className="relative w-32 md:w-40 h-16 mb-5 flex items-center justify-center">
                     {partner.placeholder ? (
-                      <span className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-3xl uppercase tracking-wide text-white/40">
+                      <span className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-widest text-white/40 text-center leading-tight px-2">
                         {partner.logoText}
                       </span>
                     ) : (

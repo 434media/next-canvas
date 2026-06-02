@@ -55,9 +55,11 @@ export async function POST(request: Request) {
     const promises: Promise<any>[] = []
     const errors: string[] = []
 
-    // 0. Save to Digital Canvas Firestore (named database: digitalcanvas)
-    //    Runs in parallel with the legacy 434 Media + Mailchimp writes so a
-    //    failure here doesn't drop the subscription from the other services.
+    // 0. Save to Digital Canvas Firestore (named database: digitalcanvas).
+    //    This is the canonical store for newsletter signups — every signup
+    //    across the application must land here. A failure here fails the
+    //    request; we do not want subscribers to slip into Mailchimp / the
+    //    legacy 434 Media API without a corresponding row in the DC database.
     try {
       const db = getDigitalCanvasDb()
       await db.collection("newsletter-signups").add({
@@ -68,8 +70,17 @@ export async function POST(request: Request) {
         submittedAt: new Date().toISOString(),
       })
     } catch (firestoreError) {
-      console.error("Digital Canvas Firestore error (newsletter):", firestoreError)
-      errors.push("Digital Canvas storage failed")
+      const message =
+        firestoreError instanceof Error ? firestoreError.message : String(firestoreError)
+      console.error("Digital Canvas Firestore error (newsletter):", message)
+      return NextResponse.json(
+        {
+          error: isDevelopment
+            ? `Subscription could not be saved: ${message}`
+            : "Subscription service temporarily unavailable. Please try again or contact us directly.",
+        },
+        { status: 503 },
+      )
     }
 
     // 1. Save to 434 Media Firestore (centralized)
