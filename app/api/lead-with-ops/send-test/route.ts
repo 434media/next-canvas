@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 import {
-  inviteEmailHtml,
   confirmationEmailHtml,
   kbygEmailHtml,
+  confirmationEmailText,
+  kbygEmailText,
+  generateLeadWithOpsIcs,
+  buildListUnsubscribeHeader,
 } from "@/lib/emails/lead-with-ops"
 
 // Campus map lives in Firebase Storage alongside the flyer and dark logo.
@@ -14,17 +17,17 @@ const CAMPUS_MAP_URL =
 const CAMPUS_MAP_FILENAME = "VelocityTX-Campus-Map.pdf"
 
 /**
- * Test send endpoint — fires any of the three Lead with Ops email templates
- * to the team for preview before broadcasting to a real list.
+ * Test send endpoint — fires either of the two transactional Lead with Ops
+ * email templates to the team for preview. The promotional INVITE is owned
+ * by the 434 Media admin app and is not testable from here.
  *
  * Usage:
- *   POST /api/lead-with-ops/send-test?template=invite&secret=...
  *   POST /api/lead-with-ops/send-test?template=confirmation&secret=...
  *   POST /api/lead-with-ops/send-test?template=kbyg&secret=...
  *
  * Optional recipient override — sends only to a single address instead of
  * the default test list (marcos + jesse):
- *   POST /api/lead-with-ops/send-test?template=invite&to=jesse@434media.com&secret=...
+ *   POST /api/lead-with-ops/send-test?template=confirmation&to=jesse@434media.com&secret=...
  *
  * Secret check uses the LEAD_WITH_OPS_TEST_SECRET env var. Returns 401 if
  * the secret is missing or wrong. This prevents the endpoint from being
@@ -39,7 +42,7 @@ const TEST_RECIPIENTS = [
   { email: "jesse@434media.com", firstName: "Jesse", lastName: "Hernandez" },
 ]
 
-type TemplateKey = "invite" | "confirmation" | "kbyg"
+type TemplateKey = "confirmation" | "kbyg"
 
 export async function POST(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -53,9 +56,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  if (!template || !["invite", "confirmation", "kbyg"].includes(template)) {
+  if (!template || !["confirmation", "kbyg"].includes(template)) {
     return NextResponse.json(
-      { error: "Missing or invalid `template` query param. Use: invite | confirmation | kbyg" },
+      { error: "Missing or invalid `template` query param. Use: confirmation | kbyg. (Invite broadcasts are sent from the 434 Media admin app.)" },
       { status: 400 },
     )
   }
@@ -69,12 +72,6 @@ export async function POST(request: Request) {
     )
   }
   const resend = new Resend(process.env.RESEND_API_KEY)
-
-  // Site URL — used in the invite template so the RSVP link points at
-  // the live registration page (or local dev origin for testing).
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin
-  const registrationUrl = `${siteUrl}/workshops/lead-with-ops`
 
   // Recipient list — if ?to= is provided, match against the known test list
   // (or fall back to a generic preview entry). Otherwise send to all test recipients.
@@ -95,35 +92,42 @@ export async function POST(request: Request) {
     }]
   }
 
-  // For KBYG, attach the VelocityTX campus map via Resend's path attribute
-  // (Resend fetches the URL and inlines the file as a base64 attachment).
-  let attachments: { filename: string; path: string }[] | undefined
+  // Per-template attachments:
+  //  - confirmation → inline .ics file so the recipient can add the event
+  //    to any calendar app (Apple Mail / Outlook recognize attachments;
+  //    Google + Outlook web also have deep links in the email body).
+  //  - kbyg → campus map PDF, fetched by Resend from Firebase Storage.
+  type Attachment = { filename: string; path?: string; content?: string }
+  let attachments: Attachment[] | undefined
   if (template === "kbyg") {
     attachments = [{ filename: CAMPUS_MAP_FILENAME, path: CAMPUS_MAP_URL }]
+  } else {
+    attachments = [
+      {
+        filename: "lead-with-ops.ics",
+        content: Buffer.from(generateLeadWithOpsIcs()).toString("base64"),
+      },
+    ]
   }
 
-  // Build subject + HTML per template. Each recipient gets a personalized
-  // greeting so the test send mirrors what a real attendee would receive.
+  // Build subject + HTML + plain-text per template. Each recipient gets a
+  // personalized greeting so the test send mirrors what a real attendee
+  // would receive. List-Unsubscribe is per-recipient (URL keyed by email).
   const results: { recipient: string; status: "sent" | "failed"; error?: string }[] = []
 
   for (const recipient of recipients) {
+    const fullName = `${recipient.firstName} ${recipient.lastName}`
     let subject = ""
     let html = ""
-    if (template === "invite") {
-      subject = "Limited Seating: Lead with Ops. Layer in AI. featuring Adam Carroll | June 18"
-      html = inviteEmailHtml({
-        firstName: recipient.firstName,
-        registrationUrl,
-      })
-    } else if (template === "confirmation") {
+    let text = ""
+    if (template === "confirmation") {
       subject = "Registration Confirmed | Lead with Ops. Layer in AI. | June 18"
-      html = confirmationEmailHtml({
-        firstName: recipient.firstName,
-        fullName: `${recipient.firstName} ${recipient.lastName}`,
-      })
+      html = confirmationEmailHtml({ firstName: recipient.firstName, fullName, email: recipient.email })
+      text = confirmationEmailText({ firstName: recipient.firstName, fullName, email: recipient.email })
     } else {
       subject = "Tomorrow: What to know before Lead with Ops. Layer in AI."
-      html = kbygEmailHtml({ firstName: recipient.firstName })
+      html = kbygEmailHtml({ firstName: recipient.firstName, email: recipient.email })
+      text = kbygEmailText({ firstName: recipient.firstName, email: recipient.email })
     }
 
     try {
@@ -132,7 +136,11 @@ export async function POST(request: Request) {
         to: recipient.email,
         subject,
         html,
+        text,
         attachments,
+        headers: {
+          "List-Unsubscribe": buildListUnsubscribeHeader(recipient.email),
+        },
       })
       results.push({ recipient: recipient.email, status: "sent" })
     } catch (sendError) {
@@ -149,7 +157,6 @@ export async function POST(request: Request) {
   return NextResponse.json(
     {
       template,
-      registrationUrl,
       results,
     },
     { status: anyFailed ? 207 : 200 },

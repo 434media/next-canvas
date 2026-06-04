@@ -2,7 +2,12 @@ import { NextResponse } from "next/server"
 import { Resend } from "resend"
 import { checkBotId } from "botid/server"
 import { getDigitalCanvasDb } from "@/lib/firebase-admin"
-import { confirmationEmailHtml } from "@/lib/emails/lead-with-ops"
+import {
+  confirmationEmailHtml,
+  confirmationEmailText,
+  generateLeadWithOpsIcs,
+  buildListUnsubscribeHeader,
+} from "@/lib/emails/lead-with-ops"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 
@@ -137,6 +142,11 @@ export async function POST(request: Request) {
     // Send confirmation email — don't fail the registration if email fails.
     // Resend is instantiated inside the try block so a missing API key (e.g.
     // .env.local not loaded in dev) doesn't crash the route at module load.
+    //
+    // Confirmation includes:
+    //  - plain-text alternative (text field) — deliverability signal
+    //  - .ics attachment — universal "Add to calendar" support
+    //  - List-Unsubscribe header — RFC 2369 spam-filter signal
     try {
       if (!process.env.RESEND_API_KEY) {
         console.warn(
@@ -148,7 +158,17 @@ export async function POST(request: Request) {
           from: EMAIL_FROM,
           to: normalizedEmail,
           subject: "Registration Confirmed | Lead with Ops. Layer in AI. | June 18",
-          html: confirmationEmailHtml({ firstName: trimmedFirst, fullName }),
+          html: confirmationEmailHtml({ firstName: trimmedFirst, fullName, email: normalizedEmail }),
+          text: confirmationEmailText({ firstName: trimmedFirst, fullName, email: normalizedEmail }),
+          attachments: [
+            {
+              filename: "lead-with-ops.ics",
+              content: Buffer.from(generateLeadWithOpsIcs()).toString("base64"),
+            },
+          ],
+          headers: {
+            "List-Unsubscribe": buildListUnsubscribeHeader(normalizedEmail),
+          },
         })
         console.log(`Confirmation email sent to ${normalizedEmail}`)
       }

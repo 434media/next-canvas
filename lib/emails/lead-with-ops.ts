@@ -1,12 +1,31 @@
 /**
- * Email templates for the Lead with Ops. Layer in AI. event (June 18, 2026).
+ * Email templates + helpers for the Lead with Ops. Layer in AI. event (June 18, 2026).
  *
- * Three templates:
- *  - inviteEmailHtml         — promotional invite (broadcast)
+ * Scope: this file is now TRANSACTIONAL ONLY. The promotional broadcast
+ * INVITE lives in the 434 Media admin app (with per-recipient signed
+ * unsubscribe tracking). Only the two emails that fire from the registration
+ * flow on THIS app live here:
+ *
+ * HTML templates (pass to Resend as `html`):
  *  - confirmationEmailHtml   — fires automatically on successful registration
  *  - kbygEmailHtml           — know before you go (sent ~24h before the event)
  *
- * Each function returns a complete HTML document. Pass to Resend as the `html` field.
+ * Plain-text alternatives (pass to Resend as `text` alongside `html`):
+ *  - confirmationEmailText / kbygEmailText
+ *  Including a text/plain alternative is a meaningful deliverability signal —
+ *  HTML-only sends are weighted toward spam by major filters.
+ *
+ * Calendar additions (used in the confirmation email + Resend attachments):
+ *  - generateLeadWithOpsIcs()  — returns a CRLF-encoded VCALENDAR string
+ *  - googleCalendarUrl()       — Google Calendar deep link
+ *  - outlookCalendarUrl()      — Outlook Calendar deep link
+ *
+ * Unsubscribe + List-Unsubscribe header helpers:
+ *  - buildUnsubscribeUrl(email)         — per-recipient unsubscribe URL
+ *  - buildListUnsubscribeHeader(email)  — RFC 2369 header value (URL + mailto)
+ *  Both target the same admin-app endpoint as the broadcast invite, so a
+ *  recipient who unsubscribes from a transactional email lands in the same
+ *  tracking system. Override the base via env var LEAD_WITH_OPS_UNSUBSCRIBE_URL.
  *
  * Color system — Carroll Strategy & Operations palette (Adam's request).
  * Digital Canvas accents (green / magenta) have been retired from this email
@@ -19,29 +38,153 @@
  *  - No gradient bars.
  */
 
-interface InviteOpts {
-  firstName?: string
-  registrationUrl: string
-}
-
 interface ConfirmationOpts {
   firstName: string
   fullName: string
+  /** Used to generate the per-recipient unsubscribe URL. */
+  email: string
 }
 
 interface KbygOpts {
   firstName: string
+  /** Used to generate the per-recipient unsubscribe URL. */
+  email: string
 }
 
 const LOGO_URL =
   "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/digital-canvas-dark.svg?alt=media"
-const FLYER_URL =
-  "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/digitalcanvas%2FInvitation%20only%20Limited%20Executive%20Seating.PNG?alt=media"
 const FONT_URL =
   "https://www.digitalcanvas.community/fonts/GeistPixel-Square.ttf"
 
 const PIXEL_STACK = "'GeistPixelSquare', 'Courier New', monospace"
 const SANS_STACK = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+
+/* ----------------------------------------------------------------------
+ * Event metadata — single source of truth for the ICS file, calendar
+ * deep links, and any other "where/when is this event" lookups.
+ * Times are in UTC; 11:30 AM CDT (UTC-5) = 16:30 UTC.
+ * -------------------------------------------------------------------- */
+const EVENT_META = {
+  title: "Lead with Ops. Layer in AI. — Executive Working Lunch",
+  description:
+    "Executive working lunch with Adam Carroll, Founder of Carroll Strategy & Operations. Hosted by Digital Canvas + 434 Media. Practical discussion on the intersection of operations, technology, and execution.",
+  location: "VelocityTX CRC, 1305 E. Houston St., San Antonio, TX 78205",
+  // Compact ISO8601 (basic format) — ICS spec.
+  startUtc: "20260618T163000Z",
+  endUtc: "20260618T180000Z",
+  // Extended ISO8601 — what Outlook/Google query strings expect.
+  startIso: "2026-06-18T16:30:00Z",
+  endIso: "2026-06-18T18:00:00Z",
+  uid: "lead-with-ops-2026-06-18@digitalcanvas.community",
+  url: "https://www.digitalcanvas.community/workshops/lead-with-ops",
+}
+
+/* ----------------------------------------------------------------------
+ * Unsubscribe URL + RFC 2369 List-Unsubscribe header builders.
+ *
+ * The 434 Media admin app is the single source of truth for unsubscribe
+ * tracking (the broadcast invite already uses it via per-recipient signed
+ * URLs). Transactional sends from this app point at the same endpoint with
+ * an unsigned, email-keyed URL — when a recipient clicks, they're recorded
+ * in the same opt-out list, so a single unsubscribe action covers both
+ * marketing and transactional mail.
+ *
+ * Override the base URL via env var LEAD_WITH_OPS_UNSUBSCRIBE_URL when the
+ * admin-app endpoint moves; defaults to https://434media.com/unsubscribe.
+ * -------------------------------------------------------------------- */
+
+const UNSUBSCRIBE_BASE =
+  process.env.LEAD_WITH_OPS_UNSUBSCRIBE_URL || "https://434media.com/unsubscribe"
+
+export function buildUnsubscribeUrl(email: string): string {
+  const params = new URLSearchParams({
+    email,
+    source: "lead-with-ops",
+  })
+  return `${UNSUBSCRIBE_BASE}?${params.toString()}`
+}
+
+/**
+ * List-Unsubscribe header value combining the per-recipient URL with a
+ * mailto fallback. Spread into the `headers` field of resend.emails.send().
+ * Most modern providers prefer the URL form; the mailto provides resilience
+ * for clients that only honor mailto.
+ */
+export function buildListUnsubscribeHeader(email: string): string {
+  return `<${buildUnsubscribeUrl(email)}>, <mailto:VIP@434MEDIA.COM?subject=Unsubscribe%20-%20Lead%20with%20Ops>`
+}
+
+/* ----------------------------------------------------------------------
+ * ICS calendar file — attached to the confirmation email so any client
+ * with calendar support (Gmail, Apple Mail, Outlook, etc.) surfaces an
+ * "Add to calendar" affordance natively.
+ * -------------------------------------------------------------------- */
+
+export function generateLeadWithOpsIcs(): string {
+  const dtstamp = new Date()
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\.\d{3}/, "")
+
+  // ICS REQUIRES CRLF line endings between fields. Some clients accept LF,
+  // but Microsoft Outlook desktop in particular will reject mixed encodings.
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Digital Canvas//Lead with Ops//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `UID:${EVENT_META.uid}`,
+    `DTSTAMP:${dtstamp}`,
+    `DTSTART:${EVENT_META.startUtc}`,
+    `DTEND:${EVENT_META.endUtc}`,
+    `SUMMARY:${escapeIcs(EVENT_META.title)}`,
+    `DESCRIPTION:${escapeIcs(EVENT_META.description)}`,
+    `LOCATION:${escapeIcs(EVENT_META.location)}`,
+    "ORGANIZER;CN=Digital Canvas:mailto:VIP@434MEDIA.COM",
+    `URL:${EVENT_META.url}`,
+    "STATUS:CONFIRMED",
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ]
+  return lines.join("\r\n")
+}
+
+/* Calendar service deep links — used in the confirmation email body. */
+
+export function googleCalendarUrl(): string {
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: EVENT_META.title,
+    dates: `${EVENT_META.startUtc}/${EVENT_META.endUtc}`,
+    details: EVENT_META.description,
+    location: EVENT_META.location,
+  })
+  return `https://calendar.google.com/calendar/render?${params.toString()}`
+}
+
+export function outlookCalendarUrl(): string {
+  const params = new URLSearchParams({
+    path: "/calendar/action/compose",
+    rru: "addevent",
+    subject: EVENT_META.title,
+    body: EVENT_META.description,
+    startdt: EVENT_META.startIso,
+    enddt: EVENT_META.endIso,
+    location: EVENT_META.location,
+  })
+  return `https://outlook.live.com/calendar/0/deeplink/compose?${params.toString()}`
+}
+
+/* Escape values for ICS TEXT fields (commas, semicolons, backslashes, newlines). */
+function escapeIcs(s: string): string {
+  return s
+    .replace(/\\/g, "\\\\")
+    .replace(/;/g, "\\;")
+    .replace(/,/g, "\\,")
+    .replace(/\n/g, "\\n")
+}
 
 /* ----------------------------------------------------------------------
  * Carroll Strategy & Operations color system.
@@ -71,7 +214,13 @@ const C = {
  * Shared shell — light theme. Logo, thin dividers, footer with Carroll colors.
  * -------------------------------------------------------------------- */
 
-function shell(opts: { title: string; previewText: string; body: string }): string {
+function shell(opts: {
+  title: string
+  previewText: string
+  body: string
+  /** Per-recipient unsubscribe URL — rendered as a visible footer line. */
+  unsubscribeUrl: string
+}): string {
   const year = new Date().getFullYear()
   return `<!DOCTYPE html>
 <html lang="en">
@@ -124,6 +273,10 @@ function shell(opts: { title: string; previewText: string; body: string }): stri
               </p>
               <p style="margin: 16px 0 0 0; font-size: 11px; color: ${C.gray};">
                 &copy; ${year} Digital Canvas · 434 Media. All rights reserved.
+              </p>
+              <p style="margin: 12px 0 0 0; font-size: 11px; color: ${C.gray};">
+                You're receiving this because you opted in to the 434 Media network.
+                <a href="${opts.unsubscribeUrl}" style="color: ${C.gray}; text-decoration: underline;">Unsubscribe</a>.
               </p>
             </td>
           </tr>
@@ -182,106 +335,8 @@ const EVENT_DETAILS_BLOCK = `
 `.trim()
 
 /* ----------------------------------------------------------------------
- * Template 1 — Promotional invite (broadcast)
- * -------------------------------------------------------------------- */
-
-export function inviteEmailHtml(opts: InviteOpts): string {
-  const greeting = opts.firstName ? `Hi ${escapeHtml(opts.firstName)},` : "Hi there,"
-  const body = `
-<!-- Eyebrow above the lede so the email has a brand-anchored top line -->
-<tr>
-  <td style="padding: 32px 32px 0 32px;">
-    <p style="margin: 0 0 0 0; font-family: ${PIXEL_STACK}; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: ${C.gray}; font-weight: 700;">
-      Executive Working Lunch &nbsp;·&nbsp; June 18 &nbsp;·&nbsp; VelocityTX CRC
-    </p>
-  </td>
-</tr>
-
-<!-- Greeting + problem statement -->
-<tr>
-  <td style="padding: 24px 32px 0 32px;">
-    <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.7; color: ${C.navy};">
-      ${greeting}
-    </p>
-    <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: ${C.navy}; font-weight: 500;">
-      Most organizations aren&rsquo;t struggling to find AI tools.
-    </p>
-    <p style="margin: 0 0 28px 0; font-size: 16px; line-height: 1.7; color: ${C.gray};">
-      They&rsquo;re struggling to determine where AI fits into their business, how to prioritize opportunities, and how to align implementation with measurable outcomes.
-    </p>
-  </td>
-</tr>
-
-<!-- Flyer graphic -->
-<tr>
-  <td style="padding: 0 32px 28px 32px;">
-    <a href="${opts.registrationUrl}" style="text-decoration: none; display: block; border: 1px solid ${C.border};">
-      <img src="${FLYER_URL}" alt="Lead with Ops. Layer in AI. — Executive Working Lunch, June 18, 2026, VelocityTX CRC" width="536" style="display: block; width: 100%; max-width: 536px; height: auto; border: 0;" />
-    </a>
-  </td>
-</tr>
-
-<!-- Three paragraphs of context -->
-<tr>
-  <td style="padding: 0 32px 0 32px;">
-    <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.7; color: ${C.gray};">
-      On <strong style="color: ${C.navy};">June 18</strong>, we&rsquo;re hosting <strong style="color: ${C.navy};">Adam Carroll, Founder of Carroll Strategy &amp; Operations</strong>, for a practical discussion focused on the intersection of operations, technology, and execution.
-    </p>
-    <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.7; color: ${C.gray};">
-      This session is designed for CEOs, Presidents, Founders, and Operations Leaders who want a framework for evaluating AI investments through the lens of business strategy&mdash;not hype.
-    </p>
-    <p style="margin: 0 0 28px 0; font-size: 16px; line-height: 1.7; color: ${C.gray};">
-      Space is intentionally limited to encourage meaningful discussion among attendees.
-    </p>
-  </td>
-</tr>
-
-<!-- Registration module — event details + CTA -->
-<tr>
-  <td style="padding: 0 32px 24px 32px;">
-    ${EVENT_DETAILS_BLOCK}
-  </td>
-</tr>
-
-<tr>
-  <td style="padding: 0 32px 0 32px;">
-    <p style="margin: 0 0 16px 0; font-family: ${PIXEL_STACK}; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: ${C.coral}; font-weight: 700;">
-      Executive seating is limited
-    </p>
-    <table role="presentation" style="border-collapse: collapse;">
-      <tr>
-        <td style="background-color: ${C.coral}; padding: 14px 28px;">
-          <a href="${opts.registrationUrl}" style="font-family: ${PIXEL_STACK}; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: ${C.navy}; text-decoration: none; display: inline-block;">
-            Reserve Your Seat &rarr;
-          </a>
-        </td>
-      </tr>
-    </table>
-    <p style="margin: 16px 0 0 0; font-size: 12px; line-height: 1.5; color: ${C.gray};">
-      Or copy the link: <a href="${opts.registrationUrl}" style="color: ${C.emerald}; word-break: break-all; text-decoration: none;">${opts.registrationUrl}</a>
-    </p>
-  </td>
-</tr>
-
-<!-- Closing -->
-<tr>
-  <td style="padding: 28px 32px 8px 32px;">
-    <p style="margin: 0; font-size: 15px; line-height: 1.6; color: ${C.navy};">
-      We hope you&rsquo;ll join us.
-    </p>
-  </td>
-</tr>
-`.trim()
-
-  return shell({
-    title: "Limited Seating: Lead with Ops. Layer in AI. featuring Adam Carroll | June 18",
-    previewText: "Most organizations aren't struggling to find AI tools. They're struggling to align implementation with measurable outcomes.",
-    body,
-  })
-}
-
-/* ----------------------------------------------------------------------
- * Template 2 — Registration confirmation
+ * Template 1 — Registration confirmation
+ * (Promotional invite is owned by the 434 Media admin app — see file header.)
  * -------------------------------------------------------------------- */
 
 export function confirmationEmailHtml(opts: ConfirmationOpts): string {
@@ -334,8 +389,34 @@ export function confirmationEmailHtml(opts: ConfirmationOpts): string {
 
 <!-- Event details -->
 <tr>
-  <td style="padding: 0 32px 28px 32px;">
+  <td style="padding: 0 32px 24px 32px;">
     ${EVENT_DETAILS_BLOCK}
+  </td>
+</tr>
+
+<!-- Add to calendar — Google + Outlook deep links + reference to attached .ics -->
+<tr>
+  <td style="padding: 0 32px 28px 32px;">
+    <p style="margin: 0 0 12px 0; font-family: ${PIXEL_STACK}; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: ${C.gray}; font-weight: 700;">
+      Add to calendar
+    </p>
+    <table role="presentation" style="border-collapse: collapse;">
+      <tr>
+        <td style="padding-right: 8px;">
+          <a href="${googleCalendarUrl()}" target="_blank" style="display: inline-block; padding: 10px 18px; border: 1px solid ${C.border}; color: ${C.navy}; text-decoration: none; font-family: ${PIXEL_STACK}; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+            Google
+          </a>
+        </td>
+        <td style="padding-right: 8px;">
+          <a href="${outlookCalendarUrl()}" target="_blank" style="display: inline-block; padding: 10px 18px; border: 1px solid ${C.border}; color: ${C.navy}; text-decoration: none; font-family: ${PIXEL_STACK}; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+            Outlook
+          </a>
+        </td>
+      </tr>
+    </table>
+    <p style="margin: 12px 0 0 0; font-size: 12px; color: ${C.gray}; line-height: 1.6;">
+      Apple Calendar and other apps: open the <strong style="color: ${C.navy};">.ics attachment</strong>.
+    </p>
   </td>
 </tr>
 
@@ -388,6 +469,7 @@ export function confirmationEmailHtml(opts: ConfirmationOpts): string {
     title: "Registration Confirmed | Lead with Ops. Layer in AI. | June 18",
     previewText: "Your registration is confirmed. Executive seating is limited and lunch will be provided at VelocityTX CRC on June 18.",
     body,
+    unsubscribeUrl: buildUnsubscribeUrl(opts.email),
   })
 }
 
@@ -566,7 +648,108 @@ export function kbygEmailHtml(opts: KbygOpts): string {
     title: "Tomorrow: What to know before Lead with Ops. Layer in AI.",
     previewText: "Logistics, agenda, parking, and what to bring for tomorrow's working lunch at VelocityTX CRC. Campus map attached.",
     body,
+    unsubscribeUrl: buildUnsubscribeUrl(opts.email),
   })
+}
+
+/* ----------------------------------------------------------------------
+ * Plain-text alternatives — sent as the `text` field alongside `html`.
+ *
+ * Including a text/plain part is a strong deliverability signal — providers
+ * weight HTML-only mail toward spam. The plain-text view is also what gets
+ * shown in clients with images disabled (often default in Outlook).
+ *
+ * Each text version carries the same essential information as the HTML
+ * (greeting, body, event details, CTAs / next steps, contact, footer).
+ * -------------------------------------------------------------------- */
+
+export function confirmationEmailText(opts: ConfirmationOpts): string {
+  return `REGISTRATION CONFIRMED
+
+Lead with Ops. Layer in AI.
+
+Hi ${opts.firstName},
+
+Thank you for registering for Lead with Ops. Layer in AI. featuring Adam Carroll, Founder of Carroll Strategy & Operations.
+
+Your seat has been reserved.
+
+Registered: ${opts.fullName}
+
+EVENT DETAILS
+-------------
+Date:     June 18, 2026
+Time:     11:30 AM – 1:00 PM
+Location: VelocityTX CRC, 1305 E. Houston St., San Antonio, TX 78205
+Lunch:    Provided
+
+ADD TO CALENDAR
+---------------
+Google Calendar: ${googleCalendarUrl()}
+Outlook:         ${outlookCalendarUrl()}
+Apple Calendar:  open the .ics attachment included with this email
+
+WE'LL EXPLORE
+-------------
+• How AI supports business strategy
+• Where AI can create measurable ROI
+• How to implement AI across the enterprise
+
+Space is intentionally limited to encourage discussion and interaction among attendees.
+
+If your plans change, please let us know so we can offer your seat to another participant — reply to this email or write to VIP@434MEDIA.COM.
+
+We look forward to seeing you on June 18.
+
+—
+Presented by Digital Canvas · 434 Media
+
+You're receiving this because you opted in to the 434 Media network.
+Unsubscribe: ${buildUnsubscribeUrl(opts.email)}`
+}
+
+export function kbygEmailText(opts: KbygOpts): string {
+  return `TOMORROW · KNOW BEFORE YOU GO
+
+Lead with Ops. Layer in AI.
+
+Hi ${opts.firstName},
+
+Looking forward to seeing you tomorrow at VelocityTX CRC for the executive working lunch with Adam Carroll. Here's everything you need to know before you arrive.
+
+LOGISTICS
+---------
+Date:       Thursday, June 18, 2026
+Doors Open: 11:15 AM (Arrive early for networking.)
+Program:    11:30 AM – 1:00 PM (Lunch served at start.)
+Venue:      VelocityTX CRC, 1305 E. Houston St.
+Parking:    Free Parking On Site. Campus map attached.
+
+AGENDA
+------
+11:30  Working lunch served
+11:45  Conversation opens with Adam Carroll
+12:30  Group discussion + peer Q&A
+ 1:00  Wrap and close
+
+WHAT TO BRING
+-------------
+• An operational question you want to answer
+• A current AI decision you're navigating
+• Business cards (optional)
+
+This is an off-the-record, peer-level conversation. No product demos, no pitch decks. Come ready to engage and exchange perspective with other operators.
+
+If your plans change, please reply to this email so we can offer the seat to another attendee.
+
+See you tomorrow.
+
+—
+Presented by Digital Canvas · 434 Media
+Questions? VIP@434MEDIA.COM
+
+You're receiving this because you opted in to the 434 Media network.
+Unsubscribe: ${buildUnsubscribeUrl(opts.email)}`
 }
 
 /* ----------------------------------------------------------------------
