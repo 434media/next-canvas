@@ -2,25 +2,18 @@ import { NextResponse } from "next/server"
 import { Resend } from "resend"
 import { checkBotId } from "botid/server"
 import { getDigitalCanvasDb } from "@/lib/firebase-admin"
+import type { DocumentReference } from "firebase-admin/firestore"
 import {
-  confirmationEmailHtml,
-  confirmationEmailText,
-  generateLeadWithOpsIcs,
-  buildListUnsubscribeHeader,
-} from "@/lib/emails/lead-with-ops"
+  EVENT_ID,
+  EVENT_NAME,
+  EVENT_DATE,
+  EVENT_COLLECTION,
+  KBYG_SCHEDULED_AT,
+  sendConfirmation,
+  sendKbyg,
+} from "@/lib/emails/lead-with-ops-resend"
 
 const isDevelopment = process.env.NODE_ENV === "development"
-
-// Event configuration — change these constants if running another cohort
-// of this same lunch format.
-const EVENT_ID = "LeadWithOpsLayerInAI-2026-06-18"
-const EVENT_NAME = "Lead with Ops. Layer in AI."
-const EVENT_DATE = "2026-06-18"
-const EVENT_COLLECTION = "event-registrations"
-
-// Sender — uses the 434 Media verified Resend domain (send.434media.com).
-// Display name "Digital Canvas" shows in the recipient's inbox.
-const EMAIL_FROM = "Digital Canvas <hello@send.434media.com>"
 
 export async function POST(request: Request) {
   try {
@@ -87,6 +80,9 @@ export async function POST(request: Request) {
     // Save to Firestore — collection: event-registrations, scoped by event id.
     // Always fail the request on Firestore errors (dev included) so the form
     // never shows a misleading success state when no data was actually saved.
+    // Captured outside the try so the email step below can stamp it with the
+    // scheduled/sent KBYG id.
+    let registrationDocRef: DocumentReference | null = null
     try {
       const db = getDigitalCanvasDb()
       const registrationRef = db.collection(EVENT_COLLECTION)
@@ -103,7 +99,7 @@ export async function POST(request: Request) {
         )
       }
 
-      await registrationRef.add({
+      registrationDocRef = await registrationRef.add({
         email: normalizedEmail,
         firstName: trimmedFirst,
         lastName: trimmedLast,
@@ -139,38 +135,77 @@ export async function POST(request: Request) {
       )
     }
 
-    // Send confirmation email — don't fail the registration if email fails.
-    // Resend is instantiated inside the try block so a missing API key (e.g.
-    // .env.local not loaded in dev) doesn't crash the route at module load.
+    // Email step — never fail the registration if email fails. Resend is
+    // instantiated inside the try block so a missing API key (e.g. .env.local
+    // not loaded in dev) doesn't crash the route at module load.
     //
-    // Confirmation includes:
-    //  - plain-text alternative (text field) — deliverability signal
-    //  - .ics attachment — universal "Add to calendar" support
-    //  - List-Unsubscribe header — RFC 2369 spam-filter signal
+    // The KBYG cutoff (KBYG_SCHEDULED_AT, Wed June 17) splits the behavior:
+    //  - BEFORE the cutoff → send the confirmation now (plain-text alternative,
+    //    .ics "Add to calendar" attachment, List-Unsubscribe header) AND schedule
+    //    the KBYG for the cutoff, so this registrant joins the day-before batch.
+    //  - AT/AFTER the cutoff → the KBYG batch has already gone out, so a late
+    //    registrant skips the now-stale confirmation and instead gets the KBYG
+    //    logistics email immediately.
+    //
+    // The save-the-date reminder is deliberately NOT sent here. A new registrant
+    // just received the confirmation, which already serves as their save-the-date;
+    // a near-duplicate reminder a day or two later would be noise. The reminder is
+    // a one-time re-warm of the registrant list, sent only via the batch scheduler
+    // (POST /api/lead-with-ops/schedule-reminder).
+    //
+    // The KBYG send is stamped onto the Firestore doc (kbygScheduled) so the batch
+    // scheduler skips them on a re-run, and the send carries a stable idempotency
+    // key so they can never be double-sent.
     try {
       if (!process.env.RESEND_API_KEY) {
-        console.warn(
-          "RESEND_API_KEY not configured — confirmation email skipped",
-        )
+        console.warn("RESEND_API_KEY not configured — registration emails skipped")
       } else {
         const resend = new Resend(process.env.RESEND_API_KEY)
-        await resend.emails.send({
-          from: EMAIL_FROM,
-          to: normalizedEmail,
-          subject: "Registration Confirmed | Lead with Ops. Layer in AI. | June 18",
-          html: confirmationEmailHtml({ firstName: trimmedFirst, fullName, email: normalizedEmail }),
-          text: confirmationEmailText({ firstName: trimmedFirst, fullName, email: normalizedEmail }),
-          attachments: [
-            {
-              filename: "lead-with-ops.ics",
-              content: Buffer.from(generateLeadWithOpsIcs()).toString("base64"),
+        const pastKbygCutoff = Date.now() >= Date.parse(KBYG_SCHEDULED_AT)
+
+        if (pastKbygCutoff) {
+          // Late registrant — KBYG immediately, no confirmation.
+          const { data, error } = await sendKbyg(resend, {
+            email: normalizedEmail,
+            firstName: trimmedFirst,
+          })
+          if (error || !data) throw new Error(error ? JSON.stringify(error) : "No data from Resend")
+          await registrationDocRef?.update({
+            kbygScheduled: {
+              id: data.id,
+              scheduledAt: new Date().toISOString(),
+              scheduledFor: "immediate-on-registration",
             },
-          ],
-          headers: {
-            "List-Unsubscribe": buildListUnsubscribeHeader(normalizedEmail),
-          },
-        })
-        console.log(`Confirmation email sent to ${normalizedEmail}`)
+          })
+          console.log(`KBYG (immediate) sent to ${normalizedEmail} — confirmation skipped (post-cutoff)`)
+        } else {
+          // Normal path — confirmation now + KBYG scheduled for the cutoff.
+          const confirmation = await sendConfirmation(resend, {
+            email: normalizedEmail,
+            firstName: trimmedFirst,
+            fullName,
+          })
+          if (confirmation.error) {
+            console.error("Confirmation email error:", confirmation.error)
+          } else {
+            console.log(`Confirmation email sent to ${normalizedEmail}`)
+          }
+
+          const { data, error } = await sendKbyg(resend, {
+            email: normalizedEmail,
+            firstName: trimmedFirst,
+            scheduledAt: KBYG_SCHEDULED_AT,
+          })
+          if (error || !data) throw new Error(error ? JSON.stringify(error) : "No data from Resend")
+          await registrationDocRef?.update({
+            kbygScheduled: {
+              id: data.id,
+              scheduledAt: KBYG_SCHEDULED_AT,
+              scheduledFor: KBYG_SCHEDULED_AT,
+            },
+          })
+          console.log(`KBYG scheduled for ${normalizedEmail} at ${KBYG_SCHEDULED_AT}`)
+        }
       }
     } catch (emailError) {
       console.error("Email send error:", emailError)
