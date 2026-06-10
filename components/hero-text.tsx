@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "motion/react"
-import "remixicon/fonts/remixicon.css"
+import { ArrowDown } from "lucide-react"
 
 export const HeroText = () => {
   const scrollToNetwork = () => {
@@ -141,7 +141,7 @@ export const HeroText = () => {
           <motion.div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <span className="relative flex items-center justify-center tracking-wide">
             Explore Our Network
-            <i className="ri-arrow-down-line ml-3 text-xl" />
+            <ArrowDown className="ml-3 h-5 w-5" />
           </span>
         </motion.button>
       </motion.div>

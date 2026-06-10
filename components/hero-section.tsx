@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "motion/react"
 import { HeroText } from "./hero-text"
 import { WireframeBackground } from "./wireframe-background"
 import VideoModal from "./video-modal"
-import "remixicon/fonts/remixicon.css"
+import { PlayCircle, Gift } from "lucide-react"
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -189,17 +189,21 @@ const HeroSection = () => {
           >
             <div className="bg-linear-to-r from-blue-500 to-cyan-600 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-white/40 shadow-2xl">
               <div className="flex items-center space-x-2">
-                <motion.i
-                  className="ri-play-circle-line text-white text-lg"
+                <motion.span
+                  className="inline-flex text-white"
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
-                />
+                >
+                  <PlayCircle className="h-[18px] w-[18px]" />
+                </motion.span>
                 <span className="text-white font-bold text-sm">CLICK TO PLAY</span>
-                <motion.i
-                  className="ri-gift-line text-yellow-300 text-lg"
+                <motion.span
+                  className="inline-flex text-yellow-300"
                   animate={{ rotate: [0, 10, -10, 0] }}
                   transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                />
+                >
+                  <Gift className="h-[18px] w-[18px]" />
+                </motion.span>
               </div>
             </div>
           </motion.div>

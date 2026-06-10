@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "motion/react"
 import { useEffect, useRef } from "react"
-import "remixicon/fonts/remixicon.css"
+import { Gift, X, Check } from "lucide-react"
 import Image from "next/image"
 
 interface VideoModalProps {
@@ -121,7 +121,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
                     ease: "easeInOut",
                   }}
                 >
-                  <i className="ri-gift-line text-white text-lg sm:text-xl" />
+                  <Gift className="text-white h-[18px] w-[18px] sm:h-5 sm:w-5" />
                 </motion.div>
                 <div>
                   <h2 className="text-xl sm:text-2xl font-bold text-white">Overdrive</h2>
@@ -132,7 +132,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
                 onClick={onClose}
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors duration-200 group"
               >
-                <i className="ri-close-line text-white text-lg sm:text-xl group-hover:rotate-90 transition-transform duration-200" />
+                <X className="text-white h-[18px] w-[18px] sm:h-5 sm:w-5 group-hover:rotate-90 transition-transform duration-200" />
               </button>
             </div>
 
@@ -184,7 +184,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <i className="ri-check-line text-sm sm:text-base" />
+                  <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   <span className="text-xs sm:text-sm font-medium">Easter Egg Unlocked</span>
                 </motion.div>
               </div>
