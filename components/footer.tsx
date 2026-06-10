@@ -45,10 +45,10 @@ const partners = [
     href: 'https://www.devsa.community/',
   },
   {
-    name: 'Capital Partner Network',
+    name: 'Alamo Angels',
     role: 'Investor Network',
-    logoText: 'Capital Partner Network',
-    placeholder: true,
+    logo: 'https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/digitalcanvas%2Fangels-horizontal.png?alt=media',
+    href: 'https://alamoangels.com/',
   },
   {
     name: '434 Media',
@@ -252,7 +252,7 @@ export default function Footer() {
               Digital Canvas connects AI-native talent to industry pain points — and the capital that funds them.
             </p>
             <p className="text-white/25 text-xs font-mono tracking-[0.15em] uppercase pt-2">
-              Powered by DevSA · Capital Partner Network · 434 Media
+              Powered by DevSA · Alamo Angels · 434 Media
             </p>
           </div>
 
@@ -328,52 +328,29 @@ export default function Footer() {
             Powered by
           </h3>
           <div className="grid grid-cols-3 gap-6 md:gap-12 items-center max-w-3xl mx-auto">
-            {partners.map((partner) => {
-              const logoBlock = partner.placeholder ? (
-                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.15em] text-white/40 text-center leading-tight px-1">
-                  {partner.logoText}
-                </span>
-              ) : (
-                <Image
-                  src={partner.logo!}
-                  alt={`${partner.name} logo`}
-                  fill
-                  className="object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-200"
-                  sizes="128px"
-                  unoptimized
-                />
-              )
-
-              const inner = (
-                <>
-                  <div className="relative w-24 md:w-32 h-10 md:h-12 flex items-center justify-center">
-                    {logoBlock}
-                  </div>
-                  <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/30 group-hover:text-white/60 transition-colors duration-200">
-                    {partner.role}
-                  </span>
-                </>
-              )
-
-              return partner.placeholder ? (
-                <div
-                  key={partner.name}
-                  className="group flex flex-col items-center gap-2"
-                >
-                  {inner}
+            {partners.map((partner) => (
+              <a
+                key={partner.name}
+                href={partner.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col items-center gap-2"
+              >
+                <div className="relative w-24 md:w-32 h-10 md:h-12 flex items-center justify-center">
+                  <Image
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    fill
+                    className={`object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-200 ${partner.name === 'Alamo Angels' ? 'scale-110' : ''}`}
+                    sizes="128px"
+                    unoptimized
+                  />
                 </div>
-              ) : (
-                <a
-                  key={partner.name}
-                  href={partner.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col items-center gap-2"
-                >
-                  {inner}
-                </a>
-              )
-            })}
+                <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/30 group-hover:text-white/60 transition-colors duration-200">
+                  {partner.role}
+                </span>
+              </a>
+            ))}
           </div>
         </div>
 

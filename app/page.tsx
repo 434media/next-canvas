@@ -152,10 +152,10 @@ const partners = [
     href: "https://www.devsa.community/",
   },
   {
-    name: "Capital Partner Network",
+    name: "Alamo Angels",
     role: "Investor Network · Pitch Coaching",
-    logoText: "Capital Partner Network",
-    placeholder: true,
+    logo: "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/digitalcanvas%2Fangels-horizontal.png?alt=media",
+    href: "https://alamoangels.com/",
   },
   {
     name: "434 Media",
@@ -579,7 +579,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Powered by — DevSA · Capital Partner Network · 434 Media */}
+      {/* Powered by — DevSA · Alamo Angels · 434 Media */}
       <section className="relative bg-[#050505] py-20 md:py-28 px-6 border-t border-[#222]">
         <div className="relative z-10 max-w-5xl mx-auto">
           <motion.div
@@ -603,20 +603,14 @@ export default function Home() {
               const cardContent = (
                 <>
                   <div className="relative w-32 md:w-40 h-16 mb-5 flex items-center justify-center">
-                    {partner.placeholder ? (
-                      <span className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-widest text-white/40 text-center leading-tight px-2">
-                        {partner.logoText}
-                      </span>
-                    ) : (
-                      <Image
-                        src={partner.logo!}
-                        alt={`${partner.name} logo`}
-                        fill
-                        className="object-contain transition-opacity duration-300 opacity-80 group-hover:opacity-100"
-                        sizes="160px"
-                        unoptimized
-                      />
-                    )}
+                    <Image
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      fill
+                      className={`object-contain transition-opacity duration-300 opacity-80 group-hover:opacity-100 ${partner.name === "Alamo Angels" ? "scale-110" : ""}`}
+                      sizes="160px"
+                      unoptimized
+                    />
                   </div>
                   <p className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-white/40">
                     {partner.role}
@@ -633,15 +627,7 @@ export default function Home() {
                 transition: { duration: 0.5, delay: i * 0.1 },
               }
 
-              return partner.placeholder ? (
-                <motion.div
-                  key={partner.name}
-                  {...sharedMotion}
-                  className={sharedClass}
-                >
-                  {cardContent}
-                </motion.div>
-              ) : (
+              return (
                 <motion.a
                   key={partner.name}
                   href={partner.href}

@@ -18,12 +18,13 @@ const partners = [
     invert: false,
   },
   {
-    name: "Capital Partner Network",
+    name: "Alamo Angels",
     role: "Capital · Pitch Coaching · Investor Network",
-    logoText: "Capital Partner Network",
+    logo: "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/digitalcanvas%2Fangels-horizontal.png?alt=media",
+    href: "https://alamoangels.com/",
     description:
       "An accredited investor network is our third pillar — convening the investor audience for demo day, contributing pitch coaching to cohort builders, and continuing post-demo conversations. The capital partner for cohort 1 is in active conversation; announcement coming.",
-    placeholder: true,
+    invert: false,
   },
   {
     name: "434 Media",
@@ -244,20 +245,14 @@ export default function AboutPage() {
                 <>
                   <div className="md:col-span-4 flex md:justify-start justify-center">
                     <div className="relative w-40 md:w-48 h-16 flex items-center justify-center">
-                      {partner.placeholder ? (
-                        <span className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-widest text-white/35 text-center leading-tight px-2">
-                          {partner.logoText}
-                        </span>
-                      ) : (
-                        <Image
-                          src={partner.logo!}
-                          alt={`${partner.name} logo`}
-                          fill
-                          className={`object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200 ${partner.invert ? "invert" : ""}`}
-                          sizes="192px"
-                          unoptimized
-                        />
-                      )}
+                      <Image
+                        src={partner.logo}
+                        alt={`${partner.name} logo`}
+                        fill
+                        className={`object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-200 ${partner.invert ? "invert" : ""} ${partner.name === "Alamo Angels" ? "scale-110" : ""}`}
+                        sizes="192px"
+                        unoptimized
+                      />
                     </div>
                   </div>
                   <div className="md:col-span-8">
@@ -286,15 +281,7 @@ export default function AboutPage() {
                 transition: { duration: 0.5, delay: i * 0.1 },
               }
 
-              return partner.placeholder ? (
-                <motion.div
-                  key={partner.name}
-                  {...sharedMotion}
-                  className={sharedClass}
-                >
-                  {inner}
-                </motion.div>
-              ) : (
+              return (
                 <motion.a
                   key={partner.name}
                   href={partner.href}
@@ -394,7 +381,7 @@ export default function AboutPage() {
           Powered by
         </p>
         <p className="font-(family-name:--font-geist-pixel-square) text-white/70 text-sm md:text-base tracking-wide">
-          DevSA · Capital Partner Network · 434 Media
+          DevSA · Alamo Angels · 434 Media
         </p>
       </section>
     </div>

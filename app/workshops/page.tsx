@@ -381,7 +381,7 @@ export default function WorkshopsPage() {
           Powered by
         </p>
         <p className="font-(family-name:--font-geist-pixel-square) text-white/70 text-sm md:text-base tracking-wide">
-          DevSA · Capital Partner Network · 434 Media
+          DevSA · Alamo Angels · 434 Media
         </p>
       </section>
 
