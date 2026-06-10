@@ -653,6 +653,97 @@ export function kbygEmailHtml(opts: KbygOpts): string {
 }
 
 /* ----------------------------------------------------------------------
+ * Template 4 — Save-the-date reminder.
+ * A light mid-cycle nudge (sent ~6 days before, the Friday prior) that keeps
+ * the event on the recipient's radar without the day-before logistics weight.
+ * No attachment — re-shares the calendar deep links instead.
+ * -------------------------------------------------------------------- */
+
+export function reminderEmailHtml(opts: KbygOpts): string {
+  const body = `
+<!-- Eyebrow + title -->
+<tr>
+  <td style="padding: 32px 32px 0 32px;">
+    <p style="margin: 0 0 14px 0; font-family: ${PIXEL_STACK}; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: ${C.emerald}; font-weight: 700;">
+      Save the Date · Less Than a Week Away
+    </p>
+    <h1 style="margin: 0; font-family: ${PIXEL_STACK}; font-size: 32px; font-weight: 800; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.5px; color: ${C.navy};">
+      Lead with Ops.<br />
+      <span style="color: ${C.gray};">Layer in AI.</span>
+    </h1>
+  </td>
+</tr>
+
+<!-- Greeting + lede -->
+<tr>
+  <td style="padding: 28px 32px 0 32px;">
+    <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: ${C.navy};">
+      Hi ${escapeHtml(opts.firstName)},
+    </p>
+    <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: ${C.gray};">
+      Just a quick note to keep this on your radar &mdash; your seat for <strong style="color: ${C.navy};">Lead with Ops. Layer in AI.</strong> with <strong style="color: ${C.navy};">Adam Carroll, Founder of Carroll Strategy &amp; Operations</strong>, is reserved, and the executive working lunch is now less than a week away.
+    </p>
+    <p style="margin: 0 0 24px 0; font-size: 15px; line-height: 1.7; color: ${C.emerald}; font-weight: 700;">
+      Thursday, June 18 &mdash; we&rsquo;re looking forward to hosting you.
+    </p>
+  </td>
+</tr>
+
+<!-- Event details -->
+<tr>
+  <td style="padding: 0 32px 24px 32px;">
+    ${EVENT_DETAILS_BLOCK}
+  </td>
+</tr>
+
+<!-- Add to calendar — re-share Google + Outlook deep links -->
+<tr>
+  <td style="padding: 0 32px 28px 32px;">
+    <p style="margin: 0 0 12px 0; font-family: ${PIXEL_STACK}; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: ${C.gray}; font-weight: 700;">
+      Not on your calendar yet?
+    </p>
+    <table role="presentation" style="border-collapse: collapse;">
+      <tr>
+        <td style="padding-right: 8px;">
+          <a href="${googleCalendarUrl()}" target="_blank" style="display: inline-block; padding: 10px 18px; border: 1px solid ${C.border}; color: ${C.navy}; text-decoration: none; font-family: ${PIXEL_STACK}; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+            Google
+          </a>
+        </td>
+        <td style="padding-right: 8px;">
+          <a href="${outlookCalendarUrl()}" target="_blank" style="display: inline-block; padding: 10px 18px; border: 1px solid ${C.border}; color: ${C.navy}; text-decoration: none; font-family: ${PIXEL_STACK}; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+            Outlook
+          </a>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- Closing -->
+<tr>
+  <td style="padding: 0 32px 24px 32px;">
+    <p style="margin: 0 0 18px 0; font-size: 14px; line-height: 1.7; color: ${C.gray};">
+      We&rsquo;ll follow up the day before with a short &ldquo;know before you go&rdquo; note &mdash; parking, arrival time, and a campus map. Nothing else needed from you until then.
+    </p>
+    <p style="margin: 0 0 20px 0; font-size: 14px; line-height: 1.7; color: ${C.gray};">
+      If your plans change, just reply to this email so we can offer your seat to another participant.
+    </p>
+    <p style="margin: 0; font-size: 15px; color: ${C.navy}; font-weight: 600;">
+      See you on June 18.
+    </p>
+  </td>
+</tr>
+`.trim()
+
+  return shell({
+    title: "Save the date: Lead with Ops. Layer in AI. is June 18",
+    previewText: "Your seat is reserved — the executive working lunch with Adam Carroll is less than a week away at VelocityTX CRC.",
+    body,
+    unsubscribeUrl: buildUnsubscribeUrl(opts.email),
+  })
+}
+
+/* ----------------------------------------------------------------------
  * Plain-text alternatives — sent as the `text` field alongside `html`.
  *
  * Including a text/plain part is a strong deliverability signal — providers
@@ -743,6 +834,43 @@ This is an off-the-record, peer-level conversation. No product demos, no pitch d
 If your plans change, please reply to this email so we can offer the seat to another attendee.
 
 See you tomorrow.
+
+—
+Presented by Digital Canvas · 434 Media
+Questions? VIP@434MEDIA.COM
+
+You're receiving this because you opted in to the 434 Media network.
+Unsubscribe: ${buildUnsubscribeUrl(opts.email)}`
+}
+
+export function reminderEmailText(opts: KbygOpts): string {
+  return `SAVE THE DATE · LESS THAN A WEEK AWAY
+
+Lead with Ops. Layer in AI.
+
+Hi ${opts.firstName},
+
+Just a quick note to keep this on your radar — your seat for Lead with Ops. Layer in AI. with Adam Carroll, Founder of Carroll Strategy & Operations, is reserved, and the executive working lunch is now less than a week away.
+
+Thursday, June 18 — we're looking forward to hosting you.
+
+EVENT DETAILS
+-------------
+Date:     June 18, 2026
+Time:     11:30 AM – 1:00 PM
+Location: VelocityTX CRC, 1305 E. Houston St., San Antonio, TX 78205
+Lunch:    Provided
+
+NOT ON YOUR CALENDAR YET?
+-------------------------
+Google Calendar: ${googleCalendarUrl()}
+Outlook:         ${outlookCalendarUrl()}
+
+We'll follow up the day before with a short "know before you go" note — parking, arrival time, and a campus map. Nothing else needed from you until then.
+
+If your plans change, just reply to this email so we can offer your seat to another participant.
+
+See you on June 18.
 
 —
 Presented by Digital Canvas · 434 Media

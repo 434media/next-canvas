@@ -3,8 +3,10 @@ import { Resend } from "resend"
 import {
   confirmationEmailHtml,
   kbygEmailHtml,
+  reminderEmailHtml,
   confirmationEmailText,
   kbygEmailText,
+  reminderEmailText,
   generateLeadWithOpsIcs,
   buildListUnsubscribeHeader,
 } from "@/lib/emails/lead-with-ops"
@@ -42,7 +44,7 @@ const TEST_RECIPIENTS = [
   { email: "jesse@434media.com", firstName: "Jesse", lastName: "Hernandez" },
 ]
 
-type TemplateKey = "confirmation" | "kbyg"
+type TemplateKey = "confirmation" | "kbyg" | "reminder"
 
 export async function POST(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -56,9 +58,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  if (!template || !["confirmation", "kbyg"].includes(template)) {
+  if (!template || !["confirmation", "kbyg", "reminder"].includes(template)) {
     return NextResponse.json(
-      { error: "Missing or invalid `template` query param. Use: confirmation | kbyg. (Invite broadcasts are sent from the 434 Media admin app.)" },
+      { error: "Missing or invalid `template` query param. Use: confirmation | kbyg | reminder. (Invite broadcasts are sent from the 434 Media admin app.)" },
       { status: 400 },
     )
   }
@@ -97,10 +99,13 @@ export async function POST(request: Request) {
   //    to any calendar app (Apple Mail / Outlook recognize attachments;
   //    Google + Outlook web also have deep links in the email body).
   //  - kbyg → campus map PDF, fetched by Resend from Firebase Storage.
+  //  - reminder → no attachment (re-shares calendar deep links in the body).
   type Attachment = { filename: string; path?: string; content?: string }
   let attachments: Attachment[] | undefined
   if (template === "kbyg") {
     attachments = [{ filename: CAMPUS_MAP_FILENAME, path: CAMPUS_MAP_URL }]
+  } else if (template === "reminder") {
+    attachments = undefined
   } else {
     attachments = [
       {
@@ -124,6 +129,10 @@ export async function POST(request: Request) {
       subject = "Registration Confirmed | Lead with Ops. Layer in AI. | June 18"
       html = confirmationEmailHtml({ firstName: recipient.firstName, fullName, email: recipient.email })
       text = confirmationEmailText({ firstName: recipient.firstName, fullName, email: recipient.email })
+    } else if (template === "reminder") {
+      subject = "Save the date: Lead with Ops. Layer in AI. is June 18"
+      html = reminderEmailHtml({ firstName: recipient.firstName, email: recipient.email })
+      text = reminderEmailText({ firstName: recipient.firstName, email: recipient.email })
     } else {
       subject = "Tomorrow: What to know before Lead with Ops. Layer in AI."
       html = kbygEmailHtml({ firstName: recipient.firstName, email: recipient.email })
