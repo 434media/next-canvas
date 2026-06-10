@@ -55,12 +55,10 @@ next-canvas/
 ├── components/
 │   ├── about-constellation.tsx          # About hero — network mesh
 │   ├── builders-sparks.tsx              # Builders hero — spark trails
-│   ├── demo-days-pairing.tsx            # Demo days hero — two-color pairing (active)
-│   ├── demo-days-converge.tsx           # Demo days hero — convergence (alt)
+│   ├── demo-days-pairing.tsx            # Demo days hero — two-color pairing
 │   ├── hero-particles.tsx               # Home hero — wordmark scatter/gather
 │   ├── underwriters-orbit.tsx           # Underwriters hero — orbital halo
-│   ├── workshops-flow.tsx               # Workshops hero — directional flow (active)
-│   ├── workshops-gather.tsx             # Workshops hero — cluster (alt)
+│   ├── workshops-flow.tsx               # Workshops hero — directional flow
 │   ├── aiconference/                    # MHTH event components (orange/cyan brand)
 │   ├── navbar.tsx, footer.tsx, slideover-menu.tsx
 │   └── ...
