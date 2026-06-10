@@ -24,7 +24,7 @@ A marketing + acquisition surface for the Digital Canvas program. Three audience
 - **Animation:** Motion (Framer Motion v12), GSAP, custom Canvas 2D particle systems
 - **3D:** Three.js + React Three Fiber
 - **Data:** Firebase Admin SDK → Firestore (named database `digitalcanvas`)
-- **Email:** Resend (transactional). Newsletter signups land in Firestore; the parent admin app owns broadcast delivery via Mailchimp.
+- **Email:** Resend (transactional). Newsletter signups land in Firestore; the parent 434 Media admin app reads from the same Firestore database via the shared service account and owns all broadcast delivery.
 - **OG images:** `next/og` rendered with GeistPixel-Square (TTF — Satori doesn't accept WOFF2)
 - **Deployment:** Vercel + Vercel BotID for bot protection
 
@@ -50,7 +50,7 @@ next-canvas/
 │       ├── og/                      # OG image routes (one per top-level page)
 │       ├── contact/                 # Contact form → Firestore
 │       ├── event-registration/      # RSVPs → Firestore
-│       ├── newsletter/              # Signups → Firestore + forwarded to parent admin app
+│       ├── newsletter/              # Signups → Firestore (parent admin app reads + handles delivery)
 │       └── sponsor-inquiry/         # Sponsor inquiries → Firestore
 ├── components/
 │   ├── about-constellation.tsx          # About hero — network mesh
@@ -122,12 +122,6 @@ RESEND_API_KEY=
 
 # Lead with Ops test send endpoint — protects POST /api/lead-with-ops/send-test
 LEAD_WITH_OPS_TEST_SECRET=
-
-# Parent admin app forwarding — /api/newsletter forwards signups to the
-# 434 Media email-signup API, which feeds the admin app's Mailchimp broadcasts.
-# Optional: if unset, the forward is silently skipped and the signup still
-# lands in Firestore.
-EMAIL_SIGNUP_API_KEY=
 
 # 434 Media Feed
 FEED_API_URL=https://434media.com/api/public/feed
