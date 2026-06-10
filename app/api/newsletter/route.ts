@@ -1,27 +1,36 @@
 import { NextResponse } from "next/server"
 import axios from "axios"
-import crypto from "crypto"
 import { checkBotId } from "botid/server"
 import { getDigitalCanvasDb } from "@/lib/firebase-admin"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 
-// 434 Media API Configuration
+// 434 Media legacy email-signup API — forwards to the parent admin app, which
+// owns Mailchimp broadcasts. Optional: skipped silently if the key isn't set.
 const MEDIA_434_API_URL = "https://434media.com/api/public/email-signup"
 const MEDIA_434_API_KEY = process.env.EMAIL_SIGNUP_API_KEY
 
-// Mailchimp Configuration
-const mailchimpApiKey = process.env.MAILCHIMP_API_KEY
-const mailchimpListId = process.env.MAILCHIMP_AUDIENCE_ID
-const mailchimpDatacenter = mailchimpApiKey ? mailchimpApiKey.split("-").pop() : null
-
-// Website identifier for Digital Canvas
 const SITE_SOURCE = "DigitalCanvas"
 const SITE_TAGS = ["web-digitalcanvas", "newsletter-signup"]
 
+/**
+ * Newsletter signup endpoint — all signups across the site funnel through
+ * here (workshops waitlist, feed signup, footer popup, etc.).
+ *
+ * Persistence chain:
+ *  1. CANONICAL: `digitalcanvas` Firestore database, `newsletter-signups`
+ *     collection. Always required; a failure here fails the whole request so
+ *     subscribers never slip into downstream systems without a DC record.
+ *  2. SECONDARY: legacy 434 Media email-signup API (forwarded to the parent
+ *     admin app, which owns Mailchimp broadcasts). Best-effort; a failure
+ *     here is logged but doesn't fail the request.
+ *
+ * Mailchimp was previously called directly from here. That was removed —
+ * the parent admin app now handles Mailchimp via Firestore reads + its own
+ * orchestration.
+ */
 export async function POST(request: Request) {
   try {
-    // Verify request is not from a bot using BotID
     if (!isDevelopment) {
       const verification = await checkBotId()
       if (verification.isBot) {
@@ -46,24 +55,14 @@ export async function POST(request: Request) {
       ? extraTags.filter((t): t is string => typeof t === "string" && t.length > 0 && t.length < 64)
       : []
     const mergedTags = Array.from(new Set([...SITE_TAGS, ...sanitizedExtraTags]))
+    const normalizedEmail = email.toLowerCase().trim()
 
-    const mailchimpEnabled = mailchimpApiKey && mailchimpListId
-    if (!mailchimpEnabled) {
-      console.warn("Mailchimp integration disabled - missing API key or Audience ID")
-    }
-
-    const promises: Promise<any>[] = []
-    const errors: string[] = []
-
-    // 0. Save to Digital Canvas Firestore (named database: digitalcanvas).
-    //    This is the canonical store for newsletter signups — every signup
-    //    across the application must land here. A failure here fails the
-    //    request; we do not want subscribers to slip into Mailchimp / the
-    //    legacy 434 Media API without a corresponding row in the DC database.
+    // 1. CANONICAL — Digital Canvas Firestore (digitalcanvas database).
+    //    Fail the request if this fails. Every signup MUST land here.
     try {
       const db = getDigitalCanvasDb()
       await db.collection("newsletter-signups").add({
-        email: email.toLowerCase().trim(),
+        email: normalizedEmail,
         tags: mergedTags,
         source: SITE_SOURCE,
         pageUrl: request.headers.get("referer") || null,
@@ -83,145 +82,40 @@ export async function POST(request: Request) {
       )
     }
 
-    // 1. Save to 434 Media Firestore (centralized)
-    const firestorePromise = axios.post(
-      MEDIA_434_API_URL,
-      {
-        email: email.toLowerCase().trim(),
-        source: SITE_SOURCE,
-        tags: mergedTags,
-        pageUrl: request.headers.get("referer") || undefined,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": MEDIA_434_API_KEY || "",
-        },
-        validateStatus: (status) => status < 500,
-      }
-    )
-    promises.push(firestorePromise)
-
-    // 2. Add to Mailchimp (with tagging)
-    if (mailchimpEnabled) {
-      const mailchimpPromise = axios.post(
-        `https://${mailchimpDatacenter}.api.mailchimp.com/3.0/lists/${mailchimpListId}/members`,
-        {
-          email_address: email,
-          status: "subscribed",
-          tags: mergedTags,
-        },
-        {
-          auth: {
-            username: "apikey",
-            password: mailchimpApiKey,
+    // 2. SECONDARY — forward to the parent admin app's email-signup API.
+    //    Best-effort; logged on failure but doesn't fail the request.
+    if (MEDIA_434_API_KEY) {
+      try {
+        const upstream = await axios.post(
+          MEDIA_434_API_URL,
+          {
+            email: normalizedEmail,
+            source: SITE_SOURCE,
+            tags: mergedTags,
+            pageUrl: request.headers.get("referer") || undefined,
           },
-          headers: {
-            "Content-Type": "application/json",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": MEDIA_434_API_KEY,
+            },
+            validateStatus: (status) => status < 500,
           },
-          validateStatus: (status) => status < 500,
+        )
+        if (upstream.status >= 400) {
+          console.warn("434 Media email-signup API returned non-2xx:", upstream.status, upstream.data)
         }
-      )
-      promises.push(mailchimpPromise)
-    }
-
-    const results = await Promise.allSettled(promises)
-
-    // Handle Firestore result
-    const firestoreResult = results[0]
-    if (firestoreResult.status === "rejected") {
-      console.error("434 Media API error:", firestoreResult.reason)
-      errors.push("Centralized storage failed")
-    } else if (firestoreResult.status === "fulfilled") {
-      const response = firestoreResult.value
-      if (response.status >= 400) {
-        console.error("434 Media API error:", response.data)
-        errors.push(response.data?.error || "Centralized storage failed")
+      } catch (upstreamError) {
+        console.warn("434 Media email-signup API request failed:", upstreamError)
       }
     }
 
-    // Handle Mailchimp result
-    if (mailchimpEnabled) {
-      const mailchimpResult = results[1]
-      if (mailchimpResult.status === "rejected") {
-        console.error("Mailchimp error:", mailchimpResult.reason)
-        await handleMailchimpError(mailchimpResult.reason, email, errors, mergedTags)
-      } else if (mailchimpResult.status === "fulfilled") {
-        const response = mailchimpResult.value
-        if (response.status >= 400 && response.data?.title === "Member Exists") {
-          // Update existing member with tags
-          await updateMailchimpMemberTags(email, mergedTags)
-        } else if (response.status >= 400) {
-          console.error("Mailchimp error:", response.data)
-          errors.push("Mailchimp subscription failed")
-        }
-      }
-    }
-
-    // Return success if at least one service succeeded
-    const totalServices = mailchimpEnabled ? 2 : 1
-    if (errors.length < totalServices) {
-      return NextResponse.json(
-        {
-          message: "Newsletter subscription successful",
-          warnings: errors.length > 0 ? errors : undefined,
-        },
-        { status: 200 }
-      )
-    } else {
-      return NextResponse.json(
-        {
-          error: "All services failed",
-          details: errors,
-        },
-        { status: 500 }
-      )
-    }
+    return NextResponse.json({ message: "Newsletter subscription successful" }, { status: 200 })
   } catch (error) {
     console.error("Error subscribing to newsletter:", error)
     return NextResponse.json(
       { error: "An error occurred while subscribing to the newsletter" },
-      { status: 500 }
+      { status: 500 },
     )
-  }
-}
-
-async function handleMailchimpError(error: any, email: string, errors: string[], tags: string[]) {
-  if (error?.response?.data) {
-    const responseData = error.response.data
-    if (typeof responseData === "string" && responseData.includes("<!DOCTYPE")) {
-      console.error("Mailchimp returned HTML error page - likely authentication issue")
-      errors.push("Mailchimp authentication failed")
-    } else if (responseData?.title === "Member Exists") {
-      console.log("Email already exists in Mailchimp, updating tags")
-      await updateMailchimpMemberTags(email, tags)
-    } else {
-      errors.push("Mailchimp subscription failed")
-    }
-  } else {
-    errors.push("Mailchimp subscription failed")
-  }
-}
-
-async function updateMailchimpMemberTags(email: string, tags: string[]) {
-  try {
-    const emailHash = crypto.createHash("md5").update(email.toLowerCase()).digest("hex")
-    await axios.post(
-      `https://${mailchimpDatacenter}.api.mailchimp.com/3.0/lists/${mailchimpListId}/members/${emailHash}/tags`,
-      {
-        tags: tags.map(tag => ({ name: tag, status: "active" })),
-      },
-      {
-        auth: {
-          username: "apikey",
-          password: mailchimpApiKey!,
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-  } catch (updateError) {
-    console.error("Failed to update existing Mailchimp member tags:", updateError)
   }
 }

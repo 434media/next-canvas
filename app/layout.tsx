@@ -21,7 +21,6 @@ const PROTECTED_ROUTES = [
   { path: "/api/lead-with-ops/register", method: "POST" },
   { path: "/api/newsletter", method: "POST" },
   { path: "/api/sponsor-inquiry", method: "POST" },
-  { path: "/api/christmas-rsvp", method: "POST" },
 ]
 
 const mendaBlack = localFont({
