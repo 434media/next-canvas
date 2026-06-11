@@ -23,7 +23,7 @@ const partners = [
     logo: "https://firebasestorage.googleapis.com/v0/b/groovy-ego-462522-v2.firebasestorage.app/o/digitalcanvas%2Fangels-horizontal.png?alt=media",
     href: "https://alamoangels.com/",
     description:
-      "An accredited investor network is our third pillar — convening the investor audience for demo day, contributing pitch coaching to cohort builders, and continuing post-demo conversations. The capital partner for cohort 1 is in active conversation; announcement coming.",
+      "An accredited investor network is our third pillar — convening the investor audience for demo day, contributing pitch coaching to cohort builders, and continuing post-demo conversations. Alamo Angels is the confirmed capital partner for Digital Canvas: $7M+ deployed across 50+ startups, 140+ accredited investors in-network.",
     invert: false,
   },
   {
@@ -32,7 +32,7 @@ const partners = [
     logo: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/434media-light.svg",
     href: "https://434media.com/",
     description:
-      "Recruits and closes cohort underwriters. Coordinates operations across partners. Produces the media around every cohort — builder profiles, demo day footage, recap content. Owns the Digital Canvas brand and entity.",
+      "Recruits and closes cohort underwriters. Coordinates operations across partners. Produces the media around every cohort — builder profiles, demo day footage, recap content. Owns the Digital Canvas brand and entity. 434 also helped build BRDG — San Antonio's dual-use innovation ecosystem spanning military medicine, academic research, and government.",
     invert: false,
   },
 ]
@@ -69,7 +69,7 @@ export default function AboutPage() {
   return (
     <div className="bg-[#050505]">
       {/* Hero */}
-      <section className="relative pt-32 md:pt-40 pb-20 md:pb-28 px-6 overflow-hidden">
+      <section className="relative min-h-dvh flex flex-col justify-center pt-32 md:pt-40 pb-20 md:pb-28 px-6 overflow-hidden">
         {/* Constellation field — sparse amber dots + lines, cursor lights up the network */}
         <AboutConstellation />
 
@@ -298,8 +298,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Get in touch */}
-      <section className="relative py-20 md:py-28 px-6 border-t border-[#222]">
+      {/* Get in touch (light section) */}
+      <section className="relative bg-[#f4f4f2] py-20 md:py-28 px-6 border-t border-[#e5e5e3]">
         <div className="relative z-10 max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -308,39 +308,39 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
-            <p
-              className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] mb-4 font-bold"
-              style={{ color: ACCENT }}
-            >
-              Get in touch
-            </p>
-            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight max-w-3xl">
+            <div className="flex items-center gap-3 mb-4">
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: ACCENT }}
+              />
+              <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-black/50 font-bold">
+                Get in touch
+              </p>
+            </div>
+            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-[#0a0a0a] uppercase tracking-wide leading-tight max-w-3xl">
               Two doors.{" "}
-              <span className="text-white/30 font-medium">
+              <span className="text-black/40 font-medium">
                 Pick the one that fits your conversation.
               </span>
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#222] border border-[#222]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* General inquiries */}
-            <div className="bg-[#0a0a0a] p-8 md:p-10 flex flex-col">
-              <p
-                className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] font-bold mb-4"
-                style={{ color: ACCENT }}
-              >
+            <div className="bg-white border border-black/10 p-8 md:p-10 flex flex-col">
+              <p className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-black/50 font-bold mb-4">
                 General
               </p>
-              <h3 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.2em] text-white font-bold mb-3">
+              <h3 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.2em] text-[#0a0a0a] font-bold mb-3">
                 Press, ecosystem partners, builders
               </h3>
-              <p className="text-white/50 text-sm leading-[1.75] mb-6 flex-1">
+              <p className="text-black/55 text-sm leading-[1.75] mb-6 flex-1">
                 Coverage requests, ecosystem co-promotion, mentor sign-ups,
                 general questions about the program — start here.
               </p>
               <a
                 href="mailto:hello@434media.com?subject=Digital%20Canvas%20Inquiry"
-                className="group inline-flex items-center justify-between gap-3 border border-[#333] text-white/70 hover:text-white hover:border-white/50 px-5 py-3 text-xs uppercase tracking-[0.2em] font-bold transition-colors duration-200"
+                className="group inline-flex items-center justify-between gap-3 border border-black/20 text-black/70 hover:text-black hover:border-black/50 px-5 py-3 text-xs uppercase tracking-[0.2em] font-bold transition-colors duration-200"
               >
                 {/* PLACEHOLDER: Confirm general inquiries inbox. Default hello@434media.com used. */}
                 hello@434media.com
@@ -349,23 +349,21 @@ export default function AboutPage() {
             </div>
 
             {/* Underwriter inquiries */}
-            <div className="bg-[#0a0a0a] p-8 md:p-10 flex flex-col">
-              <p
-                className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#FF006E] font-bold mb-4"
-              >
+            <div className="bg-white border border-black/10 p-8 md:p-10 flex flex-col">
+              <p className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#FF006E] font-bold mb-4">
                 Underwriters
               </p>
-              <h3 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.2em] text-white font-bold mb-3">
+              <h3 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.2em] text-[#0a0a0a] font-bold mb-3">
                 Corporate sponsorship
               </h3>
-              <p className="text-white/50 text-sm leading-[1.75] mb-6 flex-1">
+              <p className="text-black/55 text-sm leading-[1.75] mb-6 flex-1">
                 Underwrite a vertical cohort, claim named exclusivity, get
                 first-look access to the talent pipeline. Marcos handles these
                 conversations directly.
               </p>
               <a
                 href="mailto:build@434media.com?subject=Digital%20Canvas%20Underwriter%20Inquiry"
-                className="group inline-flex items-center justify-between gap-3 bg-[#FF006E] text-black px-5 py-3 text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors duration-200"
+                className="group inline-flex items-center justify-between gap-3 bg-[#FF006E] text-white px-5 py-3 text-xs uppercase tracking-[0.2em] font-bold hover:bg-[#0a0a0a] transition-colors duration-200"
               >
                 build@434media.com
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -373,16 +371,6 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Powered by */}
-      <section className="relative py-16 md:py-20 px-6 border-t border-[#222] text-center">
-        <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/30 mb-3">
-          Powered by
-        </p>
-        <p className="font-(family-name:--font-geist-pixel-square) text-white/70 text-sm md:text-base tracking-wide">
-          DevSA · Alamo Angels · 434 Media
-        </p>
       </section>
     </div>
   )

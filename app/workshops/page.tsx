@@ -227,8 +227,8 @@ export default function WorkshopsPage() {
         </div>
       </section>
 
-      {/* Path to demo day */}
-      <section className="relative py-20 md:py-28 px-6 border-t border-[#222]">
+      {/* Path to demo day (light section) */}
+      <section className="relative bg-[#f4f4f2] py-20 md:py-28 px-6 border-t border-[#e5e5e3]">
         <div className="relative max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -237,18 +237,21 @@ export default function WorkshopsPage() {
             transition={{ duration: 0.6 }}
             className="mb-12 md:mb-16"
           >
-            <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#88FF00] mb-4 font-bold">
-              Path to Demo Day
-            </p>
-            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight max-w-3xl">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#88FF00]" />
+              <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-black/50 font-bold">
+                Path to Demo Day
+              </p>
+            </div>
+            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-[#0a0a0a] uppercase tracking-wide leading-tight max-w-3xl">
               Four stages.{" "}
-              <span className="text-white/40 font-medium">
+              <span className="text-black/40 font-medium">
                 Start at a workshop. End in a room full of investors.
               </span>
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#222] border border-[#222]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {path.map((stage, i) => (
               <motion.div
                 key={stage.label}
@@ -256,21 +259,21 @@ export default function WorkshopsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: (i % 2) * 0.1 }}
-                className="bg-[#0a0a0a] p-8 md:p-10"
+                className="bg-white border border-black/10 p-8 md:p-10"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#88FF00] font-bold">
+                  <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-black/40 font-bold">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#88FF00]" />
-                  <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-white/30 ml-auto">
+                  <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-black/30 ml-auto">
                     {stage.duration}
                   </span>
                 </div>
-                <h3 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.2em] text-white font-bold mb-3">
+                <h3 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.2em] text-[#0a0a0a] font-bold mb-3">
                   {stage.label}
                 </h3>
-                <p className="text-white/40 text-sm leading-[1.75]">
+                <p className="text-black/55 text-sm leading-[1.75]">
                   {stage.description}
                 </p>
               </motion.div>
@@ -373,16 +376,6 @@ export default function WorkshopsPage() {
             </div>
           </motion.div>
         </div>
-      </section>
-
-      {/* Powered by */}
-      <section className="relative py-16 md:py-20 px-6 border-t border-[#222] text-center">
-        <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/30 mb-3">
-          Powered by
-        </p>
-        <p className="font-(family-name:--font-geist-pixel-square) text-white/70 text-sm md:text-base tracking-wide">
-          DevSA · Alamo Angels · 434 Media
-        </p>
       </section>
 
       {/* Lightbox — full-size viewer for the DevSA proof strip */}

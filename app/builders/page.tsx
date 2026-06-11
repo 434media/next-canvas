@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import BuildersSparks from "@/components/builders-sparks"
+import TalentPipeline from "@/components/talent-pipeline"
 
 const ACCENT = "#88FF00"
 
@@ -39,7 +40,7 @@ const portfolioWork = [
   },
   {
     title: "SDOH Accelerator",
-    caption: "Methodist Healthcare's bilingual social-determinants recap",
+    caption: "Methodist Healthcare Ministries · $50K accelerator won by InovCares",
     src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/SDOH%20ACCELERATOR%20PROGRAM%20RECAP_2025.mp4",
   },
   {
@@ -49,7 +50,7 @@ const portfolioWork = [
   },
   {
     title: "Alamo Angels",
-    caption: "Recap production for one of Texas' largest investor networks",
+    caption: "$7M+ deployed · 140+ accredited investors · recap by 434 Media",
     src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Alamo%20Angles.mp4",
   },
 ]
@@ -147,7 +148,7 @@ export default function BuildersPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Hero */}
-      <section className="relative pt-32 md:pt-40 pb-20 md:pb-28 px-6 overflow-hidden">
+      <section className="relative min-h-dvh flex flex-col justify-center pt-32 md:pt-40 pb-20 md:pb-28 px-6 overflow-hidden">
         {/* Spark-trail particles — particles drift with fading green trails behind them */}
         <BuildersSparks />
 
@@ -322,6 +323,15 @@ export default function BuildersPage() {
           </div>
         </div>
       </section>
+
+      {/* Talent pipeline — the communities builders come from (light) */}
+      <TalentPipeline
+        accent={ACCENT}
+        eyebrow="Your community"
+        title="You won't build alone."
+        titleMuted="Digital Canvas recruits from San Antonio's builder, security, and campus communities — the same rooms you already learn in."
+        intro="DevSA bridges 20+ local groups. Cohorts pull from the security community, hackathons, university orgs, and the startup ecosystem — so the cohort around you is already part of the city's builder network."
+      />
 
       {/* What you get + Who for + What we ask — 3-col bullets */}
       <section className="relative py-20 md:py-28 px-6 border-t border-[#222]">
@@ -584,16 +594,6 @@ export default function BuildersPage() {
             })}
           </div>
         </div>
-      </section>
-
-      {/* Powered by */}
-      <section className="relative py-16 md:py-20 px-6 border-t border-[#222] text-center">
-        <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/30 mb-3">
-          Powered by
-        </p>
-        <p className="font-(family-name:--font-geist-pixel-square) text-white/70 text-sm md:text-base tracking-wide">
-          DevSA · Alamo Angels · 434 Media
-        </p>
       </section>
     </div>
   )
