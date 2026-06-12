@@ -129,7 +129,7 @@ const portfolioWork = [
   },
   {
     title: "SDOH Accelerator",
-    caption: "Methodist Healthcare's bilingual social-determinants recap",
+    caption: "Methodist Healthcare Ministries · $50K accelerator won by InovCares",
     src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/SDOH%20ACCELERATOR%20PROGRAM%20RECAP_2025.mp4",
   },
   {
@@ -139,7 +139,7 @@ const portfolioWork = [
   },
   {
     title: "Alamo Angels",
-    caption: "Recap production for one of Texas' largest investor networks",
+    caption: "$7M+ deployed · 140+ accredited investors · recap by 434 Media",
     src: "https://storage.googleapis.com/groovy-ego-462522-v2.firebasestorage.app/Alamo%20Angles.mp4",
   },
 ]
@@ -466,8 +466,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why now — three structural shifts (compressed from /underwriters) */}
-      <section className="relative bg-[#050505] py-20 md:py-28 px-6 border-t border-[#222]">
+      {/* Why now — three structural shifts (light section) */}
+      <section className="relative bg-[#f4f4f2] py-20 md:py-28 px-6 border-t border-[#e5e5e3]">
         <div className="relative z-10 max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -476,18 +476,21 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="mb-12 md:mb-16"
           >
-            <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-[#88FF00] mb-4">
-              Why Now
-            </p>
-            <h3 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-white uppercase tracking-wide leading-tight max-w-3xl">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#88FF00]" />
+              <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-black/50 font-bold">
+                Why Now
+              </p>
+            </div>
+            <h3 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-[#0a0a0a] uppercase tracking-wide leading-tight max-w-3xl">
               Three structural shifts{" "}
-              <span className="text-white/30 font-medium">
+              <span className="text-black/40 font-medium">
                 make this moment possible.
               </span>
             </h3>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#222] border border-[#222]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {whyNowShifts.map((shift, i) => (
               <motion.div
                 key={shift.headline}
@@ -495,15 +498,18 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-[#0a0a0a] p-6 md:p-8"
+                className="bg-white border border-black/10 p-6 md:p-8"
               >
-                <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-[#88FF00] font-bold mb-3 block">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h4 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.15em] text-white leading-snug mb-3">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#88FF00]" />
+                  <span className="font-(family-name:--font-geist-pixel-square) text-[10px] uppercase tracking-[0.25em] text-black/40 font-bold">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h4 className="font-(family-name:--font-geist-pixel-square) text-sm md:text-base uppercase tracking-[0.15em] text-[#0a0a0a] leading-snug mb-3">
                   {shift.headline}
                 </h4>
-                <p className="text-white/45 text-sm leading-[1.7]">
+                <p className="text-black/55 text-sm leading-[1.7]">
                   {shift.context}
                 </p>
               </motion.div>

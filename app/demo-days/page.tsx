@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react"
 import DemoDaysPairing from "@/components/demo-days-pairing"
+import { ecosystemStats, ecosystemCredit } from "@/data/proof-points"
 
 const ACCENT = "#fbbf24"
 
@@ -42,7 +43,7 @@ const roomMembers = [
   {
     name: "Alamo Angels",
     role: "Investor network · Anchor",
-    status: "In conversation",
+    status: "Confirmed",
   },
   {
     name: "Cohort 1 Underwriter",
@@ -55,7 +56,7 @@ export default function DemoDaysPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
       {/* Hero */}
-      <section className="relative pt-32 md:pt-40 pb-20 md:pb-28 px-6 overflow-hidden">
+      <section className="relative min-h-dvh flex flex-col justify-center pt-32 md:pt-40 pb-20 md:pb-28 px-6 overflow-hidden">
         {/* Two-color pairing particles — builders (white) and investors (amber) drift independently; lines form when they cross */}
         <DemoDaysPairing />
 
@@ -227,14 +228,68 @@ export default function DemoDaysPage() {
         </div>
       </section>
 
-      {/* Powered by */}
-      <section className="relative py-16 md:py-20 px-6 border-t border-[#222] text-center">
-        <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/30 mb-3">
-          Powered by
-        </p>
-        <p className="font-(family-name:--font-geist-pixel-square) text-white/70 text-sm md:text-base tracking-wide">
-          DevSA · Alamo Angels · 434 Media
-        </p>
+      {/* Track record — the ecosystem and capital the room plugs into (light) */}
+      <section className="relative bg-[#f4f4f2] py-20 md:py-28 px-6 border-t border-[#e5e5e3]">
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6 }}
+            className="mb-12"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: ACCENT }}
+              />
+              <p className="font-(family-name:--font-geist-pixel-square) text-[10px] md:text-xs uppercase tracking-[0.4em] text-black/50 font-bold">
+                Track record
+              </p>
+            </div>
+            <h2 className="font-(family-name:--font-geist-pixel-square) text-2xl md:text-4xl text-[#0a0a0a] uppercase tracking-wide leading-tight max-w-3xl">
+              Not a first attempt.{" "}
+              <span className="text-black/40 font-medium">
+                The capital network and the operators convening this room already
+                have a track record in San Antonio.
+              </span>
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {ecosystemStats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
+                className="relative bg-white border border-black/10 p-6 md:p-8 flex flex-col"
+              >
+                <span
+                  className="font-(family-name:--font-geist-pixel-square) text-3xl md:text-4xl font-black tracking-tight text-[#0a0a0a]"
+                >
+                  {stat.value}
+                </span>
+                <span
+                  className="block h-0.5 w-8 mt-3"
+                  style={{ backgroundColor: ACCENT }}
+                  aria-hidden="true"
+                />
+                <p className="text-black/55 text-xs md:text-sm leading-[1.6] mt-3 flex-1">
+                  {stat.label}
+                </p>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-black/40 mt-4">
+                  {stat.source}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+
+          <p className="text-black/55 text-sm leading-[1.75] mt-8 max-w-3xl">
+            {ecosystemCredit}
+          </p>
+        </div>
       </section>
     </main>
   )
