@@ -481,9 +481,24 @@ export function confirmationEmailHtml(opts: ConfirmationOpts): string {
 
 export function kbygEmailHtml(opts: KbygOpts): string {
   const body = `
-<!-- Eyebrow + title -->
+<!-- Venue-change alert banner -->
 <tr>
   <td style="padding: 32px 32px 0 32px;">
+    <table role="presentation" style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 16px 20px; background-color: ${C.coral}; border-left: 4px solid ${C.navy};">
+          <p style="margin: 0; font-family: ${PIXEL_STACK}; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: ${C.white}; font-weight: 800; line-height: 1.3;">
+            Please Note: Change in Meeting Room
+          </p>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- Eyebrow + title -->
+<tr>
+  <td style="padding: 24px 32px 0 32px;">
     <p style="margin: 0 0 14px 0; font-family: ${PIXEL_STACK}; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: ${C.coral}; font-weight: 700;">
       Tomorrow · Know Before You Go
     </p>
@@ -500,8 +515,11 @@ export function kbygEmailHtml(opts: KbygOpts): string {
     <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: ${C.navy};">
       Hi ${escapeHtml(opts.firstName)},
     </p>
+    <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: ${C.gray};">
+      Looking forward to seeing you tomorrow for the executive working lunch with <strong style="color: ${C.navy};">Adam Carroll</strong>. Here&rsquo;s everything you need to know before you arrive.
+    </p>
     <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.7; color: ${C.gray};">
-      Looking forward to seeing you tomorrow at <strong style="color: ${C.navy};">VelocityTX CRC</strong> for the executive working lunch with <strong style="color: ${C.navy};">Adam Carroll</strong>. Here&rsquo;s everything you need to know before you arrive.
+      <strong style="color: ${C.navy};">The meeting room has changed.</strong> We&rsquo;re now in the <strong style="color: ${C.navy};">Merchants Ice Building (Building 1), Floor 4 Conference Room</strong> at 1305 E. Houston. Please park in <strong style="color: ${C.navy};">Lot B</strong> and reference the attached map for guidance.
     </p>
   </td>
 </tr>
@@ -547,17 +565,27 @@ export function kbygEmailHtml(opts: KbygOpts): string {
                 <span style="font-family: ${PIXEL_STACK}; font-size: 11px; color: ${C.gray}; text-transform: uppercase;">Venue</span>
               </td>
               <td style="padding: 10px 0; border-bottom: 1px solid ${C.border}; text-align: right;">
-                <span style="font-size: 14px; color: ${C.navy}; font-weight: 600;">VelocityTX CRC</span>
-                <br /><span style="font-size: 12px; color: ${C.gray};">1305 E. Houston St.</span>
+                <span style="font-size: 14px; color: ${C.navy}; font-weight: 600;">Merchants Ice Building</span>
+                <br /><span style="font-size: 12px; color: ${C.gray};">Building 1 &middot; Floor 4 Conf. Room</span>
+                <br /><span style="font-size: 12px; color: ${C.gray};">1305 E. Houston</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid ${C.border};">
+                <span style="font-family: ${PIXEL_STACK}; font-size: 11px; color: ${C.gray}; text-transform: uppercase;">Parking</span>
+              </td>
+              <td style="padding: 10px 0; border-bottom: 1px solid ${C.border}; text-align: right;">
+                <span style="font-size: 14px; color: ${C.navy}; font-weight: 600;">Park in Lot B</span>
+                <br /><span style="font-size: 12px; color: ${C.gray};">See the attached map.</span>
               </td>
             </tr>
             <tr>
               <td style="padding: 10px 0;">
-                <span style="font-family: ${PIXEL_STACK}; font-size: 11px; color: ${C.gray}; text-transform: uppercase;">Parking</span>
+                <span style="font-family: ${PIXEL_STACK}; font-size: 11px; color: ${C.gray}; text-transform: uppercase;">Access</span>
               </td>
               <td style="padding: 10px 0; text-align: right;">
-                <span style="font-size: 14px; color: ${C.navy}; font-weight: 600;">Free Parking On Site</span>
-                <br /><span style="font-size: 12px; color: ${C.gray};">Campus map attached.</span>
+                <span style="font-size: 14px; color: ${C.navy}; font-weight: 600;"><a href="tel:+12108314439" style="color: ${C.navy}; text-decoration: none;">210-831-4439</a></span>
+                <br /><span style="font-size: 12px; color: ${C.gray};">Call for any access issues.</span>
               </td>
             </tr>
           </table>
@@ -646,7 +674,7 @@ export function kbygEmailHtml(opts: KbygOpts): string {
 
   return shell({
     title: "Tomorrow: What to know before Lead with Ops. Layer in AI.",
-    previewText: "Logistics, agenda, parking, and what to bring for tomorrow's working lunch at VelocityTX CRC. Campus map attached.",
+    previewText: "Please note: the meeting room has changed — Merchants Ice Building, Floor 4 Conference Room. Park in Lot B. Map attached.",
     body,
     unsubscribeUrl: buildUnsubscribeUrl(opts.email),
   })
@@ -800,21 +828,26 @@ Unsubscribe: ${buildUnsubscribeUrl(opts.email)}`
 }
 
 export function kbygEmailText(opts: KbygOpts): string {
-  return `TOMORROW · KNOW BEFORE YOU GO
+  return `** PLEASE NOTE: CHANGE IN MEETING ROOM **
+
+TOMORROW · KNOW BEFORE YOU GO
 
 Lead with Ops. Layer in AI.
 
 Hi ${opts.firstName},
 
-Looking forward to seeing you tomorrow at VelocityTX CRC for the executive working lunch with Adam Carroll. Here's everything you need to know before you arrive.
+Looking forward to seeing you tomorrow for the executive working lunch with Adam Carroll. Here's everything you need to know before you arrive.
+
+THE MEETING ROOM HAS CHANGED. We're now in the Merchants Ice Building (Building 1), Floor 4 Conference Room at 1305 E. Houston. Please park in Lot B and reference the attached map for guidance.
 
 LOGISTICS
 ---------
 Date:       Thursday, June 18, 2026
 Doors Open: 11:15 AM (Arrive early for networking.)
 Program:    11:30 AM – 1:00 PM (Lunch served at start.)
-Venue:      VelocityTX CRC, 1305 E. Houston St.
-Parking:    Free Parking On Site. Campus map attached.
+Venue:      Merchants Ice Building (Building 1), Floor 4 Conf. Room, 1305 E. Houston
+Parking:    Park in Lot B. See the attached map.
+Access:     210-831-4439 (call for any access issues).
 
 AGENDA
 ------

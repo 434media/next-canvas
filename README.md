@@ -194,6 +194,12 @@ The MHTH conference keeps its original orange/cyan palette so the event retains 
 
 ## Git workflow
 
+> **First-time contributor or intern?** Start with the
+> [Intern Git Quickstart](docs/digital-canvas/intern-git-quickstart.md) — it walks
+> a fresh laptop from zero (install tools, get repo access, authenticate) to a
+> merged PR, with fixes for the most common beginner snags. The section below is
+> the reference flow for people already set up with git.
+
 ### Branch and commit
 
 ```bash
