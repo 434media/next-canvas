@@ -19,6 +19,8 @@ import {
   confirmationEmailText,
   reminderEmailHtml,
   reminderEmailText,
+  thankYouEmailHtml,
+  thankYouEmailText,
   generateLeadWithOpsIcs,
   buildListUnsubscribeHeader,
 } from "@/lib/emails/lead-with-ops"
@@ -35,6 +37,7 @@ export const KBYG_SUBJECT = "Tomorrow: What to know before Lead with Ops. Layer 
 export const CONFIRMATION_SUBJECT =
   "Registration Confirmed | Lead with Ops. Layer in AI. | June 18"
 export const REMINDER_SUBJECT = "Save the date: Lead with Ops. Layer in AI. is June 18"
+export const THANKYOU_SUBJECT = "Thank you for joining us for Lead with Ops. Layer in AI."
 
 /**
  * KBYG delivery cutoff — June 17, 2026 9:00 AM CDT (UTC-5) = 14:00 UTC, the day
@@ -74,6 +77,32 @@ export function kbygIdempotencyKey(email: string): string {
 /** Stable per-recipient idempotency key for the reminder send. */
 export function reminderIdempotencyKey(email: string): string {
   return `reminder-${EVENT_ID}-${email}`
+}
+
+/** Stable per-recipient idempotency key for the post-event thank-you send. */
+export function thankYouIdempotencyKey(email: string): string {
+  return `thankyou-${EVENT_ID}-${email}`
+}
+
+/**
+ * Send the post-event thank-you email to one recipient. No attachment; the
+ * primary CTA links to the feedback survey. Returns Resend's `{ data, error }`.
+ */
+export function sendThankYou(
+  resend: Resend,
+  opts: { email: string; firstName: string },
+) {
+  return resend.emails.send(
+    {
+      from: EMAIL_FROM,
+      to: opts.email,
+      subject: THANKYOU_SUBJECT,
+      html: thankYouEmailHtml({ firstName: opts.firstName, email: opts.email }),
+      text: thankYouEmailText({ firstName: opts.firstName, email: opts.email }),
+      headers: { "List-Unsubscribe": buildListUnsubscribeHeader(opts.email) },
+    },
+    { idempotencyKey: thankYouIdempotencyKey(opts.email) },
+  )
 }
 
 /**
