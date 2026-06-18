@@ -4,9 +4,11 @@ import {
   confirmationEmailHtml,
   kbygEmailHtml,
   reminderEmailHtml,
+  thankYouEmailHtml,
   confirmationEmailText,
   kbygEmailText,
   reminderEmailText,
+  thankYouEmailText,
   generateLeadWithOpsIcs,
   buildListUnsubscribeHeader,
 } from "@/lib/emails/lead-with-ops"
@@ -44,7 +46,7 @@ const TEST_RECIPIENTS = [
   { email: "jesse@434media.com", firstName: "Jesse", lastName: "Hernandez" },
 ]
 
-type TemplateKey = "confirmation" | "kbyg" | "reminder"
+type TemplateKey = "confirmation" | "kbyg" | "reminder" | "thankyou"
 
 export async function POST(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -58,9 +60,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  if (!template || !["confirmation", "kbyg", "reminder"].includes(template)) {
+  if (!template || !["confirmation", "kbyg", "reminder", "thankyou"].includes(template)) {
     return NextResponse.json(
-      { error: "Missing or invalid `template` query param. Use: confirmation | kbyg | reminder. (Invite broadcasts are sent from the 434 Media admin app.)" },
+      { error: "Missing or invalid `template` query param. Use: confirmation | kbyg | reminder | thankyou. (Invite broadcasts are sent from the 434 Media admin app.)" },
       { status: 400 },
     )
   }
@@ -104,7 +106,7 @@ export async function POST(request: Request) {
   let attachments: Attachment[] | undefined
   if (template === "kbyg") {
     attachments = [{ filename: CAMPUS_MAP_FILENAME, path: CAMPUS_MAP_URL }]
-  } else if (template === "reminder") {
+  } else if (template === "reminder" || template === "thankyou") {
     attachments = undefined
   } else {
     attachments = [
@@ -133,6 +135,10 @@ export async function POST(request: Request) {
       subject = "Save the date: Lead with Ops. Layer in AI. is June 18"
       html = reminderEmailHtml({ firstName: recipient.firstName, email: recipient.email })
       text = reminderEmailText({ firstName: recipient.firstName, email: recipient.email })
+    } else if (template === "thankyou") {
+      subject = "Thank you for joining us for Lead with Ops. Layer in AI."
+      html = thankYouEmailHtml({ firstName: recipient.firstName, email: recipient.email })
+      text = thankYouEmailText({ firstName: recipient.firstName, email: recipient.email })
     } else {
       subject = "Tomorrow: What to know before Lead with Ops. Layer in AI."
       html = kbygEmailHtml({ firstName: recipient.firstName, email: recipient.email })

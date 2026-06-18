@@ -772,6 +772,99 @@ export function reminderEmailHtml(opts: KbygOpts): string {
 }
 
 /* ----------------------------------------------------------------------
+ * Template 5 — Post-event thank you.
+ * Sent after the event to thank attendees and drive the post-event survey.
+ * No attachment; primary CTA links to the feedback page.
+ * -------------------------------------------------------------------- */
+
+const FEEDBACK_SURVEY_URL =
+  "https://www.digitalcanvas.community/workshops/lead-with-ops/feedback"
+
+export function thankYouEmailHtml(opts: KbygOpts): string {
+  const body = `
+<!-- Eyebrow + title -->
+<tr>
+  <td style="padding: 32px 32px 0 32px;">
+    <p style="margin: 0 0 14px 0; font-family: ${PIXEL_STACK}; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: ${C.emerald}; font-weight: 700;">
+      Thank You
+    </p>
+    <h1 style="margin: 0; font-family: ${PIXEL_STACK}; font-size: 32px; font-weight: 800; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.5px; color: ${C.navy};">
+      Lead with Ops.<br />
+      <span style="color: ${C.gray};">Layer in AI.</span>
+    </h1>
+  </td>
+</tr>
+
+<!-- Greeting + body -->
+<tr>
+  <td style="padding: 28px 32px 0 32px;">
+    <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: ${C.navy};">
+      Hi ${escapeHtml(opts.firstName)},
+    </p>
+    <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: ${C.gray};">
+      Thank you for joining us for <strong style="color: ${C.navy};">Lead with Ops. Layer in AI.</strong> with <strong style="color: ${C.navy};">Adam Carroll</strong>. We appreciate you investing your time to be part of the conversation and contributing to a thoughtful discussion around operations, technology strategy, AI implementation, and business outcomes.
+    </p>
+    <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.7; color: ${C.gray};">
+      As we continue to develop future workshops and executive programming through <strong style="color: ${C.navy};">Digital Canvas, 434 Media, DevSA</strong>, and our content partners, your feedback is incredibly valuable.
+    </p>
+  </td>
+</tr>
+
+<!-- Survey CTA -->
+<tr>
+  <td style="padding: 0 32px 28px 32px;">
+    <p style="margin: 0 0 14px 0; font-size: 15px; line-height: 1.7; color: ${C.navy}; font-weight: 600;">
+      We&rsquo;d appreciate your participation in our post-event survey.
+    </p>
+    <table role="presentation" style="border-collapse: collapse;">
+      <tr>
+        <td style="background-color: ${C.coral};">
+          <a href="${FEEDBACK_SURVEY_URL}" target="_blank" style="display: inline-block; padding: 14px 28px; color: ${C.navy}; text-decoration: none; font-family: ${PIXEL_STACK}; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+            Take the Survey
+          </a>
+        </td>
+      </tr>
+    </table>
+    <p style="margin: 12px 0 0 0; font-size: 12px; color: ${C.gray}; line-height: 1.6;">
+      Or paste this link: <a href="${FEEDBACK_SURVEY_URL}" style="color: ${C.emerald}; text-decoration: none;">${FEEDBACK_SURVEY_URL}</a>
+    </p>
+  </td>
+</tr>
+
+<!-- Closing -->
+<tr>
+  <td style="padding: 0 32px 24px 32px;">
+    <p style="margin: 0; font-size: 15px; line-height: 1.7; color: ${C.navy}; font-weight: 600;">
+      Thank you again for being part of the community. We look forward to seeing you at a future event.
+    </p>
+  </td>
+</tr>
+
+<!-- P.S. -->
+<tr>
+  <td style="padding: 0 32px 24px 32px;">
+    <table role="presentation" style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 16px 20px; background-color: ${C.offWhite}; border-left: 3px solid ${C.emerald};">
+          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: ${C.gray};">
+            <strong style="color: ${C.navy};">P.S.</strong> If you know another executive, founder, or operator who would benefit from future programming, we&rsquo;d love an introduction.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+`.trim()
+
+  return shell({
+    title: "Thank you for joining us for Lead with Ops. Layer in AI.",
+    previewText: "Thank you for joining the conversation. We'd value your feedback — take our short post-event survey.",
+    body,
+    unsubscribeUrl: buildUnsubscribeUrl(opts.email),
+  })
+}
+
+/* ----------------------------------------------------------------------
  * Plain-text alternatives — sent as the `text` field alongside `html`.
  *
  * Including a text/plain part is a strong deliverability signal — providers
@@ -904,6 +997,33 @@ We'll follow up the day before with a short "know before you go" note — parkin
 If your plans change, just reply to this email so we can offer your seat to another participant.
 
 See you on June 18.
+
+—
+Presented by Digital Canvas · 434 Media
+Questions? VIP@434MEDIA.COM
+
+You're receiving this because you opted in to the 434 Media network.
+Unsubscribe: ${buildUnsubscribeUrl(opts.email)}`
+}
+
+export function thankYouEmailText(opts: KbygOpts): string {
+  return `THANK YOU
+
+Lead with Ops. Layer in AI.
+
+Hi ${opts.firstName},
+
+Thank you for joining us for Lead with Ops. Layer in AI. with Adam Carroll. We appreciate you investing your time to be part of the conversation and contributing to a thoughtful discussion around operations, technology strategy, AI implementation, and business outcomes.
+
+As we continue to develop future workshops and executive programming through Digital Canvas, 434 Media, DevSA, and our content partners, your feedback is incredibly valuable.
+
+We'd appreciate your participation in our post-event survey:
+
+Take the Survey: ${FEEDBACK_SURVEY_URL}
+
+Thank you again for being part of the community. We look forward to seeing you at a future event.
+
+P.S. If you know another executive, founder, or operator who would benefit from future programming, we'd love an introduction.
 
 —
 Presented by Digital Canvas · 434 Media
