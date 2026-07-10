@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// Only proxy images from the hosts this app is actually expected to serve
-// (kept in sync with `images.remotePatterns` in next.config). This prevents
-// the proxy from being abused for server-side request forgery (SSRF) against
-// internal/private endpoints. Entries beginning with "." match subdomains.
+// Only proxy images from the exact hosts this app is expected to serve
+// (a subset of `images.remotePatterns` in next.config). This prevents the
+// proxy from being abused for server-side request forgery (SSRF) against
+// internal/private endpoints. Exact-match membership only — no wildcards — so
+// the allowlist is an effective barrier and cannot be widened by a lookalike
+// suffix (e.g. "evil-airtableusercontent.com").
 const ALLOWED_IMAGE_HOSTS = [
   "storage.googleapis.com",
   "firebasestorage.googleapis.com",
   "devsa-assets.s3.us-east-2.amazonaws.com",
   "v5.airtableusercontent.com",
   "dl.airtable.com",
-  ".airtableusercontent.com",
-  ".public.blob.vercel-storage.com",
 ]
 
 export async function GET(request: NextRequest) {
@@ -36,13 +36,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "URL host not allowed" }, { status: 400 })
   }
 
-  // Host allowlist check, inline so the comparison guards the fetch below.
-  // Entries beginning with "." match subdomains (e.g. ".airtableusercontent.com").
+  // Exact-match host allowlist, inline so it guards the fetch below.
   const host = target.hostname.toLowerCase()
-  const hostAllowed = ALLOWED_IMAGE_HOSTS.some((allowed) =>
-    allowed.startsWith(".") ? host.endsWith(allowed) : host === allowed
-  )
-  if (!hostAllowed) {
+  if (!ALLOWED_IMAGE_HOSTS.includes(host)) {
     return NextResponse.json({ error: "URL host not allowed" }, { status: 400 })
   }
 
