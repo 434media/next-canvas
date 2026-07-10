@@ -22,8 +22,15 @@ function TruncatedText({
 }) {
   const [isExpanded, setIsExpanded] = useState(false)
   
-  // Strip HTML tags to count actual text characters
-  const plainText = html.replace(/<[^>]*>/g, '')
+  // Strip HTML tags to count actual text characters. Loop to a fixed point so
+  // that removing one tag can't reveal a new one (e.g. "<<b>b>" -> "<b>"),
+  // which a single pass would leave behind.
+  let plainText = html
+  let previousText: string
+  do {
+    previousText = plainText
+    plainText = plainText.replace(/<[^>]*>/g, '')
+  } while (plainText !== previousText)
   const shouldTruncate = plainText.length > CHARACTER_LIMIT
   
   // If we need to truncate, find a safe cut point in the HTML

@@ -4,9 +4,10 @@ export const runtime = "edge"
 
 const DC_LOGO = "https://devsa-assets.s3.us-east-2.amazonaws.com/digital-canvas-ymas.svg"
 
-export async function GET(request: Request) {
-  const origin = new URL(request.url).origin
-  const fontData = await fetch(`${origin}/fonts/GeistPixel-Square.ttf`).then((r) =>
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digitalcanvas.community"
+
+export async function GET() {
+  const fontData = await fetch(`${SITE_URL}/fonts/GeistPixel-Square.ttf`).then((r) =>
     r.arrayBuffer()
   )
 

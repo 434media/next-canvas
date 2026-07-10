@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { checkBotId } from "botid/server"
 import { getDigitalCanvasDb } from "@/lib/firebase-admin"
+import { isValidEmail } from "@/lib/utils"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 
@@ -32,8 +33,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 })
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (!isValidEmail(email)) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 

@@ -159,7 +159,7 @@ export async function POST(request: Request) {
       })
       results.push({ recipient: recipient.email, status: "sent" })
     } catch (sendError) {
-      console.error(`Failed to send ${template} to ${recipient.email}:`, sendError)
+      console.error("Failed to send template to recipient:", { template, recipient: recipient.email }, sendError)
       results.push({
         recipient: recipient.email,
         status: "failed",

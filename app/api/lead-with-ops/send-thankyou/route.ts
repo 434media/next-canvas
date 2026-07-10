@@ -125,12 +125,12 @@ export async function POST(request: Request) {
           thankYouSent: { id: data.id, sentAt: new Date().toISOString() },
         })
       } catch (writeError) {
-        console.error(`Sent thank-you to ${email} but failed to stamp doc ${id}:`, writeError)
+        console.error("Sent thank-you but failed to stamp doc:", { email, id }, writeError)
       }
 
       results.push({ recipient: email, status: "sent", id: data.id })
     } catch (err) {
-      console.error(`Failed to send thank-you to ${email}:`, err)
+      console.error("Failed to send thank-you to:", email, err)
       results.push({ recipient: email, status: "failed", error: String(err) })
     }
 

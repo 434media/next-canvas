@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { Resend } from "resend"
 import { checkBotId } from "botid/server"
 import { getDigitalCanvasDb } from "@/lib/firebase-admin"
+import { isValidEmail } from "@/lib/utils"
 import type { DocumentReference } from "firebase-admin/firestore"
 import {
   EVENT_ID,
@@ -50,8 +51,7 @@ export async function POST(request: Request) {
     if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email is required" }, { status: 400 })
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (!isValidEmail(email)) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 

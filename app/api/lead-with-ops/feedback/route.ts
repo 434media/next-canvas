@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { getDigitalCanvasDb } from "@/lib/firebase-admin"
+import { isValidEmail } from "@/lib/utils"
 import { EVENT_ID, EVENT_NAME, EVENT_DATE } from "@/lib/emails/lead-with-ops-resend"
 import {
   FEEDBACK_COLLECTION,
@@ -67,8 +68,7 @@ export async function POST(request: Request) {
     }
 
     const normalizedEmail = (email as string).toLowerCase().trim()
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(normalizedEmail)) {
+    if (!isValidEmail(normalizedEmail)) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 
