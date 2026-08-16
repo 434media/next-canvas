@@ -7,6 +7,29 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // ──────────────────────────────────────────────────────────────
+      // SITE PAUSED 2026-08-16 — every URL forwards to DEVSA.
+      //
+      // Redirects run before filesystem routes, so these two entries
+      // swallow everything: pages, /api/*, sitemap.xml, static assets.
+      // Nothing below them is reachable while they're in place.
+      //
+      // TO UNPAUSE: delete these two entries. Note they're 308s, which
+      // browsers cache aggressively — returning visitors may keep
+      // bouncing to devsa.community until their cache clears.
+      // ──────────────────────────────────────────────────────────────
+      {
+        source: "/",
+        destination: "https://www.devsa.community/",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        destination: "https://www.devsa.community/",
+        permanent: true,
+      },
+
+      // --- Pre-pause redirects, kept for whenever the site comes back ---
       {
         source: "/events/morehumanthanhuman",
         destination: "/conferences/morehumanthanhuman",
