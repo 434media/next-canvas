@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 import { withBotId } from 'botid/next/config';
 
+// Preview deployments (any non-main branch on Vercel) and local dev serve the
+// full site, so the team can still review pages like /workshops/hoodkidgoodkid.
+// Everything else — production included — stays paused. Fail-safe: if
+// VERCEL_ENV is ever missing, the site stays paused rather than going live.
+const isPaused = !(
+  process.env.VERCEL_ENV === "preview" || process.env.NODE_ENV === "development"
+);
+
 const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
@@ -18,16 +26,20 @@ const nextConfig: NextConfig = {
       // browsers cache aggressively — returning visitors may keep
       // bouncing to devsa.community until their cache clears.
       // ──────────────────────────────────────────────────────────────
-      {
-        source: "/",
-        destination: "https://www.devsa.community/",
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        destination: "https://www.devsa.community/",
-        permanent: true,
-      },
+      ...(isPaused
+        ? [
+            {
+              source: "/",
+              destination: "https://www.devsa.community/",
+              permanent: true,
+            },
+            {
+              source: "/:path*",
+              destination: "https://www.devsa.community/",
+              permanent: true,
+            },
+          ]
+        : []),
 
       // --- Pre-pause redirects, kept for whenever the site comes back ---
       {

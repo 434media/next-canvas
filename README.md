@@ -93,13 +93,14 @@ Each audience-facing page has a story-specific canvas hero. Each tells a distinc
 
 ## Local development
 
-This project uses **pnpm**. Don't mix `npm install` and `pnpm install` — the `pnpm-lock.yaml` is canonical.
+This project uses **pnpm** on **Node 22+** (pinned in `.nvmrc`). Don't mix `npm install` and `pnpm install` — the `pnpm-lock.yaml` is canonical.
 
 ### Setup
 
 ```bash
 git clone https://github.com/434media/next-canvas.git
 cd next-canvas
+nvm use
 pnpm install
 ```
 
@@ -137,7 +138,7 @@ pnpm dev          # Dev server with Turbopack
 pnpm build        # Production build
 pnpm start        # Production server
 pnpm lint         # ESLint
-npx tsc --noEmit  # Type check (run before pushing)
+pnpm exec tsc --noEmit  # Type check (run before pushing)
 ```
 
 Visit [http://localhost:3000](http://localhost:3000).
@@ -241,7 +242,7 @@ What changed and why.
 
 ## Test plan
 - [ ] pnpm dev runs without console errors
-- [ ] npx tsc --noEmit passes
+- [ ] pnpm exec tsc --noEmit passes
 - [ ] Visual review on desktop and mobile
 - [ ] Particle systems render without errors
 - [ ] Forms write to the digitalcanvas Firestore database
@@ -266,7 +267,7 @@ Or via the GitHub UI: go to [the repo](https://github.com/434media/next-canvas),
 - **Branch names:** `feature/`, `fix/`, `docs/`, `refactor/`, `hotfix/`
 - **One concern per PR** — don't bundle unrelated work
 - **Keep the diff reviewable** — large changes should be broken into smaller PRs
-- **Run `npx tsc --noEmit`** before pushing
+- **Run `pnpm exec tsc --noEmit`** before pushing
 - **Stage specific files** with `git add <files>`, not `git add .` — avoids accidentally committing `.env.local` or local scratch work
 
 ## Code quality
