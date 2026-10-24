@@ -8,21 +8,10 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // ──────────────────────────────────────────────────────────────
-      // SITE PAUSED 2026-08-16 — every URL forwards to DEVSA.
-      //
-      // Redirects run before filesystem routes, so these two entries
-      // swallow everything not moved above: pages, /api/*, sitemap.xml, static assets.
-      // Nothing below them is reachable while they're in place.
-      //
-      // TO UNPAUSE: delete these two entries. Note they're 308s, which
-      // browsers cache aggressively — returning visitors may keep
-      // bouncing to devsa.community until their cache clears.
-      // ──────────────────────────────────────────────────────────────
-      // ──────────────────────────────────────────────────────────────
       // MOVED TO 434MEDIA.COM (founder decision, 2026-10-24).
       // The Feed and Lead with Ops are 434 Media content and now live on
-      // 434media.com. These come before the pause so they win: redirects are
-      // checked in order and the first match applies.
+      // 434media.com, at the same paths. Redirects are checked in order and
+      // the first match applies, so these must stay above the pause below.
       // ──────────────────────────────────────────────────────────────
       {
         source: "/thefeed",
@@ -45,6 +34,19 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      // ──────────────────────────────────────────────────────────────
+      // SITE PAUSED 2026-08-16 — every URL not moved above forwards to
+      // DEVSA.
+      //
+      // Redirects run before filesystem routes, so the next two entries
+      // swallow everything else: pages, /api/*, sitemap.xml, static
+      // assets. Nothing below them is reachable while they're in place.
+      //
+      // TO UNPAUSE: delete the next two entries (keep the moved ones
+      // above). Note they're 308s, which browsers cache aggressively —
+      // returning visitors may keep bouncing to devsa.community until
+      // their cache clears.
+      // ──────────────────────────────────────────────────────────────
       {
         source: "/",
         destination: "https://www.devsa.community/",
