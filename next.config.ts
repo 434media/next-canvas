@@ -11,13 +11,40 @@ const nextConfig: NextConfig = {
       // SITE PAUSED 2026-08-16 — every URL forwards to DEVSA.
       //
       // Redirects run before filesystem routes, so these two entries
-      // swallow everything: pages, /api/*, sitemap.xml, static assets.
+      // swallow everything not moved above: pages, /api/*, sitemap.xml, static assets.
       // Nothing below them is reachable while they're in place.
       //
       // TO UNPAUSE: delete these two entries. Note they're 308s, which
       // browsers cache aggressively — returning visitors may keep
       // bouncing to devsa.community until their cache clears.
       // ──────────────────────────────────────────────────────────────
+      // ──────────────────────────────────────────────────────────────
+      // MOVED TO 434MEDIA.COM (founder decision, 2026-10-24).
+      // The Feed and Lead with Ops are 434 Media content and now live on
+      // 434media.com. These come before the pause so they win: redirects are
+      // checked in order and the first match applies.
+      // ──────────────────────────────────────────────────────────────
+      {
+        source: "/thefeed",
+        destination: "https://www.434media.com/thefeed",
+        permanent: true,
+      },
+      {
+        source: "/thefeed/:path*",
+        destination: "https://www.434media.com/thefeed/:path*",
+        permanent: true,
+      },
+      {
+        source: "/workshops/lead-with-ops",
+        destination: "https://www.434media.com/workshops/lead-with-ops",
+        permanent: true,
+      },
+      {
+        source: "/workshops/lead-with-ops/:path*",
+        destination: "https://www.434media.com/workshops/lead-with-ops/:path*",
+        permanent: true,
+      },
+
       {
         source: "/",
         destination: "https://www.devsa.community/",
