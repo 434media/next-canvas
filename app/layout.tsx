@@ -23,8 +23,12 @@ const PROTECTED_ROUTES = [
   { path: "/api/sponsor-inquiry", method: "POST" },
 ]
 
+// Browsers get only a WOFF2 subset of Menda Black (Basic Latin, Latin-1 and the
+// typographic punctuation), built by next-434media's scripts/fonts/build-menda-subset.mjs.
+// The full OTF must not be committed here: this repository is public, and
+// Menda's licence does not permit a standalone font download.
 const mendaBlack = localFont({
-  src: "../fonts/Menda-Black.otf",
+  src: "../fonts/Menda-Black-subset.woff2",
   variable: "--font-menda-black",
   display: "swap",
 })
