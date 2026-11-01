@@ -1,5 +1,6 @@
 import { initializeApp, getApps, cert } from "firebase-admin/app"
 import { getFirestore, type Firestore } from "firebase-admin/firestore"
+import { isKeyless, keylessFirestore } from "./gcp-keyless"
 
 /**
  * Firestore database id for Digital Canvas form data.
@@ -11,7 +12,8 @@ let cachedDb: Firestore | null = null
 
 /**
  * Returns the firebase-admin Firestore instance bound to the `digitalcanvas`
- * named database. Initializes the firebase-admin app on first call using the
+ * named database. Keyless (Vercel OIDC, see ./gcp-keyless) when its variables
+ * are set; otherwise initializes the firebase-admin app on first call using the
  * GOOGLE_SERVICE_ACCOUNT_KEY env var.
  *
  * Use this helper from any API route that needs to persist form data — all
@@ -20,6 +22,11 @@ let cachedDb: Firestore | null = null
  */
 export function getDigitalCanvasDb(): Firestore {
   if (cachedDb) return cachedDb
+
+  if (isKeyless()) {
+    cachedDb = keylessFirestore(DATABASE_ID)
+    return cachedDb
+  }
 
   if (getApps().length === 0) {
     const raw = process.env.GOOGLE_SERVICE_ACCOUNT_KEY
