@@ -44,5 +44,10 @@
     "postcss": "^8.5.23",
     "tailwindcss": "^4.0.7",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "overrides": {
+      "zod": ">=4.6.6 <5"
+    }
   }
 }
